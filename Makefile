@@ -12,8 +12,13 @@ lint:
 	$(ACTIVATE) && black . && isort . && ruff check
 	$(ACTIVATE) && mypy $(STRICT) .
 
+test:
+	$(ACTIVATE) && python -m unittest tests**/*.py
+	$(ACTIVATE) && pytest --cov --cov-report=term-missing
+
 install: $(HOME)/.venv/$(PROJECT)/bin/activate
 	$(ACTIVATE) && pip install -r requirements.txt
+	$(ACTIVATE) && pip install --upgrade pip
 	$(ACTIVATE) && pre-commit install
 
 $(HOME)/.venv/$(PROJECT)/bin/activate:
