@@ -4,5 +4,10 @@ name = "dojo-blackboard"
 requires-python = ">=3.9"
 license = "MIT"
 
+[tool.isort]
+float_to_top =            true
+include_trailing_comma =  true
+multi_line_output =       "VERTICAL_HANGING_INDENT"
+
 [tool.ruff]
 line-length = 120
