@@ -13,7 +13,7 @@ lint:
 	$(ACTIVATE) && mypy $(STRICT) .
 
 test:
-	$(ACTIVATE) && python -m unittest tests**/*.py
+	$(ACTIVATE) && python -m unittest tests**/*_test.py
 	$(ACTIVATE) && pytest --cov --cov-report=term-missing
 
 install: $(HOME)/.venv/$(PROJECT)/bin/activate
