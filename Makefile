@@ -20,6 +20,6 @@ $(HOME)/.venv/$(PROJECT)/bin/activate:
 	python -m venv $(HOME)/.venv/$(PROJECT)
 
 clean:
-	rm -rf $(HOME)/.venv/dojo-htmx
+	rm -rf $(HOME)/.venv/$(PROJECT)
 
 .PHONY: all lint install clean
