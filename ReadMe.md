@@ -6,4 +6,5 @@ Come visit us at the Dojo on Tuesday evenings at 6:30pm to participate.
 Begin by following these setup instructions.
 ```bash
 make install
+fastapi dev src/bboard/main.py
 ```
