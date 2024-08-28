@@ -2,13 +2,13 @@
 API key helpers.
 """
 
-from pathlib import Path
 from typing import NoReturn
 
 import pandas as pd
 
-top_dir = Path(__file__).resolve().parents[3]
-secrets_dir = (top_dir.parent / "dojo-secrets").resolve()
+from src.bboard.util.fs import repo_top
+
+secrets_dir = (repo_top.parent / "dojo-secrets").resolve()
 
 
 def read_api_keys() -> pd.DataFrame:

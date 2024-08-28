@@ -1,6 +1,7 @@
 import unittest
 
 from src.bboard.util.credentials import read_api_keys, throw
+from src.bboard.util.fs import temp_dir
 
 
 class CredentialsTest(unittest.TestCase):
@@ -15,3 +16,6 @@ class CredentialsTest(unittest.TestCase):
     def test_throw(self) -> None:
         with self.assertRaises(ValueError):  # parent of UnicodeError
             throw(UnicodeError("just exercising a helper"))
+
+    def test_temp_dir(self) -> None:
+        self.assertEqual("tmp", temp_dir().name)
