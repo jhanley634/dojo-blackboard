@@ -10,6 +10,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 from src.bboard.demo.greeting import greeting
+from src.bboard.transit.vehicles import query_vehicles
 from src.bboard.util.requests import patch_requests_module
 from src.bboard.util.web import table_of_contents
 
@@ -23,6 +24,12 @@ async def hello() -> dict[str, str]:
     # We keep main.py small, delegating most endpoint logic in separate modules.
     # Please follow this pattern when adding new endpoints.
     return dict(greeting())
+
+
+@app.get("/transit/vehicles")
+async def vehicles() -> list[str]:
+    """Query the transit API for vehicle locations."""
+    return sorted(query_vehicles())
 
 
 @app.get("/", response_class=HTMLResponse)
