@@ -16,6 +16,9 @@ test:
 	$(ACTIVATE) && python -m unittest tests**/*_test.py
 	$(ACTIVATE) && pytest --cov --cov-report=term-missing
 
+run:
+	$(ACTIVATE) && fastapi dev src/bboard/main.py
+
 install: $(HOME)/.venv/$(PROJECT)/bin/activate
 	$(ACTIVATE) && pip install -r requirements.txt
 	$(ACTIVATE) && pip install --upgrade pip
@@ -27,4 +30,4 @@ $(HOME)/.venv/$(PROJECT)/bin/activate:
 clean:
 	rm -rf $(HOME)/.venv/$(PROJECT)
 
-.PHONY: all lint install clean
+.PHONY: all lint test run install clean

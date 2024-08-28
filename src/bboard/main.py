@@ -7,14 +7,15 @@ usage:  $ fastapi dev src/bboard/main.py
 """
 
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-from src.bboard.greeting import greeting
+from src.bboard.demo.greeting import greeting
 
 app = FastAPI()
 
 
-@app.get("/")
-async def root() -> str:
+@app.get("/", response_class=HTMLResponse)
+async def root() -> HTMLResponse:
     """Table of contents, so folks may easily click on various endpoints."""
     html = """
     <h1>Dojo Blackboard</h1>
@@ -22,7 +23,7 @@ async def root() -> str:
       <li><a href="hello">/hello</a></li>
     </ul>
     """
-    return html
+    return HTMLResponse(content=html)
 
 
 @app.get("/hello")
