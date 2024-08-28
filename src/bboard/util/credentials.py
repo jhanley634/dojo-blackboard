@@ -12,6 +12,13 @@ repo_top = Path(__file__).resolve().parents[3]
 secrets_dir = (repo_top.parent / "dojo-secrets").resolve()
 
 
+def get_api_key(name: str) -> str:
+    df = read_api_keys()
+    df = df[df["key_name"] == name]
+    assert 1 == len(df), (name, df)
+    return str(df.key_value[1])
+
+
 def read_api_keys() -> pd.DataFrame:
     diagnostic = f"Please clone a repo at {secrets_dir}"
     secrets_dir.is_dir() or throw(FileNotFoundError(diagnostic))

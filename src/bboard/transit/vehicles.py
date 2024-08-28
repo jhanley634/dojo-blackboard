@@ -1,9 +1,10 @@
 import json
-import os
 from collections.abc import Generator
 from typing import Any
 
 from requests import get  # type: ignore [attr-defined]
+
+from src.bboard.util.credentials import get_api_key
 
 TRANSIT = "http://api.511.org/transit"
 
@@ -11,7 +12,7 @@ TRANSIT = "http://api.511.org/transit"
 def query_transit(url: str) -> dict[str, Any]:
     """Given a URL with no credential, returns an API result."""
     assert "?" in url, url
-    api_key = os.environ["KEY511"]
+    api_key = get_api_key("TRANSIT_KEY")
     url += f"&api_key={api_key}"
     resp = get(url)
     resp.raise_for_status()

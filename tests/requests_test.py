@@ -18,8 +18,8 @@ class RequestsTest(unittest.TestCase):
             j = resp.json()
             self.assertEqual("success", j["message"])
             self.assertEqual(
-                "longitude, latitude",
-                ", ".join(j["iss_position"].keys()),
+                "latitude, longitude",
+                ", ".join(sorted(j["iss_position"].keys())),
             )
             # post-condition: the retrieved timestamp shall be at least 1 second old
             if int(time()) > j["timestamp"] + 1:

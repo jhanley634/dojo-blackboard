@@ -18,10 +18,14 @@ def patch_requests_module() -> None:
     Explicitly use a CachedSession if you know the underlying
     API only changes at a low rate such as hourly or daily.
     """
+    pass  # importing this module forced the monkey patch, and once is enough
+
+
+def _patch_requests_module() -> None:
     name = f"{temp_dir()}/requests_cache.sqlite"
     lifetime = dt.timedelta(seconds=20)
 
     install_cache(name, expire_after=lifetime)
 
 
-patch_requests_module()
+_patch_requests_module()
