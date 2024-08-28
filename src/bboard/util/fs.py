@@ -7,8 +7,6 @@ from pathlib import Path
 
 from src.bboard.util.credentials import throw
 
-repo_top = Path(__file__).resolve().parents[3]
-
 
 def temp_dir() -> Path:
     """Returns a writable temporary directory, for caches and reporting output.

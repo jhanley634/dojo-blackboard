@@ -2,11 +2,12 @@
 API key helpers.
 """
 
+from pathlib import Path
 from typing import NoReturn
 
 import pandas as pd
 
-from src.bboard.util.fs import repo_top
+repo_top = Path(__file__).resolve().parents[3]
 
 secrets_dir = (repo_top.parent / "dojo-secrets").resolve()
 

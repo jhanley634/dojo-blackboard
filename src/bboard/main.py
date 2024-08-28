@@ -10,9 +10,12 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 from src.bboard.demo.greeting import greeting
+from src.bboard.util.requests import patch_requests_module
 from src.bboard.util.web import table_of_contents
 
 app = FastAPI()
+
+patch_requests_module()
 
 
 @app.get("/demo/hello")
