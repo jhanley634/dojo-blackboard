@@ -7,26 +7,32 @@ usage:  $ fastapi dev src/bboard/main.py
 """
 
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-from src.bboard.greeting import greeting
+from src.bboard.demo.greeting import greeting
+from src.bboard.transit.vehicles import query_vehicles
+from src.bboard.util.requests import patch_requests_module
+from src.bboard.util.web import table_of_contents
 
 app = FastAPI()
 
-
-@app.get("/")
-async def root() -> str:
-    """Table of contents, so folks may easily click on various endpoints."""
-    html = """
-    <h1>Dojo Blackboard</h1>
-    <ul>
-      <li><a href="hello">/hello</a></li>
-    </ul>
-    """
-    return html
+patch_requests_module()
 
 
-@app.get("/hello")
+@app.get("/demo/hello")
 async def hello() -> dict[str, str]:
     # We keep main.py small, delegating most endpoint logic in separate modules.
     # Please follow this pattern when adding new endpoints.
     return dict(greeting())
+
+
+@app.get("/transit/vehicles")
+async def vehicles() -> list[str]:
+    """Query the transit API for vehicle locations."""
+    return sorted(query_vehicles())
+
+
+@app.get("/", response_class=HTMLResponse)
+async def root() -> HTMLResponse:
+    """A ToC that allows folks to easily click on various endpoints."""
+    return HTMLResponse(content=table_of_contents(app.routes))
