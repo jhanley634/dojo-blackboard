@@ -1,10 +1,9 @@
 import json
+import os
 from collections.abc import Generator
 from typing import Any
 
 from requests import get  # type: ignore [attr-defined]
-
-from src.bboard.util.credentials import get_api_key
 
 TRANSIT = "http://api.511.org/transit"
 
