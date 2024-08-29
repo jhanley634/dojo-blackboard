@@ -10,8 +10,8 @@ class RequestsTest(unittest.TestCase):
     def test_space_station(self) -> None:
         """Verifies that a get() can produce "stale" results, due to caching."""
         patch_requests_module()
+        url = "http://api.open-notify.org/iss-now.json"
         while True:
-            url = "http://api.open-notify.org/iss-now.json"
             resp = get(url)
             resp.raise_for_status()
             sleep(0.005)
