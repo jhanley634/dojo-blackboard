@@ -13,10 +13,13 @@ def _get_env_var_exports() -> Generator[str, None, None]:
 
 def write_env_var_script(out_file: str = "secret_keys.sh") -> None:
     """Writes a shell script to set API key environment variables."""
-    with open(temp_dir() / out_file, "w") as fout:
-        fout.write("\n# usage:\n#    source /tmp/secret_keys.sh\n\n")
+    out_path = temp_dir() / out_file
+    with open(out_path, "w") as fout:
+        fout.write(f"\n# usage:\n#    source {out_path}\n\n")
         for line in _get_env_var_exports():
             fout.write(f"{line}\n")
+
+    out_path.chmod(0o600)  # only owner may read the secrets
 
 
 if __name__ == "__main__":

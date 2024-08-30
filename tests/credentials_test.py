@@ -1,5 +1,6 @@
 import unittest
 
+from src.bboard.util.credential_env_vars import write_env_var_script
 from src.bboard.util.credentials import read_api_keys, throw
 from src.bboard.util.fs import temp_dir
 
@@ -19,3 +20,6 @@ class CredentialsTest(unittest.TestCase):
 
     def test_temp_dir(self) -> None:
         self.assertEqual("tmp", temp_dir().name)
+
+    def test_exports(self) -> None:
+        write_env_var_script()
