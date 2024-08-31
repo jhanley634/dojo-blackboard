@@ -26,6 +26,11 @@ def iss_lng_lat() -> tuple[float, float]:
     lng, lat = map(float, (pos["longitude"], pos["latitude"]))
 
     with get_session() as sess:
-        sess.add(IssPosition(stamp=stamp, longitude=lng, latitude=lat))
+        recent = sess.query(IssPosition).order_by(IssPosition.stamp.desc()).first()
+        assert repr(recent)
+        row = {"stamp": stamp, "longitude": lng, "latitude": lat}
+        if recent is None or recent.stamp.astimezone(dt.timezone.utc) < stamp:
+            # Wait twenty seconds for cache TTL, and the next line _will_ be covered.
+            sess.add(IssPosition(**row))  # pragma: no cover
 
     return lng, lat

@@ -1,5 +1,6 @@
 import datetime as dt
 
+from sqlalchemy import DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -9,9 +10,9 @@ class Base(DeclarativeBase):
 
 class IssPosition(Base):
     __tablename__ = "iss_position"
-    stamp: Mapped[dt.datetime] = mapped_column(primary_key=True)
+    stamp: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
     latitude: Mapped[float]
     longitude: Mapped[float]
 
     def __repr__(self) -> str:
-        return f"IssPosition(stamp={self.stamp!r}, latitude={self.latitude!r}, longitude={self.longitude!r})"
+        return f"IssPosition(stamp='{self.stamp}', latitude={self.latitude!r}, longitude={self.longitude!r})"
