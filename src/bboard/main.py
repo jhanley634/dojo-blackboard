@@ -8,16 +8,20 @@ usage:  $ fastapi dev src/bboard/main.py
 
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi_sqlalchemy import DBSessionMiddleware, db
 
+from src.bboard.database import engine
 from src.bboard.demo.greeting import greeting
+from src.bboard.models.iss_position import Base, IssPosition
 from src.bboard.transit.iss import iss_lng_lat
 from src.bboard.transit.vehicles import query_vehicles
 from src.bboard.util.requests import patch_requests_module
 from src.bboard.util.web import table_of_contents
 
 app = FastAPI()
-app.add_middleware(DBSessionMiddleware, db_url="sqlite://")
+
+assert IssPosition
+Base.metadata.create_all(engine)
+
 
 patch_requests_module()
 
@@ -32,7 +36,8 @@ async def hello() -> dict[str, str]:
 @app.get("/transit/iss")
 async def iss() -> tuple[float, float]:
     """Gives current location of the International Space Station."""
-    return iss_lng_lat()
+    lng, lat = iss_lng_lat()
+    return lng, lat
 
 
 @app.get("/transit/vehicles")
