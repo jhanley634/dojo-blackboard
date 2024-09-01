@@ -8,8 +8,10 @@ all:
 
 STRICT = --strict --warn-unreachable --ignore-missing-imports --no-namespace-packages
 
-lint:
+ruff-check:
 	$(ACTIVATE) && black . && isort . && ruff check
+lint: ruff-check
+	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
 
 test:
