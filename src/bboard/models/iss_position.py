@@ -1,7 +1,7 @@
 import datetime as dt
 
-from sqlalchemy import DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy_utc import UtcDateTime
 
 
 class Base(DeclarativeBase):
@@ -10,7 +10,7 @@ class Base(DeclarativeBase):
 
 class IssPosition(Base):
     __tablename__ = "iss_position"
-    stamp: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    stamp: Mapped[dt.datetime] = mapped_column(UtcDateTime(), primary_key=True)
     latitude: Mapped[float]
     longitude: Mapped[float]
 

@@ -10,6 +10,7 @@ STRICT = --strict --warn-unreachable --ignore-missing-imports --no-namespace-pac
 
 lint:
 	$(ACTIVATE) && black . && isort . && ruff check
+	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
 
 test:
