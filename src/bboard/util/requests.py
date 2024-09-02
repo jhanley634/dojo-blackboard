@@ -4,7 +4,7 @@ Similar interface to the pypi requests library, but with caching.
 
 import datetime as dt
 
-from requests_cache import install_cache
+from requests_cache import install_cache  # pyright: ignore [reportUnknownVariableType]
 
 from src.bboard.util.fs import temp_dir
 

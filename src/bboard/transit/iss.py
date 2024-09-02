@@ -4,6 +4,7 @@ Tracks the current location of the International Space Station (ISS).
 
 import datetime as dt
 from datetime import timezone as tz
+from typing import Any
 
 from requests import get  # type: ignore [attr-defined]
 
@@ -28,7 +29,7 @@ def iss_lng_lat() -> tuple[float, float]:
 
     with get_session() as sess:
         recent = sess.query(IssPosition).order_by(IssPosition.stamp.desc()).first()
-        row = {"stamp": stamp, "longitude": lng, "latitude": lat}
+        row: dict[str, Any] = {"stamp": stamp, "longitude": lng, "latitude": lat}
         assert repr(recent)
         if recent is None or recent.stamp < stamp:
             # Wait twenty seconds for cache TTL, and the next line _will_ be covered.

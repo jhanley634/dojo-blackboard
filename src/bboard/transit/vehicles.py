@@ -21,8 +21,9 @@ def query_transit(url: str) -> dict[str, Any]:
     assert hdr["Content-Type"] == "application/json; charset=utf-8"
     assert hdr["Server"] == "Microsoft-IIS/10.0"
     assert resp.text.startswith(bom)  # Grrr. Gee, thanks, μsoft!
-    d = json.loads(resp.text.lstrip(bom))
+    d: dict[str, Any] = json.loads(resp.text.lstrip(bom))
     assert isinstance(d, dict), d
+    assert all(isinstance(k, str) for k in d.keys()), d
     return d
 
 

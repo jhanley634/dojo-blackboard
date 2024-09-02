@@ -2,8 +2,21 @@
 """
 Publish a clock's 1 Hz  "tick" messages.
 """
-from pynng import Pub0, Sub0
+import json
+from time import sleep, time
 
-assert Pub0
-assert Sub0
-# TBD...
+from pynng import Pub0
+
+PUB_SUB_URL = "tcp://localhost:2100"
+
+
+def publish(hz: float = 1.0) -> None:
+    with Pub0(listen=PUB_SUB_URL) as sock:
+        while True:
+            d = {"time": round(time(), 3)}
+            sock.send(json.dumps(d).encode())
+            sleep(1.0 / hz)
+
+
+if __name__ == "__main__":
+    publish()
