@@ -16,7 +16,7 @@ def get_api_key(name: str) -> str:
     df = read_api_keys()
     df = df[df["key_name"] == name]
     assert 1 == len(df), (name, df)
-    return str(df.key_value[1])  # pyright: ignore (reportUnknownVariableType)
+    return str(df.key_value[1])
 
 
 # mypy: disable-error-code="unused-ignore"
