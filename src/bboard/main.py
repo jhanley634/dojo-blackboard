@@ -10,6 +10,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 from src.bboard.database import engine
+from src.bboard.demo.clock_display import clock_display
 from src.bboard.demo.greeting import greeting
 from src.bboard.models.iss_position import Base, IssPosition
 from src.bboard.transit.iss import iss_lng_lat
@@ -31,6 +32,12 @@ async def hello() -> dict[str, str]:
     # We keep main.py small, delegating most endpoint logic to companion modules.
     # Please follow this pattern when adding new endpoints.
     return dict(greeting())
+
+
+@app.get("/transit/clock")
+async def clock() -> HTMLResponse:
+    """Demonstrates 1 Hz screen updates."""
+    return HTMLResponse(content=str(clock_display()))
 
 
 @app.get("/transit/iss")
