@@ -6,8 +6,6 @@ Routes are defined here, with the actual logic appearing in neighboring modules.
 usage:  $ fastapi dev src/bboard/main.py
 """
 
-import datetime as dt
-
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
@@ -44,9 +42,8 @@ async def clock() -> HTMLResponse:
 
 @app.get("/transit/clock-value")
 async def clock_value() -> HTMLResponse:
-    """Displays the current time."""
-    now = dt.datetime.now().isoformat(sep=" ")
-    return HTMLResponse(content=now)
+    """Displays the current time in milliseconds."""
+    return HTMLResponse(content=clock_value())
 
 
 @app.get("/transit/iss")

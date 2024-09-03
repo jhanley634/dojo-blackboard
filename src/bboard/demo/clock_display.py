@@ -1,3 +1,5 @@
+import datetime as dt
+
 from bs4 import BeautifulSoup
 
 
@@ -12,8 +14,14 @@ def clock_display() -> str:
       <script src="https://unpkg.com/htmx.org@1.5.0"></script>
     </head>
     <body style="margin: 1em;">
-      <h1>Tick, tock.</h1>
-      <p class="mb-3" hx-swap="beforeend" hx-target="#clock" hx-trigger="every 1s">(clock goes here)
+      <h1 style="margin-bottom: 1em;">Tick, tock.</h1>
+      <div style="font-family: monospace;">
+        <div hx-get="/transit/clock-value" hx-trigger="every 1s">(clock goes here)</div>
     """
     soup = BeautifulSoup(html, "html.parser")
     return soup.prettify()
+
+
+def clock_reading() -> str:
+    now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+    return f"webserver time: {now}"

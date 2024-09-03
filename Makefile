@@ -30,6 +30,7 @@ $(HOME)/.venv/$(PROJECT)/bin/activate:
 	python -m venv $(HOME)/.venv/$(PROJECT)
 
 SOURCES := **/*.py
+EXCLUDE := '^(main|clock_[ps]ub)\.py$$'
 
 coverage: htmlcov/index.html
 
@@ -39,7 +40,7 @@ htmlcov/index.html: $(SOURCES)
 	$(ACTIVATE) && coverage html
 	$(ACTIVATE) && coverage report
 	ls htmlcov/z_*_py.html | sed -e 's;htmlcov/z_................_;;' -e 's;_py\.html$$;.py;' | sort > /tmp/tested
-	find . -name '*.py' | sed -e 's;.*/;;' | egrep -v '^main\.py$$' | sort | diff -u /tmp/tested -
+	find . -name '*.py' | sed -e 's;.*/;;' | egrep -v $(EXCLUDE) | sort > /tmp/tested| diff -u /tmp/tested -
 
 clean:
 	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT)
