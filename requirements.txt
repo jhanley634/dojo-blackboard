@@ -1,11 +1,14 @@
+basemap >= 1.4.1
+basemap-data-hires >= 1.3.2
 beartype >= 0.18.5
 beautifulsoup4 >= 4.12.3
 black >= 24.8.0
 fastapi[standard] >= 0.112.2
 glom >= 23.5.0
 isort >= 5.13.2
+matplotlib >= 3.8.4
 mypy >= 1.11.2
-numpy >= 2.1.0
+numpy >= 1.26.4
 pandas >= 2.2.2
 pandas-stubs >= 2.2.2.240807
 pynng >= 0.8.0

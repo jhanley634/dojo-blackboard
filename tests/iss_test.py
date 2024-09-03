@@ -6,7 +6,7 @@ from sqlalchemy import Engine, Table, create_engine
 
 from src.bboard.database import engine
 from src.bboard.models.iss_position import Base, IssPosition
-from src.bboard.transit.iss import iss_lng_lat
+from src.bboard.transit.iss import _get_iss_breadcrumbs, iss_lng_lat, iss_world_map
 from src.bboard.util.credentials import throw
 from src.bboard.util.fs import temp_dir
 
@@ -31,6 +31,10 @@ def _create_tz_temp_db(db_file: str = "tz_test.sqlite") -> Engine:
 class IssTest(unittest.TestCase):
     def test_iss_lng_lat(self) -> None:
         iss_lng_lat()
+
+    def test_iss_world_map(self) -> None:
+        self.assertGreater(len(list(_get_iss_breadcrumbs())), 0)
+        self.assertTrue(iss_world_map().exists())
 
     def test_timezone_roundtrip(self) -> None:
         """Verifies that a timestamp can be stored and retrieved, keeping its UTC timezone.

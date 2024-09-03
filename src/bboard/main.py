@@ -10,10 +10,10 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 from src.bboard.database import engine
-from src.bboard.demo.clock_display import clock_display
+from src.bboard.demo.clock_display import clock_display, clock_reading
 from src.bboard.demo.greeting import greeting
 from src.bboard.models.iss_position import Base, IssPosition
-from src.bboard.transit.iss import iss_lng_lat
+from src.bboard.transit.iss import iss_world_map
 from src.bboard.transit.vehicles import query_vehicles
 from src.bboard.util.requests import patch_requests_module
 from src.bboard.util.web import table_of_contents
@@ -43,14 +43,13 @@ async def clock() -> HTMLResponse:
 @app.get("/transit/clock-value")
 async def clock_value() -> HTMLResponse:
     """Displays the current time in milliseconds."""
-    return HTMLResponse(content=clock_value())
+    return HTMLResponse(content=clock_reading())
 
 
 @app.get("/transit/iss")
-async def iss() -> tuple[float, float]:
-    """Gives current location of the International Space Station."""
-    lng, lat = iss_lng_lat()
-    return lng, lat
+async def iss() -> HTMLResponse:
+    """Displays current location of the International Space Station."""
+    return HTMLResponse(content=iss_world_map().read_bytes(), media_type="image/png")
 
 
 @app.get("/transit/vehicles")
