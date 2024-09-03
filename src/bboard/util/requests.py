@@ -23,7 +23,8 @@ def patch_requests_module() -> None:
 
 def _patch_requests_module() -> None:
     name = f"{temp_dir()}/requests_cache.sqlite"
-    lifetime = dt.timedelta(seconds=20)
+    epsilon = dt.timedelta(seconds=0.200)  # 1% -- most GETs complete within a quarter second
+    lifetime = dt.timedelta(seconds=20) - epsilon
 
     install_cache(name, expire_after=lifetime)
 
