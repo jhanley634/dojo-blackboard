@@ -53,9 +53,9 @@ async def iss() -> HTMLResponse:
 
 
 @app.get("/transit/vehicles")
-async def vehicles() -> list[str]:
+async def vehicles() -> HTMLResponse:
     """Query the transit API for vehicle locations."""
-    return sorted(query_vehicles())
+    return HTMLResponse(content=query_vehicles().read_bytes(), media_type="image/png")
 
 
 @app.get("/", response_class=HTMLResponse)

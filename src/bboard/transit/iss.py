@@ -52,12 +52,13 @@ def _get_iss_breadcrumbs(limit: int = 30) -> Generator[tuple[float, float], None
 
 @cache
 def _get_base_map() -> Basemap:
+    plt.gca().figure.clear()
+    plt.figure(figsize=(16, 12))
     m = Basemap(projection="robin", lon_0=0.0)
     m.drawcoastlines()
     m.fillcontinents(color="lavender", lake_color="aqua")
     pastel_aqua = "#D5F6FB"
     m.drawmapboundary(fill_color=pastel_aqua)
-    plt.figure(figsize=(16, 12))
     return m
 
 
