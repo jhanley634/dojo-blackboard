@@ -5,10 +5,10 @@ Tracks the current location of the International Space Station (ISS).
 import datetime as dt
 from collections.abc import Generator
 from datetime import timezone as tz
-from functools import cache
 from pathlib import Path
 from typing import Any
 
+import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
@@ -16,6 +16,8 @@ from requests import get  # type: ignore [attr-defined]
 from src.bboard.database import get_session
 from src.bboard.models.iss_position import IssPosition
 from src.bboard.util.fs import temp_dir
+
+matplotlib.use("Agg")
 
 ISS_URL = "http://api.open-notify.org/iss-now.json"
 
@@ -50,9 +52,8 @@ def _get_iss_breadcrumbs(limit: int = 30) -> Generator[tuple[float, float], None
             yield row.longitude, row.latitude
 
 
-@cache
-def _get_base_map() -> Basemap:
-    plt.gca().figure.clear()
+def _get_world_map() -> Basemap:
+    plt.clf()
     plt.figure(figsize=(16, 12))
     m = Basemap(projection="robin", lon_0=0.0)
     m.drawcoastlines()
@@ -65,7 +66,7 @@ def _get_base_map() -> Basemap:
 def iss_world_map() -> Path:
     """Returns a world map depicting recent ISS breadcrumbs."""
     lng, lat = iss_lng_lat()
-    m = _get_base_map()
+    m = _get_world_map()
     for lng, lat in reversed(list(_get_iss_breadcrumbs())):
         m.plot(*m(lng, lat), "bP", markersize=6)
     x, y = map(float, m(lng, lat))  # pyright: ignore (reportArgumentType)
