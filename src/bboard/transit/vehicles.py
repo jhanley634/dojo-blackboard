@@ -30,7 +30,7 @@ def query_transit(url: str) -> dict[str, Any]:
     assert resp.text.startswith(bom)  # Grrr. Gee, thanks, μsoft!
     d: dict[str, Any] = json.loads(resp.text.lstrip(bom))
     assert isinstance(d, dict), d
-    assert all(isinstance(k, str) for k in d.keys()), d
+    assert all(isinstance(k, str) for k in d), d
     return d
 
 
