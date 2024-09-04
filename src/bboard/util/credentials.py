@@ -19,12 +19,15 @@ def get_api_key(name: str) -> str:
     return str(df.key_value[1])
 
 
+# mypy: disable-error-code="unused-ignore"
+
+
 def read_api_keys() -> pd.DataFrame:
     diagnostic = f"Please clone a repo at {secrets_dir}"
-    secrets_dir.is_dir() or throw(FileNotFoundError(diagnostic))
+    secrets_dir.is_dir() or throw(FileNotFoundError(diagnostic))  # type: ignore [reportUnusedExpression]
     in_file = secrets_dir / "api-keys.txt"
     sep = r"\s*\|\s*"
-    df = pd.read_csv(in_file, sep=sep, engine="python", skiprows=[1])
+    df: pd.DataFrame = pd.read_csv(in_file, sep=sep, engine="python", skiprows=[1])
     c = df.columns
     df = df.drop(columns=[c[0], c[-1]])
     return df

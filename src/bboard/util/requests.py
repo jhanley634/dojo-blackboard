@@ -4,7 +4,7 @@ Similar interface to the pypi requests library, but with caching.
 
 import datetime as dt
 
-from requests_cache import install_cache
+from requests_cache import install_cache  # pyright: ignore (reportUnknownVariableType)
 
 from src.bboard.util.fs import temp_dir
 
@@ -23,7 +23,8 @@ def patch_requests_module() -> None:
 
 def _patch_requests_module() -> None:
     name = f"{temp_dir()}/requests_cache.sqlite"
-    lifetime = dt.timedelta(seconds=20)
+    epsilon = dt.timedelta(seconds=0.200)  # 1% -- most GETs complete within a quarter second
+    lifetime = dt.timedelta(seconds=20) - epsilon
 
     install_cache(name, expire_after=lifetime)
 
