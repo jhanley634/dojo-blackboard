@@ -45,18 +45,25 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
     return f"{lat:.6f}, {lng:.6f}"
 
 
-def query_vehicles(agency: str = "SC") -> Path:
-    # $ curl -s http://localhost:8000/transit/vehicles | jq .
+def query_vehicles() -> Path:
     m = _plot_bay_area_map()
+    for agency in ["SC", "SF", "SM", "CT"]:
+        query_agency_vehicles(m, agency)
+
+    out_file = Path(temp_dir() / "vehicles.png")
+    plt.savefig(out_file)
+    return out_file
+
+
+def query_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
+    color = "lime" if agency == "CT" else "blue"
+
     for record in _get_vehicle_journey(agency):
         loc = record["VehicleLocation"]
         lng, lat = map(float, (loc["Longitude"], loc["Latitude"]))
         # record["Bearing"] is float or None
         # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
-        m.plot(*m(lng, lat), "b+", markersize=6)
-    out_file = Path(temp_dir() / "vehicles.png")
-    plt.savefig(out_file)
-    return out_file
+        m.plot(*m(lng, lat), "+", color=color, markersize=6)
 
 
 def _get_vehicle_journey(agency: str) -> Generator[dict[str, Any], None, None]:
