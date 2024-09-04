@@ -33,4 +33,8 @@ class VehiclesTest(unittest.TestCase):
                 },
             },
         }
-        _fmt_msg(journey)
+        expected = (
+            "1009 N 65541 40         38                                     Daly City"
+            "                                      37.353561, -121.937492"
+        )
+        self.assertEqual(expected, _fmt_msg(journey))
