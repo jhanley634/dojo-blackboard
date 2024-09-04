@@ -52,7 +52,7 @@ def query_vehicles(agency: str = "SC") -> Path:
         loc = record["VehicleLocation"]
         lng, lat = map(float, (loc["Longitude"], loc["Latitude"]))
         # record["Bearing"] is float or None
-        print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
+        # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
         m.plot(*m(lng, lat), "b+", markersize=6)
     out_file = Path(temp_dir() / "vehicles.png")
     plt.savefig(out_file)
