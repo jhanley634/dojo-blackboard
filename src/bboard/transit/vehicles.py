@@ -3,6 +3,7 @@ from collections.abc import Generator
 from pathlib import Path
 from typing import Any
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
@@ -11,9 +12,12 @@ from requests import get  # type: ignore [attr-defined]
 from src.bboard.util.credentials import get_api_key
 from src.bboard.util.fs import temp_dir
 
+matplotlib.use("Agg")
+
 TRANSIT = "http://api.511.org/transit"
 
 dojo = (-122.049020, 37.3963152)  # 855 W Maude Ave, Mtn. View
+scale = (-122.115, 37.16)
 
 
 def query_transit(url: str) -> dict[str, Any]:
@@ -41,14 +45,25 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
     return f"{lat:.6f}, {lng:.6f}"
 
 
-def query_vehicles(agency: str = "SC") -> Path:
-    # $ curl -s http://localhost:8000/transit/vehicles | jq .
-    records = list(map(_fmt_msg, _get_vehicle_journey(agency)))
-    assert records
-    _plot_bay_area_map()
-    out_file = temp_dir() / "vehicles.png"
+def query_vehicles() -> Path:
+    m = _plot_bay_area_map()
+    for agency in ["SC", "SF", "SM", "CT"]:
+        query_agency_vehicles(m, agency)
+
+    out_file = Path(temp_dir() / "vehicles.png")
     plt.savefig(out_file)
     return out_file
+
+
+def query_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
+    color = "lime" if agency == "CT" else "blue"
+
+    for record in _get_vehicle_journey(agency):
+        loc = record["VehicleLocation"]
+        lng, lat = map(float, (loc["Longitude"], loc["Latitude"]))
+        # record["Bearing"] is float or None
+        # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
+        m.plot(*m(lng, lat), "+", color=color, markersize=6)
 
 
 def _get_vehicle_journey(agency: str) -> Generator[dict[str, Any], None, None]:
@@ -85,25 +100,27 @@ def _fmt_msg(journey: dict[str, Any], width: int = 38) -> str:
     )
 
 
-def _plot_bay_area_map() -> None:
-    plt.gca().figure.clear()
+def _plot_bay_area_map() -> Basemap:
+    plt.clf()
     plt.figure(figsize=(16, 12))
     m = Basemap(
         projection="merc",
         # lon_0=-122.,
         urcrnrlat=38.0,
-        llcrnrlat=37.2,
+        llcrnrlat=37.1,
         lat_ts=37.0,
         llcrnrlon=-122.6,
-        urcrnrlon=-121.8,
-        # resolution="h",
+        urcrnrlon=-121.7,
+        resolution="i",
     )
     m.drawcoastlines()
     m.fillcontinents(color="coral", lake_color="aqua")
     m.drawcounties()
-    m.drawmapscale(*dojo, *dojo, 10, barstyle="fancy")
+    m.drawmapscale(*scale, *scale, 10, barstyle="fancy")
+    m.plot(*m(*dojo), "r*", markersize=12)
 
     m.drawparallels(np.arange(30.0, 50.0, 0.1))
     m.drawmeridians(np.arange(-130.0, -110.0, 0.1))
     m.drawmapboundary(fill_color="aqua")
     plt.title("SF Bay Area")
+    return m
