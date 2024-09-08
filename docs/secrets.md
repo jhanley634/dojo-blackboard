@@ -41,8 +41,8 @@ Click on your profile picture in the upper right corner, then "Settings",
 then "Developer settings", then "Personal access tokens".
 Your choices will be
 
-1. fine-grained permissions, or
-2. classic token.
+- fine-grained permissions, or
+- classic token.
 
 Choose the latter.
 The fine-grained permissions are more secure, but more complex.
@@ -59,7 +59,7 @@ If you don't see that, you haven't copied the full token value.
 # siblings
 
 Clone the dojo-secrets repo somewhere convenient,
-and then clone the dojo repo  at the same level.
+and then clone the dojo-blackboard repo at the same level.
 An `ls` in the parent directory should show both repos.
 
 Put another way, this word-count command should indicate
@@ -76,4 +76,5 @@ cd dojo-blackboard
 make install
 ```
 That will create a venv virtual environment in your home directory,
-and pip install the project's dependencies.
+and will pip install the project's dependencies.
+The top-level ReadMe offers additional details.

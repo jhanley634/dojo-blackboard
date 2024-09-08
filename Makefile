@@ -23,7 +23,6 @@ run:
 
 install: $(HOME)/.venv/$(PROJECT)/bin/activate
 	$(ACTIVATE) && pip install -r requirements.txt
-	$(ACTIVATE) && pip install --upgrade pip
 	$(ACTIVATE) && pre-commit install
 
 $(HOME)/.venv/$(PROJECT)/bin/activate:
