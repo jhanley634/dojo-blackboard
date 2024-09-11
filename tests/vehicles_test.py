@@ -1,12 +1,14 @@
 import unittest
 
-from src.bboard.transit.vehicles import _fmt_msg, fmt_lat_lng, query_vehicles
+from src.bboard.transit.vehicles import KEY_NAME, _fmt_msg, fmt_lat_lng, query_vehicles
+from src.bboard.util.credentials import is_enabled
 
 
 class VehiclesTest(unittest.TestCase):
     def test_query_vehicles(self) -> None:
-        v = query_vehicles()
-        self.assertGreater(len(str(v)), 16)  # typically 200-300 entries
+        if is_enabled(KEY_NAME):
+            v = query_vehicles()
+            self.assertGreater(len(str(v)), 16)  # typically 200-300 entries
 
     def test_formatting_helpers(self) -> None:
         self.assertEqual(
