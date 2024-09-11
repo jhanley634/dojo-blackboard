@@ -7,8 +7,6 @@ from pathlib import Path
 
 from src.bboard.util.credentials import throw
 
-# mypy: disable-error-code="unused-ignore"
-
 
 def temp_dir() -> Path:
     """Returns a writable temporary directory, for caches and reporting output.
@@ -24,6 +22,6 @@ def temp_dir() -> Path:
     d = Path(getenv("TEMP_DIR") or "/tmp")
     diagnostic = f"Please set the TEMP_DIR env var to a writable directory: {d}"
     is_usable = d.is_dir() and access(d, W_OK)
-    is_usable or throw(FileNotFoundError(diagnostic))  # type: ignore [reportUnusedExpression]
+    assert is_usable or throw(FileNotFoundError(diagnostic))
 
     return d

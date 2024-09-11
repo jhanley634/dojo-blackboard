@@ -1,0 +1,10 @@
+
+# Make a local copy of this file and name it key-config.toml.
+
+# If there's an API key over in ../dojo-secrets that you wish to use, list it here.
+# This tells the code we intend to use the given API. Otherwise, without a "true"
+# value, the code won't attempt to call it.
+
+[enabled]
+ALPHA_VANTAGE_API_KEY = false
+TRANSIT_KEY = false

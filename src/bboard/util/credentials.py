@@ -2,8 +2,10 @@
 API key helpers.
 """
 
+import tomllib
 from os.path import devnull
 from pathlib import Path
+from shutil import copyfile
 from typing import NoReturn
 
 import pandas as pd
@@ -14,8 +16,8 @@ secrets_dir = (repo_top.parent / "dojo-secrets").resolve()
 
 
 def get_api_key(name: str) -> str:
+    assert is_enabled(name) or throw(ValueError(f"sorry, API key {name} is not enabled"))
     df = read_api_keys()
-    print(df.to_dict())
     df = df[df["key_name"] == name]
     assert 1 == len(df), (name, df)
     return str(df.key_value[1])
@@ -32,12 +34,20 @@ def file_exists(file: Path) -> Path | None:
     return None
 
 
-# mypy: disable-error-code="unused-ignore"
+def is_enabled(key_name: str) -> bool:
+    """Predicate, returns True if we should attempt API calls using the given key.
+
+    Note that a key missing from the config file will default to False, "disabled".
+    """
+    key_config_toml = repo_top / "key-config.toml"
+    assert key_config_toml.exists() or copyfile(f"{key_config_toml}.example", key_config_toml)
+    with open(key_config_toml, "rb") as fin:
+        d = tomllib.load(fin)
+        enabled = bool(d["enabled"].get(key_name))
+        return enabled and secrets_dir.exists()
 
 
 def read_api_keys() -> pd.DataFrame:
-    # diagnostic = f"Please clone a repo at {secrets_dir}"
-    # secrets_dir.is_dir() or throw(FileNotFoundError(diagnostic))  # type: ignore [reportUnusedExpression]
     in_file = secrets_dir / "api-keys.txt"
     in_file = file_exists(in_file) or Path(devnull)
     sep = r"\s*\|\s*"

@@ -14,6 +14,7 @@ from src.bboard.util.fs import temp_dir
 
 matplotlib.use("Agg")
 
+KEY_NAME = "TRANSIT_KEY"
 TRANSIT = "http://api.511.org/transit"
 
 dojo = (-122.049020, 37.3963152)  # 855 W Maude Ave, Mtn. View
