@@ -12,5 +12,6 @@ make run
 ```
 That will create a venv virtual environment in your home directory,
 and run the app within that environment.
+Now it's available to your browser using a localhost URL.
 
 Next step is to jump into the development [process](docs/).
