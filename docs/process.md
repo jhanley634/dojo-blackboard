@@ -3,14 +3,19 @@
 
 Welcome to the dojo blackboard project!
 We invite your contributions, big or small.
-There's already a Hello World greeting(),
+There's already a Hello World `greeting()`,
 but perhaps you'd like to add a colorful version.
+Or a map, or a Machine Learning analysis.
 
 Most contributions should go through the PR process.
 Not every project does things the same, so this will be a
 learning  opportunity, to see alternate development approaches.
 Just make up some new URL prefix using your initials or your feature name,
 create a similarly named source folder, and put one or more `*.py` modules in it.
+Feel free to make edits outside of that, hopefully small ones.
+For example, you will likely need to add a web route to `main.py`
+that will call your new feature function.
+Start small, and build toward bigger features once you get the hang of things.
 
 ## new feature
 
@@ -33,7 +38,10 @@ Consider the Sourcery suggestions, feeling free to silently click "Resolve conve
 - If new edits have occurred to you, make them in your branch, `make test`, and push them up to GitHub.
 - Invite reviewers, such as John, Peter, or other participants, to review your PR.
 - One of two things will happen:
-- - Your PR will be approved, and you can merge it in the web UI, perhaps incorporating suggestions.
-- - The 24-hour timeout will expire, and it is auto-approved, so you can merge it as-is.
+  - Your PR will be approved, and you can merge it in the web UI, perhaps incorporating suggestions.
+  - The 24-hour timeout will expire, so it is auto-approved, and you can merge it as-is.
 - Close the Issue that you opened. We are done with it, and also done with the now-deleted feature branch.
-- Consider tidying up your local repo: `git fetch --prune`, and e.g. `git branch -D 9-hello-world`.
+- Consider tidying up your local repo: `git checkout main`, `git fetch --prune`, and e.g. `git branch -D 9-hello-world`.
+- Lather, rinse, repeat: Create a new Issue, a corresponding Branch, pull / check it out, and keep hacking.
+
+While awaiting review, you can certainly continue to work on some other feature in a new branch.
