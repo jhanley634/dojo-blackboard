@@ -6,7 +6,7 @@ https://github.com/jhanley634/dojo-secrets/blob/main/api-keys.txt
 
 Do _not_ store valuable secrets in that repository,
 as it is accessible to diverse Python Meetup participants.
-If missuse of a key could reveal other secrets or cause more than $20 of loss
+If misuse of a key could reveal other secrets or cause more than $20 of loss
 before detection and revocation of the key, then it is too valuable to store here --
 find some different aspect of the group project to collaboratively work on.
 Bad things happen not just through malice, but also through ignorance and accident.
@@ -21,7 +21,7 @@ There will be no anonymous access.
 You don't need to supply a LinkedIn profile, but it is very helpful.
 We will need to know your real name, your Discord handle, and your GitHub userid.
 
-Once an invite has been emailed via your GitHub ID, accept it and clone the repo.
+Once an invitation has been emailed via your GitHub ID, accept it and clone the repo.
 Notice that attempts to read the repo without suitable credentials will fail
 with 404, as it isn't publicly available.
 Two sets of personal credentials are relevant:

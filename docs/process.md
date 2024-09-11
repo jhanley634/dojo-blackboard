@@ -32,9 +32,7 @@ Start small, and build toward bigger features once you get the hang of things.
 - Push your branch to GitHub.
 - Visit the [repo](https://github.com/jhanley634/dojo-blackboard) and click the "Compare & pull request" button.
 - Verify it is mergeable, and click the "Create pull request" button. Use `git pull main` to resolve any conflicts.
-- Give Sourcery about two minutes to offer an automated first-pass rough review.
 - Be the first reviewer. Read your own code in the "Files changed" tab, and see if that's what you intended.
-Consider the Sourcery suggestions, feeling free to silently click "Resolve conversation" if / when you disagree.
 - If new edits have occurred to you, make them in your branch, `make test`, and push them up to GitHub.
 - Invite reviewers, such as John, Peter, or other participants, to review your PR.
 - One of two things will happen:
