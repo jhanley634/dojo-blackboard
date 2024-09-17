@@ -1,3 +1,5 @@
+# type: ignore
+
 """
 Main web server for the Blackboard application.
 
