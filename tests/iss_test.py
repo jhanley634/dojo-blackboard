@@ -4,11 +4,11 @@ from datetime import timezone as tz
 
 from sqlalchemy import Engine, Table, create_engine
 
-from src.bboard.database import engine
-from src.bboard.models.iss_position import Base, IssPosition
-from src.bboard.transit.iss import _get_iss_breadcrumbs, iss_lng_lat, iss_world_map
-from src.bboard.util.credentials import throw
-from src.bboard.util.fs import temp_dir
+from bboard.database import engine
+from bboard.models.iss_position import Base, IssPosition
+from bboard.transit.iss import _get_iss_breadcrumbs, iss_lng_lat, iss_world_map
+from bboard.util.credentials import throw
+from bboard.util.fs import temp_dir
 
 Base.metadata.create_all(engine)
 

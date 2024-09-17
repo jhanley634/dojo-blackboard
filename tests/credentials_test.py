@@ -1,10 +1,10 @@
 import unittest
 from pathlib import Path
 
-from src.bboard.transit.vehicles import KEY_NAME
-from src.bboard.util.credential_env_vars import write_env_var_script
-from src.bboard.util.credentials import file_exists, is_enabled, read_api_keys, throw
-from src.bboard.util.fs import temp_dir
+from bboard.transit.vehicles import KEY_NAME
+from bboard.util.credential_env_vars import write_env_var_script
+from bboard.util.credentials import file_exists, is_enabled, read_api_keys, throw
+from bboard.util.fs import temp_dir
 
 
 class CredentialsTest(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 
-from src.bboard.transit.vehicles import KEY_NAME, _fmt_msg, fmt_lat_lng, query_vehicles
-from src.bboard.util.credentials import is_enabled
+from bboard.transit.vehicles import KEY_NAME, _fmt_msg, fmt_lat_lng, query_vehicles
+from bboard.util.credentials import is_enabled
 
 
 class VehiclesTest(unittest.TestCase):

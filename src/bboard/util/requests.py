@@ -6,7 +6,7 @@ import datetime as dt
 
 from requests_cache import install_cache  # pyright: ignore (reportUnknownVariableType)
 
-from src.bboard.util.fs import temp_dir
+from bboard.util.fs import temp_dir
 
 
 def patch_requests_module() -> None:

@@ -2,7 +2,7 @@ import unittest
 
 from starlette.routing import Route
 
-from src.bboard.util.web import table_of_contents
+from bboard.util.web import table_of_contents
 
 
 class WebTest(unittest.TestCase):
