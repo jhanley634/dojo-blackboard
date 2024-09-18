@@ -15,3 +15,11 @@ and run the app within that environment.
 Now it's available to your browser using a localhost URL.
 
 Next step is to jump into the development [process](docs/).
+
+----
+
+Note that `make` uses this setting:
+```bash
+PYTHONPATH := src:.
+```
+When running commands outside of `make`, you may need to set this env var explicitly.
