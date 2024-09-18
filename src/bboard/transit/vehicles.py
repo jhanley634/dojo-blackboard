@@ -64,20 +64,20 @@ def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
     cmap = "Greens" if agency == "CT" else "Purples"
 
     vr = ""
-    i = 0  # counts which position report we're on for a given vehicle
+    color_idx = 240.0  # tracks which position report we're on for a given vehicle
     for row in get_recent_vehicle_journeys(agency):
         if vr != row.vehicle_ref:
             vr = row.vehicle_ref
-            i = 0
-        color = mpl.colormaps[cmap](max(0, 255 - i * 40))
+            color_idx = 240.0
+        color = mpl.colormaps[cmap](int(color_idx))
         lng, lat = row.longitude, row.latitude
-        m.plot(*m(lng, lat), "+", color=color, markersize=6)
-        i += 1
+        m.plot(*m(lng, lat), "+", color=color, markersize=5)
+        color_idx *= 0.6
 
 
 def get_recent_vehicle_journeys(
     agency: str,
-    limit: int = 600,
+    limit: int = 900,
 ) -> Generator[VehicleJourney, None, None]:
     J = VehicleJourney
     with get_session() as sess:
