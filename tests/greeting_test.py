@@ -1,6 +1,6 @@
 import unittest
 
-from src.bboard.demo.greeting import greeting
+from bboard.demo.greeting import greeting
 
 
 class TestGreeting(unittest.TestCase):

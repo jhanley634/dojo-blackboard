@@ -9,8 +9,8 @@ import numpy as np
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
 
-from src.bboard.util.credentials import get_api_key
-from src.bboard.util.fs import temp_dir
+from bboard.util.credentials import get_api_key
+from bboard.util.fs import temp_dir
 
 matplotlib.use("Agg")
 

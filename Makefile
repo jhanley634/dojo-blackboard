@@ -2,6 +2,7 @@
 PROJECT := dojo-blackboard
 ACTIVATE := source $(HOME)/.venv/$(PROJECT)/bin/activate
 SHELL := bash -u -e -o pipefail
+PYTHONPATH := src:.
 
 all:
 	ls -l

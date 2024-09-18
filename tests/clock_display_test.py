@@ -1,6 +1,6 @@
 import unittest
 
-from src.bboard.demo.clock_display import clock_display, clock_reading
+from bboard.demo.clock_display import clock_display, clock_reading
 
 
 class ClockDisplayTest(unittest.TestCase):

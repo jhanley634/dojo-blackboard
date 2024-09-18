@@ -5,7 +5,7 @@ Filesystem helpers.
 from os import W_OK, access, getenv
 from pathlib import Path
 
-from src.bboard.util.credentials import throw
+from bboard.util.credentials import throw
 
 
 def temp_dir() -> Path:

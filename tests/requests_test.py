@@ -3,8 +3,8 @@ from time import sleep, time
 
 from requests import get  # type: ignore [attr-defined]
 
-from src.bboard.transit.iss import ISS_URL
-from src.bboard.util.requests import patch_requests_module
+from bboard.transit.iss import ISS_URL
+from bboard.util.requests import patch_requests_module
 
 
 class RequestsTest(unittest.TestCase):

@@ -1,3 +1,5 @@
+# type: ignore
+
 """
 Main web server for the Blackboard application.
 
@@ -6,17 +8,18 @@ Routes are defined here, with the actual logic appearing in neighboring modules.
 usage:  $ fastapi dev src/bboard/main.py
 """
 
+import schedule
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
-from src.bboard.database import engine
-from src.bboard.demo.clock_display import clock_display, clock_reading
-from src.bboard.demo.greeting import greeting
-from src.bboard.models.iss_position import Base, IssPosition
-from src.bboard.transit.iss import iss_world_map
-from src.bboard.transit.vehicles import query_vehicles
-from src.bboard.util.requests import patch_requests_module
-from src.bboard.util.web import table_of_contents
+from bboard.database import engine
+from bboard.demo.clock_display import clock_display, clock_reading
+from bboard.demo.greeting import greeting
+from bboard.models.iss_position import Base, IssPosition
+from bboard.transit.iss import iss_world_map
+from bboard.transit.vehicles import query_vehicles
+from bboard.util.requests import patch_requests_module
+from bboard.util.web import table_of_contents
 
 app = FastAPI()
 
@@ -25,6 +28,10 @@ Base.metadata.create_all(engine)
 
 
 patch_requests_module()
+
+
+schedule.every(23).seconds.do(iss_world_map)
+schedule.every(31).seconds.do(query_vehicles)
 
 
 @app.get("/demo/hello")

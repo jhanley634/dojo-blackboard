@@ -9,7 +9,7 @@ from time import time
 
 from pynng import Sub0
 
-from src.bboard.transit.pub_sub.clock_pub import PUB_SUB_URL, TOPIC
+from bboard.transit.pub_sub.clock_pub import PUB_SUB_URL, TOPIC
 
 
 def subscribe(num_messages: int = 6) -> Generator[float, None, None]:
