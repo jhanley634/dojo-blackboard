@@ -1,4 +1,3 @@
-import asyncio
 import json
 from collections.abc import Generator
 from pathlib import Path
@@ -47,13 +46,6 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
     return f"{lat:.6f}, {lng:.6f}"
 
 
-async def transit_periodic_update(delay_seconds: float = 61) -> None:
-    while True:
-        for agency in ["SC", "SF", "SM", "CT"]:
-            _get_vehicle_journey(agency)
-            await asyncio.sleep(delay_seconds)
-
-
 def query_vehicles() -> Path:
     m = _plot_bay_area_map()
     for agency in ["SC", "SF", "SM", "CT"]:
@@ -67,7 +59,7 @@ def query_vehicles() -> Path:
 def query_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
     color = "lime" if agency == "CT" else "blue"
 
-    for record in _get_vehicle_journey(agency):
+    for record in get_vehicle_journeys(agency):
         loc = record["VehicleLocation"]
         lng, lat = map(float, (loc["Longitude"], loc["Latitude"]))
         # record["Bearing"] is float or None
@@ -75,7 +67,7 @@ def query_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
         m.plot(*m(lng, lat), "+", color=color, markersize=6)
 
 
-def _get_vehicle_journey(agency: str) -> Generator[dict[str, Any], None, None]:
+def get_vehicle_journeys(agency: str) -> Generator[dict[str, Any], None, None]:
     d = query_transit(f"{TRANSIT}/VehicleMonitoring?agency={agency}")
     svc = d["Siri"]["ServiceDelivery"]
     keys = ["ProducerRef", "ResponseTimestamp", "Status", "VehicleMonitoringDelivery"]

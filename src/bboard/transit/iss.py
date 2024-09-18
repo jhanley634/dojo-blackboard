@@ -2,7 +2,6 @@
 Tracks the current location of the International Space Station (ISS).
 """
 
-import asyncio
 import datetime as dt
 from collections.abc import Generator
 from datetime import timezone as tz
@@ -62,12 +61,6 @@ def _get_world_map() -> Basemap:
     pastel_aqua = "#D5F6FB"
     m.drawmapboundary(fill_color=pastel_aqua)
     return m
-
-
-async def iss_periodic_update(delay_seconds: float = 23) -> None:
-    while True:
-        iss_lng_lat()
-        await asyncio.sleep(delay_seconds)
 
 
 def iss_world_map() -> Path:
