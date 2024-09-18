@@ -1,3 +1,4 @@
+import datetime as dt
 import json
 from collections.abc import Generator
 from pathlib import Path
@@ -9,6 +10,8 @@ import numpy as np
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
 
+from bboard.database import get_session
+from bboard.models.vehicle_journey import VehicleJourney
 from bboard.util.credentials import get_api_key
 from bboard.util.fs import temp_dir
 
@@ -31,7 +34,7 @@ def query_transit(url: str) -> dict[str, Any]:
     bom = "\ufeff"
     hdr = resp.headers
     assert hdr["Content-Type"] == "application/json; charset=utf-8"
-    assert hdr["Server"] == "Microsoft-IIS/10.0"
+    assert hdr["Server"].startswith("Microsoft-IIS/")
     assert resp.text.startswith(bom)  # Grrr. Gee, thanks, μsoft!
     d: dict[str, Any] = json.loads(resp.text.lstrip(bom))
     assert isinstance(d, dict), d
@@ -59,13 +62,26 @@ def query_vehicles() -> Path:
 def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
     color = "lime" if agency == "CT" else "blue"
 
-    for record in get_vehicle_journeys(agency):
-        loc = record["VehicleLocation"]
-        lng, lat = map(float, (loc["Longitude"], loc["Latitude"]))
+    for row in get_recent_vehicle_journeys(agency):
+        lng, lat = row.longitude, row.latitude
         m.plot(*m(lng, lat), "+", color=color, markersize=6)
 
 
-def get_vehicle_journeys(agency: str) -> Generator[dict[str, Any], None, None]:
+def get_recent_vehicle_journeys(
+    agency: str, limit: int = 6
+) -> Generator[VehicleJourney, None, None]:
+    with get_session() as sess:
+        for row in (
+            sess.query(VehicleJourney)
+            .filter(VehicleJourney.agency == agency)
+            .order_by(VehicleJourney.stamp.desc())
+            .limit(limit)
+            .all()
+        ):
+            yield row
+
+
+def store_vehicle_journeys(agency: str) -> None:
     d = query_transit(f"{TRANSIT}/VehicleMonitoring?agency={agency}")
     svc = d["Siri"]["ServiceDelivery"]
     keys = ["ProducerRef", "ResponseTimestamp", "Status", "VehicleMonitoringDelivery"]
@@ -77,12 +93,24 @@ def get_vehicle_journeys(agency: str) -> Generator[dict[str, Any], None, None]:
     assert 3 == len(delivery.keys()), delivery.keys()
     assert "1.4" == delivery["version"]
 
-    for record in delivery["VehicleActivity"]:
-        d = dict(record["MonitoredVehicleJourney"])
-        if d.get("MonitoredCall"):
-            yield record["MonitoredVehicleJourney"]
-            # record["Bearing"] is float or None
-            # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
+    with get_session() as sess:
+        for record in delivery["VehicleActivity"]:
+            stamp = dt.datetime.fromisoformat(record["RecordedAtTime"])
+            d = dict(record["MonitoredVehicleJourney"])
+            if d.get("MonitoredCall"):
+                loc = d["VehicleLocation"]
+                row: dict[str, Any] = {
+                    "stamp": stamp,
+                    "agency": agency,
+                    "vehicle_ref": d["VehicleRef"],
+                    "longitude": float(loc["Longitude"]),
+                    "latitude": float(loc["Latitude"]),
+                }
+                sess.add(VehicleJourney(**row))
+
+                # yield record["MonitoredVehicleJourney"]
+                # record["Bearing"] is float or None
+                # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
 
 
 def _fmt_msg(journey: dict[str, Any], width: int = 38) -> str:

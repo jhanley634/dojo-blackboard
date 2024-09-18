@@ -15,6 +15,7 @@ from bboard.database import engine
 from bboard.demo.clock_display import clock_display, clock_reading
 from bboard.demo.greeting import greeting
 from bboard.models.iss_position import Base, IssPosition
+from bboard.models.vehicle_journey import VehicleJourney
 from bboard.transit.iss import iss_world_map
 from bboard.transit.vehicles import query_vehicles
 from bboard.util.lifespan_mgmt import lifespan
@@ -24,6 +25,7 @@ from bboard.util.web import table_of_contents
 app = FastAPI(lifespan=lifespan)
 
 assert IssPosition
+assert VehicleJourney
 Base.metadata.create_all(engine)
 
 patch_requests_module()
