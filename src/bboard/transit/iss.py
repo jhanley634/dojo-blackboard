@@ -65,6 +65,7 @@ def _get_world_map() -> Basemap:
 
 def iss_world_map() -> Path:
     """Returns a world map depicting recent ISS breadcrumbs."""
+    print("iss start")
     lng, lat = iss_lng_lat()
     m = _get_world_map()
     for lng, lat in reversed(list(_get_iss_breadcrumbs())):
@@ -73,4 +74,5 @@ def iss_world_map() -> Path:
     plt.axvline(x=x, color="gray", linestyle="--")  # highlight the most recent position
     plt.axhline(y=y, color="gray", linestyle="--")
     plt.savefig(out_file := Path(temp_dir() / "iss_map.png"))
+    print("iss end")
     return out_file

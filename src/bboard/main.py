@@ -8,6 +8,7 @@ Routes are defined here, with the actual logic appearing in neighboring modules.
 usage:  $ fastapi dev src/bboard/main.py
 """
 
+import schedule
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
@@ -27,6 +28,10 @@ Base.metadata.create_all(engine)
 
 
 patch_requests_module()
+
+
+schedule.every(23).seconds.do(iss_world_map)
+schedule.every(31).seconds.do(query_vehicles)
 
 
 @app.get("/demo/hello")
