@@ -23,3 +23,6 @@ Note that `make` uses this setting:
 PYTHONPATH := src:.
 ```
 When running commands outside of `make`, you may need to set this env var explicitly.
+
+Within the PyCharm IDE you will want to visit Settings ->
+Project: dojo-blackboard -> Project Structure, and mark the `src` directory as Sources.
