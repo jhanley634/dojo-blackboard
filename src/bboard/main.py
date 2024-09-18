@@ -8,7 +8,9 @@ Routes are defined here, with the actual logic appearing in neighboring modules.
 usage:  $ fastapi dev src/bboard/main.py
 """
 
-import schedule
+import asyncio
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
@@ -16,22 +18,25 @@ from bboard.database import engine
 from bboard.demo.clock_display import clock_display, clock_reading
 from bboard.demo.greeting import greeting
 from bboard.models.iss_position import Base, IssPosition
-from bboard.transit.iss import iss_world_map
+from bboard.transit.iss import iss_periodic_update, iss_world_map
 from bboard.transit.vehicles import query_vehicles
 from bboard.util.requests import patch_requests_module
 from bboard.util.web import table_of_contents
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app1: FastAPI) -> None:
+    assert app1
+    asyncio.create_task(iss_periodic_update())
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 assert IssPosition
 Base.metadata.create_all(engine)
 
-
 patch_requests_module()
-
-
-schedule.every(23).seconds.do(iss_world_map)
-schedule.every(31).seconds.do(query_vehicles)
 
 
 @app.get("/demo/hello")
