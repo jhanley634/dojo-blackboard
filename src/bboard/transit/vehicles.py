@@ -49,21 +49,19 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
 def query_vehicles() -> Path:
     m = _plot_bay_area_map()
     for agency in ["SC", "SF", "SM", "CT"]:
-        query_agency_vehicles(m, agency)
+        plot_agency_vehicles(m, agency)
 
     out_file = Path(temp_dir() / "vehicles.png")
     plt.savefig(out_file)
     return out_file
 
 
-def query_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
+def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
     color = "lime" if agency == "CT" else "blue"
 
     for record in get_vehicle_journeys(agency):
         loc = record["VehicleLocation"]
         lng, lat = map(float, (loc["Longitude"], loc["Latitude"]))
-        # record["Bearing"] is float or None
-        # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
         m.plot(*m(lng, lat), "+", color=color, markersize=6)
 
 
@@ -83,6 +81,8 @@ def get_vehicle_journeys(agency: str) -> Generator[dict[str, Any], None, None]:
         d = dict(record["MonitoredVehicleJourney"])
         if d.get("MonitoredCall"):
             yield record["MonitoredVehicleJourney"]
+            # record["Bearing"] is float or None
+            # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
 
 
 def _fmt_msg(journey: dict[str, Any], width: int = 38) -> str:
