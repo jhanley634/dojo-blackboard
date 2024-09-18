@@ -19,7 +19,7 @@ from bboard.demo.clock_display import clock_display, clock_reading
 from bboard.demo.greeting import greeting
 from bboard.models.iss_position import Base, IssPosition
 from bboard.transit.iss import iss_periodic_update, iss_world_map
-from bboard.transit.vehicles import query_vehicles
+from bboard.transit.vehicles import query_vehicles, transit_periodic_update
 from bboard.util.requests import patch_requests_module
 from bboard.util.web import table_of_contents
 
@@ -28,6 +28,7 @@ from bboard.util.web import table_of_contents
 async def lifespan(app1: FastAPI) -> None:
     assert app1
     asyncio.create_task(iss_periodic_update())
+    asyncio.create_task(transit_periodic_update())
     yield
 
 

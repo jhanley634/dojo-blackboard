@@ -1,3 +1,4 @@
+import asyncio
 import json
 from collections.abc import Generator
 from pathlib import Path
@@ -44,6 +45,13 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
     longitude = location["Longitude"] or "0.0"
     lat, lng = map(float, (latitude, longitude))
     return f"{lat:.6f}, {lng:.6f}"
+
+
+async def transit_periodic_update(delay_seconds: float = 61) -> None:
+    while True:
+        for agency in ["SC", "SF", "SM", "CT"]:
+            _get_vehicle_journey(agency)
+            await asyncio.sleep(delay_seconds)
 
 
 def query_vehicles() -> Path:
