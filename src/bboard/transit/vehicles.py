@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
@@ -60,21 +61,34 @@ def query_vehicles() -> Path:
 
 
 def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
-    color = "lime" if agency == "CT" else "blue"
+    cmap = "Greens" if agency == "CT" else "Purples"
 
+    vr = ""
+    i = 0  # counts which position report we're on for a given vehicle
     for row in get_recent_vehicle_journeys(agency):
+        if vr != row.vehicle_ref:
+            vr = row.vehicle_ref
+            i = 0
+        color = mpl.colormaps[cmap](max(0, 255 - i * 40))
         lng, lat = row.longitude, row.latitude
         m.plot(*m(lng, lat), "+", color=color, markersize=6)
+        i += 1
 
 
 def get_recent_vehicle_journeys(
-    agency: str, limit: int = 6
+    agency: str,
+    limit: int = 600,
 ) -> Generator[VehicleJourney, None, None]:
+    J = VehicleJourney
     with get_session() as sess:
         for row in (
             sess.query(VehicleJourney)
-            .filter(VehicleJourney.agency == agency)
-            .order_by(VehicleJourney.stamp.desc())
+            .filter(J.agency == agency)
+            .order_by(
+                J.stamp.desc(),
+                J.agency.desc(),
+                J.vehicle_ref.desc(),
+            )
             .limit(limit)
             .all()
         ):
