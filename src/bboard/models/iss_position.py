@@ -1,11 +1,14 @@
 import datetime as dt
+from typing import Any
 
+from sqlalchemy import inspect
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy_utc import UtcDateTime
 
 
 class Base(DeclarativeBase):
-    pass
+    def _asdict(self) -> dict[str, Any]:
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
 
 class IssPosition(Base):

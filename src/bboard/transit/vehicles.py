@@ -9,6 +9,7 @@ import matplotlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
 
@@ -53,21 +54,23 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
 
 def query_vehicles() -> Path:
     m = _plot_bay_area_map()
+    rows: list[dict[str, Any]] = []
     print()
     for agency in ["SC", "SF", "SM", "CT"]:
-        plot_agency_vehicles(m, agency)
+        plot_agency_vehicles(rows, m, agency)
+
+    df = pd.DataFrame(rows)
+    plt.scatter(df.x, df.y, c=df.color, marker="+")
 
     out_file = Path(temp_dir() / "vehicles.png")
     plt.savefig(out_file)
     return out_file
 
 
-def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
+def plot_agency_vehicles(rows: list[dict[str, Any]], m: Basemap, agency: str = "SC") -> None:
     cmap = "Greens" if agency == "CT" else "Purples"
 
     t0 = time()
-    locations = []
-    colors = []
     vr = ""
     color_idx = 240.0  # tracks which position report we're on for a given vehicle
     for row in get_recent_vehicle_journeys(agency):
@@ -76,30 +79,28 @@ def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
             color_idx = 240.0
         color = mpl.colormaps[cmap](int(color_idx))
         lng, lat = row.longitude, row.latitude
-        locations.append(m(lng, lat))
-        colors.append(color)
-        color_idx *= 0.6
-    print(f"{agency}:\t{time() - t0:.3f} seconds for {len(locations)} points")
-
-    m.plot(*zip(*locations), "+", markersize=5)  # , c=colors)
+        x, y = m(lng, lat)
+        rows.append({"x": x, "y": y, "color": color})
+        color_idx *= 0.85
+    print(f"{agency}:\t{time() - t0:.3f} seconds for {len(rows)} points")
 
 
 def get_recent_vehicle_journeys(
     agency: str,
-    limit: int = 900,
+    minutes: float = 14,
 ) -> Generator[VehicleJourney, None, None]:
+    recent = dt.datetime.now(dt.UTC) - dt.timedelta(minutes=minutes)
     J = VehicleJourney
     with get_session() as sess:
         yield from (
             sess.query(VehicleJourney)
             .filter(J.agency == agency)
+            .filter(J.stamp > recent)
             .order_by(
+                J.agency,
+                J.vehicle_ref,
                 J.stamp.desc(),
-                J.agency.desc(),
-                J.vehicle_ref.desc(),
             )
-            .limit(limit)
-            .all()
         )
 
 
