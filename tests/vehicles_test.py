@@ -1,6 +1,12 @@
 import unittest
 
-from bboard.transit.vehicles import KEY_NAME, _fmt_msg, fmt_lat_lng, query_vehicles
+from bboard.transit.vehicles import (
+    KEY_NAME,
+    _fmt_msg,
+    fmt_lat_lng,
+    query_vehicles,
+    store_vehicle_journeys,
+)
 from bboard.util.credentials import is_enabled
 
 
@@ -40,3 +46,6 @@ class VehiclesTest(unittest.TestCase):
             "                                      37.353561, -121.937492"
         )
         self.assertEqual(expected, _fmt_msg(journey))
+
+    def test_store_vehicle_journeys(self) -> None:
+        store_vehicle_journeys("SM")

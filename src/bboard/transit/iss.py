@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
@@ -46,7 +47,7 @@ def iss_lng_lat() -> tuple[float, float]:
     return lng, lat
 
 
-def _get_iss_breadcrumbs(limit: int = 30) -> Generator[tuple[float, float], None, None]:
+def _get_iss_breadcrumbs(limit: int) -> Generator[tuple[float, float], None, None]:
     with get_session() as sess:
         for row in sess.query(IssPosition).order_by(IssPosition.stamp.desc()).limit(limit):
             yield row.longitude, row.latitude
@@ -63,16 +64,16 @@ def _get_world_map() -> Basemap:
     return m
 
 
-def iss_world_map() -> Path:
+def iss_world_map(num_crumbs: int = 30) -> Path:
     """Returns a world map depicting recent ISS breadcrumbs."""
-    print("iss start")
     lng, lat = iss_lng_lat()
     m = _get_world_map()
-    for lng, lat in reversed(list(_get_iss_breadcrumbs())):
-        m.plot(*m(lng, lat), "bP", markersize=6)
+    crumbs = list(_get_iss_breadcrumbs(num_crumbs))
+    for i, (lng, lat) in enumerate(reversed(crumbs)):
+        color = mpl.colormaps["Blues"](int(256 * i / len(crumbs)))
+        m.plot(*m(lng, lat), "P", color=color, markersize=6)
     x, y = map(float, m(lng, lat))  # pyright: ignore (reportArgumentType)
     plt.axvline(x=x, color="gray", linestyle="--")  # highlight the most recent position
     plt.axhline(y=y, color="gray", linestyle="--")
     plt.savefig(out_file := Path(temp_dir() / "iss_map.png"))
-    print("iss end")
     return out_file

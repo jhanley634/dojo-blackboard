@@ -33,8 +33,9 @@ class IssTest(unittest.TestCase):
         iss_lng_lat()
 
     def test_iss_world_map(self) -> None:
-        self.assertGreater(len(list(_get_iss_breadcrumbs())), 0)
-        self.assertTrue(iss_world_map().exists())
+        limit = 6
+        self.assertGreater(len(list(_get_iss_breadcrumbs(limit))), 0)
+        self.assertTrue(iss_world_map(limit).exists())
 
     def test_timezone_roundtrip(self) -> None:
         """Verifies that a timestamp can be stored and retrieved, keeping its UTC timezone.
