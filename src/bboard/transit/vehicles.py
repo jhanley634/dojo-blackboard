@@ -2,6 +2,7 @@ import datetime as dt
 import json
 from collections.abc import Generator
 from pathlib import Path
+from time import time
 from typing import Any
 
 import matplotlib
@@ -52,6 +53,7 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
 
 def query_vehicles() -> Path:
     m = _plot_bay_area_map()
+    print()
     for agency in ["SC", "SF", "SM", "CT"]:
         plot_agency_vehicles(m, agency)
 
@@ -63,6 +65,9 @@ def query_vehicles() -> Path:
 def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
     cmap = "Greens" if agency == "CT" else "Purples"
 
+    t0 = time()
+    locations = []
+    colors = []
     vr = ""
     color_idx = 240.0  # tracks which position report we're on for a given vehicle
     for row in get_recent_vehicle_journeys(agency):
@@ -71,8 +76,12 @@ def plot_agency_vehicles(m: Basemap, agency: str = "SC") -> None:
             color_idx = 240.0
         color = mpl.colormaps[cmap](int(color_idx))
         lng, lat = row.longitude, row.latitude
-        m.plot(*m(lng, lat), "+", color=color, markersize=5)
+        locations.append(m(lng, lat))
+        colors.append(color)
         color_idx *= 0.6
+    print(f"{agency}:\t{time() - t0:.3f} seconds for {len(locations)} points")
+
+    m.plot(*zip(*locations), "+", markersize=5)  # , c=colors)
 
 
 def get_recent_vehicle_journeys(
@@ -81,7 +90,7 @@ def get_recent_vehicle_journeys(
 ) -> Generator[VehicleJourney, None, None]:
     J = VehicleJourney
     with get_session() as sess:
-        for row in (
+        yield from (
             sess.query(VehicleJourney)
             .filter(J.agency == agency)
             .order_by(
@@ -91,8 +100,7 @@ def get_recent_vehicle_journeys(
             )
             .limit(limit)
             .all()
-        ):
-            yield row
+        )
 
 
 def store_vehicle_journeys(agency: str) -> None:
