@@ -22,12 +22,13 @@ async def iss_periodic_update(delay_seconds: float = 31) -> None:
 
 
 async def transit_periodic_update(delay_seconds: float = 61) -> None:
-    agencies = ["SC", "SF", "SM", "CT"]
+    agencies = ["SC", "SF", "SM"]
     shuffle(agencies)
 
     while True:
         for agency in agencies:
             store_vehicle_journeys(agency)
+            store_vehicle_journeys("CT")  # frequent updates for small number of fast trains
             await asyncio.sleep(delay_seconds)
 
 

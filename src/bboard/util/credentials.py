@@ -2,13 +2,12 @@
 API key helpers.
 """
 
+import csv
 import tomllib
 from os.path import devnull
 from pathlib import Path
 from shutil import copyfile
 from typing import NoReturn
-
-import pandas as pd
 
 repo_top = Path(__file__).resolve().parents[3]
 
@@ -17,10 +16,8 @@ secrets_dir = (repo_top.parent / "dojo-secrets").resolve()
 
 def get_api_key(name: str) -> str:
     assert is_enabled(name) or throw(ValueError(f"sorry, API key {name} is not enabled"))
-    df = read_api_keys()
-    df = df[df["key_name"] == name]
-    assert 1 == len(df), (name, df)
-    return str(df.key_value[1])
+    d = read_api_keys()
+    return d[name]
 
 
 def throw(e: Exception) -> NoReturn:
@@ -47,11 +44,15 @@ def is_enabled(key_name: str) -> bool:
         return enabled and secrets_dir.exists()
 
 
-def read_api_keys() -> pd.DataFrame:
+def read_api_keys() -> dict[str, str]:
     in_file = secrets_dir / "api-keys.txt"
     in_file = file_exists(in_file) or Path(devnull)
-    sep = r"\s*\|\s*"
-    df: pd.DataFrame = pd.read_csv(in_file, sep=sep, engine="python", skiprows=[1])
-    c = df.columns
-    df = df.drop(columns=[c[0], c[-1]])
-    return df
+    d: dict[str, str] = {}
+    with open(in_file) as fin:
+        reader = csv.DictReader(fin, delimiter="|")
+        for row_ in reader:
+            row = {k.strip(): str(v).strip() for k, v in row_.items()}
+            if row["key_name"].startswith("--------"):
+                continue
+            d[row["key_name"]] = row["key_value"]
+    return d

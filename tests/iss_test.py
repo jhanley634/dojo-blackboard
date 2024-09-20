@@ -4,10 +4,10 @@ from datetime import timezone as tz
 
 from sqlalchemy import Engine, Table, create_engine
 
-from bboard.database import engine
 from bboard.models.iss_position import Base, IssPosition
 from bboard.transit.iss import _get_iss_breadcrumbs, iss_lng_lat, iss_world_map
 from bboard.util.credentials import throw
+from bboard.util.database import engine, get_session
 from bboard.util.fs import temp_dir
 
 Base.metadata.create_all(engine)
@@ -36,6 +36,16 @@ class IssTest(unittest.TestCase):
         limit = 6
         self.assertGreater(len(list(_get_iss_breadcrumbs(limit))), 0)
         self.assertTrue(iss_world_map(limit).exists())
+
+    def test_asdict(self) -> None:
+        with get_session() as sess:
+            P = IssPosition
+            row = sess.query(IssPosition).order_by(P.stamp.desc()).limit(1).one_or_none()
+            assert row, 'Please "make run" before running this test.'
+            self.assertEqual(
+                "stamp, latitude, longitude",
+                ", ".join(row._asdict().keys()),
+            )
 
     def test_timezone_roundtrip(self) -> None:
         """Verifies that a timestamp can be stored and retrieved, keeping its UTC timezone.
