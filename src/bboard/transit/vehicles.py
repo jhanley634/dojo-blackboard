@@ -1,6 +1,7 @@
 import datetime as dt
 import json
 from collections.abc import Generator
+from contextlib import suppress
 from pathlib import Path
 from time import time
 from typing import Any
@@ -12,6 +13,7 @@ import numpy as np
 import pandas as pd
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
+from sqlalchemy.exc import IntegrityError
 
 from bboard.models.vehicle_journey import VehicleJourney
 from bboard.util.credentials import get_api_key
@@ -121,7 +123,11 @@ def store_vehicle_journeys(agency: str) -> None:
     delivery = svc["VehicleMonitoringDelivery"]
     assert 3 == len(delivery.keys()), delivery.keys()
     assert "1.4" == delivery["version"]
+    with suppress(IntegrityError):  # duplicate PK, due to rapidly re-running this
+        _store_vehicle_activity(agency, delivery)
 
+
+def _store_vehicle_activity(agency: str, delivery: dict[str, Any]) -> None:
     with get_session() as sess:
         for record in delivery["VehicleActivity"]:
             stamp = dt.datetime.fromisoformat(record["RecordedAtTime"])

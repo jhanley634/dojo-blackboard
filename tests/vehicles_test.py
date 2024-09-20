@@ -1,4 +1,7 @@
 import unittest
+from contextlib import suppress
+
+from sqlalchemy.exc import IntegrityError
 
 from bboard.transit.vehicles import (
     KEY_NAME,
@@ -8,9 +11,11 @@ from bboard.transit.vehicles import (
     store_vehicle_journeys,
 )
 from bboard.util.credentials import is_enabled
+from bboard.util.testing import mark_slow_integration_test
 
 
 class VehiclesTest(unittest.TestCase):
+    @mark_slow_integration_test  # type: ignore [misc]
     def test_query_vehicles(self) -> None:
         if is_enabled(KEY_NAME):
             v = query_vehicles()
@@ -48,4 +53,5 @@ class VehiclesTest(unittest.TestCase):
         self.assertEqual(expected, _fmt_msg(journey))
 
     def test_store_vehicle_journeys(self) -> None:
-        store_vehicle_journeys("SM")
+        with suppress(IntegrityError):
+            store_vehicle_journeys("CT")
