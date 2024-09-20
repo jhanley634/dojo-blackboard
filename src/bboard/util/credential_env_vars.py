@@ -7,8 +7,8 @@ from bboard.util.fs import temp_dir
 
 def _get_env_var_exports() -> Generator[str, None, None]:
     """Generates shell script "export" lines for setting API key environment variables."""
-    for row in read_api_keys().itertuples():
-        yield f"export {row.key_name}='{row.key_value}'"
+    for name, value in read_api_keys().items():
+        yield f"export {name}='{value}'"
 
 
 def write_env_var_script(out_file: str = "secret_keys.sh") -> None:

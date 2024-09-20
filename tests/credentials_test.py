@@ -10,12 +10,8 @@ from bboard.util.fs import temp_dir
 class CredentialsTest(unittest.TestCase):
     def test_creds(self) -> None:
         if is_enabled(KEY_NAME):
-            df = read_api_keys()
-            self.assertEqual(
-                "key_name github_user added expires key_value".split(),
-                df.columns.tolist(),
-            )
-            self.assertGreaterEqual(len(df), 2)
+            d = read_api_keys()
+            self.assertIn(KEY_NAME, d)
 
             write_env_var_script()
 
