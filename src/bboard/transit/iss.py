@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
 
-from bboard.database import get_session
 from bboard.models.iss_position import IssPosition
+from bboard.util.database import get_session
 from bboard.util.fs import temp_dir
 
 matplotlib.use("Agg")

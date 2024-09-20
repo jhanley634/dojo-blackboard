@@ -13,9 +13,9 @@ import pandas as pd
 from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
 
-from bboard.database import get_session
 from bboard.models.vehicle_journey import VehicleJourney
 from bboard.util.credentials import get_api_key
+from bboard.util.database import get_session
 from bboard.util.fs import temp_dir
 
 matplotlib.use("Agg")
