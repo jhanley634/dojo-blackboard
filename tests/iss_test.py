@@ -42,7 +42,10 @@ class IssTest(unittest.TestCase):
             P = IssPosition
             row = sess.query(IssPosition).order_by(P.stamp.desc()).limit(1).one_or_none()
             assert row, 'Please "make run" before running this test.'
-            self.assertEqual(3, len(row._asdict().keys()))
+            self.assertEqual(
+                "stamp, latitude, longitude",
+                ", ".join(row._asdict().keys()),
+            )
 
     def test_timezone_roundtrip(self) -> None:
         """Verifies that a timestamp can be stored and retrieved, keeping its UTC timezone.

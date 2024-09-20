@@ -67,21 +67,27 @@ def query_vehicles() -> Path:
     return out_file
 
 
-def plot_agency_vehicles(rows: list[dict[str, Any]], m: Basemap, agency: str = "SC") -> None:
+def plot_agency_vehicles(
+    rows: list[dict[str, Any]],
+    m: Basemap,
+    agency: str = "SC",
+    start_idx: float = 240.0,
+    idx_decay: float = 0.85,
+) -> None:
     cmap = "Greens" if agency == "CT" else "Purples"
 
     t0 = time()
     vr = ""
-    color_idx = 240.0  # tracks which position report we're on for a given vehicle
+    color_idx = start_idx  # tracks which position report we're on for a given vehicle
     for row in get_recent_vehicle_journeys(agency):
         if vr != row.vehicle_ref:
             vr = row.vehicle_ref
-            color_idx = 240.0
+            color_idx = start_idx
         color = mpl.colormaps[cmap](int(color_idx))
         lng, lat = row.longitude, row.latitude
         x, y = m(lng, lat)
         rows.append({"x": x, "y": y, "color": color})
-        color_idx *= 0.85
+        color_idx *= idx_decay
     print(f"{agency}:\t{time() - t0:.3f} seconds for {len(rows)} points")
 
 
