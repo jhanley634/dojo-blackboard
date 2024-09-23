@@ -6,7 +6,7 @@ from sqlalchemy import Engine, Table, create_engine
 
 from bboard.models.iss_position import Base, IssPosition
 from bboard.transit.iss import _get_iss_breadcrumbs, iss_lng_lat, iss_world_map
-from bboard.util.credentials import throw
+from bboard.util.credentials import repo_top, throw
 from bboard.util.database import engine, get_session
 from bboard.util.fs import temp_dir
 from bboard.util.testing import _do_nothing, mark_slow_integration_test
@@ -30,6 +30,10 @@ def _create_tz_temp_db(db_file: str = "tz_test.sqlite") -> Engine:
 
 
 class IssTest(unittest.TestCase):
+    def test_repo_top(self) -> None:
+        self.assertTrue(f"{repo_top}".endswith("dojo-blackboard"))
+        self.assertTrue((repo_top / "src/bboard").is_dir())
+
     def test_iss_lng_lat(self) -> None:
         iss_lng_lat()
 

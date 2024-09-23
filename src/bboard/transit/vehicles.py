@@ -3,7 +3,6 @@ import json
 from collections.abc import Generator
 from contextlib import suppress
 from pathlib import Path
-from time import time
 from typing import Any
 
 import matplotlib
@@ -57,7 +56,6 @@ def fmt_lat_lng(location: dict[str, str]) -> str:
 def query_vehicles() -> Path:
     m = _plot_bay_area_map()
     rows: list[dict[str, Any]] = []
-    print()
     for agency in ["SC", "SF", "SM", "CT"]:
         plot_agency_vehicles(rows, m, agency)
 
@@ -78,7 +76,6 @@ def plot_agency_vehicles(
 ) -> None:
     cmap = "Greens" if agency == "CT" else "Purples"
 
-    t0 = time()
     vr = ""
     color_idx = start_idx  # tracks which position report we're on for a given vehicle
     for row in get_recent_vehicle_journeys(agency):
@@ -90,7 +87,6 @@ def plot_agency_vehicles(
         x, y = m(lng, lat)
         rows.append({"x": x, "y": y, "color": color})
         color_idx *= idx_decay
-    print(f"{agency}:\t{time() - t0:.3f} seconds for {len(rows)} points")
 
 
 def get_recent_vehicle_journeys(
@@ -121,7 +117,7 @@ def store_vehicle_journeys(agency: str) -> None:
     assert agency == svc["ProducerRef"]
 
     delivery = svc["VehicleMonitoringDelivery"]
-    assert 3 == len(delivery.keys()), delivery.keys()
+    assert len(delivery.keys()) in [2, 3], delivery.keys()
     assert "1.4" == delivery["version"]
     with suppress(IntegrityError):  # duplicate PK, due to rapidly re-running this
         _store_vehicle_activity(agency, delivery)
@@ -129,7 +125,7 @@ def store_vehicle_journeys(agency: str) -> None:
 
 def _store_vehicle_activity(agency: str, delivery: dict[str, Any]) -> None:
     with get_session() as sess:
-        for record in delivery["VehicleActivity"]:
+        for record in delivery.get("VehicleActivity", []):
             stamp = dt.datetime.fromisoformat(record["RecordedAtTime"])
             d = dict(record["MonitoredVehicleJourney"])
             if d.get("MonitoredCall"):

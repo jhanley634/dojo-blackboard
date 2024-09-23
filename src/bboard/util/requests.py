@@ -14,9 +14,10 @@ def patch_requests_module() -> None:
 
     This seeks to reduce the accidental harm that can come
     from a "while True:" loop which hammers a remote server,
-    limiting the request rate to just three per minute.
+    limiting the request rate to one every six minutes.
     Explicitly use a CachedSession if you know the underlying
-    API only changes at a low rate such as hourly or daily.
+    API only changes at a lower rate such as hourly or daily.
+    Explicitly use a cache-busting every() for faster updates.
     """
     pass  # importing this module forced the monkey patch, and once is enough
 
@@ -24,7 +25,9 @@ def patch_requests_module() -> None:
 def _patch_requests_module() -> None:
     name = f"{temp_dir()}/requests_cache.sqlite"
     epsilon = dt.timedelta(seconds=0.200)  # 1% -- most GETs complete within a quarter second
-    lifetime = dt.timedelta(seconds=20) - epsilon
+
+    # four agencies, with query issued every ~90 seconds
+    lifetime = dt.timedelta(minutes=6) - epsilon
 
     install_cache(name, expire_after=lifetime)
 

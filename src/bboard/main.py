@@ -9,7 +9,7 @@ usage:  $ fastapi dev src/bboard/main.py
 """
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 
 from bboard.demo.clock_display import clock_display, clock_reading
 from bboard.demo.greeting import greeting
@@ -17,7 +17,8 @@ from bboard.models.iss_position import Base, IssPosition
 from bboard.models.vehicle_journey import VehicleJourney
 from bboard.transit.iss import iss_world_map
 from bboard.transit.vehicles import query_vehicles
-from bboard.util.database import engine
+from bboard.util.credentials import repo_top
+from bboard.util.database import engine, prune_ancient_rows
 from bboard.util.lifespan_mgmt import lifespan
 from bboard.util.requests import patch_requests_module
 from bboard.util.web import table_of_contents
@@ -27,6 +28,7 @@ app = FastAPI(lifespan=lifespan)
 assert IssPosition
 assert VehicleJourney
 Base.metadata.create_all(engine)
+prune_ancient_rows()
 
 patch_requests_module()
 
@@ -62,7 +64,13 @@ async def vehicles() -> HTMLResponse:
     return HTMLResponse(content=query_vehicles().read_bytes(), media_type="image/png")
 
 
-@app.get("/", response_class=HTMLResponse)
+# https://hackerdojo.org/static/images/logo.png
+@app.get("/favicon.ico", include_in_schema=False)
+async def read_logo() -> FileResponse:
+    return FileResponse(repo_top / "src/bboard/assets/logo.ico")
+
+
+@app.get("/")
 async def root() -> HTMLResponse:
     """A ToC that allows folks to easily click on various endpoints."""
     return HTMLResponse(content=table_of_contents(app.routes))

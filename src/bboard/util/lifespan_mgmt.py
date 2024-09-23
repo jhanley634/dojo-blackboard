@@ -21,14 +21,16 @@ async def iss_periodic_update(delay_seconds: float = 31) -> None:
         await asyncio.sleep(delay_seconds)
 
 
-async def transit_periodic_update(delay_seconds: float = 61) -> None:
-    agencies = ["SC", "SF", "SM"]
+# https://511.org/open-data/transit
+# > The default rate limit per API token is 60 requests per 3600 seconds.
+async def transit_periodic_update(delay_seconds: float = 91) -> None:
+    """Schedules ~forty vehicle queries per hour, leaving us twenty queries of headroom."""
+    agencies = ["CT", "SC", "SF", "SM"]
     shuffle(agencies)
 
     while True:
         for agency in agencies:
             store_vehicle_journeys(agency)
-            store_vehicle_journeys("CT")  # frequent updates for small number of fast trains
             await asyncio.sleep(delay_seconds)
 
 
