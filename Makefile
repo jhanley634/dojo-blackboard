@@ -43,7 +43,11 @@ htmlcov/index.html: $(SOURCES)
 	ls htmlcov/z_*_py.html | sed -e 's;htmlcov/z_................_;;' -e 's;_py\.html$$;.py;' | sort > /tmp/tested
 	find . -name '*.py' | sed -e 's;.*/;;' | egrep -v $(EXCLUDE) | sort | diff -u /tmp/tested -
 
+PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
+talk:
+	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
+
 clean:
 	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) /tmp/blackboard.db
 
-.PHONY: all lint unit test run install coverage clean
+.PHONY: all lint unit test run install coverage talk clean
