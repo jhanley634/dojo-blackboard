@@ -11,7 +11,7 @@ usage:  $ fastapi dev src/bboard/main.py
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
-from bboard.demo.clock_display import clock_display, clock_reading
+from bboard.demo.clock_display import clock_display, clock_reading, stop_watch
 from bboard.demo.greeting import greeting
 from bboard.models.iss_position import Base, IssPosition
 from bboard.models.vehicle_journey import VehicleJourney
@@ -21,6 +21,7 @@ from bboard.util.database import engine
 from bboard.util.lifespan_mgmt import lifespan
 from bboard.util.requests import patch_requests_module
 from bboard.util.web import table_of_contents
+from fontTools.merge import timer
 
 app = FastAPI(lifespan=lifespan)
 
@@ -36,6 +37,12 @@ async def hello() -> dict[str, str]:
     # We keep main.py small, delegating most endpoint logic to companion modules.
     # Please follow this pattern when adding new endpoints.
     return dict(greeting())
+
+
+@app.get("/demo/stop_watch")
+async def timer() -> HTMLResponse:
+    """Simple timer displayed in seconds"""
+    return HTMLResponse(content=stop_watch())
 
 
 @app.get("/transit/clock")
