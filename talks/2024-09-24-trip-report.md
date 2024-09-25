@@ -26,7 +26,7 @@ Agenda:
 - Peter: [SSE](https://en.wikipedia.org/wiki/Server-sent_events) for [HTMX](https://en.wikipedia.org/wiki/Htmx)
 - constraints: OR / [SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem#3-satisfiability) solvers
   - shortest path
-  - soduko
+  - sudoku
 
 \blank
 \hrule

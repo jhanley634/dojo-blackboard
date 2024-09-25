@@ -117,7 +117,7 @@ def store_vehicle_journeys(agency: str) -> None:
     assert agency == svc["ProducerRef"]
 
     delivery = svc["VehicleMonitoringDelivery"]
-    assert len(delivery.keys()) in [2, 3], delivery.keys()
+    assert len(delivery.keys()) in {2, 3}, delivery.keys()
     assert "1.4" == delivery["version"]
     with suppress(IntegrityError):  # duplicate PK, due to rapidly re-running this
         _store_vehicle_activity(agency, delivery)
