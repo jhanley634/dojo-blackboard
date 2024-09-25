@@ -12,11 +12,12 @@ STRICT = --strict --warn-unreachable --ignore-missing-imports --no-namespace-pac
 ruff-check:
 	$(ACTIVATE) && black . && isort . && ruff check
 lint: ruff-check
-	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
+	$(ACTIVATE) && pyright .
 
-test:
-	$(ACTIVATE) && python -m unittest tests**/*_test.py
+unit:
+	$(ACTIVATE) && env SKIP_SLOW=1 python -m unittest $(VERBOSE) tests**/*_test.py
+test: unit
 	$(ACTIVATE) && pytest --cov --cov-report=term-missing
 
 run:
@@ -42,7 +43,11 @@ htmlcov/index.html: $(SOURCES)
 	ls htmlcov/z_*_py.html | sed -e 's;htmlcov/z_................_;;' -e 's;_py\.html$$;.py;' | sort > /tmp/tested
 	find . -name '*.py' | sed -e 's;.*/;;' | egrep -v $(EXCLUDE) | sort | diff -u /tmp/tested -
 
-clean:
-	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT)
+PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
+talk:
+	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
 
-.PHONY: all lint test run install coverage clean
+clean:
+	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) /tmp/blackboard.db
+
+.PHONY: all lint unit test run install coverage talk clean

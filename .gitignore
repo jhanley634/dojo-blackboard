@@ -1,7 +1,11 @@
+*.swp
+*~
 .coverage
 .dmypy.json
 .idea/
 .mypy_cache/
+.pyre/
+.pyre_configuration
 .pytest_cache/
 .ruff_cache/
 __pycache__/
