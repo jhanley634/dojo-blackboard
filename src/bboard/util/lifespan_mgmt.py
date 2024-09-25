@@ -15,7 +15,7 @@ from bboard.transit.iss import iss_lng_lat
 from bboard.transit.vehicles import store_vehicle_journeys
 
 
-async def iss_periodic_update(delay_seconds: float = 31) -> None:
+async def iss_periodic_update(delay_seconds: float = 61) -> None:
     while True:
         iss_lng_lat()
         await asyncio.sleep(delay_seconds)

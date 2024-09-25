@@ -1,6 +1,7 @@
 from collections.abc import Generator
 from contextlib import contextmanager
 
+from pint import UnitRegistry as U
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -19,7 +20,8 @@ def get_session() -> Generator[Session, None, None]:
             sess.commit()
 
 
-MINUTES_PER_DAY = 1440
+MINUTES_PER_DAY = (1 * U().day).to("minutes").magnitude
+assert MINUTES_PER_DAY == 1440
 
 
 def prune_ancient_rows(limit: int = MINUTES_PER_DAY) -> None:

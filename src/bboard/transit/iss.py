@@ -65,7 +65,7 @@ def _get_world_map() -> Basemap:
     return m
 
 
-def iss_world_map(num_crumbs: int = 30) -> Path:
+def iss_world_map(num_crumbs: int = 50) -> Path:
     """Returns a world map depicting recent ISS breadcrumbs."""
     lng, lat = iss_lng_lat()
     m = _get_world_map()
