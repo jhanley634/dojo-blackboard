@@ -23,7 +23,10 @@ Agenda:
 
 - Five Rules
 - PyBay trip report
-- Peter on constraints: OR / SAT solvers
+- Peter: [SSE](https://en.wikipedia.org/wiki/Server-sent_events) for [HTMX](https://en.wikipedia.org/wiki/Htmx)
+- constraints: OR / [SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem#3-satisfiability) solvers
+  - shortest path
+  - soduko
 
 \blank
 \hrule
@@ -31,6 +34,9 @@ Agenda:
 \newpage
 
 [CACM](https://dl.acm.org/toc/cacm/2024/67/8)
+
+[PHK: FOSS and Other Market Failures](https://dl.acm.org/doi/10.1145/3670242):
+\textrm{\large "I Come Not to Praise FOSS."}
 
 [GNN, d.b.a. Kode Vicious](https://dl.acm.org/doi/10.1145/3665518)
 
@@ -50,7 +56,7 @@ Agenda:
 2. A function should be less than 30 lines long.
 3. A function should have at most [three levels](https://en.wikipedia.org/wiki/Cyclomatic_complexity) of conditional control.
 4. Create a function when it improves readability.
-  - - Don’t comment bad code, rewrite it. Kernighan and Pike.
+   - Don’t comment bad code, rewrite it. Kernighan and Pike.
 5. [Do one thing.](https://en.wikipedia.org/wiki/Single-responsibility_principle)
 
 \blank
@@ -68,3 +74,15 @@ SF, Mission Bay, \textrm{\large https://pybay.org/attending/schedule }
 6. PyTest, The Improv Way; Joshua Grant. [\textrm{\large playwright.dev}](https://playwright.dev/docs/writing-tests\#actions)
 7. Edges of Python: Three Radical Python Hacks for Fun and Profit; Elvis Pranskevichus. [\textrm{\large HAMT immutables}](https://pypi.org/project/immutables)
 8. [Pyre](https://pypi.org/project/pyre-check), Lints, Codemods, Code Quality, and You; Maggie Moss.
+
+# OR, constraints
+
+\blank
+
+Would you like to play a game?
+
+\blank
+
+https://www.nytimes.com/games/connections
+
+\blank
