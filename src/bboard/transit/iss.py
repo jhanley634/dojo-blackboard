@@ -15,6 +15,7 @@ from mpl_toolkits.basemap import Basemap
 from requests import get  # type: ignore [attr-defined]
 
 from bboard.models.iss_position import IssPosition
+from bboard.util.cache_buster import every
 from bboard.util.database import get_session
 from bboard.util.fs import temp_dir
 
@@ -28,7 +29,7 @@ def iss_lng_lat() -> tuple[float, float]:
 
     Side effect: Writes current position to the DB.
     """
-    resp = get(ISS_URL)
+    resp = get(every(20, ISS_URL))
     resp.raise_for_status()
     j = resp.json()
     assert "success" == j["message"], j
@@ -71,7 +72,7 @@ def iss_world_map(num_crumbs: int = 30) -> Path:
     crumbs = list(_get_iss_breadcrumbs(num_crumbs))
     for i, (lng, lat) in enumerate(reversed(crumbs)):
         color = mpl.colormaps["Blues"](int(256 * i / len(crumbs)))
-        m.plot(*m(lng, lat), "P", color=color, markersize=6)
+        m.plot(*m(lng, lat), "+", color=color, markersize=6)
     x, y = map(float, m(lng, lat))  # pyright: ignore (reportArgumentType)
     plt.axvline(x=x, color="gray", linestyle="--")  # highlight the most recent position
     plt.axhline(y=y, color="gray", linestyle="--")
