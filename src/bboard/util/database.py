@@ -1,4 +1,3 @@
-import datetime as dt
 from collections.abc import Generator
 from contextlib import contextmanager
 
@@ -20,9 +19,19 @@ def get_session() -> Generator[Session, None, None]:
             sess.commit()
 
 
-def prune_ancient_rows(max_age: dt.timedelta = dt.timedelta(days=1)) -> None:
-    """Discard old rows, to prevent the DB file from growing without bound."""
+MINUTES_PER_DAY = 1440
+
+
+def prune_ancient_rows(limit: int = MINUTES_PER_DAY) -> None:
+    """Discard yesterday's rows, to prevent the DB file from growing without bound."""
+    VJ = VehicleJourney
     with get_session() as sess:
-        now = dt.datetime.now(dt.timezone.utc)
-        sess.query(IssPosition).filter(IssPosition.stamp < now - max_age).delete()
-        sess.query(VehicleJourney).filter(VehicleJourney.stamp < now - max_age).delete()
+        stamps = (
+            sess.query(VJ.stamp).order_by(VJ.stamp.desc()).group_by(VJ.stamp).limit(limit).all()
+        )
+        (ancient,) = stamps[-1]
+        sess.query(VJ).filter(VJ.stamp < ancient).delete()
+        sess.query(IssPosition).filter(IssPosition.stamp < ancient).delete()
+
+        count = sess.query(VJ).group_by(VJ.stamp).count()
+        assert count <= limit, count
