@@ -29,7 +29,7 @@ def iss_lng_lat() -> tuple[float, float]:
 
     Side effect: Writes current position to the DB.
     """
-    resp = get(every(20, ISS_URL))
+    resp = get(every(60, ISS_URL))
     resp.raise_for_status()
     j = resp.json()
     assert "success" == j["message"], j

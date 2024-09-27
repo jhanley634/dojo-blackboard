@@ -12,10 +12,10 @@ class CacheBusterTest(unittest.TestCase):
 
     def test_cache_buster(self) -> None:
         self.assertGreater(
-            len(every(20, self.url)),
+            len(every(10, self.url)),
             len(self.url),
         )
-        self.assertIn("&dojo-serial=", every(20, self.url))
+        self.assertIn("&dojo-serial=", every(10, self.url))
 
     def test_urlparse(self) -> None:
         p = urlparse(self.url)

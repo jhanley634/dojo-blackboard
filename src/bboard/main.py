@@ -13,6 +13,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 
 from bboard.demo.clock_display import clock_display, clock_reading
 from bboard.demo.greeting import greeting
+from bboard.models.article import Article
 from bboard.models.iss_position import Base, IssPosition
 from bboard.models.vehicle_journey import VehicleJourney
 from bboard.transit.iss import iss_world_map
@@ -25,6 +26,7 @@ from bboard.util.web import table_of_contents
 
 app = FastAPI(lifespan=lifespan)
 
+assert Article
 assert IssPosition
 assert VehicleJourney
 Base.metadata.create_all(engine)
