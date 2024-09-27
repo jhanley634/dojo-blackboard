@@ -1,14 +1,15 @@
 from collections.abc import Generator
 from contextlib import contextmanager
 
+from pint import Quantity
 from pint import UnitRegistry as U
-from sqlalchemy import create_engine
+from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from bboard.models.iss_position import IssPosition
 from bboard.models.vehicle_journey import VehicleJourney
 
-engine = create_engine(url="sqlite:////tmp/blackboard.db")
+engine: Engine = create_engine(url="sqlite:////tmp/blackboard.db")
 
 
 @contextmanager
@@ -20,8 +21,9 @@ def get_session() -> Generator[Session, None, None]:
             sess.commit()
 
 
-MINUTES_PER_DAY = (1 * U().day).to("minutes").magnitude
-assert MINUTES_PER_DAY == 1440
+_one_day: Quantity = 1 * U().day
+MINUTES_PER_DAY = _one_day.to("minutes").magnitude
+assert MINUTES_PER_DAY == 1440.0
 
 
 def prune_ancient_rows(limit: int = MINUTES_PER_DAY) -> None:

@@ -9,9 +9,9 @@ from pathlib import Path
 from shutil import copyfile
 from typing import NoReturn
 
-repo_top = Path(__file__).resolve().parents[3]
+repo_top: Path = Path(__file__).resolve().parents[3]
 
-secrets_dir = (repo_top.parent / "dojo-secrets").resolve()
+secrets_dir: Path = (repo_top.parent / "dojo-secrets").resolve()
 
 
 def get_api_key(name: str) -> str:
