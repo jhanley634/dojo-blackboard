@@ -6,14 +6,17 @@ If it's a single Python file, just drop it here.
 If it's more than one Python file, make a subfolder and put the files there.
 
 The easy way:
+
 1. Ask in the Hacker Dojo Discord [Python channel](https://discord.com/channels/698267668918173827/1111141001818537985) to be added to the repo if you're not already added.
 2. Go to the [Github webpage](https://github.com/jhanley634/dojo-blackboard) for the Hacker Dojo Python group project repo
 3. Go in the 'code-review' folder and click the 'Add file' button to upload your Python file
 
 The better way:
+
 Just about every software development job involves using `git` as part of the workflow.
 You should practice it any chance you get and get comfortable using `git` for versioning and collaborating all of your work. 
 When you use it for everything you will be delighted to find you have access to every version of everything you've ever worked on permanently available to you.
+
 1. On your local machine go to your favorite projects folder, eg: `cd Documents`.
 2. Clone the Hacker Dojo Python group project repo from github to a local folder: Go to the [repo website](https://github.com/jhanley634/dojo-blackboard) and click the green CODE button to get the URL, then type `git clone <the URL>, for example: `git clone git@github.com:jhanley634/dojo-blackboard.git`
 3. cd to the new project folder: `cd dojo-blackboard`, and to the code-review folder: `cd code-review`
