@@ -4,6 +4,7 @@ to practice code reviews and to help make it better Python code.
 
 If it's a single Python file, just drop it here.
 If it's more than one Python file, make a subfolder and put the files there.
+To keep things organized, name your files with your name as a prefix, eg: `peter-sudoku.py`
 
 The easy way:
 
