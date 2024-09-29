@@ -18,9 +18,9 @@ You should practice it any chance you get and get comfortable using `git` for ve
 When you use it for everything you will be delighted to find you have access to every version of everything you've ever worked on permanently available to you.
 
 1. On your local machine go to your favorite projects folder, eg: `cd Documents`.
-2. Clone the Hacker Dojo Python group project repo from github to a local folder: Go to the [repo website](https://github.com/jhanley634/dojo-blackboard) and click the green CODE button to get the URL, then type `git clone <the URL>, for example: `git clone git@github.com:jhanley634/dojo-blackboard.git`
+2. Clone the Hacker Dojo Python group project repo from github to a local folder: Go to the [repo website](https://github.com/jhanley634/dojo-blackboard) and click the green CODE button to get the URL, then type `git clone <the URL>`, for example: `git clone git@github.com:jhanley634/dojo-blackboard.git`
 3. cd to the new project folder: `cd dojo-blackboard`, and to the code-review folder: `cd code-review`
-4. Add your Python file or make a new folder under code-reviwe and add multiple Python files to it.
+4. Add your Python file or make a new folder under code-review and add multiple Python files to it.
 5. Check in your code and upload it:
 - `git add -A`
 - `git commit -m "Jane Hackersmith's code for review"`
