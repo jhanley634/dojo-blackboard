@@ -2,7 +2,6 @@ import datetime as dt
 import json
 from base64 import urlsafe_b64encode
 from hashlib import sha3_224
-from pprint import pp
 from typing import Any
 from urllib.parse import urlparse
 
@@ -29,8 +28,8 @@ def _get_article_hashes() -> set[str]:
 CATEGORIES_OF_INTEREST = ["Business", "Health", "Science", "Technology", "US", "World"]
 
 
-def _href(url: str) -> str:
-    return f'<a href="{url}">{url}</a>'
+def _href(url: str, description: str) -> str:
+    return f'<a href="{url}">{description}</a>'
 
 
 def store_current_articles() -> dict[str, Any]:
@@ -44,9 +43,8 @@ def store_current_articles() -> dict[str, Any]:
         for category in CATEGORIES_OF_INTEREST:
             for article in d[category]:
                 if article["source"] not in known:
-                    src = article["source"]
+                    src = _href(article["link"], article["source"])
                     print(f'\n<p>"{src}",<p>\n')
-                    print(_href(article["link"]), "\n")
 
                 if article["source"][0].islower():
                     article["source"] = article["source"].title()
