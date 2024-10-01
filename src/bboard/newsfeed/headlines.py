@@ -2,9 +2,11 @@ import datetime as dt
 import json
 from base64 import urlsafe_b64encode
 from hashlib import sha3_224
+from time import sleep
 from typing import Any
-from urllib.parse import urlparse
 
+from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 from requests import get  # type: ignore [attr-defined]
 
 from bboard.models.article import Article
@@ -27,6 +29,9 @@ def _get_article_hashes() -> set[str]:
 
 CATEGORIES_OF_INTEREST = ["Business", "Health", "Science", "Technology", "US", "World"]
 
+UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:130.0) Gecko/20100101 Firefox/130.0"
+headers = {"User-Agent": UA}
+
 
 def _href(url: str, description: str) -> str:
     return f'<a href="{url}">{description}</a>'
@@ -42,15 +47,13 @@ def store_current_articles() -> dict[str, Any]:
     with get_session() as sess:
         for category in CATEGORIES_OF_INTEREST:
             for article in d[category]:
-                if article["source"] not in known:
+                if article["source"] not in known and False:
                     src = _href(article["link"], article["source"])
                     print(f'\n<p>"{src}",<p>\n')
 
                 if article["source"][0].islower():
                     article["source"] = article["source"].title()
                 article["stamp"] = dt.datetime.now(dt.UTC)
-                p = urlparse(article["link"])
-                article["host"] = p.netloc
                 h = _get_hash(article["title"], article["link"])
                 article["hash"] = h
                 assert 12 == len(h)
@@ -58,7 +61,42 @@ def store_current_articles() -> dict[str, Any]:
                 if h in hashes:
                     continue
 
+                # resp = get(article["link"], headers=headers)
+                # resp.raise_for_status()
+                # content_type = resp.headers["Content-Type"]
+                # assert content_type.startswith("text/html"), content_type
+                publisher_link, text = _get_article_text(article["link"])
+                soup = BeautifulSoup(text, "html.parser")
+                # for code in soup(["script", "style"]):
+                #     code.extract()
+                print(soup.get_text())
+                print(publisher_link)
+                article["publisher_link"] = publisher_link
+
                 hashes.add(h)
+
                 sess.add(Article(**article))
 
     return d
+
+
+def _get_article_text(news_article_url: str) -> tuple[str, str]:
+    """Uses playwright to retrieve the text of a news article."""
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+
+        page.goto(news_article_url)
+        page.wait_for_load_state("domcontentloaded")
+        page.wait_for_load_state("load")
+        sleep(2.6)
+        html = page.content()
+        url = page.url
+        print(url)
+        browser.close()
+
+        with open("/tmp/article.html", "w") as fout:
+            fout.write(html)
+
+        return url, html
