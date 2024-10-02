@@ -10,5 +10,8 @@
 .ruff_cache/
 __pycache__/
 htmlcov/
+<<<<<<< Updated upstream
 key-config.toml
+=======
 .DS_Store
+>>>>>>> Stashed changes

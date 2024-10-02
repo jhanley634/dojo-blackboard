@@ -63,6 +63,11 @@ async def vehicles() -> HTMLResponse:
     """Query the transit API for vehicle locations."""
     return HTMLResponse(content=query_vehicles().read_bytes(), media_type="image/png")
 
+@app.get("/users/peter")
+async def peter() -> HTMLResponse:
+    """Home page for Peter"""
+    return HTMLResponse(content="Hello world (Pete's page)")
+
 
 # https://hackerdojo.org/static/images/logo.png
 @app.get("/favicon.ico", include_in_schema=False)
