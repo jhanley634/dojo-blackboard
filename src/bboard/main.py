@@ -10,8 +10,9 @@ usage:  $ fastapi dev src/bboard/main.py
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse
+from fontTools.merge import timer
 
-from bboard.demo.clock_display import clock_display, clock_reading
+from bboard.demo.clock_display import clock_display, clock_reading, stop_watch
 from bboard.demo.greeting import greeting
 from bboard.models.iss_position import Base, IssPosition
 from bboard.models.vehicle_journey import VehicleJourney
@@ -38,6 +39,12 @@ async def hello() -> dict[str, str]:
     # We keep main.py small, delegating most endpoint logic to companion modules.
     # Please follow this pattern when adding new endpoints.
     return dict(greeting())
+
+
+@app.get("/demo/stop_watch")
+async def timer() -> HTMLResponse:
+    """Simple timer displayed in seconds"""
+    return HTMLResponse(content=stop_watch())
 
 
 @app.get("/transit/clock")
