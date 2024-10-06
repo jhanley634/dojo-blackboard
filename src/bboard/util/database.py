@@ -33,9 +33,10 @@ def prune_ancient_rows(limit: int = MINUTES_PER_DAY) -> None:
         stamps = (
             sess.query(VJ.stamp).order_by(VJ.stamp.desc()).group_by(VJ.stamp).limit(limit).all()
         )
-        (ancient,) = stamps[-1]
-        sess.query(VJ).filter(VJ.stamp < ancient).delete()
-        sess.query(IssPosition).filter(IssPosition.stamp < ancient).delete()
+        if len(stamps) > 0:
+            (ancient,) = stamps[-1]
+            sess.query(VJ).filter(VJ.stamp < ancient).delete()
+            sess.query(IssPosition).filter(IssPosition.stamp < ancient).delete()
 
-        count = sess.query(VJ).group_by(VJ.stamp).count()
-        assert count <= limit, count
+            count = sess.query(VJ).group_by(VJ.stamp).count()
+            assert count <= limit, count

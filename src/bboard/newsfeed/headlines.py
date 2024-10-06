@@ -2,11 +2,12 @@ import datetime as dt
 import json
 from base64 import urlsafe_b64encode
 from hashlib import sha3_224
-from time import sleep
+from pprint import pp
 from typing import Any
 
+import newspaper
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
+from newspaper.source import Category
 from requests import get  # type: ignore [attr-defined]
 from sqlalchemy.orm import Session
 
@@ -100,22 +101,27 @@ def _add_article(article: dict[str, Any], sess: Session, hashes: set[str]) -> No
 
 
 def _get_article_text(news_article_url: str) -> tuple[str, str]:
-    """Uses playwright to retrieve the text of a news article."""
+    """Uses newspaper-4k to retrieve the text of a news article."""
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
+    cnn_paper = newspaper.build("http://cnn.com")
+    science = Category("https://www.cnn.com/science")
+    assert science
+    # cnn_paper.set_categories()
+    # assert science in cnn_paper.categories
 
-        page.goto(news_article_url)
-        page.wait_for_load_state("domcontentloaded")
-        page.wait_for_load_state("load")
-        sleep(2.6)
-        html = page.content()
-        url = page.url
-        print(url)
-        browser.close()
+    print(cnn_paper.print_summary())
 
-        with open("/tmp/article.html", "w") as fout:
-            fout.write(html)
+    paper = newspaper.build("https://www.theguardian.com")
+    print(paper.print_summary())
+    html = ""
 
-        return url, html
+    for art in cnn_paper.articles:
+        print("\n\n")
+        pp(art.url)
+        art.download().parse()
+        html = art.text
+
+    with open("/tmp/article.html", "w") as fout:
+        fout.write(html)
+
+    return news_article_url, html
