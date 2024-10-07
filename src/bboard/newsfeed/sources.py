@@ -1,6 +1,6 @@
 """
-This module contains a set of servers that are filtered out from the newsfeed
-due to low quality content or requiring a subscription.
+This module contains a set of servers that are filtered out from the
+Google News feed due to low quality content or requiring a subscription.
 """
 
 FILTERED_SOURCES = {
