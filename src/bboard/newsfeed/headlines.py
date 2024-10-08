@@ -7,7 +7,7 @@ from pprint import pp
 import newspaper as news
 from sqlalchemy.orm import Session
 
-from bboard.models.article import Article
+from bboard.models.headline import Headline
 from bboard.util.database import get_session
 
 
@@ -19,7 +19,7 @@ def _get_hash(title: str, url: str, prefix: int = 8) -> str:
 
 def _get_article_hashes() -> set[str]:
     with get_session() as sess:
-        return {a.hash for a in sess.query(Article)}
+        return {a.hash for a in sess.query(Headline)}
 
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:130.0) Gecko/20100101 Firefox/130.0"
@@ -66,7 +66,7 @@ def _add_article(art: news.Article, sess: Session, hashes: set[str]) -> None:
         pp(row)
 
     hashes.add(row["hash"])
-    sess.add(Article(**row))
+    sess.add(Headline(**row))
 
     row["stamp"] = row["stamp"].isoformat()
     h = row["hash"]
