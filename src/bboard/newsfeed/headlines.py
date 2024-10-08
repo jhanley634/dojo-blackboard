@@ -6,6 +6,7 @@ from pprint import pp
 
 import newspaper as news
 from sqlalchemy.orm import Session
+from typing_extensions import reveal_type
 
 from bboard.models.headline import Headline
 from bboard.util.database import get_session
@@ -45,32 +46,32 @@ def store_current_articles(max_new_articles: int = 15) -> int:
                 continue
             num_articles += 1
 
-            _add_article(article, sess, hashes)
+            _add_headline(article, sess, hashes)
 
         sess.commit()
     return num_articles
 
 
-def _add_article(art: news.Article, sess: Session, hashes: set[str]) -> None:
+def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> None:
+    h = _get_hash(art.title, art.url)
     print("\n", art.url)
-    art.download().parse()
+    # art.download().parse()
 
     row = {
-        "hash": _get_hash(art.title, art.url),
+        "hash": h,
         "stamp": dt.datetime.now(dt.UTC),
         "url": art.url,
         "title": art.title,
-        "content": art.text,
+        # "content": art.text,
     }
-    if row["hash"] in hashes:
+    if h in hashes:
         pp(row)
 
-    hashes.add(row["hash"])
+    hashes.add(h)
     sess.add(Headline(**row))
 
     row["stamp"] = row["stamp"].isoformat()
-    h = row["hash"]
     with open(f"/tmp/article-{h}.txt", "w") as fout:
         fout.write(json.dumps(row, indent=2))
-        fout.write("\n\n========\n\n")
-        fout.write(row["content"])
+        # fout.write("\n\n========\n\n")
+        # fout.write(row["content"])
