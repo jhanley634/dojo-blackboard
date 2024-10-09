@@ -6,7 +6,6 @@ from pprint import pp
 
 import newspaper as news
 from sqlalchemy.orm import Session
-from typing_extensions import reveal_type
 
 from bboard.models.headline import Headline
 from bboard.util.database import get_session
