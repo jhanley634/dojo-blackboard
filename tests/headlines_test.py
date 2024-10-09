@@ -1,4 +1,5 @@
 import unittest
+from warnings import catch_warnings, simplefilter
 
 from bboard.newsfeed.headlines import _href, store_current_articles
 
@@ -12,4 +13,9 @@ class HeadlinesTest(unittest.TestCase):
         )
 
     def test_get_headlines(self) -> None:
-        self.assertGreaterEqual(store_current_articles(), 0)
+        with catch_warnings():
+            simplefilter("ignore", category=DeprecationWarning)
+            with catch_warnings():
+                simplefilter("ignore", category=FutureWarning)
+
+                self.assertGreaterEqual(store_current_articles(), 0)
