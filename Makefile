@@ -24,7 +24,8 @@ run:
 	$(ACTIVATE) && fastapi dev src/bboard/main.py
 
 install: $(HOME)/.venv/$(PROJECT)/bin/activate
-	$(ACTIVATE) && pip install -r requirements.txt
+	$(ACTIVATE) && pip install uv
+	$(ACTIVATE) && uv pip install -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
 $(HOME)/.venv/$(PROJECT)/bin/activate:
