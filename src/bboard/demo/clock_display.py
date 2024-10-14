@@ -1,5 +1,6 @@
 import datetime as dt
 
+import pytz
 from bs4 import BeautifulSoup
 
 
@@ -23,7 +24,8 @@ def clock_display() -> str:
 
 
 def clock_reading() -> str:
-    now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+    zone = pytz.timezone("America/Los_Angeles")
+    now = dt.datetime.now(zone).strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     return f"webserver time: {now}"
 
 
@@ -80,7 +82,6 @@ def stop_watch() -> str:
         </script>
     </body>
     </html>
-    
     """
     soup = BeautifulSoup(html, "html.parser")
     return soup.prettify()
