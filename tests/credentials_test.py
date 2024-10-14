@@ -23,5 +23,5 @@ class CredentialsTest(unittest.TestCase):
         self.assertEqual("tmp", temp_dir().name)
 
     def test_file_exists(self) -> None:
-        self.assertTrue(file_exists(Path(".")))
+        self.assertTrue(file_exists(Path()))
         self.assertIsNone(file_exists(Path("nonexistent")))
