@@ -45,7 +45,7 @@ async def hello() -> dict[str, str]:
 
 @app.get("/demo/timer")
 async def timer() -> HTMLResponse:
-    """Simple timer displayed in seconds"""
+    """Simple timer displayed in seconds."""
     return HTMLResponse(content=stop_watch())
 
 

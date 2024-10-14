@@ -19,7 +19,7 @@ def patch_requests_module() -> None:
     API only changes at a lower rate such as hourly or daily.
     Explicitly use a cache-busting every() for faster updates.
     """
-    pass  # importing this module forced the monkey patch, and once is enough
+    return  # importing this module forced the monkey patch, and once is enough
 
 
 def _patch_requests_module() -> None:
