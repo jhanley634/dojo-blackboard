@@ -29,4 +29,4 @@ line_length =             100
 reportMissingTypeStubs = false
 
 [tool.ruff]
-line-length = 120
+line-length = 100

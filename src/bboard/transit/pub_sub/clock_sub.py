@@ -2,6 +2,7 @@
 """
 Subscribe to "tick" messages.
 """
+
 import json
 from collections.abc import Generator
 from pprint import pp
