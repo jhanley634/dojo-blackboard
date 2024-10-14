@@ -77,7 +77,8 @@ def stop_watch() -> str:
                 clearInterval(counter);
                 return document.querySelector("h1").textContent = "FINISH";
             }
-            document.querySelector("h1").textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.querySelector("h1").textContent =
+              `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
         </script>
     </body>
