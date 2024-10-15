@@ -24,12 +24,14 @@ run:
 	$(ACTIVATE) && fastapi dev src/bboard/main.py
 
 install: $(HOME)/.venv/$(PROJECT)/bin/activate
-	$(ACTIVATE) && uv pip install -r requirements.txt
+	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
 $(HOME)/.venv/$(PROJECT)/bin/activate:
 	python -m venv $(HOME)/.venv/$(PROJECT)
-	$(ACTIVATE) && pip install 'uv >= 0.4.20'
+	$(ACTIVATE) && pip install 'uv >= 0.4.22'
+	$(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
+	$(ACTIVATE) && which python && python --version
 
 SOURCES := $(shell find . -name '*.py')
 EXCLUDE := '^(main|lifespan_mgmt|clock_[ps]ub)\.py$$'
