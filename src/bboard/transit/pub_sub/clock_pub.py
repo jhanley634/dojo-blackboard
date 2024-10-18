@@ -2,6 +2,7 @@
 """
 Publish a clock's 1 Hz  "tick" messages.
 """
+
 import json
 from time import sleep, time
 

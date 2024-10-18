@@ -18,4 +18,7 @@ class IssPosition(Base):
     longitude: Mapped[float]
 
     def __repr__(self) -> str:
-        return f"IssPosition(stamp='{self.stamp}', latitude={self.latitude!r}, longitude={self.longitude!r})"
+        return (
+            f"IssPosition(stamp='{self.stamp}',"
+            f" latitude={self.latitude!r}, longitude={self.longitude!r})"
+        )

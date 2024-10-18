@@ -21,14 +21,12 @@ def table_of_contents(app_routes: list[BaseRoute]) -> str:
     <ul>
     """
     endpoints = sorted(
-        (
-            r.path
-            for r in app_routes
-            if isinstance(r, (Route, APIRoute))
-            and len(r.path) > 1
-            and r.path != "/docs/oauth2-redirect"
-            and "GET" in (r.methods or [])
-        )
+        r.path
+        for r in app_routes
+        if isinstance(r, (Route, APIRoute))
+        and len(r.path) > 1
+        and r.path != "/docs/oauth2-redirect"
+        and "GET" in (r.methods or [])
     )
     soup = BeautifulSoup(
         html + "".join(f"<li>{aref(url)}</li>" for url in endpoints),

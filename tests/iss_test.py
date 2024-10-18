@@ -79,12 +79,12 @@ class IssTest(unittest.TestCase):
         pos = IssPosition(stamp=stamp1, latitude=0.0, longitude=0.0)
         tbl = IssPosition.__table__
         assert isinstance(tbl, Table)
+        expected = (
+            "(datetime.datetime(2024, 8, 31, 17, 22, 1, tzinfo=datetime.timezone.utc), 0.0, 0.0)"
+        )
         with eng.connect() as conn:
             conn.execute(tbl.insert(), [pos.__dict__])
             result = conn.execute(tbl.select())
             row = result.first() or throw(ValueError("no rows"))
-            self.assertEqual(
-                "(datetime.datetime(2024, 8, 31, 17, 22, 1, tzinfo=datetime.timezone.utc), 0.0, 0.0)",
-                f"{row}",
-            )
+            self.assertEqual(expected, f"{row}")
             self.assertEqual(stamp1, row.stamp)  # thanks to sqlalchemy_utc on non-PG DBs

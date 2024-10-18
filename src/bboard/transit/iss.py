@@ -29,7 +29,7 @@ def iss_lng_lat() -> tuple[float, float]:
 
     Side effect: Writes current position to the DB.
     """
-    resp = get(every(20, ISS_URL))
+    resp = get(every(60, ISS_URL))
     resp.raise_for_status()
     j = resp.json()
     assert "success" == j["message"], j
@@ -65,7 +65,7 @@ def _get_world_map() -> Basemap:
     return m
 
 
-def iss_world_map(num_crumbs: int = 30) -> Path:
+def iss_world_map(num_crumbs: int = 50) -> Path:
     """Returns a world map depicting recent ISS breadcrumbs."""
     lng, lat = iss_lng_lat()
     m = _get_world_map()
