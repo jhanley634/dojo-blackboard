@@ -39,21 +39,28 @@ def store_current_articles(max_new_articles: int = 15) -> int:
         # paper = newspaper.build("https://bbc.com")
         # paper = newspaper.build("https://cnn.com")
         paper = news.build("https://www.usatoday.com", memoize_articles=False)
-        print(paper.print_summary())
+        # print(paper.print_summary())
         for article in paper.articles:
             if num_articles >= max_new_articles:
                 continue
             num_articles += 1
 
-            _add_headline(article, sess, hashes)
+            row = _add_headline(article, sess, hashes)
+            _log_article(row)
 
         sess.commit()
     return num_articles
 
 
-def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> None:
+def _log_article(row: dict[str, str]) -> None:
+    h = row["hash"]
+    with open(f"/tmp/article-{h}.txt", "w") as fout:
+        json.dump(row, fout, indent=2)
+
+
+def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> dict[str, str]:
     h = _get_hash(art.title, art.url)
-    print("\n", art.url)
+    # print("\n", art.url)
     # art.download().parse()
 
     row = {
@@ -70,7 +77,4 @@ def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> None:
     sess.add(Headline(**row))
 
     row["stamp"] = row["stamp"].isoformat()
-    with open(f"/tmp/article-{h}.txt", "w") as fout:
-        fout.write(json.dumps(row, indent=2))
-        # fout.write("\n\n========\n\n")
-        # fout.write(row["content"])
+    return row
