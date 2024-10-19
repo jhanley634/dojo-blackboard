@@ -30,7 +30,7 @@ install: $(HOME)/.venv/$(PROJECT)/bin/activate
 $(HOME)/.venv/$(PROJECT)/bin/activate:
 	python -m venv $(HOME)/.venv/$(PROJECT)
 	$(ACTIVATE) && pip install 'uv >= 0.4.22'
-	$(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
+	$(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.13.0
 	$(ACTIVATE) && which python && python --version
 
 SOURCES := $(shell find . -name '*.py')
