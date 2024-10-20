@@ -2,12 +2,8 @@
 """
 My first application.
 """
-
-
-from pprint import pp
-
 import toga
-from toga import Box, Button, Label
+from toga import Box, Button, InfoDialog, Label
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 from toga.window import MainWindow
@@ -41,9 +37,15 @@ class HelloWorld(toga.App):
         self.main_window.content = main_box
         self.main_window.show()
 
-    def say_hello(self, widget: Button) -> None:
+    async def say_hello(self, widget: Button) -> None:
         assert isinstance(widget, Button)
-        pp(f"Hello, {self.name_input.value} -- {widget.text}")
+        await self.main_window.dialog(InfoDialog(greeting(self.name_input.value), "Hi there!"))
+
+
+def greeting(name: str) -> str:
+    if name:
+        return f"Hello, {name}"
+    return "Hello, stranger"
 
 
 def main() -> HelloWorld:
