@@ -1,5 +1,5 @@
 """
-My first application
+My first application.
 """
 
 import toga
@@ -8,7 +8,7 @@ from toga.style.pack import COLUMN, ROW
 
 
 class HelloWorld(toga.App):
-    def startup(self):
+    def startup(self) -> None:
         """Construct and show the Toga application.
 
         Usually, you would add your application to a main content box.
@@ -22,5 +22,5 @@ class HelloWorld(toga.App):
         self.main_window.show()
 
 
-def main():
+def main() -> HelloWorld:
     return HelloWorld()

@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 
-def run_tests():
+def run_tests() -> None:
     project_path = Path(__file__).parent.parent
     os.chdir(project_path)
 
@@ -25,7 +25,8 @@ def run_tests():
             # Overwrite the cache directory to somewhere writable
             "-o",
             f"cache_dir={tempfile.gettempdir()}/.pytest_cache",
-        ] + args
+            *args,
+        ]
     )
 
     print(f">>>>>>>>>> EXIT {returncode} <<<<<<<<<<")
