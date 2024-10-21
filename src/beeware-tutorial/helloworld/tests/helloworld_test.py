@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 
-def run_tests() -> None:
+def run_tests() -> None:  # pragma: no cover
     project_path = Path(__file__).parent.parent
     os.chdir(project_path)
 

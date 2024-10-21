@@ -21,12 +21,18 @@ include_trailing_comma =  true
 multi_line_output =       "VERTICAL_HANGING_INDENT"
 line_length =             100
 
+[tool.mypy]
+exclude = "^.*/build/"
+
 [tool.pyright]
 # typeCheckingMode = "strict"
 # reportUninitializedInstanceVariable = true
 # reportUnknownVariableType = true
 # reportUnknownArgumentType = true
 reportMissingTypeStubs = false
+exclude = [
+    "**/build/",
+]
 
 [tool.ruff]
 line-length = 100
