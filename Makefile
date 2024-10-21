@@ -23,7 +23,12 @@ test: unit
 run:
 	$(ACTIVATE) && fastapi dev src/bboard/main.py
 
-install: $(HOME)/.venv/$(PROJECT)/bin/activate
+BUILD := /tmp/dojo/helloworld/build
+$(BUILD):
+	mkdir -p $(BUILD)
+	cd src/beeware-tutorial/helloworld && ln -s $(BUILD)
+
+install: $(HOME)/.venv/$(PROJECT)/bin/activate $(BUILD)
 	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
