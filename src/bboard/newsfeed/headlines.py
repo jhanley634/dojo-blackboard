@@ -11,7 +11,7 @@ from bboard.models.headline import Headline
 from bboard.util.database import get_session
 
 
-def _get_hash(title: str, url: str, prefix: int = 8) -> str:
+def get_hash(title: str, url: str, prefix: int = 8) -> str:
     # Eight bytes offers collision resistance up to ~4 billion articles.
     digest = sha3_224(f"{title} {url}".encode()).digest()[:prefix]
     return urlsafe_b64encode(digest).decode("ascii")
@@ -26,7 +26,7 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:130.0) Gecko/20100101 Fir
 headers = {"User-Agent": UA}
 
 
-def _href(url: str, description: str) -> str:
+def href(url: str, description: str) -> str:
     return f'<a href="{url}">{description}</a>'
 
 
@@ -59,7 +59,7 @@ def _log_article(row: dict[str, str]) -> None:
 
 
 def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> dict[str, str]:
-    h = _get_hash(art.title, art.url)
+    h = get_hash(art.title, art.url)
     # print("\n", art.url)
     # art.download().parse()
 

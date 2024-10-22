@@ -72,9 +72,10 @@ async def vehicles() -> HTMLResponse:
     """Query the transit API for vehicle locations."""
     return HTMLResponse(content=query_vehicles().read_bytes(), media_type="image/png")
 
+
 @app.get("/users/peter")
 async def peter() -> HTMLResponse:
-    """Home page for Peter"""
+    """Home page for Peter."""
     return HTMLResponse(content="Hello world (Pete's page)")
 
 

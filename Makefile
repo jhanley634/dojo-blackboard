@@ -23,13 +23,25 @@ test: unit
 run:
 	$(ACTIVATE) && fastapi dev src/bboard/main.py
 
-install: $(HOME)/.venv/$(PROJECT)/bin/activate
+# tutorial is at https://docs.beeware.org/en/latest/tutorial/tutorial-1.html
+HELLOWORLD := src/beeware-tutorial/helloworld
+BUILD := /tmp/dojo/helloworld/build
+
+$(BUILD):
+	mkdir -p $(BUILD)
+	cd $(HELLOWORLD) && ln -s $(BUILD)
+
+build: $(BUILD)
+	$(ACTIVATE) && cd $(HELLOWORLD) && briefcase build && briefcase update
+	# another relevant command would be: briefcase run iOS --update
+
+install: $(HOME)/.venv/$(PROJECT)/bin/activate $(BUILD)
 	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
 $(HOME)/.venv/$(PROJECT)/bin/activate:
 	python -m venv $(HOME)/.venv/$(PROJECT)
-	$(ACTIVATE) && pip install 'uv >= 0.4.22'
+	$(ACTIVATE) && pip install uv
 	$(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
 	$(ACTIVATE) && which python && python --version
 
@@ -50,7 +62,9 @@ PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
 talk:
 	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
 
-clean:
-	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) /tmp/blackboard.db
+CACHES := .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
-.PHONY: all lint unit test run install coverage talk clean
+clean:
+	rm -rf $(CACHES) htmlcov/ $(HOME)/.venv/$(PROJECT) /tmp/blackboard.db
+
+.PHONY: all lint unit test run build install coverage talk clean
