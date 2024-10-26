@@ -58,6 +58,18 @@ htmlcov/index.html: $(SOURCES)
 	ls htmlcov/z_*_py.html | sed -e 's;htmlcov/z_................_;;' -e 's;_py\.html$$;.py;' | sort > /tmp/tested
 	find . -name '*.py' | sed -e 's;.*/;;' | egrep -v $(EXCLUDE) | sort | diff -u /tmp/tested -
 
+REPOS := /tmp/repos
+$(REPOS):
+	rm -rf $(REPOS)
+	mkdir -p $(REPOS)
+	cd $(REPOS) && git clone https://github.com/ggerganov/llama.cpp
+	cd $(REPOS) && git clone https://github.com/paslandau/docker-php-tutorial
+	rm $(REPOS)/docker-php-tutorial/resources/views/home.blade.php
+
+FIND := find $(REPOS) -type f -name '*.cpp' -o -name '*.php'
+count: $(REPOS)
+	$(FIND) | sort | xargs cloc  # brew install cloc, or apt install cloc
+
 PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
 talk:
 	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
@@ -65,6 +77,6 @@ talk:
 CACHES := .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
 clean:
-	rm -rf $(CACHES) htmlcov/ $(HOME)/.venv/$(PROJECT) /tmp/blackboard.db
+	rm -rf $(CACHES) htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
 
-.PHONY: all lint unit test run build install coverage talk clean
+.PHONY: all lint unit test run build install coverage count talk clean
