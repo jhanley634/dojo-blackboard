@@ -1,9 +1,8 @@
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
-from pprint import pp
 
-from count.sloc import count_lines, get_source_files, main
+from count.sloc import LineCounter, get_source_files, main
 
 _REPOS = Path("/tmp/repos")
 
@@ -12,7 +11,7 @@ SOURCES = [
     _REPOS / "docker-php-tutorial",
 ]
 
-INITIAL_SOURCES = list(map(str, get_source_files(SOURCES[0])))[:3]
+INITIAL_SOURCES = get_source_files(SOURCES[0])[:3]
 
 
 class SlocTest(unittest.TestCase):
@@ -31,9 +30,8 @@ class SlocTest(unittest.TestCase):
                 "/tmp/repos/llama.cpp/tests/test-llama-grammar.cpp",
                 "/tmp/repos/llama.cpp/tests/test-rope.cpp",
             ],
-            INITIAL_SOURCES,
+            list(map(str, INITIAL_SOURCES)),
         )
 
-        d = {file: count_lines(file) for file in get_source_files(_REPOS)}
-        pp(d)
-        self.assertEqual(171, len(d))
+        cnt = LineCounter(INITIAL_SOURCES[0])
+        self.assertEqual(0, cnt.__dict__)

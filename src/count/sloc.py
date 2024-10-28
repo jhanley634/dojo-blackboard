@@ -1,6 +1,8 @@
 #! /usr/bin/env python
+import re
+from collections import Counter
 from pathlib import Path
-from typing import NamedTuple
+from pprint import pp
 
 import typer
 
@@ -11,33 +13,32 @@ def get_source_files(folder: Path) -> list[Path]:
     return [file for file in files if file.is_file()]
 
 
-class Counts(NamedTuple):
-    blanks: int
-    comments: int
-    code: int
-
-    def __str__(self) -> str:
-        return f"{self.blanks:5d} blanks   {self.comments:5d} comments   {self.code:5d} code"
+_strip_hash_re = re.compile(r"^\s*//.*")
 
 
 class LineCounter:
     def __init__(self, in_file: Path) -> None:
         with open(in_file) as fin:
-            self.lines = list(map(str.rstrip, fin))
+            lines = list(map(str.rstrip, fin))
 
-    def counts(self) -> Counts:
-        c = Counts(
-            blanks=sum(1 for line in self.lines if not line),
-            comments=sum(1 for line in self.lines if line.startswith("#")),
-            code=0,
-        )
-        return c._replace(code=len(self.lines) - c.blanks - c.comments)
+        self.blanks = sum(1 for line in lines if not line)
+        self.comments = sum(1 for line in lines if _strip_hash_re.search(line))
+        self.code = sum(1 for line in lines if _strip_hash_re.sub("", line).strip())
+
+        assert self.blanks + self.comments + self.code == len(lines), len(lines)
+
+    def __str__(self) -> str:
+        return f"{self.blanks:5d} blanks   {self.comments:5d} comments   {self.code:5d} code"
 
 
 def main(in_folder: Path) -> None:
+    summary = Counter({"blanks": 0})
     for file in get_source_files(in_folder):
         cnt = LineCounter(file)
-        print(f"{cnt.counts()}  lines in  {file}")
+        print(f"{cnt}  lines in  {file}")
+        summary.update(cnt.__dict__)
+
+    pp(summary)
 
 
 if __name__ == "__main__":
