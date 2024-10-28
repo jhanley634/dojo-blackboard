@@ -11,13 +11,14 @@ def get_source_files(folder: Path) -> list[Path]:
 
 
 def count_lines(in_file: Path) -> int:
-    num_lines = 0
-
     with open(in_file) as fin:
-        num_lines += len(fin.readlines())
+        return len(fin.readlines())
 
-    return num_lines
+
+def main(in_folder: Path) -> None:
+    for file in get_source_files(in_folder):
+        print(f"{count_lines(file):9,d}  lines in  {file}")
 
 
 if __name__ == "__main__":
-    typer.run(count_lines)
+    typer.run(main)
