@@ -16,7 +16,7 @@ lint: ruff-check
 	$(ACTIVATE) && mypy $(STRICT) .
 
 unit:
-	$(ACTIVATE) && env SKIP_SLOW=1 python -m unittest $(VERBOSE) tests**/*_test.py
+	$(ACTIVATE) && env SKIP_SLOW=1 python -m unittest $(VERBOSE) {src/count/,}tests**/*_test.py
 test: unit
 	$(ACTIVATE) && pytest --cov --cov-report=term-missing
 

@@ -34,4 +34,7 @@ class SlocTest(unittest.TestCase):
         )
 
         cnt = LineCounter(INITIAL_SOURCES[0])
-        self.assertEqual(0, cnt.__dict__)
+        self.assertEqual(
+            {"blank": 26, "comment": 8, "code": 97},
+            cnt.__dict__,
+        )
