@@ -3,6 +3,7 @@ from warnings import catch_warnings, simplefilter
 
 from bboard.newsfeed.headlines import get_hash, href, store_current_articles
 from bboard.newsfeed.sources import FILTERED_SOURCES, KNOWN_GOOD_SOURCES
+from bboard.util.testing import mark_slow_integration_test
 
 
 class HeadlinesTest(unittest.TestCase):
@@ -23,6 +24,7 @@ class HeadlinesTest(unittest.TestCase):
             href("https://example.com", "an example"),
         )
 
+    @mark_slow_integration_test  # type: ignore [misc]
     def test_get_headlines(self) -> None:
         with catch_warnings():
             simplefilter("ignore", category=DeprecationWarning)
