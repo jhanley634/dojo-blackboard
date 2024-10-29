@@ -38,3 +38,9 @@ class SlocTest(unittest.TestCase):
             {"blank": 26, "comment": 8, "code": 97},
             cnt.__dict__,
         )
+
+        cnt = LineCounter(_REPOS / "llama.cpp/src/llama-vocab.cpp")
+        self.assertEqual(
+            {"blank": 287, "comment": 197, "code": 1500},
+            cnt.__dict__,
+        )

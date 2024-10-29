@@ -21,7 +21,7 @@ class LineCounter:
             lines = list(map(str.rstrip, fin))
 
         self.blank = sum(1 for line in lines if not line)
-        self.comment = sum(1 for line in lines if _strip_hash_re.search(line))
+        self.comment = len(list(filter(_strip_hash_re.search, lines)))
         self.code = sum(1 for line in lines if _strip_hash_re.sub("", line).strip())
 
         assert self.blank + self.comment + self.code == len(lines), len(lines)
