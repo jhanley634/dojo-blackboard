@@ -1,7 +1,5 @@
-import re
 import unittest
 from contextlib import redirect_stdout
-from functools import partial
 from pathlib import Path
 
 from count.sloc import LineCounter, elide_comment_span, get_source_files, main
@@ -48,6 +46,6 @@ class SlocTest(unittest.TestCase):
         )
 
     def test_regex(self) -> None:
-        self.assertEqual("Z", elide_comment_span("/* hello */"))
-        self.assertEqual("Z", elide_comment_span("/* a */ b /* c */"))
-        self.assertEqual("d Z h", elide_comment_span("d /* e */ f /* g */ h"))
+        self.assertEqual("", elide_comment_span("/* hello */"))
+        self.assertEqual("", elide_comment_span("/* a */ b /* c */"))
+        self.assertEqual("d  h", elide_comment_span("d /* e */ f /* g */ h"))

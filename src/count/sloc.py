@@ -48,15 +48,21 @@ class LineCounter:
                 yield LineType.CODE
 
     def _expand_comments(self, lines: Generator[str, None, None]) -> Generator[str, None, None]:
-        """Prepends '//' to each commented line, accounting /* for multiline comments */."""
+        """Prepends // to each commented line, accounting /* for multiline comments */."""
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
             if initial_slash_star_re.match(line):
-                line = "//" + line
+                line = "// " + line
             line = elide_comment_span(line)
             if "/*" in line:
                 in_comment = True
+            if in_comment:
+                line = "// " + line
+                i = line.find("*/")
+                if i >= 0:
+                    line = line[i + 2 :]
+                    in_comment = False
 
             yield line
 
