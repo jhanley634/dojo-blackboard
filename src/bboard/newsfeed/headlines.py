@@ -2,7 +2,6 @@ import datetime as dt
 import json
 from base64 import urlsafe_b64encode
 from hashlib import sha3_224
-from pprint import pp
 
 import newspaper as news
 from sqlalchemy.orm import Session
@@ -70,8 +69,7 @@ def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> dict[st
         "title": art.title,
         # "content": art.text,
     }
-    if h in hashes:
-        pp(row)
+    assert h not in hashes, h
 
     hashes.add(h)
     sess.add(Headline(**row))

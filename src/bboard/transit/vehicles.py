@@ -59,6 +59,7 @@ def query_vehicles() -> Path:
     for agency in ["SC", "SF", "SM", "CT"]:
         plot_agency_vehicles(rows, m, agency)
 
+    assert len(rows) > 0
     df = pd.DataFrame(rows)
     plt.scatter(df.x, df.y, c=df.color, marker="+")
 
