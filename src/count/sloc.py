@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 import re
 from collections import Counter
-from collections.abc import Generator
+from collections.abc import Generator, Iterable
 from enum import Enum, auto
 from functools import partial
 from pathlib import Path
@@ -41,13 +41,14 @@ class LineCounter:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
 
     def _get_line_types(self, lines: list[str]) -> Generator[LineType, None, None]:
-        for line in self._expand_comments(self._get_non_blank_lines(lines)):
+        for line in self.expand_comments(self._get_non_blank_lines(lines)):
             if _strip_simple_comment_re.match(line):
                 yield LineType.COMMENT
             else:
                 yield LineType.CODE
 
-    def _expand_comments(self, lines: Generator[str, None, None]) -> Generator[str, None, None]:
+    @staticmethod
+    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
         """Prepends // to each commented line, accounting /* for multiline comments */."""
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
@@ -61,9 +62,8 @@ class LineCounter:
                 line = "// " + line
                 i = line.find("*/")
                 if i >= 0:
-                    line = line[i + 2 :]
+                    line = "// " + line[i + 2 :]
                     in_comment = False
-
             yield line
 
     def _get_non_blank_lines(self, lines: list[str]) -> Generator[str, None, None]:

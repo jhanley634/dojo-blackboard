@@ -45,6 +45,28 @@ class SlocTest(unittest.TestCase):
             cnt.__dict__,
         )
 
+    def test_expand_comments(self) -> None:
+        cnt = LineCounter(Path("/dev/null"))
+        lines = [
+            "zero /* comment */ calories",
+            "/* one",
+            " * two",
+            " * three",
+            " */ four",
+            "five",
+        ]
+        self.assertEqual(
+            [
+                "zero  calories",
+                "// // /* one",
+                "//  * two",
+                "//  * three",
+                "//  four",
+                "five",
+            ],
+            list(cnt.expand_comments(lines)),
+        )
+
     def test_regex(self) -> None:
         self.assertEqual("", elide_comment_span("/* hello */"))
         self.assertEqual("", elide_comment_span("/* a */ b /* c */"))
