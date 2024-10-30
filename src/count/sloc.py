@@ -3,14 +3,15 @@ import re
 from collections import Counter
 from collections.abc import Generator
 from enum import Enum, auto
+from functools import partial
 from pathlib import Path
 
 import typer
 
 
 class LineType(Enum):
-    COMMENT = auto()
-    CODE = auto()
+    COMMENT = auto()  # indicates that a line starts with a comment, though code may follow
+    CODE = auto()  # indicates that a line starts with code, though a comment may follow
 
 
 def get_source_files(folder: Path) -> list[Path]:
@@ -19,7 +20,9 @@ def get_source_files(folder: Path) -> list[Path]:
     return [file for file in files if file.is_file()]
 
 
-_strip_hash_re = re.compile(r"^\s*//.*")
+_strip_simple_comment_re = re.compile(r"^\s*//.*")
+_slash_star_star_slash_re = re.compile(r"/\*.*\*/")
+elide_comment_span = partial(_slash_star_star_slash_re.sub, "")
 
 
 class LineCounter:
@@ -38,11 +41,24 @@ class LineCounter:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
 
     def _get_line_types(self, lines: list[str]) -> Generator[LineType, None, None]:
-        for line in self._get_non_blank_lines(lines):
-            if _strip_hash_re.match(line):
+        for line in self._expand_comments(self._get_non_blank_lines(lines)):
+            if _strip_simple_comment_re.match(line):
                 yield LineType.COMMENT
             else:
                 yield LineType.CODE
+
+    def _expand_comments(self, lines: Generator[str, None, None]) -> Generator[str, None, None]:
+        """Prepends '//' to each commented line, accounting /* for multiline comments */."""
+        initial_slash_star_re = re.compile(r"^\s*/\*")
+        in_comment = False
+        for line in lines:
+            if initial_slash_star_re.match(line):
+                line = "//" + line
+            line = elide_comment_span(line)
+            if "/*" in line:
+                in_comment = True
+
+            yield line
 
     def _get_non_blank_lines(self, lines: list[str]) -> Generator[str, None, None]:
         """This is `grep -v '^$'`.

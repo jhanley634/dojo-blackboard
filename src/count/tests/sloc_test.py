@@ -1,8 +1,10 @@
+import re
 import unittest
 from contextlib import redirect_stdout
+from functools import partial
 from pathlib import Path
 
-from count.sloc import LineCounter, get_source_files, main
+from count.sloc import LineCounter, elide_comment_span, get_source_files, main
 
 _REPOS = Path("/tmp/repos")
 
@@ -44,3 +46,8 @@ class SlocTest(unittest.TestCase):
             {"blank": 287, "comment": 197, "code": 1500},
             cnt.__dict__,
         )
+
+    def test_regex(self) -> None:
+        self.assertEqual("Z", elide_comment_span("/* hello */"))
+        self.assertEqual("Z", elide_comment_span("/* a */ b /* c */"))
+        self.assertEqual("d Z h", elide_comment_span("d /* e */ f /* g */ h"))
