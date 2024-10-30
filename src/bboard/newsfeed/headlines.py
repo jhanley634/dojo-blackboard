@@ -31,7 +31,6 @@ def href(url: str, description: str) -> str:
 
 def store_current_articles(max_new_articles: int = 15) -> int:
     hashes = _get_article_hashes()
-    num_articles = 0  # Count queries made, so we won't exceed web API rate limit.
 
     with get_session() as sess:
         # paper = newspaper.build("https://www.theguardian.com")
@@ -39,16 +38,13 @@ def store_current_articles(max_new_articles: int = 15) -> int:
         # paper = newspaper.build("https://cnn.com")
         paper = news.build("https://www.usatoday.com", memoize_articles=False)
         # print(paper.print_summary())
-        for article in paper.articles:
-            if num_articles >= max_new_articles:
-                continue
-            num_articles += 1
-
+        articles = paper.articles[:max_new_articles]
+        for article in articles:
             row = _add_headline(article, sess, hashes)
             _log_article(row)
 
         sess.commit()
-    return num_articles
+    return len(articles)
 
 
 def _log_article(row: dict[str, str]) -> None:

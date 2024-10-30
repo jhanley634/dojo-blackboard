@@ -101,6 +101,10 @@ class MedianTest(unittest.TestCase):
         self.assertEqual(3, a[2])
         self.assertEqual([0, 1, 2, 3, 4], a.nums)
 
+        five_primes = [2, 3, 5, 7, 11.0]
+        self.assertEqual("[3, 5]", f"{SlicedList(five_primes).slice(1).slice(0, 2)}")
+        self.assertEqual("[3, 5]", f"{SlicedList(five_primes).slice(1, 3)}")
+
     def test_is_monotonic(self) -> None:
         self.assertTrue(is_monotonic([1, 1, 1, 1, 1, 1, 1]))
         self.assertTrue(is_monotonic([1, 1, 2, 2, 3, 4, 4]))
@@ -112,6 +116,9 @@ class MedianTest(unittest.TestCase):
         self.assertEqual(median([3, 1, 2, 5, 3]), 3)
         self.assertEqual(median([1, 300, 2, 200, 1]), 2)
         self.assertEqual(median([3, 6, 20, 99, 10, 15]), 12.5)
+
+    def test_median_of_sorted_lists_slow(self) -> None:
+        self.assertEqual(median_of_sorted_lists_slow([], [1]), 1)
 
     def test_median_of_sorted_lists(self) -> None:
         median_two = median_of_sorted_lists  # _slow
