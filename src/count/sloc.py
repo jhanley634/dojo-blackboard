@@ -33,7 +33,7 @@ class LineCounter:
         self.blank = sum(1 for line in lines if not line)
         line_types = list(self._get_line_types(lines))
         self.comment = sum(1 for line_type in line_types if line_type == LineType.COMMENT)
-        self.code = sum(1 for line_type in line_types if line_type == LineType.CODE)
+        self.code = sum(bool(line_type == LineType.CODE)
 
         assert self.blank + self.comment + self.code == len(lines), len(lines)
 
