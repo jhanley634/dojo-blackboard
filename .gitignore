@@ -13,3 +13,4 @@
 __pycache__/
 htmlcov/
 key-config.toml
+src/beeware-tutorial/helloworld/build
