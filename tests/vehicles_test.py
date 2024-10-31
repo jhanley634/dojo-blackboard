@@ -54,4 +54,4 @@ class VehiclesTest(unittest.TestCase):
 
     def test_store_vehicle_journeys(self) -> None:
         with suppress(IntegrityError):
-            store_vehicle_journeys("SM")
+            store_vehicle_journeys("SC")

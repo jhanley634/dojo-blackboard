@@ -25,7 +25,7 @@ def table_of_contents(app_routes: list[BaseRoute]) -> str:
         for r in app_routes
         if isinstance(r, (Route, APIRoute))
         and len(r.path) > 1
-        and r.path != "/docs/oauth2-redirect"
+        and r.path not in ["/docs/oauth2-redirect", "/favicon.ico"]
         and "GET" in (r.methods or [])
     )
     soup = BeautifulSoup(

@@ -1,7 +1,9 @@
 *.swp
 *~
+.DS_Store
 .coverage
 .dmypy.json
+.hypothesis/
 .idea/
 .mypy_cache/
 .pyre/
@@ -11,4 +13,3 @@
 __pycache__/
 htmlcov/
 key-config.toml
-.DS_Store
