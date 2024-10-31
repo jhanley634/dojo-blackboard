@@ -3,6 +3,7 @@
 .DS_Store
 .coverage
 .dmypy.json
+.hypothesis/
 .idea/
 .mypy_cache/
 .pyre/
