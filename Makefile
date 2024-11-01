@@ -18,7 +18,7 @@ lint: ruff-check
 unit:
 	$(ACTIVATE) && env PYTHONPATH=$(PYTHONPATH) SKIP_SLOW=1 python -m unittest $(VERBOSE) {src/count/,}tests**/*_test.py
 test: unit
-	$(ACTIVATE) && pytest -n auto --cov --cov-report=term-missing
+	$(ACTIVATE) && pytest --cov --cov-report=term-missing
 
 run:
 	$(ACTIVATE) && fastapi dev src/bboard/main.py

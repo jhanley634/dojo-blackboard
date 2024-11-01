@@ -24,7 +24,6 @@ pre-commit >= 4.0
 pynng >= 0.8.0
 pyright >= 1.1.387
 pytest-cov >= 6.0.0
-pytest-xdist >= 3.6.1
 requests >= 2.32.3
 requests-cache >= 1.2.1
 ruff >= 0.7.1
