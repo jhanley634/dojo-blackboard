@@ -28,15 +28,15 @@ assert MINUTES_PER_DAY == 1440.0
 
 def prune_ancient_rows(limit: int = MINUTES_PER_DAY) -> None:
     """Discard yesterday's rows, to prevent the DB file from growing without bound."""
-    VJ = VehicleJourney
+    vj = VehicleJourney
     with get_session() as sess:
         stamps = (
-            sess.query(VJ.stamp).order_by(VJ.stamp.desc()).group_by(VJ.stamp).limit(limit).all()
+            sess.query(vj.stamp).order_by(vj.stamp.desc()).group_by(vj.stamp).limit(limit).all()
         )
         if len(stamps) > 0:
             (ancient,) = stamps[-1]
-            sess.query(VJ).filter(VJ.stamp < ancient).delete()
+            sess.query(vj).filter(vj.stamp < ancient).delete()
             sess.query(IssPosition).filter(IssPosition.stamp < ancient).delete()
 
-            count = sess.query(VJ).group_by(VJ.stamp).count()
+            count = sess.query(vj).group_by(vj.stamp).count()
             assert count <= limit, count
