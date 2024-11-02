@@ -2,7 +2,7 @@ from collections.abc import Generator
 from contextlib import contextmanager
 
 from pint import Quantity
-from pint import UnitRegistry as U
+from pint import UnitRegistry as Unit
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -21,7 +21,7 @@ def get_session() -> Generator[Session, None, None]:
             sess.commit()
 
 
-_one_day: Quantity = 1 * U().day
+_one_day: Quantity = 1 * Unit().day
 MINUTES_PER_DAY = _one_day.to("minutes").magnitude
 assert MINUTES_PER_DAY == 1440.0
 
