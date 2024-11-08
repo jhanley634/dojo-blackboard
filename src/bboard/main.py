@@ -58,7 +58,6 @@ async def countdown() -> HTMLResponse:
     return HTMLResponse(content=timer_countdown())
 
 
-@app.get("/transit/clock")
 async def clock() -> HTMLResponse:
     """Demonstrates 1 Hz screen updates."""
     return HTMLResponse(content=str(clock_display()))
