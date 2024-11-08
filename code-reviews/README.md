@@ -15,7 +15,7 @@ The easy way:
 The better way:
 
 Just about every software development job involves using `git` as part of the workflow.
-You should practice it any chance you get and get comfortable using `git` for versioning and collaborating all of your work. 
+You should practice it any chance you get and get comfortable using `git` for versioning and collaborating all of your work.
 When you use it for everything you will be delighted to find you have access to every version of everything you've ever worked on permanently available to you.
 
 1. On your local machine go to your favorite projects folder, eg: `cd Documents`.
@@ -30,4 +30,3 @@ When you use it for everything you will be delighted to find you have access to 
 The best way:
 
 Code is best understood in the context of the whole project it is a part of including unit tests and what code is calling your code. If you contribute code to the dojo-blackboard over in the src/ folder it will be part of a larger project and we can have a much better discussion about how it fits into that project. Look at the project, add to an existing feature or make a new webpage (URL route) for your own new feature.
-

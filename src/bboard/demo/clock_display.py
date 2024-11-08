@@ -30,7 +30,7 @@ def clock_reading() -> str:
 
 
 def timer_countdown() -> str:
-    with open("src/bboard/assets/timer_countdown.html", "r") as file:
+    with open("src/bboard/assets/timer_countdown.html") as file:
         html = file.read()
     soup = BeautifulSoup(html, "html.parser")
     return soup.prettify()

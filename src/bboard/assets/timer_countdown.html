@@ -156,7 +156,7 @@
         const { timerElement, alarm } = elements;
         event.preventDefault();
         event.stopPropagation();
-        
+
         if (timerElement.classList.contains('finished')) {
             // First click: stop animation and sound
             timerElement.classList.remove('finished');
