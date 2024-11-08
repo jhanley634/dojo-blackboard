@@ -18,6 +18,7 @@ RUN apt-get update && \
         g++ \
         pipx \
         pkg-config \
+        python-is-python3 \
         python3-pip \
         python3-venv \
         vim && \
@@ -26,6 +27,6 @@ RUN apt-get update && \
 
 WORKDIR /app
 COPY . /app
-# RUN pipx runpip cookiecutter install -r requirements.txt
+RUN pipx runpip cookiecutter install -r requirements.txt
 
 ENTRYPOINT ["bash"]
