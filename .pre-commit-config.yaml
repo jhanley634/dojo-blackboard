@@ -15,12 +15,12 @@ repos:
       - id: isort
 
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.7.1
+    rev: 0.8.0
     hooks:
       - id: nbstripout
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
         args: [ '--maxkb=100' ]
