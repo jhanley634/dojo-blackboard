@@ -29,12 +29,19 @@ def clock_reading() -> str:
     return f"webserver time: {now}"
 
 
+def timer_countdown() -> str:
+    with open("src/bboard/assets/timer_countdown.html", "r") as file:
+        html = file.read()
+    soup = BeautifulSoup(html, "html.parser")
+    return soup.prettify()
+
+
 def stop_watch() -> str:
     html = """
     <!DOCTYPE html>
     <html lang="en">
     <head>
-      <title>stop watch</title>
+      <title>timer countdown</title>
       <style>
         body {
             display: flex;
