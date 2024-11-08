@@ -52,6 +52,12 @@ async def timer() -> HTMLResponse:
     return HTMLResponse(content=stop_watch())
 
 
+@app.get("/demo/timer-countdown")
+async def countdown() -> HTMLResponse:
+    """Simple timer counts down from 10 seconds."""
+    return HTMLResponse(content=timer_countdown())
+
+
 @app.get("/transit/clock")
 async def clock() -> HTMLResponse:
     """Demonstrates 1 Hz screen updates."""
