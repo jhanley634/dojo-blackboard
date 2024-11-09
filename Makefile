@@ -76,14 +76,20 @@ PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
 talk:
 	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
 
-docker:
+CONTAINER_NAME = $(shell docker container ls -a | awk 'NR==2 {print $$12}')
+CREDS := dojo-secrets/api-keys.txt
+
+docker: clean-cache
 	docker buildx build --tag $(PROJECT) .
-	docker run -it --rm $(PROJECT)
+	docker cp ../$(CREDS) $(CONTAINER_NAME):/$(CREDS)
 
 CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
-clean:
+clean-cache:
 	rm -rf $(HELLOWORLD)/build
-	rm -rf $(CACHES) htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
+	rm -rf $(CACHES)
+
+clean: clean-cache
+	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
 
 .PHONY: all lint unit test run build install coverage count talk docker clean

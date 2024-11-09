@@ -30,10 +30,10 @@ RUN apt-get update && \
 
 WORKDIR /app
 COPY . .
+RUN mkdir /dojo-secrets
 
 # RUN pipx runpip cookiecutter install -r requirements.txt
-RUN mkdir /dojo-secrets && \
-    touch /dojo-secrets/api-keys.txt && \
+RUN touch /dojo-secrets/api-keys.txt && \
     useradd --create-home bboard && \
     chown -R bboard:bboard /app /dojo-secrets && \
     usermod -aG sudo bboard && \
