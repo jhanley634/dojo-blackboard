@@ -21,9 +21,11 @@ def get_session() -> Generator[Session, None, None]:
             sess.commit()
 
 
-_one_day: Quantity = 1 * Unit().day
+_one_day = 1 * Unit().day
+assert isinstance(_one_day, Quantity)
+
 MINUTES_PER_DAY = _one_day.to("minutes").magnitude
-assert MINUTES_PER_DAY == 1440.0
+assert MINUTES_PER_DAY == 1440
 
 
 def prune_ancient_rows(limit: int = MINUTES_PER_DAY) -> None:
