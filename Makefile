@@ -15,7 +15,7 @@ lint: ruff-check
 	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
 
-unit:
+unit: count
 	$(ACTIVATE) && env PYTHONPATH=$(PYTHONPATH) SKIP_SLOW=1 python -m unittest $(VERBOSE) {src/count/,}tests**/*_test.py
 test: unit
 	$(ACTIVATE) && pytest --cov --cov-report=term-missing
@@ -75,9 +75,14 @@ PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
 talk:
 	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
 
-CACHES := .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
+docker:
+	docker build --tag $(PROJECT) .
+	docker run -it --rm $(PROJECT)
+
+CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
 clean:
+	rm -rf $(HELLOWORLD)/build
 	rm -rf $(CACHES) htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
 
-.PHONY: all lint unit test run build install coverage count talk clean
+.PHONY: all lint unit test run build install coverage count talk docker clean

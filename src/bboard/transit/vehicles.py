@@ -95,16 +95,16 @@ def get_recent_vehicle_journeys(
     minutes: float = 14,
 ) -> Generator[VehicleJourney, None, None]:
     recent = dt.datetime.now(dt.UTC) - dt.timedelta(minutes=minutes)
-    J = VehicleJourney
+    j = VehicleJourney
     with get_session() as sess:
         yield from (
             sess.query(VehicleJourney)
-            .filter(J.agency == agency)
-            .filter(J.stamp > recent)
+            .filter(j.agency == agency)
+            .filter(j.stamp > recent)
             .order_by(
-                J.agency,
-                J.vehicle_ref,
-                J.stamp.desc(),
+                j.agency,
+                j.vehicle_ref,
+                j.stamp.desc(),
             )
         )
 
