@@ -16,6 +16,7 @@ RUN apt-get update && \
         build-essential \
         cmake \
         g++ \
+        git \
         pipx \
         pkg-config \
         python-is-python3 \
@@ -23,15 +24,17 @@ RUN apt-get update && \
         python3-venv \
         sudo \
         vim && \
-    pipx install cookiecutter \
-    && apt-get clean
+    pipx install cookiecutter && \
+    apt-get clean
 
 WORKDIR /app
 COPY . .
 
-RUN pipx runpip cookiecutter install -r requirements.txt && \
-    useradd --create-home bboard &&\
-    chown -R bboard:bboard /app
+# RUN pipx runpip cookiecutter install -r requirements.txt
+RUN useradd --create-home bboard && \
+    chown -R bboard:bboard /app && \
+    usermod -aG sudo bboard && \
+    echo "bboard ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER bboard
 ENTRYPOINT ["bash"]
