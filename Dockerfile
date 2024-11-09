@@ -21,12 +21,17 @@ RUN apt-get update && \
         python-is-python3 \
         python3-pip \
         python3-venv \
+        sudo \
         vim && \
     pipx install cookiecutter \
     && apt-get clean
 
 WORKDIR /app
-COPY . /app
-RUN pipx runpip cookiecutter install -r requirements.txt
+COPY . .
 
+RUN pipx runpip cookiecutter install -r requirements.txt && \
+    useradd --create-home bboard &&\
+    chown -R bboard:bboard /app
+
+USER bboard
 ENTRYPOINT ["bash"]
