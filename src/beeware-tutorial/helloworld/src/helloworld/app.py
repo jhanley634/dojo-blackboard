@@ -2,6 +2,8 @@
 """
 My first application.
 """
+from typing import Any
+
 import toga
 from toga import Box, Button, InfoDialog, Label
 from toga.style import Pack
@@ -10,6 +12,11 @@ from toga.window import MainWindow
 
 
 class HelloWorld(toga.App):
+    def __init__(self, *args: Any, **kwargs: dict[str, Any]) -> None:
+        super().__init__(*args, **kwargs)
+        self.main_window = None
+        self.name_input = None
+
     def startup(self) -> None:
         main_box = toga.Box(style=Pack(direction=COLUMN))
 

@@ -48,7 +48,7 @@ def iss_lng_lat() -> tuple[float, float]:
     return lng, lat
 
 
-def _get_iss_breadcrumbs(limit: int) -> Generator[tuple[float, float], None, None]:
+def get_iss_breadcrumbs(limit: int) -> Generator[tuple[float, float], None, None]:
     with get_session() as sess:
         for row in sess.query(IssPosition).order_by(IssPosition.stamp.desc()).limit(limit):
             yield row.longitude, row.latitude
@@ -69,7 +69,7 @@ def iss_world_map(num_crumbs: int = 50) -> Path:
     """Returns a world map depicting recent ISS breadcrumbs."""
     lng, lat = iss_lng_lat()
     m = _get_world_map()
-    crumbs = list(_get_iss_breadcrumbs(num_crumbs))
+    crumbs = list(get_iss_breadcrumbs(num_crumbs))
     for i, (lng, lat) in enumerate(reversed(crumbs)):
         color = mpl.colormaps["Blues"](int(256 * i / len(crumbs)))
         m.plot(*m(lng, lat), "+", color=color, markersize=6)

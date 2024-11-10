@@ -66,7 +66,8 @@ class LineCounter:
                     in_comment = False
             yield line
 
-    def _get_non_blank_lines(self, lines: list[str]) -> Generator[str, None, None]:
+    @staticmethod
+    def _get_non_blank_lines(lines: list[str]) -> Generator[str, None, None]:
         """This is `grep -v '^$'`.
 
         Recall that trailing whitespace has already been stripped.

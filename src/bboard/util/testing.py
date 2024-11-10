@@ -12,12 +12,12 @@ def mark_slow_integration_test(test_func: Any) -> Any:
     The decorated TestCase function won't be run
     when we set environment variable SKIP_SLOW=1.
     """
-    func: Any = _do_nothing
+    func: Any = do_nothing
     should_skip = getenv("SKIP_SLOW", "0") == "1"
     if not should_skip:
         func = test_func
     return func
 
 
-def _do_nothing(self: Any) -> None:
-    pass
+def do_nothing(self: Any) -> None:
+    self.assertTrue(self)

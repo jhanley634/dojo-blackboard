@@ -19,7 +19,7 @@ Start small, and build toward bigger features once you get the hang of things.
 
 ## new feature
 
-1. Create a new [Issue](https://github.com/jhanley634/dojo-blackboard/issues). It can be a one liner: "do the thing", "add a HelloWorld page", whatever.
+1. Create a new [Issue](https://github.com/jhanley634/dojo-blackboard/issues). It can be a one-liner: "do the thing", "add a HelloWorld page", whatever.
 2. Create a new [Branch](https://github.com/jhanley634/dojo-blackboard/branches/all?query=99-new-branch) (look near the left margin, click on Main, then Find or create branch, then e.g. 9-hello-world if you created issue # 9), then click the suggested Create)
 3. `git pull && git checkout 9-hello-world`, or whatever you named it
 4. Edit / debug cycle, implement the feature, get it working, `git push` the feature branch up to GitHub.com.

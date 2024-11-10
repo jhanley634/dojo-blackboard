@@ -16,7 +16,8 @@ INITIAL_SOURCES = sorted(get_source_files(SOURCES[0]))[:3]
 
 class SlocTest(unittest.TestCase):
 
-    def test_main(self) -> None:
+    @staticmethod
+    def test_main() -> None:
         with redirect_stdout(None):
             main(SOURCES[0])
 

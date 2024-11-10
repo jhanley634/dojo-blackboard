@@ -128,7 +128,8 @@ class MedianTest(unittest.TestCase):
         self.assertEqual(median_two([0, 0], [0, 0]), 0)
         self.assertEqual(median_two([1, 2], [3, 4]), 2.5)
 
-    def test_using_hypothesis(self) -> None:
+    @staticmethod
+    def test_using_hypothesis() -> None:
         test_median_two()
 
 
