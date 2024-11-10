@@ -145,7 +145,7 @@ def _store_vehicle_activity(agency: str, delivery: dict[str, Any]) -> None:
                 # print(lng, lat, record["VehicleRef"], ",", record["PublishedLineName"])
 
 
-def _fmt_msg(journey: dict[str, Any], width: int = 38) -> str:
+def fmt_msg(journey: dict[str, Any], width: int = 38) -> str:
     pad = " " * width
     call = journey["MonitoredCall"]
     return " ".join(

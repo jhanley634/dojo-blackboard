@@ -5,11 +5,11 @@ from datetime import timezone as tz
 from sqlalchemy import Engine, Table, create_engine
 
 from bboard.models.iss_position import Base, IssPosition
-from bboard.transit.iss import _get_iss_breadcrumbs, iss_lng_lat, iss_world_map
+from bboard.transit.iss import get_iss_breadcrumbs, iss_lng_lat, iss_world_map
 from bboard.util.credentials import repo_top, throw
 from bboard.util.database import engine, get_session
 from bboard.util.fs import temp_dir
-from bboard.util.testing import _do_nothing, mark_slow_integration_test
+from bboard.util.testing import do_nothing, mark_slow_integration_test
 
 Base.metadata.create_all(engine)
 
@@ -36,11 +36,11 @@ class IssTest(unittest.TestCase):
     @mark_slow_integration_test  # type: ignore [misc]
     def test_iss_world_map(self) -> None:
         limit = 6
-        self.assertGreater(len(list(_get_iss_breadcrumbs(limit))), 0)
+        self.assertGreater(len(list(get_iss_breadcrumbs(limit))), 0)
         self.assertTrue(iss_world_map(limit).exists())
 
     def test_no_op(self) -> None:
-        _do_nothing(self)
+        do_nothing(self)
 
     def test_asdict(self) -> None:
         iss_lng_lat()

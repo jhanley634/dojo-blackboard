@@ -5,8 +5,8 @@ from sqlalchemy.exc import IntegrityError
 
 from bboard.transit.vehicles import (
     KEY_NAME,
-    _fmt_msg,
     fmt_lat_lng,
+    fmt_msg,
     query_vehicles,
     store_vehicle_journeys,
 )
@@ -50,7 +50,7 @@ class VehiclesTest(unittest.TestCase):
             "1009 N 65541 40         38                                     Daly City"
             "                                      37.353561, -121.937492"
         )
-        self.assertEqual(expected, _fmt_msg(journey))
+        self.assertEqual(expected, fmt_msg(journey))
 
     @staticmethod
     def test_store_vehicle_journeys() -> None:
