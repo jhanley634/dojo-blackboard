@@ -49,6 +49,7 @@ class IssTest(unittest.TestCase):
         iss_lng_lat()
         with get_session() as sess:
             row = sess.query(IssPosition).order_by(IssPosition.stamp.desc()).limit(1).one_or_none()
+            assert row
             self.assertEqual(
                 "stamp, latitude, longitude",
                 ", ".join(row._asdict().keys()),

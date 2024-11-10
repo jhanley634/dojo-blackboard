@@ -18,7 +18,7 @@ Next step is to jump into the development [process](docs/).
 
 ----
 
-This codebase is frequently tested under [linux](https://ubuntu.com) and MacOS.
+This codebase is frequently tested under [linux](https://ubuntu.com) and macOS.
 It is designed to work on all posix systems, including windows WSL 2.
 Please [report](https://github.com/jhanley634/dojo-blackboard/issues)
 any rough edges you may encounter.

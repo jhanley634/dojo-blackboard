@@ -20,4 +20,4 @@ def mark_slow_integration_test(test_func: Any) -> Any:
 
 
 def _do_nothing(self: Any) -> None:
-    pass
+    self.assertTrue(self)
