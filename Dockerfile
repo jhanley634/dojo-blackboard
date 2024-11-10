@@ -18,6 +18,7 @@ RUN apt-get update && \
         cmake \
         g++ \
         git \
+        net-tools \
         pipx \
         pkg-config \
         python-is-python3 \

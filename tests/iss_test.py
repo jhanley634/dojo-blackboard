@@ -46,9 +46,9 @@ class IssTest(unittest.TestCase):
         _do_nothing(self)
 
     def test_asdict(self) -> None:
+        iss_lng_lat()
         with get_session() as sess:
             row = sess.query(IssPosition).order_by(IssPosition.stamp.desc()).limit(1).one_or_none()
-            assert row, 'Please "make run" before running this test.'
             self.assertEqual(
                 "stamp, latitude, longitude",
                 ", ".join(row._asdict().keys()),
