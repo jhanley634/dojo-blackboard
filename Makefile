@@ -81,7 +81,6 @@ CREDS := dojo-secrets/api-keys.txt
 
 docker: clean-cache
 	docker buildx build --tag $(PROJECT) .
-	docker cp ../$(CREDS) $(CONTAINER_NAME):/$(CREDS)
 
 CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
