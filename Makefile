@@ -21,8 +21,11 @@ unit: count
 test: unit
 	$(ACTIVATE) && $(ENV) pytest --cov --cov-report=term-missing
 
+# specify HOST=0.0.0.0 when running within a container, so docker can forward requests
+HOST := localhost
+
 run:
-	$(ACTIVATE) && $(ENV) fastapi dev src/bboard/main.py
+	$(ACTIVATE) && $(ENV) fastapi dev --host $(HOST) src/bboard/main.py
 
 # tutorial is at https://docs.beeware.org/en/latest/tutorial/tutorial-1.html
 HELLOWORLD := src/beeware-tutorial/helloworld
@@ -81,8 +84,11 @@ talk:
 CONTAINER_NAME = $(shell docker container ls -a | awk 'NR==2 {print $$12}')
 CREDS := dojo-secrets/api-keys.txt
 
-docker: clean-cache
+docker-build: clean-cache
 	docker buildx build --tag $(PROJECT) .
+
+docker-run:
+	docker run -p 8000:8000 -it $(PROJECT)
 
 CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
