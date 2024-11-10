@@ -41,6 +41,8 @@ install: $(HOME)/.venv/$(PROJECT)/bin/activate $(BUILD)
 	$(ACTIVATE) && pre-commit install
 
 $(HOME)/.venv/$(PROJECT)/bin/activate:
+	# The basecamp package does not yet work with Python 3.13.
+	python -c 'import sys; v = sys.version_info; assert v.major == 3; assert v.minor <= 12, v.minor'
 	python -m venv $(HOME)/.venv/$(PROJECT)
 	$(ACTIVATE) && pip install uv
 	# $(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
