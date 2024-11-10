@@ -11,7 +11,7 @@ SOURCES = [
     _REPOS / "docker-php-tutorial",
 ]
 
-INITIAL_SOURCES = get_source_files(SOURCES[0])[:3]
+INITIAL_SOURCES = sorted(get_source_files(SOURCES[0]))[:3]
 
 
 class SlocTest(unittest.TestCase):
@@ -26,16 +26,16 @@ class SlocTest(unittest.TestCase):
 
         self.assertEqual(
             [
-                "/tmp/repos/llama.cpp/tests/test-arg-parser.cpp",
-                "/tmp/repos/llama.cpp/tests/test-llama-grammar.cpp",
-                "/tmp/repos/llama.cpp/tests/test-rope.cpp",
+                "/tmp/repos/llama.cpp/common/arg.cpp",
+                "/tmp/repos/llama.cpp/common/common.cpp",
+                "/tmp/repos/llama.cpp/common/console.cpp",
             ],
             list(map(str, INITIAL_SOURCES)),
         )
 
         cnt = LineCounter(INITIAL_SOURCES[0])
         self.assertEqual(
-            {"blank": 26, "comment": 8, "code": 97},
+            {"blank": 47, "comment": 38, "code": 1967},
             cnt.__dict__,
         )
 

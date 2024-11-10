@@ -8,25 +8,36 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y \
-        libgirepository1.0-dev \
         libcairo2-dev \
+        libgif-dev \
+        libgirepository1.0-dev \
         libjpeg8-dev \
         libpango1.0-dev \
-        libgif-dev \
         build-essential \
+        cloc \
         cmake \
         g++ \
+        git \
         pipx \
         pkg-config \
         python-is-python3 \
         python3-pip \
         python3-venv \
+        sudo \
         vim && \
-    pipx install cookiecutter \
-    && apt-get clean
+    pipx install cookiecutter && \
+    apt-get clean
 
 WORKDIR /app
-COPY . /app
-RUN pipx runpip cookiecutter install -r requirements.txt
+COPY . .
+RUN mkdir /dojo-secrets
 
+# RUN pipx runpip cookiecutter install -r requirements.txt
+RUN touch /dojo-secrets/api-keys.txt && \
+    useradd --create-home bboard && \
+    chown -R bboard:bboard /app /dojo-secrets && \
+    usermod -aG sudo bboard && \
+    echo "bboard ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER bboard
 ENTRYPOINT ["bash"]

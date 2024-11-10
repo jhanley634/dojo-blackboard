@@ -3,6 +3,7 @@ PROJECT := dojo-blackboard
 ACTIVATE := source $(HOME)/.venv/$(PROJECT)/bin/activate
 SHELL := bash -u -e -o pipefail
 PYTHONPATH := src:.
+ENV := env PYTHONPATH=$(PYTHONPATH)
 
 all:
 	ls -l
@@ -16,12 +17,12 @@ lint: ruff-check
 	$(ACTIVATE) && mypy $(STRICT) .
 
 unit: count
-	$(ACTIVATE) && env PYTHONPATH=$(PYTHONPATH) SKIP_SLOW=1 python -m unittest $(VERBOSE) {src/count/,}tests**/*_test.py
+	$(ACTIVATE) && $(ENV) SKIP_SLOW=1 python -m unittest $(VERBOSE) {src/count/,}tests**/*_test.py
 test: unit
-	$(ACTIVATE) && pytest --cov --cov-report=term-missing
+	$(ACTIVATE) && $(ENV) pytest --cov --cov-report=term-missing
 
 run:
-	$(ACTIVATE) && fastapi dev src/bboard/main.py
+	$(ACTIVATE) && $(ENV) fastapi dev src/bboard/main.py
 
 # tutorial is at https://docs.beeware.org/en/latest/tutorial/tutorial-1.html
 HELLOWORLD := src/beeware-tutorial/helloworld
@@ -42,7 +43,7 @@ install: $(HOME)/.venv/$(PROJECT)/bin/activate $(BUILD)
 $(HOME)/.venv/$(PROJECT)/bin/activate:
 	python -m venv $(HOME)/.venv/$(PROJECT)
 	$(ACTIVATE) && pip install uv
-	$(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
+	# $(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
 	$(ACTIVATE) && which python && python --version
 
 FIND_SOURCES := find . -name '*.py' | grep -v '/src/beeware-tutorial/helloworld/'
@@ -53,7 +54,7 @@ coverage: htmlcov/index.html
 
 htmlcov/index.html: $(SOURCES)
 	$(ACTIVATE) && coverage erase
-	$(ACTIVATE) && coverage run -m unittest {src/count/,}tests**/*_test.py
+	$(ACTIVATE) && $(ENV) coverage run -m unittest {src/count/,}tests**/*_test.py
 	$(ACTIVATE) && coverage html
 	$(ACTIVATE) && coverage report
 	ls htmlcov/z_*_py.html | sed -e 's;htmlcov/z_................_;;' -e 's;_py\.html$$;.py;' | sort > /tmp/tested
@@ -75,14 +76,20 @@ PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
 talk:
 	docker run -v $$(pwd)/talks:/tmp pandoc  -c 'cd /tmp && ls -lR && $(PANDOC)'
 
-docker:
-	docker build --tag $(PROJECT) .
-	docker run -it --rm $(PROJECT)
+CONTAINER_NAME = $(shell docker container ls -a | awk 'NR==2 {print $$12}')
+CREDS := dojo-secrets/api-keys.txt
+
+docker: clean-cache
+	docker buildx build --tag $(PROJECT) .
+	docker cp ../$(CREDS) $(CONTAINER_NAME):/$(CREDS)
 
 CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
-clean:
+clean-cache:
 	rm -rf $(HELLOWORLD)/build
-	rm -rf $(CACHES) htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
+	rm -rf $(CACHES)
+
+clean: clean-cache
+	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
 
 .PHONY: all lint unit test run build install coverage count talk docker clean
