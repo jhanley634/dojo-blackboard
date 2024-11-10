@@ -52,6 +52,7 @@ class VehiclesTest(unittest.TestCase):
         )
         self.assertEqual(expected, _fmt_msg(journey))
 
-    def test_store_vehicle_journeys(self) -> None:
+    @staticmethod
+    def test_store_vehicle_journeys() -> None:
         with suppress(IntegrityError):
             store_vehicle_journeys("SC")
