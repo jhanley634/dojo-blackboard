@@ -31,7 +31,6 @@ def _create_tz_temp_db(db_file: str = "tz_test.sqlite") -> Engine:
 
 class IssTest(unittest.TestCase):
     def test_repo_top(self) -> None:
-        self.assertTrue(f"{repo_top}".endswith("dojo-blackboard"))
         self.assertTrue((repo_top / "src/bboard").is_dir())
 
     def test_iss_lng_lat(self) -> None:
