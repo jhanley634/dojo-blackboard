@@ -3,7 +3,7 @@ import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
 
-from count.sloc import LineCounter, elide_comment_span, get_source_files, main
+from count.sloc import BashLineCounter, LineCounter, elide_comment_span, get_source_files, main
 
 _REPOS = Path("/tmp/repos")
 
@@ -72,7 +72,19 @@ class SlocTest(unittest.TestCase):
         )
 
     def test_count_bash_lines(self) -> None:
-        cnt = LineCounter(_REPOS / "llama.cpp/ci/run.sh")
+        cnt = BashLineCounter(_REPOS / "llama.cpp/examples/base-translate.sh")
+        self.assertEqual(
+            {"blank": 17, "comment": 12, "code": 32},
+            cnt.__dict__,
+        )
+
+        cnt = BashLineCounter(_REPOS / "llama.cpp/examples/chat-persistent.sh")
+        self.assertEqual(
+            {"blank": 30, "comment": 6, "code": 113},
+            cnt.__dict__,
+        )
+
+        cnt = BashLineCounter(_REPOS / "llama.cpp/ci/run.sh")
         self.assertEqual(
             {"blank": 187, "comment": 44, "code": 620},
             cnt.__dict__,

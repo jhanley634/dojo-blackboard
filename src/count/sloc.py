@@ -28,7 +28,10 @@ COMMENT_MARKER = "// COMMENT "
 
 
 class LineCounter:
-    """Count blank, comment, and code lines in a C++ or PHP source file."""
+    """Count blank, comment, and code lines in a C++ or PHP source file.
+
+    We define "what cloc says" as the "correct" line counts.
+    """
 
     def __init__(self, in_file: Path) -> None:
         with open(in_file) as fin:
@@ -53,7 +56,7 @@ class LineCounter:
 
     @staticmethod
     def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
-        """Prepends // to each commented line, accounting /* for multiline comments */."""
+        """Prepends // marker to each commented line, accounting /* for multiline comments */."""
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
@@ -80,6 +83,22 @@ class LineCounter:
         for line in lines:
             if line:
                 yield line
+
+
+class BashLineCounter(LineCounter):
+    """Count blank, comment, and code lines in a Bash script.
+
+    Notice that Bash scripts have no notion of /* multiline comments */.
+    """
+
+    @staticmethod
+    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+        """Prepends our standard COMMENT_MARKER to each commented line."""
+        initial_hash_re = re.compile(r"^\s*#")
+        for line in lines:
+            if initial_hash_re.match(line):
+                line = COMMENT_MARKER + line
+            yield line
 
 
 def main(in_folder: Path) -> None:
