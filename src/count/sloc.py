@@ -20,9 +20,9 @@ def get_source_files(folder: Path) -> list[Path]:
     return [file for file in files if file.is_file()]
 
 
-_strip_simple_comment_re = re.compile(r"^\s*//.*")
+_simple_comment_re = re.compile(r"^\s*//.*")
 _slash_star_star_slash_re = re.compile(r"/\*.*\*/")
-elide_comment_span = partial(_slash_star_star_slash_re.sub, "")
+elide_comment_span = partial(_slash_star_star_slash_re.sub, " ")
 
 
 class LineCounter:
@@ -42,7 +42,7 @@ class LineCounter:
 
     def _get_line_types(self, lines: list[str]) -> Generator[LineType, None, None]:
         for line in self.expand_comments(self._get_non_blank_lines(lines)):
-            if _strip_simple_comment_re.match(line):
+            if _simple_comment_re.match(line):
                 yield LineType.COMMENT
             else:
                 yield LineType.CODE
@@ -53,17 +53,18 @@ class LineCounter:
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
+            line = elide_comment_span(line)
             if initial_slash_star_re.match(line):
                 line = "// " + line
-            line = elide_comment_span(line)
-            if "/*" in line:
-                in_comment = True
             if in_comment:
                 line = "// " + line
                 i = line.find("*/")
                 if i >= 0:
                     line = "// " + line[i + 2 :]
                     in_comment = False
+            if "/*" in line:
+                assert "*/" not in line, line
+                in_comment = True
             yield line
 
     @staticmethod

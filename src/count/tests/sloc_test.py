@@ -36,7 +36,7 @@ class SlocTest(unittest.TestCase):
 
         cnt = LineCounter(INITIAL_SOURCES[0])
         self.assertEqual(
-            {"blank": 47, "comment": 38, "code": 1967},
+            {"blank": 47, "comment": 32, "code": 1973},
             cnt.__dict__,
         )
 
@@ -46,7 +46,7 @@ class SlocTest(unittest.TestCase):
             cnt.__dict__,
         )
 
-    def test_expand_comments(self) -> None:
+    def test_expand_comments_multiline(self) -> None:
         cnt = LineCounter(Path("/dev/null"))
         lines = [
             "zero /* comment */ calories",
@@ -58,8 +58,8 @@ class SlocTest(unittest.TestCase):
         ]
         self.assertEqual(
             [
-                "zero  calories",
-                "// // /* one",
+                "zero   calories",
+                "// /* one",
                 "//  * two",
                 "//  * three",
                 "//  four",
@@ -68,7 +68,21 @@ class SlocTest(unittest.TestCase):
             list(cnt.expand_comments(lines)),
         )
 
+    def test_expand_comments_single_line(self) -> None:
+        cnt = LineCounter(Path("/dev/null"))
+        lines = [" /**/ foo", "bar", " /* qux */ baz /*", "blorg */", "a /* b */ c /* d */ e"]
+        self.assertEqual(
+            [
+                "   foo",
+                "bar",
+                "   baz /*",
+                "// ",
+                "a   e",
+            ],
+            list(cnt.expand_comments(lines)),
+        )
+
     def test_regex(self) -> None:
-        self.assertEqual("", elide_comment_span("/* hello */"))
-        self.assertEqual("", elide_comment_span("/* a */ b /* c */"))
-        self.assertEqual("d  h", elide_comment_span("d /* e */ f /* g */ h"))
+        self.assertEqual(" ", elide_comment_span("/* hello */"))
+        self.assertEqual(" ", elide_comment_span("/* a */ b /* c */"))
+        self.assertEqual("d   h", elide_comment_span("d /* e */ f /* g */ h"))
