@@ -71,6 +71,13 @@ class SlocTest(unittest.TestCase):
             cnt.__dict__,
         )
 
+    def test_count_bash_lines(self) -> None:
+        cnt = LineCounter(_REPOS / "llama.cpp/ci/run.sh")
+        self.assertEqual(
+            {"blank": 187, "comment": 44, "code": 620},
+            cnt.__dict__,
+        )
+
     def test_expand_comments_multiline(self) -> None:
         cnt = LineCounter(Path(os.devnull))
         lines = [
@@ -84,10 +91,10 @@ class SlocTest(unittest.TestCase):
         self.assertEqual(
             [
                 "zero   calories",
-                "// /* one",
-                "//  * two",
-                "//  * three",
-                "//  four",
+                "// COMMENT /* one",
+                "// COMMENT  * two",
+                "// COMMENT  * three",
+                "// COMMENT  four",
                 "five",
             ],
             list(cnt.expand_comments(lines)),
@@ -108,7 +115,7 @@ class SlocTest(unittest.TestCase):
                 "   foo",
                 "bar",
                 "   baz /*",
-                "// ",
+                "// COMMENT ",
                 "a   e",
                 "   e",
             ],

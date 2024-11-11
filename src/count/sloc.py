@@ -24,8 +24,12 @@ _simple_comment_re = re.compile(r"^\s*//.*")
 _slash_star_star_slash_re = re.compile(r"/\*.*\*/")
 elide_comment_span = partial(_slash_star_star_slash_re.sub, " ")
 
+COMMENT_MARKER = "// COMMENT "
+
 
 class LineCounter:
+    """Count blank, comment, and code lines in a C++ or PHP source file."""
+
     def __init__(self, in_file: Path) -> None:
         with open(in_file) as fin:
             lines = list(map(str.rstrip, fin))
@@ -55,12 +59,12 @@ class LineCounter:
         for line in lines:
             line = elide_comment_span(line)
             if initial_slash_star_re.match(line):
-                line = "// " + line
+                line = COMMENT_MARKER + line
             if in_comment:
-                line = "// " + line
+                line = COMMENT_MARKER + line
                 i = line.find("*/")
                 if i >= 0:
-                    line = "// " + line[i + 2 :]
+                    line = COMMENT_MARKER + line[i + 2 :]
                     in_comment = False
             if "/*" in line:
                 assert "*/" not in line, line
