@@ -175,8 +175,33 @@ class TestCloc(unittest.TestCase):
         cnt.__dict__.pop("comment_pattern", None)
         # self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)  # non equal :(
 
+    SUPPORTED_LANGUAGES = frozenset(
+        {
+            ".Dockerfile",
+            ".bat",
+            ".cmake",
+            ".comp",
+            ".cu",
+            ".cuh",
+            ".ini",
+            ".json",
+            ".kt",
+            ".kts",
+            ".mk",
+            ".php",
+            ".pro",
+            ".properties",
+            ".py",
+            ".sh",
+            ".swift",
+            ".toml",
+            ".yml",
+        }
+    )
+
     def test_empty_intersection(self) -> None:
         self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(self.HASH_MEANS_COMMENT_LANGUAGES)))
+        self.assertEqual(19, len(self.SUPPORTED_LANGUAGES))
 
     HASH_MEANS_COMMENT_LANGUAGES = frozenset(
         {
@@ -231,7 +256,7 @@ class TestCloc(unittest.TestCase):
     def test_count_diverse_file_types(self) -> None:
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
-        self.assertGreaterEqual(len(in_files), 1487)  # We support ~ half of those: 713 files.
+        self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
 
         for file in in_files[:40]:  # They all work; do a subset for speed.
             if (
