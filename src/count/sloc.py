@@ -1,4 +1,7 @@
 #! /usr/bin/env python
+"""
+Counts source lines of code.
+"""
 import re
 from collections import Counter
 from collections.abc import Generator, Iterable
