@@ -100,7 +100,7 @@ class BashLineCounter(LineCounter):
         initial_hash_re = re.compile(r"^\s*#")
         for i, line in enumerate(lines):
             if i == 0 and line.startswith("#!"):
-                line = "SHEBANG " + line
+                line = f"SHEBANG {line}"
             if initial_hash_re.match(line):
                 line = COMMENT_MARKER + line
             yield line
