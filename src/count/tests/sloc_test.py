@@ -187,7 +187,7 @@ class TestCloc(unittest.TestCase):
     def test_count_diverse_file_types(self) -> None:
         in_files = list(_REPOS.glob("**/*.p*"))
         shuffle(in_files)
-        self.assertGreaterEqual(len(in_files), 131)
+        self.assertGreaterEqual(len(in_files), 1487)
 
         for file in in_files[:40]:  # They all work; do a subset for speed.
             if file.is_file() and file.suffix and file not in self.SKIP:

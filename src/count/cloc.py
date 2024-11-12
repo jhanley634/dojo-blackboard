@@ -18,7 +18,7 @@ class ClocCounts:
 
 
 _boilerplate_re = re.compile(r"^Language\s+files\s+blank\s+comment\s+code$")
-_counts_re = re.compile(r"^[\w+-]+\s+1\s+(\d+)\s+(\d+)\s+(\d+)$")
+_counts_re = re.compile(r"^[\w +/-]+\s+1\s+(\d+)\s+(\d+)\s+(\d+)$")
 
 
 def get_cloc_triple(in_file: Path) -> ClocCounts | None:
@@ -36,6 +36,6 @@ def get_cloc_triple(in_file: Path) -> ClocCounts | None:
     assert _boilerplate_re.search(lines[-5]), lines[-5]
 
     m = _counts_re.search(lines[-3])
-    assert m, f">{lines[-3]}<"
+    assert m, f">{lines[-3]}<    {in_file}"
 
     return ClocCounts(*map(int, m.groups()))
