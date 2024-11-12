@@ -2,7 +2,9 @@ import os
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
+from random import shuffle
 
+from count.cloc import get_cloc_triple
 from count.sloc import BashLineCounter, LineCounter, elide_comment_span, get_source_files, main
 
 _REPOS = Path("/tmp/repos")
@@ -126,3 +128,16 @@ class SlocTest(unittest.TestCase):
         self.assertEqual(" ", elide_comment_span("/* hello */"))
         self.assertEqual(" ", elide_comment_span("/* a */ b /* c */"))
         self.assertEqual("d   h", elide_comment_span("d /* e */ f /* g */ h"))
+
+
+class TestCloc(unittest.TestCase):
+    def test_count_diverse_file_types(self) -> None:
+        in_files = list(_REPOS.glob("**/*.p*"))
+        shuffle(in_files)
+        self.assertGreaterEqual(len(in_files), 131)
+
+        for file in sorted(in_files[:10]):
+            if file.is_file() and file.suffix:
+                counts = get_cloc_triple(file)
+                if counts:
+                    print("\n", counts, "\t", file)
