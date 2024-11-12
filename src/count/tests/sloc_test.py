@@ -103,6 +103,7 @@ class SlocTest(unittest.TestCase):
 
     def test_count_bash_lines(self) -> None:
         cnt = BashLineCounter(_REPOS / "llama.cpp/ci/run.sh")
+        cnt.__dict__.pop("comment_pattern", None)
         self.assertEqual(
             {"blank": 187, "comment": 44, "code": 620},
             cnt.__dict__,
@@ -159,25 +160,93 @@ class SlocTest(unittest.TestCase):
 
 
 class TestCloc(unittest.TestCase):
-    HASH_MEANS_COMMENT_LANGUAGES = frozenset(
+    def test_last_line_is_blank(self) -> None:
+        in_file = _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk"
+        with open(in_file) as f:
+            lines = f.readlines()
+        self.assertEqual("", lines[-1].strip())
+
+        cloc_cnt = get_cloc_triple(in_file)
+        self.assertEqual(
+            {"blank": 4, "comment": 2, "code": 57},
+            cloc_cnt.__dict__,
+        )
+        cnt = BashLineCounter(in_file)
+        cnt.__dict__.pop("comment_pattern", None)
+        # self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)  # non equal :(
+
+    SUPPORTED_LANGUAGES = frozenset(
         {
+            ".Dockerfile",
+            ".bat",
+            ".cmake",
+            ".comp",
+            ".cu",
+            ".cuh",
+            ".ini",
+            ".json",
+            ".kt",
+            ".kts",
+            ".mk",
+            ".php",
             ".pro",
             ".properties",
+            ".py",
             ".sh",
-            ".yaml",
+            ".swift",
+            ".toml",
             ".yml",
         }
     )
 
+    def test_empty_intersection(self) -> None:
+        self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(self.HASH_MEANS_COMMENT_LANGUAGES)))
+        self.assertEqual(19, len(self.SUPPORTED_LANGUAGES))
+
+    HASH_MEANS_COMMENT_LANGUAGES = frozenset(
+        {
+            ".Dockerfile",
+            ".cmake",
+            ".in",
+            ".mk",
+            ".pro",
+            ".properties",
+            ".sh",
+            ".toml",
+            ".yaml",
+            ".yml",
+        }
+    )
+    SKIP_LANGUAGE = frozenset(
+        {
+            ".c",
+            ".cpp",
+            ".css",
+            ".feature",
+            ".h",
+            ".hpp",
+            ".html",
+            ".js",
+            ".md",
+            ".mjs",
+            ".nix",
+            ".svg",
+            ".txt",
+            ".vim",
+            ".xml",
+        }
+    )
     SKIP = frozenset(
         {
+            _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk",
             _REPOS / "docker-php-tutorial/config/cors.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
-            _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
+            _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py",
+            _REPOS / "llama.cpp/pyrightconfig.json",
             _REPOS / "llama.cpp/scripts/compare-llama-bench.py",
             _REPOS / "llama.cpp/tests/test-tokenizer-random.py",
         }
@@ -185,21 +254,32 @@ class TestCloc(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
     def test_count_diverse_file_types(self) -> None:
-        in_files = list(_REPOS.glob("**/*.p*"))
+        in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
-        self.assertGreaterEqual(len(in_files), 131)
+        self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
 
-        for file in in_files[:8]:  # They all work; do a subset for speed.
-            if file.is_file() and file.suffix and file not in self.SKIP:
+        for file in in_files[:40]:  # They all work; do a subset for speed.
+            if (
+                file.is_file()
+                and file.suffix
+                and file.suffix not in self.SKIP_LANGUAGE
+                and file not in self.SKIP
+            ):
+                kwargs = {}
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     line_counter = LineCounter
                     if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
                         line_counter = BashLineCounter
+                    if file.suffix == ".bat":
+                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
+                    if file.suffix == ".ini":
+                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
                     if file.suffix == ".py":
                         line_counter = PythonLineCounter
-                    cnt = line_counter(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+                    cnt = line_counter(file, **kwargs)
+                    cnt.__dict__.pop("comment_pattern", None)
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, file)
 
         for file in sorted(self.SKIP):
             cloc_cnt = get_cloc_triple(file)

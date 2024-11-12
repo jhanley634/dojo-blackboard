@@ -4,7 +4,7 @@ Counts source lines of code.
 """
 import re
 from collections import Counter
-from collections.abc import Generator, Iterable
+from collections.abc import Iterable
 from enum import Enum, auto
 from functools import partial
 from pathlib import Path
@@ -50,15 +50,14 @@ class LineCounter:
     def __str__(self) -> str:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
 
-    def _get_line_types(self, lines: list[str]) -> Generator[LineType, None, None]:
-        for line in self.expand_comments(self._get_non_blank_lines(lines)):
+    def _get_line_types(self, lines: list[str]) -> Iterable[LineType]:
+        for line in self.expand_comments(self._get_non_blank_lines(self._do_shebang(lines))):
             if _simple_comment_re.match(line):
                 yield LineType.COMMENT
             else:
                 yield LineType.CODE
 
-    @staticmethod
-    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends // marker to each commented line, accounting /* for multiline comments */."""
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
@@ -73,12 +72,11 @@ class LineCounter:
                     line = COMMENT_MARKER + line[i + 2 :]
                     in_comment = False
             if "/*" in line:
-                assert "*/" not in line, line
                 in_comment = True
             yield line
 
     @staticmethod
-    def _get_non_blank_lines(lines: list[str]) -> Generator[str, None, None]:
+    def _get_non_blank_lines(lines: Iterable[str]) -> Iterable[str]:
         """This is `grep -v '^$'`.
 
         Recall that trailing whitespace has already been stripped.
@@ -87,6 +85,17 @@ class LineCounter:
             if line:
                 yield line
 
+    @staticmethod
+    def _do_shebang(lines: list[str]) -> Iterable[str]:
+        """Prepend a marker to the shebang line."""
+        if lines and lines[-1].strip() == "":
+            lines = lines[:-1]
+
+        if len(lines) > 0 and lines[0].startswith("#!"):
+            lines[0] = f"SHEBANG {lines[0]}"
+
+        yield from lines
+
 
 class BashLineCounter(LineCounter):
     """Count blank, comment, and code lines in a Bash script.
@@ -94,14 +103,14 @@ class BashLineCounter(LineCounter):
     Notice that Bash scripts have no notion of /* multiline comments */.
     """
 
-    @staticmethod
-    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+    def __init__(self, in_file: Path, comment_pattern: str = r"^\s*#") -> None:
+        self.comment_pattern = re.compile(comment_pattern, re.IGNORECASE)
+        super().__init__(in_file)
+
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
-        initial_hash_re = re.compile(r"^\s*#")
-        for i, line in enumerate(lines):
-            if i == 0 and line.startswith("#!"):
-                line = f"SHEBANG {line}"
-            if initial_hash_re.match(line):
+        for line in lines:
+            if self.comment_pattern.match(line):
                 line = COMMENT_MARKER + line
             yield line
 
@@ -114,17 +123,14 @@ class PythonLineCounter(LineCounter):
     they're being used in a function docstring.
     '''
 
-    @staticmethod
-    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
         # NB: We ignore '''single quote docstrings''', recognizing only """standard""" ones.
         # In principle a source file could have """foo""" 'bar' on one line, but we ignore that.
         initial_triple_quote_re = re.compile(r'^\s*"""')
         initial_hash_re = re.compile(r"^\s*#")
         in_comment = False
-        for i, line in enumerate(lines):
-            if i == 0 and line.startswith("#!"):
-                line = f"SHEBANG {line}"
+        for line in lines:
             line = line.replace("'''", '"""')
             if initial_triple_quote_re.match(line) or initial_hash_re.match(line):
                 line = COMMENT_MARKER + line
