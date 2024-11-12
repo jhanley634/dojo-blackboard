@@ -131,7 +131,7 @@ class PythonLineCounter(LineCounter):
         initial_hash_re = re.compile(r"^\s*#")
         in_comment = False
         for line in lines:
-            line = line.replace("'''", '"""')
+            line = line.replace("'''", '"""')  # Pretend that all authors follow PEP 8's advice.
             if initial_triple_quote_re.match(line) or initial_hash_re.match(line):
                 line = COMMENT_MARKER + line
             if in_comment:
@@ -141,7 +141,7 @@ class PythonLineCounter(LineCounter):
                     line = COMMENT_MARKER + line[i + 2 :]
                     in_comment = False
             if '"""' in line:
-                # Hope the original author followed convention, as didn't ensure this.
+                # Hope the original author followed convention, as the SLOC code didn't ensure this.
                 in_comment = True
             yield line
 

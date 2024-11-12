@@ -257,8 +257,12 @@ class TestCloc(unittest.TestCase):
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
+        in_files[:40]  # They all work; do a subset for speed.
+        # Ensure that a pair of "rare file types" get exercised.
+        in_files.append(_REPOS / "llama.cpp/scripts/install-oneapi.bat")
+        in_files.append(_REPOS / "llama.cpp/mypy.ini")
 
-        for file in in_files[:40]:  # They all work; do a subset for speed.
+        for file in in_files:
             if (
                 file.is_file()
                 and file.suffix

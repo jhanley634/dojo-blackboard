@@ -16,6 +16,7 @@ matplotlib >= 3.8.4
 mypy >= 1.13.0
 newspaper4k >= 0.9.3.1
 numpy >= 1.26.4
+ortools >= 9.11.4210
 pandas >= 2.2.3
 pandas-stubs >= 2.2.3.241009
 pint >= 0.24.4
