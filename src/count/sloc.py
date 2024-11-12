@@ -120,10 +120,13 @@ class PythonLineCounter(LineCounter):
         # NB: We ignore '''single quote docstrings''', recognizing only """standard""" ones.
         # In principle a source file could have """foo""" 'bar' on one line, but we ignore that.
         initial_triple_quote_re = re.compile(r'^\s*"""')
+        initial_hash_re = re.compile(r"^\s*#")
         in_comment = False
-        for line in lines:
+        for i, line in enumerate(lines):
+            if i == 0 and line.startswith("#!"):
+                line = "SHEBANG " + line
             line = line.replace("'''", '"""')
-            if initial_triple_quote_re.match(line):
+            if initial_triple_quote_re.match(line) or initial_hash_re.match(line):
                 line = COMMENT_MARKER + line
             if in_comment:
                 line = COMMENT_MARKER + line
