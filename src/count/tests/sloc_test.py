@@ -173,6 +173,9 @@ class TestCloc(unittest.TestCase):
             {"blank": 4, "comment": 2, "code": 57},
             cloc_cnt.__dict__,
         )
+        cnt = BashLineCounter(in_file)
+        cnt.__dict__.pop("comment_pattern", None)
+        self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
 
     HASH_MEANS_COMMENT_LANGUAGES = frozenset(
         {
@@ -208,6 +211,7 @@ class TestCloc(unittest.TestCase):
     )
     SKIP = frozenset(
         {
+            _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk",
             _REPOS / "docker-php-tutorial/config/cors.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
