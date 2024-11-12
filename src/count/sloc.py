@@ -4,7 +4,7 @@ Counts source lines of code.
 """
 import re
 from collections import Counter
-from collections.abc import Generator, Iterable
+from collections.abc import Iterable
 from enum import Enum, auto
 from functools import partial
 from pathlib import Path
@@ -50,15 +50,14 @@ class LineCounter:
     def __str__(self) -> str:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
 
-    def _get_line_types(self, lines: list[str]) -> Generator[LineType, None, None]:
+    def _get_line_types(self, lines: list[str]) -> Iterable[LineType]:
         for line in self.expand_comments(self._get_non_blank_lines(self._do_shebang(lines))):
             if _simple_comment_re.match(line):
                 yield LineType.COMMENT
             else:
                 yield LineType.CODE
 
-    @staticmethod
-    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends // marker to each commented line, accounting /* for multiline comments */."""
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
@@ -77,7 +76,7 @@ class LineCounter:
             yield line
 
     @staticmethod
-    def _get_non_blank_lines(lines: Generator[str, None, None]) -> Generator[str, None, None]:
+    def _get_non_blank_lines(lines: Iterable[str]) -> Iterable[str]:
         """This is `grep -v '^$'`.
 
         Recall that trailing whitespace has already been stripped.
@@ -87,8 +86,11 @@ class LineCounter:
                 yield line
 
     @staticmethod
-    def _do_shebang(lines: list[str]) -> Generator[str, None, None]:
+    def _do_shebang(lines: list[str]) -> Iterable[str]:
         """Prepend a marker to the shebang line."""
+        if len(lines) > 0 and lines[-1].strip() == "":
+            lines = lines[:-1]
+
         if len(lines) > 0 and lines[0].startswith("#!"):
             lines[0] = f"SHEBANG {lines[0]}"
 
@@ -105,7 +107,7 @@ class BashLineCounter(LineCounter):
         self.comment_pattern = re.compile(comment_pattern, re.IGNORECASE)
         super().__init__(in_file)
 
-    def expand_comments(self, lines: Iterable[str]) -> Generator[str, None, None]:
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
         for line in lines:
             if self.comment_pattern.match(line):
@@ -121,8 +123,7 @@ class PythonLineCounter(LineCounter):
     they're being used in a function docstring.
     '''
 
-    @staticmethod
-    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
         # NB: We ignore '''single quote docstrings''', recognizing only """standard""" ones.
         # In principle a source file could have """foo""" 'bar' on one line, but we ignore that.

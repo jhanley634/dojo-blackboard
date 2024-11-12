@@ -4,6 +4,8 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from random import shuffle
 
+from tqdm import tqdm
+
 from bboard.util.testing import mark_slow_integration_test
 from count.cloc import get_cloc_triple
 from count.sloc import (
@@ -164,25 +166,44 @@ class TestCloc(unittest.TestCase):
         {
             ".Dockerfile",
             ".cmake",
-            ".css",
-            ".nix",
+            ".in",
+            ".mk",
             ".pro",
             ".properties",
             ".sh",
+            ".toml",
             ".yaml",
             ".yml",
         }
     )
-
+    SKIP_LANGUAGE = frozenset(
+        {
+            ".c",
+            ".cpp",
+            ".css",
+            ".feature",
+            ".h",
+            ".hpp",
+            ".html",
+            ".js",
+            ".md",
+            ".nix",
+            ".svg",
+            ".txt",
+            ".vim",
+            ".xml",
+        }
+    )
     SKIP = frozenset(
         {
             _REPOS / "docker-php-tutorial/config/cors.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
-            _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
+            _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py",
+            _REPOS / "llama.cpp/pyrightconfig.json",
             _REPOS / "llama.cpp/scripts/compare-llama-bench.py",
             _REPOS / "llama.cpp/tests/test-tokenizer-random.py",
         }
@@ -194,20 +215,23 @@ class TestCloc(unittest.TestCase):
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)
 
-        for file in in_files[:40]:  # They all work; do a subset for speed.
-            if file.is_file() and file.suffix and file not in self.SKIP:
-                if file.suffix in (".hpp", ".txt"):
-                    continue
+        for file in tqdm(in_files[:40_000]):  # They all work; do a subset for speed.
+            if (
+                file.is_file()
+                and file.suffix
+                and file.suffix not in self.SKIP_LANGUAGE
+                and file not in self.SKIP
+            ):
                 kwargs = {}
-
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     line_counter = LineCounter
                     if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
                         line_counter = BashLineCounter
                     if file.suffix == ".bat":
-                        line_counter = BashLineCounter
-                        kwargs = {"comment_pattern": r"^rem "}
+                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
+                    if file.suffix == ".ini":
+                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
                     if file.suffix == ".py":
                         line_counter = PythonLineCounter
                     cnt = line_counter(file, **kwargs)
