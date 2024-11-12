@@ -106,6 +106,37 @@ class BashLineCounter(LineCounter):
             yield line
 
 
+class PythonLineCounter(LineCounter):
+    '''Count blank, comment, and code lines in a Python script.
+
+    The cloc command views """multiline string constants""" similar
+    to the /* multiline comments */ of other languages, whether or not
+    they're being used in a function docstring.
+    '''
+
+    @staticmethod
+    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+        """Prepends our standard COMMENT_MARKER to each commented line."""
+        # NB: We ignore '''single quote docstrings''', recognizing only """standard""" ones.
+        # In principle a source file could have """foo""" 'bar' on one line, but we ignore that.
+        initial_triple_quote_re = re.compile(r'^\s*"""')
+        in_comment = False
+        for line in lines:
+            line = line.replace("'''", '"""')
+            if initial_triple_quote_re.match(line):
+                line = COMMENT_MARKER + line
+            if in_comment:
+                line = COMMENT_MARKER + line
+                i = line.find('"""')
+                if i >= 0:
+                    line = COMMENT_MARKER + line[i + 2 :]
+                    in_comment = False
+            if '"""' in line:
+                # Hope the original author followed convention, as didn't ensure this.
+                in_comment = True
+            yield line
+
+
 def main(in_folder: Path) -> None:
     total = Counter({"blank": 0})
     for file in get_source_files(in_folder):

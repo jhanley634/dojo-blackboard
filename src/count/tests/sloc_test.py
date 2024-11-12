@@ -5,7 +5,14 @@ from pathlib import Path
 from random import shuffle
 
 from count.cloc import get_cloc_triple
-from count.sloc import BashLineCounter, LineCounter, elide_comment_span, get_source_files, main
+from count.sloc import (
+    BashLineCounter,
+    LineCounter,
+    PythonLineCounter,
+    elide_comment_span,
+    get_source_files,
+    main,
+)
 
 _REPOS = Path("/tmp/repos")
 
@@ -155,7 +162,6 @@ class TestCloc(unittest.TestCase):
         {
             ".pro",
             ".properties",
-            ".py",
             ".sh",
             ".yaml",
             ".yml",
@@ -166,15 +172,22 @@ class TestCloc(unittest.TestCase):
 
         skip = {
             _REPOS / "docker-php-tutorial/config/cors.php",
-            _REPOS / "llama.cpp/examples/server/bench/bench.py",
-            _REPOS / "llama.cpp/scripts/gen-unicode-data.py",
+            _REPOS / "llama.cpp/convert_hf_to_gguf.py",
+            _REPOS / "llama.cpp/convert_hf_to_gguf_update.py",
+            _REPOS / "llama.cpp/convert_llama_ggml_to_gguf.py",
+            _REPOS / "llama.cpp/convert_lora_to_gguf.py",
+            _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
+            _REPOS / "llama.cpp/examples/json_schema_pydantic_example.py",
+            _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
+            # _REPOS / "llama.cpp/examples/server/bench/bench.py",
+            # _REPOS / "llama.cpp/scripts/gen-unicode-data.py",
         }
 
         in_files = list(_REPOS.glob("**/*.p*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 131)
 
-        for file in sorted(in_files[:10]):
+        for file in sorted(in_files[:1000]):
             if file.is_file() and file.suffix and file not in skip:
                 counts = get_cloc_triple(file)
                 if counts:
@@ -182,6 +195,8 @@ class TestCloc(unittest.TestCase):
                     line_counter = LineCounter
                     if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
                         line_counter = BashLineCounter
+                    if file.suffix == ".py":
+                        line_counter = PythonLineCounter
                     cnt = line_counter(file)
                     print("            ", cnt)
                     self.assertEqual(
