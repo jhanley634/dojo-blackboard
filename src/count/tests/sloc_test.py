@@ -189,7 +189,7 @@ class TestCloc(unittest.TestCase):
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 131)
 
-        for file in in_files[:8]:  # They all work; do a subset for speed.
+        for file in in_files[:40]:  # They all work; do a subset for speed.
             if file.is_file() and file.suffix and file not in self.SKIP:
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
