@@ -73,7 +73,6 @@ class LineCounter:
                     line = COMMENT_MARKER + line[i + 2 :]
                     in_comment = False
             if "/*" in line:
-                assert "*/" not in line, line
                 in_comment = True
             yield line
 
@@ -102,12 +101,14 @@ class BashLineCounter(LineCounter):
     Notice that Bash scripts have no notion of /* multiline comments */.
     """
 
-    @staticmethod
-    def expand_comments(lines: Iterable[str]) -> Generator[str, None, None]:
+    def __init__(self, in_file: Path, comment_pattern: str = r"^\s*#") -> None:
+        self.comment_pattern = re.compile(comment_pattern, re.IGNORECASE)
+        super().__init__(in_file)
+
+    def expand_comments(self, lines: Iterable[str]) -> Generator[str, None, None]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
-        initial_hash_re = re.compile(r"^\s*#")
         for line in lines:
-            if initial_hash_re.match(line):
+            if self.comment_pattern.match(line):
                 line = COMMENT_MARKER + line
             yield line
 

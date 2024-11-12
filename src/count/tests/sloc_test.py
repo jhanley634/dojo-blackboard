@@ -103,6 +103,7 @@ class SlocTest(unittest.TestCase):
 
     def test_count_bash_lines(self) -> None:
         cnt = BashLineCounter(_REPOS / "llama.cpp/ci/run.sh")
+        cnt.__dict__.pop("comment_pattern", None)
         self.assertEqual(
             {"blank": 187, "comment": 44, "code": 620},
             cnt.__dict__,
@@ -161,6 +162,10 @@ class SlocTest(unittest.TestCase):
 class TestCloc(unittest.TestCase):
     HASH_MEANS_COMMENT_LANGUAGES = frozenset(
         {
+            ".Dockerfile",
+            ".cmake",
+            ".css",
+            ".nix",
             ".pro",
             ".properties",
             ".sh",
@@ -185,21 +190,29 @@ class TestCloc(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
     def test_count_diverse_file_types(self) -> None:
-        in_files = list(_REPOS.glob("**/*.p*"))
+        in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)
 
         for file in in_files[:40]:  # They all work; do a subset for speed.
             if file.is_file() and file.suffix and file not in self.SKIP:
+                if file.suffix in (".hpp", ".txt"):
+                    continue
+                kwargs = {}
+
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     line_counter = LineCounter
                     if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
                         line_counter = BashLineCounter
+                    if file.suffix == ".bat":
+                        line_counter = BashLineCounter
+                        kwargs = {"comment_pattern": r"^rem "}
                     if file.suffix == ".py":
                         line_counter = PythonLineCounter
-                    cnt = line_counter(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+                    cnt = line_counter(file, **kwargs)
+                    cnt.__dict__.pop("comment_pattern", None)
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, file)
 
         for file in sorted(self.SKIP):
             cloc_cnt = get_cloc_triple(file)
