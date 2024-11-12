@@ -88,7 +88,7 @@ class LineCounter:
     @staticmethod
     def _do_shebang(lines: list[str]) -> Iterable[str]:
         """Prepend a marker to the shebang line."""
-        if len(lines) > 0 and lines[-1].strip() == "":
+        if lines and lines[-1].strip() == "":
             lines = lines[:-1]
 
         if len(lines) > 0 and lines[0].startswith("#!"):
