@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from random import shuffle
 
+from bboard.util.testing import mark_slow_integration_test
 from count.cloc import get_cloc_triple
 from count.sloc import (
     BashLineCounter,
@@ -34,15 +35,15 @@ class SlocTest(unittest.TestCase):
 
     def test_count_cpp_lines(self) -> None:
         for folder in SOURCES:
-            assert folder.is_dir(), "Please run: $ make count"
+            assert folder.is_dir()
 
         self.assertEqual(
             [
-                "/tmp/repos/llama.cpp/common/arg.cpp",
-                "/tmp/repos/llama.cpp/common/common.cpp",
-                "/tmp/repos/llama.cpp/common/console.cpp",
+                _REPOS / "llama.cpp/common/arg.cpp",
+                _REPOS / "llama.cpp/common/common.cpp",
+                _REPOS / "llama.cpp/common/console.cpp",
             ],
-            list(map(str, INITIAL_CPP_SOURCES)),
+            INITIAL_CPP_SOURCES,
         )
 
         cnt = LineCounter(INITIAL_CPP_SOURCES[0])
@@ -168,14 +169,10 @@ class TestCloc(unittest.TestCase):
         }
     )
 
-    def test_count_diverse_file_types(self) -> None:
-
-        skip = {
+    SKIP = frozenset(
+        {
             _REPOS / "docker-php-tutorial/config/cors.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
-            _REPOS / "llama.cpp/convert_hf_to_gguf_update.py",
-            _REPOS / "llama.cpp/convert_llama_ggml_to_gguf.py",
-            _REPOS / "llama.cpp/convert_lora_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
             _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
@@ -184,26 +181,31 @@ class TestCloc(unittest.TestCase):
             _REPOS / "llama.cpp/scripts/compare-llama-bench.py",
             _REPOS / "llama.cpp/tests/test-tokenizer-random.py",
         }
+    )
 
+    @mark_slow_integration_test  # type: ignore [misc]
+    def test_count_diverse_file_types(self) -> None:
         in_files = list(_REPOS.glob("**/*.p*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 131)
 
-        for file in sorted(in_files[:2]):  # They all work; do a subset for speed.
-            if file.is_file() and file.suffix and file not in skip:
-                counts = get_cloc_triple(file)
-                if counts:
+        for file in in_files[:8]:  # They all work; do a subset for speed.
+            if file.is_file() and file.suffix and file not in self.SKIP:
+                cloc_cnt = get_cloc_triple(file)
+                if cloc_cnt:
                     line_counter = LineCounter
                     if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
                         line_counter = BashLineCounter
                     if file.suffix == ".py":
                         line_counter = PythonLineCounter
                     cnt = line_counter(file)
-                    self.assertEqual(
-                        {
-                            "blank": counts.blank,
-                            "comment": counts.comment,
-                            "code": counts.code,
-                        },
-                        cnt.__dict__,
-                    )
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+
+        for file in sorted(self.SKIP):
+            cloc_cnt = get_cloc_triple(file)
+            assert cloc_cnt
+            line_counter = LineCounter
+            if file.suffix == ".py":
+                line_counter = PythonLineCounter
+            cnt = line_counter(file)
+            self.assertNotEqual(cloc_cnt.__dict__, cnt.__dict__)
