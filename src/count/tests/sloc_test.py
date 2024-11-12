@@ -162,6 +162,18 @@ class SlocTest(unittest.TestCase):
 
 
 class TestCloc(unittest.TestCase):
+    def test_last_line_is_blank(self) -> None:
+        in_file = _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk"
+        with open(in_file) as f:
+            lines = f.readlines()
+        self.assertEqual("", lines[-1].strip())
+
+        cloc_cnt = get_cloc_triple(in_file)
+        self.assertEqual(
+            {"blank": 4, "comment": 2, "code": 57},
+            cloc_cnt.__dict__,
+        )
+
     HASH_MEANS_COMMENT_LANGUAGES = frozenset(
         {
             ".Dockerfile",
