@@ -124,7 +124,7 @@ class PythonLineCounter(LineCounter):
         in_comment = False
         for i, line in enumerate(lines):
             if i == 0 and line.startswith("#!"):
-                line = "SHEBANG " + line
+                line = f"SHEBANG {line}"
             line = line.replace("'''", '"""')
             if initial_triple_quote_re.match(line) or initial_hash_re.match(line):
                 line = COMMENT_MARKER + line
