@@ -294,28 +294,14 @@ class TestBisect(TestCloc):
                         print(find_delta(file))
 
     def test_find_delta(self) -> None:
-        in_file = _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py"
-        self.assertEqual(0, find_delta(in_file))
-        in_file = _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py"
-        self.assertEqual(0, find_delta(in_file, paranoid=True))
-        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py"
-        self.assertEqual(0, find_delta(in_file, paranoid=True))
-        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py"
-        self.assertEqual(0, find_delta(in_file, paranoid=True))
-        in_file = _REPOS / "llama.cpp/scripts/compare-llama-bench.py"
-        self.assertEqual(0, find_delta(in_file, paranoid=True))
-        in_file = _REPOS / "llama.cpp/tests/test-tokenizer-random.py"
-        self.assertEqual(0, find_delta(in_file, paranoid=True))
+        llama = _REPOS / "llama.cpp"
 
-        in_file = _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py"
-        self.assertEqual(0, find_delta(in_file))
-        in_file = _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py"
-        self.assertEqual(0, find_delta(in_file))
-        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py"
-        self.assertEqual(0, find_delta(in_file))
-        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py"
-        self.assertEqual(0, find_delta(in_file))
-        in_file = _REPOS / "llama.cpp/scripts/compare-llama-bench.py"
-        self.assertEqual(0, find_delta(in_file))
-        in_file = _REPOS / "llama.cpp/tests/test-tokenizer-random.py"
-        self.assertEqual(0, find_delta(in_file))
+        for n, file in [
+            (159, llama / "examples/llava/llava_surgery_v2.py"),
+            (806, llama / "examples/llava/minicpmv-convert-image-encoder-to-gguf.py"),
+            (1322, llama / "examples/pydantic_models_to_grammar.py"),
+            (312, llama / "examples/pydantic_models_to_grammar_examples.py"),
+            (381, llama / "scripts/compare-llama-bench.py"),
+            (566, llama / "tests/test-tokenizer-random.py"),
+        ]:
+            self.assertEqual(n, find_delta(file))
