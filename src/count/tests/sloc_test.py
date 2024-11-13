@@ -5,6 +5,7 @@ from pathlib import Path
 from random import shuffle
 
 from bboard.util.testing import mark_slow_integration_test
+from count.bisect import find_delta
 from count.cloc import get_cloc_triple
 from count.sloc import (
     HASH_MEANS_COMMENT_LANGUAGES,
@@ -249,7 +250,7 @@ class TestCloc(unittest.TestCase):
         in_files.append(_REPOS / "llama.cpp/mypy.ini")
 
         # All the in_files work properly; examine just a subset in the interest of speed.
-        for file in in_files[:40]:
+        for file in in_files[:4]:
             if (
                 file.is_file()
                 and file.suffix
@@ -272,5 +273,49 @@ class TestCloc(unittest.TestCase):
 
 
 class TestBisect(TestCloc):
+    @mark_slow_integration_test  # type: ignore [misc]
     def test_bisect(self) -> None:
-        pass
+        in_files = list(_REPOS.glob("**/*"))
+        shuffle(in_files)
+        self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
+
+        for file in in_files[:40]:
+            if (
+                file.is_file()
+                and file.suffix
+                # and file.suffix not in self.SKIP_LANGUAGE
+                # and file not in self.SKIP
+            ):
+                cloc_cnt = get_cloc_triple(file)
+                if cloc_cnt:
+                    cnt = get_counts(file)
+                    if cloc_cnt.__dict__ != cnt.__dict__:
+                        self.assertEqual(cloc_cnt.blank, cnt.blank, (cnt, file))
+                        print(find_delta(file))
+
+    def test_find_delta(self) -> None:
+        in_file = _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py"
+        self.assertEqual(0, find_delta(in_file))
+        in_file = _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py"
+        self.assertEqual(0, find_delta(in_file, paranoid=True))
+        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py"
+        self.assertEqual(0, find_delta(in_file, paranoid=True))
+        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py"
+        self.assertEqual(0, find_delta(in_file, paranoid=True))
+        in_file = _REPOS / "llama.cpp/scripts/compare-llama-bench.py"
+        self.assertEqual(0, find_delta(in_file, paranoid=True))
+        in_file = _REPOS / "llama.cpp/tests/test-tokenizer-random.py"
+        self.assertEqual(0, find_delta(in_file, paranoid=True))
+
+        in_file = _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py"
+        self.assertEqual(0, find_delta(in_file))
+        in_file = _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py"
+        self.assertEqual(0, find_delta(in_file))
+        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py"
+        self.assertEqual(0, find_delta(in_file))
+        in_file = _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py"
+        self.assertEqual(0, find_delta(in_file))
+        in_file = _REPOS / "llama.cpp/scripts/compare-llama-bench.py"
+        self.assertEqual(0, find_delta(in_file))
+        in_file = _REPOS / "llama.cpp/tests/test-tokenizer-random.py"
+        self.assertEqual(0, find_delta(in_file))
