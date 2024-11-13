@@ -44,6 +44,7 @@ class LineCounter:
         line_types = list(self._get_line_types(lines))
         self.comment = sum(bool(lt == LineType.COMMENT) for lt in line_types)
         self.code = sum(bool(lt == LineType.CODE) for lt in line_types)
+        self.__dict__.pop("comment_pattern", None)
 
         assert self.blank + self.comment + self.code == len(lines), len(lines)
 

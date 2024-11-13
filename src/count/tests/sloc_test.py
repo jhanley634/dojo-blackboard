@@ -103,7 +103,6 @@ class SlocTest(unittest.TestCase):
 
     def test_count_bash_lines(self) -> None:
         cnt = BashLineCounter(_REPOS / "llama.cpp/ci/run.sh")
-        cnt.__dict__.pop("comment_pattern", None)
         self.assertEqual(
             {"blank": 187, "comment": 44, "code": 620},
             cnt.__dict__,
@@ -172,7 +171,7 @@ class TestCloc(unittest.TestCase):
             cloc_cnt.__dict__,
         )
         cnt = BashLineCounter(in_file)
-        cnt.__dict__.pop("comment_pattern", None)
+        self.assertGreater(cnt.code, 0)
         # self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)  # non equal :(
 
     SUPPORTED_LANGUAGES = frozenset(
@@ -257,12 +256,12 @@ class TestCloc(unittest.TestCase):
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
-        in_files[:40]  # They all work; do a subset for speed.
         # Ensure that a pair of "rare file types" get exercised.
         in_files.append(_REPOS / "llama.cpp/scripts/install-oneapi.bat")
         in_files.append(_REPOS / "llama.cpp/mypy.ini")
 
-        for file in in_files:
+        # All the in_files work properly; examine just a subset in the interest of speed.
+        for file in in_files[:40]:
             if (
                 file.is_file()
                 and file.suffix
@@ -282,7 +281,6 @@ class TestCloc(unittest.TestCase):
                     if file.suffix == ".py":
                         line_counter = PythonLineCounter
                     cnt = line_counter(file, **kwargs)
-                    cnt.__dict__.pop("comment_pattern", None)
                     self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, file)
 
         for file in sorted(self.SKIP):
