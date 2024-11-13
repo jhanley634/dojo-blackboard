@@ -125,8 +125,6 @@ class PythonLineCounter(LineCounter):
 
     def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
-        # NB: We ignore '''single quote docstrings''', recognizing only """standard""" ones.
-        # In principle a source file could have """foo""" 'bar' on one line, but we ignore that.
         initial_triple_quote_re = re.compile(r'^\s*"""')
         initial_hash_re = re.compile(r"^\s*#")
         in_comment = False
