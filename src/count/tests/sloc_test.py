@@ -7,10 +7,12 @@ from random import shuffle
 from bboard.util.testing import mark_slow_integration_test
 from count.cloc import get_cloc_triple
 from count.sloc import (
+    HASH_MEANS_COMMENT_LANGUAGES,
     BashLineCounter,
     LineCounter,
     PythonLineCounter,
     elide_comment_span,
+    get_counts,
     get_source_files,
     main,
 )
@@ -199,23 +201,9 @@ class TestCloc(unittest.TestCase):
     )
 
     def test_empty_intersection(self) -> None:
-        self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(self.HASH_MEANS_COMMENT_LANGUAGES)))
+        self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(HASH_MEANS_COMMENT_LANGUAGES)))
         self.assertEqual(19, len(self.SUPPORTED_LANGUAGES))
 
-    HASH_MEANS_COMMENT_LANGUAGES = frozenset(
-        {
-            ".Dockerfile",
-            ".cmake",
-            ".in",
-            ".mk",
-            ".pro",
-            ".properties",
-            ".sh",
-            ".toml",
-            ".yaml",
-            ".yml",
-        }
-    )
     SKIP_LANGUAGE = frozenset(
         {
             ".c",
@@ -268,19 +256,9 @@ class TestCloc(unittest.TestCase):
                 and file.suffix not in self.SKIP_LANGUAGE
                 and file not in self.SKIP
             ):
-                kwargs = {}
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
-                    line_counter = LineCounter
-                    if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
-                        line_counter = BashLineCounter
-                    if file.suffix == ".bat":
-                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
-                    if file.suffix == ".ini":
-                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
-                    if file.suffix == ".py":
-                        line_counter = PythonLineCounter
-                    cnt = line_counter(file, **kwargs)
+                    cnt = get_counts(file)
                     self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, file)
 
         for file in sorted(self.SKIP):
@@ -291,3 +269,8 @@ class TestCloc(unittest.TestCase):
                 line_counter = PythonLineCounter
             cnt = line_counter(file)
             self.assertNotEqual(cloc_cnt.__dict__, cnt.__dict__)
+
+
+class TestBisect(TestCloc):
+    def test_bisect(self) -> None:
+        pass

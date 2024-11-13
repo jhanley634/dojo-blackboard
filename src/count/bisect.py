@@ -1,5 +1,5 @@
 """
-Uses binary search to locate the first source code line
+Does a binary search to locate the first source code line
 which produces a discrepancy between cloc and SlocTest.
 """
 

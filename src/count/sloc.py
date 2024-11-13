@@ -145,6 +145,37 @@ class PythonLineCounter(LineCounter):
             yield line
 
 
+HASH_MEANS_COMMENT_LANGUAGES = frozenset(
+    {
+        ".Dockerfile",
+        ".cmake",
+        ".in",
+        ".mk",
+        ".pro",
+        ".properties",
+        ".sh",
+        ".toml",
+        ".yaml",
+        ".yml",
+    }
+)
+
+
+def get_counts(file: Path) -> LineCounter:
+    line_counter = LineCounter
+    kwargs = {}
+    if file.suffix in HASH_MEANS_COMMENT_LANGUAGES:
+        line_counter = BashLineCounter
+    if file.suffix == ".bat":
+        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
+    if file.suffix == ".ini":
+        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
+    if file.suffix == ".py":
+        line_counter = PythonLineCounter
+
+    return line_counter(file, **kwargs)
+
+
 def main(in_folder: Path) -> None:
     total = Counter({"blank": 0})
     for file in get_source_files(in_folder):
