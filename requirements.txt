@@ -29,6 +29,7 @@ pytz >= 2024.2
 requests >= 2.32.3
 requests-cache >= 1.2.1
 ruff >= 0.7.3
+spacy >= 3.7.5
 sqlalchemy >= 2.0.36
 sqlalchemy-utc >= 0.14.0
 starlette >= 0.41.2
