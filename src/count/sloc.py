@@ -30,8 +30,6 @@ elide_slash_star_comment_span = partial(_slash_star_star_slash_re.sub, " ")
 _long_xml_comment_re = re.compile(r"<!--.*-->")
 elide_long_xml_comment_span = partial(_long_xml_comment_re.sub, " ")
 
-_script_re = re.compile(r"<script.*</script>")
-elide_script_span = partial(_script_re.sub, " ")
 
 COMMENT_MARKER = "// COMMENT "
 
@@ -111,12 +109,10 @@ class XmlLineCounter(LineCounter):
         """Prepends // marker to each commented line, accounting <!-- for multiline comments -->."""
         initial_long_comment_re = re.compile(r"^\s*<!--")
         in_comment = False
-        in_script = False
         for line in lines:
             if initial_long_comment_re.match(line):
                 line = COMMENT_MARKER + line
             line = elide_long_xml_comment_span(line)
-            line = elide_script_span(line)
 
             if in_comment:
                 line = COMMENT_MARKER + line
@@ -127,17 +123,6 @@ class XmlLineCounter(LineCounter):
             if "<!--" in line:
                 in_comment = True
 
-            if in_script:
-                if re.search(r"^\s*//", line):
-                    pass  # line = COMMENT_MARKER + line
-                else:
-                    i = line.find("</ *script>")
-                    if i >= 0:
-                        in_script = False
-            if "<script" in line:
-                in_script = True
-
-            # print(in_comment, in_script, "\t", line)
             yield line
 
 
@@ -212,7 +197,7 @@ XML_LANGUAGES = frozenset(
 
 
 def get_counts(file: Path) -> LineCounter:
-    line_counter = LineCounter
+    line_counter: type[LineCounter] = LineCounter
     kwargs = {}
     if file.suffix in XML_LANGUAGES:
         line_counter = XmlLineCounter
