@@ -19,7 +19,7 @@ class SlocHtmlTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/examples/server/public/index.html"
         lines = file.read_text().splitlines()
 
-        for i in range(274, 1000, 1):
+        for i in range(200, len(lines), 200):
             temp_file = TEMP / "t.html"
             TEMP.mkdir(exist_ok=True)
             with open(temp_file, "w") as fout:
