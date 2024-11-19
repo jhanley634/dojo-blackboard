@@ -46,8 +46,23 @@ class SlocHtmlTest(unittest.TestCase):
 
     def test_php(self) -> None:
         lines = [
-            "<?php",
-            "  x = 1;",
+            "<?php",  # No, cloc does not view this as a shebang.
+            "x = 1;",
         ]
         cnt = XmlLineCounter(lines)
         self.assertEqual({"blank": 0, "comment": 0, "code": 2}, cnt.__dict__)
+
+        lines = [
+            "class Authenticate extends Middleware",
+            "{",
+            "    /**",
+            "     * Get the path the user should be redirected to when they are not authenticated.",
+            "     *",
+            r"     * @param  \Illuminate\Http\Request  $request",
+            "     * @return string|null",
+            "     */",
+            "    protected function redirectTo($request)",
+        ]
+        cnt = XmlLineCounter(lines)
+        assert cnt.blank == 0
+        # self.assertEqual({"blank": 0, "comment": 6, "code": 3}, cnt.__dict__)

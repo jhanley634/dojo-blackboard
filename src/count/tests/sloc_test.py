@@ -207,8 +207,11 @@ class TestCloc(unittest.TestCase):
     SKIP_LANGUAGE = frozenset(
         {
             ".c",
+            ".comp",
             ".cpp",
             ".css",
+            ".cu",
+            ".cuh",
             ".feature",
             ".h",
             ".hpp",
@@ -218,6 +221,7 @@ class TestCloc(unittest.TestCase):
             ".mjs",
             ".nix",
             ".svg",
+            ".swift",
             ".txt",
             ".vim",
             ".xml",
@@ -227,6 +231,7 @@ class TestCloc(unittest.TestCase):
         {
             _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk",
             _REPOS / "docker-php-tutorial/config/cors.php",
+            _REPOS / "docker-php-tutorial/config/mail.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
@@ -248,7 +253,7 @@ class TestCloc(unittest.TestCase):
         in_files.append(_REPOS / "llama.cpp/mypy.ini")
 
         # All the in_files work properly; examine just a subset in the interest of speed.
-        for file in in_files[:4]:
+        for file in in_files[:40]:
             if (
                 file.is_file()
                 and file.suffix

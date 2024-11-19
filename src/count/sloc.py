@@ -41,7 +41,9 @@ class LineCounter:
     """
 
     def __init__(self, lines: Iterable[str] | Path) -> None:
+        self.suffix = ""
         if isinstance(lines, Path):
+            self.suffix = lines.suffix
             lines = lines.read_text().splitlines()
         lines = list(map(str.rstrip, lines))
 
@@ -50,6 +52,7 @@ class LineCounter:
         self.comment = sum(bool(lt == LineType.COMMENT) for lt in line_types)
         self.code = sum(bool(lt == LineType.CODE) for lt in line_types)
         self.__dict__.pop("comment_pattern", None)
+        self.__dict__.pop("suffix", None)
 
         assert self.blank + self.comment + self.code == len(lines), len(lines)
 
@@ -68,7 +71,7 @@ class LineCounter:
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
-            if initial_slash_star_re.match(line):
+            if initial_slash_star_re.match(line) and self.suffix not in (".php"):
                 line = COMMENT_MARKER + line
             line = elide_slash_star_comment_span(line)
             if in_comment:
