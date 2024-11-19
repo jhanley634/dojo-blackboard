@@ -36,9 +36,11 @@ class LineCounter:
     We define "what cloc says" as the "correct" line counts.
     """
 
-    def __init__(self, in_file: Path) -> None:
-        with open(in_file) as fin:
-            lines = list(map(str.rstrip, fin))
+    def __init__(self, lines: Iterable[str] | Path) -> None:
+        if isinstance(lines, Path):
+            with open(lines) as fin:
+                lines = fin.readlines()
+        lines = list(map(str.rstrip, lines))
 
         self.blank = sum(1 for line in lines if not line)
         line_types = list(self._get_line_types(lines))
@@ -63,9 +65,11 @@ class LineCounter:
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
-            line = elide_comment_span(line)
+            line = line.replace("<!--", "/*")  # Make HTML multi-line comments resemble C++.
+            line = line.replace("-->", "*/")
             if initial_slash_star_re.match(line):
                 line = COMMENT_MARKER + line
+            line = elide_comment_span(line)
             if in_comment:
                 line = COMMENT_MARKER + line
                 i = line.find("*/")
@@ -74,6 +78,7 @@ class LineCounter:
                     in_comment = False
             if "/*" in line:
                 in_comment = True
+            print(in_comment, "\t", line)
             yield line
 
     @staticmethod

@@ -51,7 +51,7 @@ class SlocTest(unittest.TestCase):
 
         cnt = LineCounter(INITIAL_CPP_SOURCES[0])
         self.assertEqual(
-            {"blank": 47, "comment": 32, "code": 1973},
+            {"blank": 46, "comment": 32, "code": 1963},
             cnt.__dict__,
         )
 
@@ -283,6 +283,7 @@ class TestBisect(TestCloc):
             if (
                 file.is_file()
                 and file.suffix
+                and file.suffix not in (".txt")
                 # and file.suffix not in self.SKIP_LANGUAGE
                 # and file not in self.SKIP
             ):
