@@ -191,6 +191,7 @@ XML_LANGUAGES = frozenset(
     {
         ".htm",
         ".html",
+        ".svg",
         ".xml",
     }
 )

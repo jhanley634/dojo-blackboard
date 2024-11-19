@@ -2,25 +2,18 @@ import unittest
 
 from bboard.util.testing import mark_slow_integration_test
 from count.cloc import get_cloc_triple
-from count.sloc import XmlLineCounter, get_counts
+from count.sloc import XML_LANGUAGES, XmlLineCounter, get_counts
 from count.tests.sloc_test import _REPOS
 
 assert get_counts
 
 
 class SlocHtmlTest(unittest.TestCase):
-    INCLUDE_LANGUAGES = frozenset(
-        {
-            ".htm",
-            ".html",
-            ".xml",
-        }
-    )
 
     @mark_slow_integration_test  # type: ignore [misc]
-    def test_html_files(self) -> None:
+    def test_xml_files(self) -> None:
         for file in _REPOS.glob("**/*"):
-            if file.suffix not in self.INCLUDE_LANGUAGES:
+            if file.suffix not in XML_LANGUAGES:
                 continue
             cnt = get_counts(file)
             self.assertTrue(cnt.__dict__)
