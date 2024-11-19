@@ -78,7 +78,6 @@ class LineCounter:
                     in_comment = False
             if "/*" in line:
                 in_comment = True
-            print(in_comment, "\t", line)
             yield line
 
     @staticmethod

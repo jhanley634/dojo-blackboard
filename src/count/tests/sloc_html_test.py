@@ -33,8 +33,10 @@ class SlocHtmlTest(unittest.TestCase):
             "<body>",
             "  <!-- brief comment -->",
             "  <h1>This is a Heading</h1>",
+            "  <!-- multi-line comment",
             "  <p>This is paragraph one.</p>",
             "  <p>This is paragraph two.</p>",
+            "  end of comment -->",
             "</body>",
             "</html>",
         ]
@@ -42,5 +44,4 @@ class SlocHtmlTest(unittest.TestCase):
             fout.write("\n".join([*lines, ""]))
 
         cnt = LineCounter(lines)
-        print(cnt)
-        self.assertEqual({"blank": 0, "comment": 1, "code": 11}, cnt.__dict__)
+        self.assertEqual({"blank": 0, "comment": 5, "code": 9}, cnt.__dict__)
