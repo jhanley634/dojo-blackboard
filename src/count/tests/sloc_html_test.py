@@ -1,5 +1,6 @@
 import unittest
 
+from count.bisect import TEMP
 from count.cloc import get_cloc_triple
 from count.sloc import LineCounter, get_counts
 from count.tests.sloc_test import _REPOS
@@ -16,12 +17,21 @@ class SlocHtmlTest(unittest.TestCase):
 
     def test_index_html(self) -> None:
         file = _REPOS / "llama.cpp/examples/server/public/index.html"
-        cloc_cnt = get_cloc_triple(file)
-        # cnt = get_counts(file)
+        lines = file.read_text().splitlines()
 
-        self.assertEqual({"blank": 31, "comment": 29, "code": 647}, cloc_cnt.__dict__)
+        for i in range(18, 1000, 1):
+            temp_file = TEMP / "t.html"
+            TEMP.mkdir(exist_ok=True)
+            with open(temp_file, "w") as fout:
+                fout.write("\n".join([*lines[:i], ""]))
 
-        # self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+            cloc_cnt = get_cloc_triple(temp_file)
+            cnt = get_counts(temp_file)
+
+            # self.assertEqual({"blank": 31, "comment": 29, "code": 647}, cloc_cnt.__dict__)
+
+            print(i)
+            self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
 
     def test_html(self) -> None:
         lines = [

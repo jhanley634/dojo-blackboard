@@ -38,8 +38,7 @@ class LineCounter:
 
     def __init__(self, lines: Iterable[str] | Path) -> None:
         if isinstance(lines, Path):
-            with open(lines) as fin:
-                lines = fin.readlines()
+            lines = lines.read_text().splitlines()
         lines = list(map(str.rstrip, lines))
 
         self.blank = sum(1 for line in lines if not line)
