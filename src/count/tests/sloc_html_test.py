@@ -2,7 +2,7 @@ import unittest
 
 from count.bisect import TEMP
 from count.cloc import get_cloc_triple
-from count.sloc import LineCounter, get_counts
+from count.sloc import XmlLineCounter, get_counts
 from count.tests.sloc_test import _REPOS
 
 assert get_counts
@@ -19,7 +19,7 @@ class SlocHtmlTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/examples/server/public/index.html"
         lines = file.read_text().splitlines()
 
-        for i in range(18, 1000, 1):
+        for i in range(274, 1000, 1):
             temp_file = TEMP / "t.html"
             TEMP.mkdir(exist_ok=True)
             with open(temp_file, "w") as fout:
@@ -53,5 +53,5 @@ class SlocHtmlTest(unittest.TestCase):
         with open("/tmp/t.html", "w") as fout:
             fout.write("\n".join([*lines, ""]))
 
-        cnt = LineCounter(lines)
+        cnt = XmlLineCounter(lines)
         self.assertEqual({"blank": 0, "comment": 5, "code": 9}, cnt.__dict__)

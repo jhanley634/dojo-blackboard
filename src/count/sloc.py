@@ -25,7 +25,10 @@ def get_source_files(folder: Path) -> list[Path]:
 
 _simple_comment_re = re.compile(r"^\s*//.*")
 _slash_star_star_slash_re = re.compile(r"/\*.*\*/")
-elide_comment_span = partial(_slash_star_star_slash_re.sub, " ")
+elide_slash_star_comment_span = partial(_slash_star_star_slash_re.sub, " ")
+
+_long_xml_comment_re = re.compile(r"<!--.*-->")
+elide_long_xml_comment_span = partial(_long_xml_comment_re.sub, " ")
 
 COMMENT_MARKER = "// COMMENT "
 
@@ -64,11 +67,9 @@ class LineCounter:
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
-            line = line.replace("<!--", "/*")  # Make HTML multi-line comments resemble C++.
-            line = line.replace("-->", "*/")
             if initial_slash_star_re.match(line):
                 line = COMMENT_MARKER + line
-            line = elide_comment_span(line)
+            line = elide_slash_star_comment_span(line)
             if in_comment:
                 line = COMMENT_MARKER + line
                 i = line.find("*/")
@@ -99,6 +100,27 @@ class LineCounter:
             lines[0] = f"SHEBANG {lines[0]}"
 
         yield from lines
+
+
+class XmlLineCounter(LineCounter):
+
+    def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
+        """Prepends // marker to each commented line, accounting <!-- for multiline comments -->."""
+        initial_long_comment_re = re.compile(r"^\s*<!--")
+        in_comment = False
+        for line in lines:
+            if initial_long_comment_re.match(line):
+                line = COMMENT_MARKER + line
+            line = elide_long_xml_comment_span(line)
+            if in_comment:
+                line = COMMENT_MARKER + line
+                i = line.find("-->")
+                if i >= 0:
+                    line = COMMENT_MARKER + line[i + 3 :]
+                    in_comment = False
+            if "<!--" in line:
+                in_comment = True
+            yield line
 
 
 class BashLineCounter(LineCounter):
@@ -162,11 +184,20 @@ HASH_MEANS_COMMENT_LANGUAGES = frozenset(
         ".yml",
     }
 )
+XML_LANGUAGES = frozenset(
+    {
+        ".htm",
+        ".html",
+        ".xml",
+    }
+)
 
 
 def get_counts(file: Path) -> LineCounter:
     line_counter = LineCounter
     kwargs = {}
+    if file.suffix in XML_LANGUAGES:
+        line_counter = XmlLineCounter
     if file.suffix in HASH_MEANS_COMMENT_LANGUAGES:
         line_counter = BashLineCounter
     if file.suffix == ".bat":

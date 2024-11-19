@@ -12,7 +12,7 @@ from count.sloc import (
     BashLineCounter,
     LineCounter,
     PythonLineCounter,
-    elide_comment_span,
+    elide_slash_star_comment_span,
     get_counts,
     get_source_files,
     main,
@@ -156,9 +156,9 @@ class SlocTest(unittest.TestCase):
         )
 
     def test_regex(self) -> None:
-        self.assertEqual(" ", elide_comment_span("/* hello */"))
-        self.assertEqual(" ", elide_comment_span("/* a */ b /* c */"))
-        self.assertEqual("d   h", elide_comment_span("d /* e */ f /* g */ h"))
+        self.assertEqual(" ", elide_slash_star_comment_span("/* hello */"))
+        self.assertEqual(" ", elide_slash_star_comment_span("/* a */ b /* c */"))
+        self.assertEqual("d   h", elide_slash_star_comment_span("d /* e */ f /* g */ h"))
 
 
 class TestCloc(unittest.TestCase):
