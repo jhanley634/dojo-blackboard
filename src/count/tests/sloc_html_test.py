@@ -1,6 +1,6 @@
 import unittest
 
-from count.bisect import TEMP
+from bboard.util.testing import mark_slow_integration_test
 from count.cloc import get_cloc_triple
 from count.sloc import XmlLineCounter, get_counts
 from count.tests.sloc_test import _REPOS
@@ -11,24 +11,23 @@ assert get_counts
 class SlocHtmlTest(unittest.TestCase):
     INCLUDE_LANGUAGES = frozenset(
         {
+            ".htm",
             ".html",
+            ".xml",
         }
     )
 
-    def test_index_html(self) -> None:
-        file = _REPOS / "llama.cpp/examples/server/public/index.html"
-        lines = file.read_text().splitlines()
+    @mark_slow_integration_test  # type: ignore [misc]
+    def test_html_files(self) -> None:
+        for file in _REPOS.glob("**/*"):
+            if file.suffix not in self.INCLUDE_LANGUAGES:
+                continue
+            cnt = get_counts(file)
+            self.assertTrue(cnt.__dict__)
 
-        i = len(lines)
-        temp_file = TEMP / "t.html"
-        TEMP.mkdir(exist_ok=True)
-        with open(temp_file, "w") as fout:
-            fout.write("\n".join([*lines[:i], ""]))
-
-        cloc_cnt = get_cloc_triple(temp_file)
-        cnt = get_counts(temp_file)
-        self.assertEqual({"blank": 31, "comment": 29, "code": 647}, cloc_cnt.__dict__)
-        self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+            cloc_cnt = get_cloc_triple(file)
+            cnt = get_counts(file)
+            self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
 
     def test_html(self) -> None:
         lines = [
@@ -47,8 +46,5 @@ class SlocHtmlTest(unittest.TestCase):
             "</body>",
             "</html>",
         ]
-        with open("/tmp/t.html", "w") as fout:
-            fout.write("\n".join([*lines, ""]))
-
         cnt = XmlLineCounter(lines)
         self.assertEqual({"blank": 0, "comment": 5, "code": 9}, cnt.__dict__)
