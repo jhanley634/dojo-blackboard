@@ -19,19 +19,16 @@ class SlocHtmlTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/examples/server/public/index.html"
         lines = file.read_text().splitlines()
 
-        for i in range(200, len(lines), 200):
-            temp_file = TEMP / "t.html"
-            TEMP.mkdir(exist_ok=True)
-            with open(temp_file, "w") as fout:
-                fout.write("\n".join([*lines[:i], ""]))
+        i = len(lines)
+        temp_file = TEMP / "t.html"
+        TEMP.mkdir(exist_ok=True)
+        with open(temp_file, "w") as fout:
+            fout.write("\n".join([*lines[:i], ""]))
 
-            cloc_cnt = get_cloc_triple(temp_file)
-            cnt = get_counts(temp_file)
-
-            # self.assertEqual({"blank": 31, "comment": 29, "code": 647}, cloc_cnt.__dict__)
-
-            print(i)
-            self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+        cloc_cnt = get_cloc_triple(temp_file)
+        cnt = get_counts(temp_file)
+        self.assertEqual({"blank": 31, "comment": 29, "code": 647}, cloc_cnt.__dict__)
+        self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
 
     def test_html(self) -> None:
         lines = [
