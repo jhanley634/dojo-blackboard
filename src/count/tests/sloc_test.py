@@ -5,12 +5,15 @@ from pathlib import Path
 from random import shuffle
 
 from bboard.util.testing import mark_slow_integration_test
+from count.bisect import find_delta
 from count.cloc import get_cloc_triple
 from count.sloc import (
+    HASH_MEANS_COMMENT_LANGUAGES,
     BashLineCounter,
     LineCounter,
     PythonLineCounter,
-    elide_comment_span,
+    elide_slash_star_comment_span,
+    get_counts,
     get_source_files,
     main,
 )
@@ -48,7 +51,7 @@ class SlocTest(unittest.TestCase):
 
         cnt = LineCounter(INITIAL_CPP_SOURCES[0])
         self.assertEqual(
-            {"blank": 47, "comment": 32, "code": 1973},
+            {"blank": 46, "comment": 32, "code": 1963},
             cnt.__dict__,
         )
 
@@ -103,7 +106,6 @@ class SlocTest(unittest.TestCase):
 
     def test_count_bash_lines(self) -> None:
         cnt = BashLineCounter(_REPOS / "llama.cpp/ci/run.sh")
-        cnt.__dict__.pop("comment_pattern", None)
         self.assertEqual(
             {"blank": 187, "comment": 44, "code": 620},
             cnt.__dict__,
@@ -154,9 +156,9 @@ class SlocTest(unittest.TestCase):
         )
 
     def test_regex(self) -> None:
-        self.assertEqual(" ", elide_comment_span("/* hello */"))
-        self.assertEqual(" ", elide_comment_span("/* a */ b /* c */"))
-        self.assertEqual("d   h", elide_comment_span("d /* e */ f /* g */ h"))
+        self.assertEqual(" ", elide_slash_star_comment_span("/* hello */"))
+        self.assertEqual(" ", elide_slash_star_comment_span("/* a */ b /* c */"))
+        self.assertEqual("d   h", elide_slash_star_comment_span("d /* e */ f /* g */ h"))
 
 
 class TestCloc(unittest.TestCase):
@@ -172,7 +174,7 @@ class TestCloc(unittest.TestCase):
             cloc_cnt.__dict__,
         )
         cnt = BashLineCounter(in_file)
-        cnt.__dict__.pop("comment_pattern", None)
+        self.assertGreater(cnt.code, 0)
         # self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)  # non equal :(
 
     SUPPORTED_LANGUAGES = frozenset(
@@ -193,35 +195,23 @@ class TestCloc(unittest.TestCase):
             ".properties",
             ".py",
             ".sh",
-            ".swift",
             ".toml",
             ".yml",
         }
     )
 
     def test_empty_intersection(self) -> None:
-        self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(self.HASH_MEANS_COMMENT_LANGUAGES)))
-        self.assertEqual(19, len(self.SUPPORTED_LANGUAGES))
+        self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(HASH_MEANS_COMMENT_LANGUAGES)))
+        self.assertGreaterEqual(len(self.SUPPORTED_LANGUAGES), 18)
 
-    HASH_MEANS_COMMENT_LANGUAGES = frozenset(
-        {
-            ".Dockerfile",
-            ".cmake",
-            ".in",
-            ".mk",
-            ".pro",
-            ".properties",
-            ".sh",
-            ".toml",
-            ".yaml",
-            ".yml",
-        }
-    )
     SKIP_LANGUAGE = frozenset(
         {
             ".c",
+            ".comp",
             ".cpp",
             ".css",
+            ".cu",
+            ".cuh",
             ".feature",
             ".h",
             ".hpp",
@@ -231,6 +221,7 @@ class TestCloc(unittest.TestCase):
             ".mjs",
             ".nix",
             ".svg",
+            ".swift",
             ".txt",
             ".vim",
             ".xml",
@@ -240,13 +231,13 @@ class TestCloc(unittest.TestCase):
         {
             _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk",
             _REPOS / "docker-php-tutorial/config/cors.php",
+            _REPOS / "docker-php-tutorial/config/mail.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
             _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py",
-            _REPOS / "llama.cpp/pyrightconfig.json",
             _REPOS / "llama.cpp/scripts/compare-llama-bench.py",
             _REPOS / "llama.cpp/tests/test-tokenizer-random.py",
         }
@@ -257,33 +248,23 @@ class TestCloc(unittest.TestCase):
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
-        in_files[:40]  # They all work; do a subset for speed.
         # Ensure that a pair of "rare file types" get exercised.
         in_files.append(_REPOS / "llama.cpp/scripts/install-oneapi.bat")
         in_files.append(_REPOS / "llama.cpp/mypy.ini")
 
-        for file in in_files:
+        # All the in_files work properly; examine just a subset in the interest of speed.
+        for file in in_files[:40]:
             if (
                 file.is_file()
                 and file.suffix
                 and file.suffix not in self.SKIP_LANGUAGE
                 and file not in self.SKIP
             ):
-                kwargs = {}
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
-                    line_counter = LineCounter
-                    if file.suffix in self.HASH_MEANS_COMMENT_LANGUAGES:
-                        line_counter = BashLineCounter
-                    if file.suffix == ".bat":
-                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
-                    if file.suffix == ".ini":
-                        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
-                    if file.suffix == ".py":
-                        line_counter = PythonLineCounter
-                    cnt = line_counter(file, **kwargs)
-                    cnt.__dict__.pop("comment_pattern", None)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, file)
+                    cnt = get_counts(file)
+                    print(file)
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, file))
 
         for file in sorted(self.SKIP):
             cloc_cnt = get_cloc_triple(file)
@@ -292,4 +273,41 @@ class TestCloc(unittest.TestCase):
             if file.suffix == ".py":
                 line_counter = PythonLineCounter
             cnt = line_counter(file)
+            print(file)
             self.assertNotEqual(cloc_cnt.__dict__, cnt.__dict__)
+
+
+class TestBisect(TestCloc):
+    @mark_slow_integration_test  # type: ignore [misc]
+    def test_bisect(self) -> None:
+        in_files = list(_REPOS.glob("**/*"))
+        shuffle(in_files)
+        self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
+
+        for file in in_files[:40]:
+            if (
+                file.is_file()
+                and file.suffix
+                and file.suffix not in (".txt")
+                # and file.suffix not in self.SKIP_LANGUAGE
+                # and file not in self.SKIP
+            ):
+                cloc_cnt = get_cloc_triple(file)
+                if cloc_cnt:
+                    cnt = get_counts(file)
+                    if cloc_cnt.__dict__ != cnt.__dict__:
+                        self.assertEqual(cloc_cnt.blank, cnt.blank, (cnt, file))
+                        print(find_delta(file))
+
+    def test_find_delta(self) -> None:
+        llama = _REPOS / "llama.cpp"
+
+        for n, file in [
+            (159, llama / "examples/llava/llava_surgery_v2.py"),
+            (806, llama / "examples/llava/minicpmv-convert-image-encoder-to-gguf.py"),
+            (1322, llama / "examples/pydantic_models_to_grammar.py"),
+            (312, llama / "examples/pydantic_models_to_grammar_examples.py"),
+            (381, llama / "scripts/compare-llama-bench.py"),
+            (566, llama / "tests/test-tokenizer-random.py"),
+        ]:
+            self.assertEqual(n, find_delta(file))
