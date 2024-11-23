@@ -18,7 +18,9 @@ jobs:
 
       - name: Create virtual environment and install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-          make install lint test
+          id
+          which python
+          python --version
+          sudo id
+          sudo apt install -y libgirepository1.0-dev
+          time make install lint test
