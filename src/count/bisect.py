@@ -66,7 +66,7 @@ class DiscrepancyFinder:
     @lru_cache
     def _counts_equal(self, n: int) -> bool:
         cloc_cnt, cnt = self._get_both_counts(n)
-        return bool(cloc_cnt == cnt)
+        return dict(cloc_cnt.__dict__) == dict(cnt.__dict__)
 
     def _get_both_counts(self, n: int) -> tuple[ClocCounts, LineCounter]:
         temp_file = TEMP / f"upto_{n}{self.suffix}"
