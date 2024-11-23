@@ -12,11 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Create virtual environment and install dependencies
-        uses: actions/setup-python@v3
         with:
             python-version: ${{ matrix.python-version }}
+
+      - name: Create virtual environment and install dependencies
         run: |
           which python
           python --version
