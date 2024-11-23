@@ -13,8 +13,7 @@ class SlocHtmlTest(unittest.TestCase):
     @mark_slow_integration_test  # type: ignore [misc]
     def ztest_xml_files(self) -> None:
         for file in _REPOS.glob("**/*"):
-            sup_lang = set()
-            sup_lang.add(TestCloc.SUPPORTED_LANGUAGES)
+            sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
             if file.suffix in XML_LANGUAGES | sup_lang:
                 print(file.suffix, "\t", file)
                 cnt = get_counts(file)
