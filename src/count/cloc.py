@@ -24,7 +24,7 @@ _counts_re = re.compile(r"^[\w +/-]+\s+1\s+(\d+)\s+(\d+)\s+(\d+)$")
 def get_cloc_triple(in_file: Path) -> ClocCounts | None:
     """Calls the cloc command and parses its output."""
 
-    result = subprocess.check_output(["/usr/local/bin/cloc", in_file]).decode()
+    result = subprocess.check_output(["cloc", in_file]).decode()
     lines = result.split("\n")
 
     assert lines[-1] == "", lines[-1]

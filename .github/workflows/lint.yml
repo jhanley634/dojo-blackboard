@@ -1,0 +1,30 @@
+name: lint
+
+on: [push, pull_request]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Create virtual environment and install dependencies
+        run: |
+          which python
+          python --version
+          id; sudo id
+          sudo apt install -y cloc libgirepository1.0-dev
+          time make install lint
+          source $HOME/.venv/dojo-blackboard/bin/activate && python -m ensurepip --upgrade
+          source $HOME/.venv/dojo-blackboard/bin/activate && python -m pip install --upgrade setuptools
+          source $HOME/.venv/dojo-blackboard/bin/activate && env PYTHONPATH=src:. python -m unittest -v tests/[girw]*_test.py
