@@ -14,14 +14,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Create virtual environment and install dependencies
         run: |
-          id
           which python
           python --version
-          sudo id
+          id; sudo id
           sudo apt install -y cloc libgirepository1.0-dev
           time make install lint
           source $HOME/.venv/dojo-blackboard/bin/activate && env PYTHONPATH=src:. python -m unittest -v tests/[girw]*_test.py
