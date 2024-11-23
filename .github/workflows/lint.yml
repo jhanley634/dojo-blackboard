@@ -23,4 +23,5 @@ jobs:
           python --version
           sudo id
           sudo apt install -y cloc libgirepository1.0-dev
-          time make install lint test
+          time make install lint
+          source $HOME/.venv/dojo-blackboard/bin/activate && env PYTHONPATH=src:. python -m unittest -v tests/[girw]*_test.py
