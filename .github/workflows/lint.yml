@@ -28,3 +28,4 @@ jobs:
           source $HOME/.venv/dojo-blackboard/bin/activate && python -m ensurepip --upgrade
           source $HOME/.venv/dojo-blackboard/bin/activate && python -m pip install --upgrade setuptools
           source $HOME/.venv/dojo-blackboard/bin/activate && env PYTHONPATH=src:. python -m unittest -v tests/[girw]*_test.py
+          source $HOME/.venv/dojo-blackboard/bin/activate && python -c 'import basemap'
