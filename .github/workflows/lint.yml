@@ -6,17 +6,17 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
+      max-parallel: 3
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Create virtual environment and install dependencies
         uses: actions/setup-python@v3
         with:
-          python-version: "3.11"
-
-      - name: Create virtual environment and install dependencies
+            python-version: ${{ matrix.python-version }}
         run: |
           which python
           python --version
