@@ -264,7 +264,7 @@ class TestCloc(unittest.TestCase):
                 if cloc_cnt:
                     cnt = get_counts(file)
                     print(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, file)
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, file))
 
         for file in sorted(self.SKIP):
             cloc_cnt = get_cloc_triple(file)

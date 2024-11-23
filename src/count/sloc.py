@@ -207,12 +207,13 @@ def get_counts(file: Path) -> LineCounter:
         line_counter = XmlLineCounter
     if file.suffix in HASH_MEANS_COMMENT_LANGUAGES:
         line_counter = BashLineCounter
-    if file.suffix == ".bat":
-        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
-    if file.suffix == ".ini":
-        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
-    if file.suffix == ".py":
-        line_counter = PythonLineCounter
+    match file.suffix:
+        case ".bat":
+            line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
+        case ".ini":
+            line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
+        case ".py":
+            line_counter = PythonLineCounter
 
     return line_counter(file, **kwargs)
 
