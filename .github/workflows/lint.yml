@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python 3.12
+      - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.12"
+          python-version: "3.11"
 
       - name: Create virtual environment and install dependencies
         run: |
@@ -22,5 +22,5 @@ jobs:
           which python
           python --version
           sudo id
-          sudo apt install -y libgirepository1.0-dev
+          sudo apt install -y cloc libgirepository1.0-dev
           time make install lint test
