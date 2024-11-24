@@ -2,10 +2,9 @@ import unittest
 from pathlib import Path
 
 from bboard.util.testing import mark_slow_integration_test
-from count.bisect import TEMP
 from count.cloc import get_cloc_triple
 from count.sloc import XML_LANGUAGES, XmlLineCounter, get_counts
-from count.tests.sloc_test import _REPOS, TestCloc
+from count.tests.sloc_test import TestCloc
 
 assert get_counts
 
@@ -21,7 +20,7 @@ class SlocHtmlTest(unittest.TestCase):
         # for file in _REPOS.glob("**/*"):
         for file in sorted(Path("/tmp/repos/llama.cpp/ggml/src/**").glob("*.cu")):
             sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
-            if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 100:
+            if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 1_000_000:
                 print(file.suffix, "\t", file)
                 cnt = get_counts(file)
                 self.assertTrue(cnt.__dict__)

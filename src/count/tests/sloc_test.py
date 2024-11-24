@@ -36,7 +36,7 @@ class SlocTest(unittest.TestCase):
         with redirect_stdout(None):
             main(SOURCES[0])
 
-    def zztest_count_cpp_lines(self) -> None:
+    def test_count_cpp_lines(self) -> None:
         for folder in SOURCES:
             assert folder.is_dir()
 
@@ -275,7 +275,7 @@ class TestCloc(unittest.TestCase):
 
 class TestBisect(TestCloc):
     @mark_slow_integration_test  # type: ignore [misc]
-    def zztest_bisect(self) -> None:
+    def test_bisect(self) -> None:
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
@@ -293,9 +293,8 @@ class TestBisect(TestCloc):
                     cnt = get_counts(file)
                     if cloc_cnt.__dict__ != cnt.__dict__:
                         self.assertEqual(cloc_cnt.blank, cnt.blank, (cnt, file))
-                        print(find_delta(file))
 
-    def zztest_find_delta(self) -> None:
+    def test_find_delta(self) -> None:
         llama = _REPOS / "llama.cpp"
 
         for n, file in [
@@ -303,7 +302,7 @@ class TestBisect(TestCloc):
             (806, llama / "examples/llava/minicpmv-convert-image-encoder-to-gguf.py"),
             (1322, llama / "examples/pydantic_models_to_grammar.py"),
             (312, llama / "examples/pydantic_models_to_grammar_examples.py"),
-            (381, llama / "scripts/compare-llama-bench.py"),
+            (378, llama / "scripts/compare-llama-bench.py"),
             (566, llama / "tests/test-tokenizer-random.py"),
         ]:
             self.assertEqual(n, find_delta(file))

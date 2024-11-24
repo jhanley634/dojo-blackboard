@@ -28,8 +28,6 @@ def find_delta(in_file: Path, *, paranoid: bool = False) -> int:
 
     assert len(lines) > 0
 
-    print(f"\n{in_file=}")
-
     bisector = DiscrepancyFinder(lines, in_file.suffix)
     return bisector.bisect(len(lines))
 
@@ -46,8 +44,6 @@ class DiscrepancyFinder:
         """Locates the first source code line which produces a discrepancy
         between cloc and SlocTest.
         """
-        print(n)
-
         lines = self.lines
         if n <= 1 or n >= len(lines) - 2:
             return n
@@ -72,7 +68,6 @@ class DiscrepancyFinder:
 
     def _get_both_counts(self, n: int) -> tuple[ClocCounts, LineCounter]:
         temp_file = TEMP / f"upto_{n}{self.suffix}"
-        print(n, "\t", temp_file)
         with open(temp_file, "w") as fout:
             fout.writelines(self.lines[:n])
         cloc_cnt = get_cloc_triple(temp_file)

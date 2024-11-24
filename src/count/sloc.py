@@ -217,6 +217,8 @@ def get_counts(file: Path) -> LineCounter:
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*//"}
         case ".ini":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
+        case ".json":
+            line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^JSON_LACKS_COMMENTS"}
         case ".py":
             line_counter = PythonLineCounter
 
