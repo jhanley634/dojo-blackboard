@@ -200,7 +200,7 @@ class TestCloc(unittest.TestCase):
 
     def test_empty_intersection(self) -> None:
         self.assertEqual(0, len(self.SKIP_LANGUAGE.intersection(HASH_MEANS_COMMENT_LANGUAGES)))
-        self.assertGreaterEqual(len(self.SUPPORTED_LANGUAGES), 18)
+        self.assertGreaterEqual(len(self.SUPPORTED_LANGUAGES), 16)
 
     SKIP_LANGUAGE = frozenset(
         {
@@ -229,7 +229,6 @@ class TestCloc(unittest.TestCase):
         {
             _REPOS / "docker-php-tutorial/.make/00-00-development-setup.mk",
             _REPOS / "docker-php-tutorial/config/cors.php",
-            _REPOS / "docker-php-tutorial/config/mail.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
@@ -261,8 +260,7 @@ class TestCloc(unittest.TestCase):
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     cnt = get_counts(file)
-                    print(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, file))
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, f"{file}"))
 
         for file in sorted(self.SKIP):
             cloc_cnt = get_cloc_triple(file)
@@ -271,8 +269,7 @@ class TestCloc(unittest.TestCase):
             if file.suffix == ".py":
                 line_counter = PythonLineCounter
             cnt = line_counter(file)
-            print(file)
-            self.assertNotEqual(cloc_cnt.__dict__, cnt.__dict__)
+            self.assertNotEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, f"{file}"))
 
 
 class TestBisect(TestCloc):

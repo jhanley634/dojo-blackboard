@@ -210,6 +210,8 @@ def get_counts(file: Path) -> LineCounter:
     match file.suffix:
         case ".bat":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
+        case ".cu":
+            line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*//"}
         case ".ini":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
         case ".py":

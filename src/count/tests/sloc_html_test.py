@@ -18,8 +18,8 @@ class SlocHtmlTest(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
     def test_xml_files(self) -> None:
-        for file in _REPOS.glob("**/*"):
-            # for file in TEMP.glob("*.php"):
+        # for file in _REPOS.glob("**/*"):
+        for file in sorted(Path("/tmp/repos/llama.cpp/ggml/src/**").glob("*.cu")):
             sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
             if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 100:
                 print(file.suffix, "\t", file)
