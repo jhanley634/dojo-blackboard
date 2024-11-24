@@ -68,6 +68,7 @@ class LineCounter:
 
     def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends // marker to each commented line, accounting /* for multiline comments */."""
+        comment_pattern = re.compile(r"^\s*(#|//)")
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
@@ -82,6 +83,8 @@ class LineCounter:
                     in_comment = False
             if "/*" in line:
                 in_comment = True
+            if comment_pattern.match(line) and not line.startswith(COMMENT_MARKER):
+                line = COMMENT_MARKER + line
             yield line
 
     @staticmethod

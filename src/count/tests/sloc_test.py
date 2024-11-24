@@ -76,6 +76,7 @@ class SlocTest(unittest.TestCase):
         self.assertEqual(
             {"blank": 5, "comment": 12, "code": 15},
             cnt.__dict__,
+            INITIAL_PHP_SOURCES[1],
         )
 
         cnt = LineCounter(_REPOS / "docker-php-tutorial/config/database.php")
