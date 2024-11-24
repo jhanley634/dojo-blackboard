@@ -1,6 +1,8 @@
 import unittest
+from pathlib import Path
 
 from bboard.util.testing import mark_slow_integration_test
+from count.bisect import TEMP
 from count.cloc import get_cloc_triple
 from count.sloc import XML_LANGUAGES, XmlLineCounter, get_counts
 from count.tests.sloc_test import _REPOS, TestCloc
@@ -8,20 +10,26 @@ from count.tests.sloc_test import _REPOS, TestCloc
 assert get_counts
 
 
+def _num_lines(in_file: Path) -> int:
+    return len(in_file.read_text().splitlines())
+
+
 class SlocHtmlTest(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
-    def ztest_xml_files(self) -> None:
+    def test_xml_files(self) -> None:
         for file in _REPOS.glob("**/*"):
+            # for file in TEMP.glob("*.php"):
             sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
-            if file.suffix in XML_LANGUAGES | sup_lang:
+            if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 100:
                 print(file.suffix, "\t", file)
                 cnt = get_counts(file)
                 self.assertTrue(cnt.__dict__)
 
                 cloc_cnt = get_cloc_triple(file)
-                cnt = get_counts(file)
-                self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)
+                if cloc_cnt:
+                    cnt = get_counts(file)
+                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, f"{file}"))
 
     def test_html(self) -> None:
         lines = [

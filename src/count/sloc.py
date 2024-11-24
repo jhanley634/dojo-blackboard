@@ -71,7 +71,7 @@ class LineCounter:
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
-            if initial_slash_star_re.match(line) and self.suffix not in (".php"):
+            if initial_slash_star_re.match(line):
                 line = COMMENT_MARKER + line
             line = elide_slash_star_comment_span(line)
             if in_comment:

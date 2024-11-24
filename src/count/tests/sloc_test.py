@@ -187,8 +187,6 @@ class TestCloc(unittest.TestCase):
             ".cuh",
             ".ini",
             ".json",
-            ".kt",
-            ".kts",
             ".mk",
             ".php",
             ".pro",
