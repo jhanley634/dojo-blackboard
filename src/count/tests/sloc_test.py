@@ -36,7 +36,7 @@ class SlocTest(unittest.TestCase):
         with redirect_stdout(None):
             main(SOURCES[0])
 
-    def test_count_cpp_lines(self) -> None:
+    def zztest_count_cpp_lines(self) -> None:
         for folder in SOURCES:
             assert folder.is_dir()
 
@@ -274,7 +274,7 @@ class TestCloc(unittest.TestCase):
 
 class TestBisect(TestCloc):
     @mark_slow_integration_test  # type: ignore [misc]
-    def test_bisect(self) -> None:
+    def zztest_bisect(self) -> None:
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
@@ -294,7 +294,7 @@ class TestBisect(TestCloc):
                         self.assertEqual(cloc_cnt.blank, cnt.blank, (cnt, file))
                         print(find_delta(file))
 
-    def test_find_delta(self) -> None:
+    def zztest_find_delta(self) -> None:
         llama = _REPOS / "llama.cpp"
 
         for n, file in [

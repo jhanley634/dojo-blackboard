@@ -71,9 +71,9 @@ class LineCounter:
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
+            line = elide_slash_star_comment_span(line)
             if initial_slash_star_re.match(line):
                 line = COMMENT_MARKER + line
-            line = elide_slash_star_comment_span(line)
             if in_comment:
                 line = COMMENT_MARKER + line
                 i = line.find("*/")
