@@ -36,7 +36,7 @@ class SlocTest(unittest.TestCase):
         with redirect_stdout(None):
             main(SOURCES[0])
 
-    def zztest_count_cpp_lines(self) -> None:
+    def test_count_cpp_lines(self) -> None:
         for folder in SOURCES:
             assert folder.is_dir()
 
@@ -49,13 +49,13 @@ class SlocTest(unittest.TestCase):
             INITIAL_CPP_SOURCES,
         )
 
-        cnt = LineCounter(INITIAL_CPP_SOURCES[0])
+        cnt = LineCounter(INITIAL_CPP_SOURCES[0], comment_pattern=r"^\s*//")
         self.assertEqual(
-            {"blank": 46, "comment": 32, "code": 1963},
+            {"blank": 48, "comment": 33, "code": 1984},
             cnt.counters,
         )
 
-        cnt = LineCounter(_REPOS / "llama.cpp/src/llama-vocab.cpp")
+        cnt = LineCounter(_REPOS / "llama.cpp/src/llama-vocab.cpp", comment_pattern=r"^\s*//")
         self.assertEqual(
             {"blank": 287, "comment": 197, "code": 1500},
             cnt.counters,
@@ -280,7 +280,7 @@ class TestCloc(unittest.TestCase):
 
 class TestBisect(TestCloc):
     @mark_slow_integration_test  # type: ignore [misc]
-    def zztest_bisect(self) -> None:
+    def test_bisect(self) -> None:
         in_files = list(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
