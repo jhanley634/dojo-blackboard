@@ -238,7 +238,7 @@ def main(in_folder: Path) -> None:
     for file in get_source_files(in_folder):
         cnt = LineCounter(file)
         print(f"{cnt}  lines in  {file}")
-        total.update(cnt.counters)
+        total |= cnt.counters
 
     print("\ntotal:")
     for k, v in total.items():
