@@ -74,6 +74,7 @@ $(REPOS):
 	cd $(REPOS) && git clone https://github.com/ggerganov/llama.cpp
 	cd $(REPOS) && git clone https://github.com/paslandau/docker-php-tutorial
 	rm $(REPOS)/docker-php-tutorial/resources/views/home.blade.php
+	cd $(REPOS)/llama.cpp && git checkout b4160  # nothing special, it's just frozen
 
 FIND := find $(REPOS) -type f -name '*.cpp' -o -name '*.php'
 count: $(REPOS)
