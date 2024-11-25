@@ -13,8 +13,9 @@ import typer
 
 
 class LineType(Enum):
-    COMMENT = auto()  # indicates that a line starts with a comment, though code may follow
-    CODE = auto()  # indicates that a line starts with code, though a comment may follow
+    BLANK = auto()  # indicates a line is blank
+    COMMENT = auto()  # indicates a line starts with a comment, though code may follow
+    CODE = auto()  # indicates a line starts with code, though a comment may follow
 
 
 def get_source_files(folder: Path) -> list[Path]:
@@ -40,40 +41,59 @@ class LineCounter:
     We define "what cloc says" as the "correct" line counts.
     """
 
-    def __init__(self, lines: Iterable[str] | Path) -> None:
+    def __init__(
+        self,
+        lines: Iterable[str] | Path,
+        *,
+        comment_pattern: str = r"^UNMATCHED_SENTINEL",
+    ) -> None:
         self.suffix = ""
         if isinstance(lines, Path):
             self.suffix = lines.suffix
             lines = lines.read_text().splitlines()
         lines = list(map(str.rstrip, lines))
 
-        self.blank = sum(1 for line in lines if not line)
+        self.comment_pattern = re.compile(comment_pattern)
+
         line_types = list(self._get_line_types(lines))
+        self.blank = sum(bool(lt == LineType.BLANK) for lt in line_types)
         self.comment = sum(bool(lt == LineType.COMMENT) for lt in line_types)
         self.code = sum(bool(lt == LineType.CODE) for lt in line_types)
-        self.__dict__.pop("comment_pattern", None)
-        self.__dict__.pop("suffix", None)
+        delattr(self, "suffix")
 
-        assert self.blank + self.comment + self.code == len(lines), len(lines)
+    @property
+    def counters(self) -> dict[str, int]:
+        return {
+            "blank": self.blank,
+            "comment": self.comment,
+            "code": self.code,
+        }
 
     def __str__(self) -> str:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
 
     def _get_line_types(self, lines: list[str]) -> Iterable[LineType]:
-        for line in self.expand_comments(self._get_non_blank_lines(self._do_shebang(lines))):
-            if line.startswith(COMMENT_MARKER):
-                yield LineType.COMMENT
-            else:
-                yield LineType.CODE
+        continuation = False  # tells whether the previous line ended with a backslash
+        typ = LineType.COMMENT
+        for line in self.expand_comments(self._do_shebang(lines)):
+            if not continuation:
+                if line.strip() == "":
+                    typ = LineType.BLANK
+                elif line.startswith(COMMENT_MARKER):
+                    typ = LineType.COMMENT
+                else:
+                    typ = LineType.CODE
+            yield typ
+            continuation = line.endswith("\\")
 
     def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends // marker to each commented line, accounting /* for multiline comments */."""
         initial_slash_star_re = re.compile(r"^\s*/\*")
         in_comment = False
         for line in lines:
-            if initial_slash_star_re.match(line) and self.suffix not in (".php"):
-                line = COMMENT_MARKER + line
             line = elide_slash_star_comment_span(line)
+            if initial_slash_star_re.match(line):
+                line = COMMENT_MARKER + line
             if in_comment:
                 line = COMMENT_MARKER + line
                 i = line.find("*/")
@@ -82,24 +102,17 @@ class LineCounter:
                     in_comment = False
             if "/*" in line:
                 in_comment = True
+            if (
+                self.comment_pattern
+                and self.comment_pattern.match(line)
+                and not line.startswith(COMMENT_MARKER)
+            ):
+                line = COMMENT_MARKER + line
             yield line
-
-    @staticmethod
-    def _get_non_blank_lines(lines: Iterable[str]) -> Iterable[str]:
-        """This is `grep -v '^$'`.
-
-        Recall that trailing whitespace has already been stripped.
-        """
-        for line in lines:
-            if line:
-                yield line
 
     @staticmethod
     def _do_shebang(lines: list[str]) -> Iterable[str]:
         """Prepend a marker to the shebang line."""
-        if lines and lines[-1].strip() == "":
-            lines = lines[:-1]
-
         if len(lines) > 0 and lines[0].startswith("#!"):
             lines[0] = f"SHEBANG {lines[0]}"
 
@@ -135,10 +148,6 @@ class BashLineCounter(LineCounter):
     Notice that Bash scripts have no notion of /* multiline comments */.
     """
 
-    def __init__(self, in_file: Path, comment_pattern: str = r"^\s*#") -> None:
-        self.comment_pattern = re.compile(comment_pattern, re.IGNORECASE)
-        super().__init__(in_file)
-
     def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
         for line in lines:
@@ -151,7 +160,7 @@ class PythonLineCounter(LineCounter):
     '''Count blank, comment, and code lines in a Python script.
 
     The cloc command views """multiline string constants""" similar
-    to the /* multiline comments */ of other languages, whether or not
+    to the /* multiline comments */ of other languages, independent of whether
     they're being used in a function docstring.
     '''
 
@@ -202,16 +211,22 @@ XML_LANGUAGES = frozenset(
 
 def get_counts(file: Path) -> LineCounter:
     line_counter: type[LineCounter] = LineCounter
-    kwargs = {}
+    kwargs = {"comment_pattern": r"^UNMATCHED_SENTINEL$"}
     if file.suffix in XML_LANGUAGES:
         line_counter = XmlLineCounter
     if file.suffix in HASH_MEANS_COMMENT_LANGUAGES:
-        line_counter = BashLineCounter
+        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*#"}
     match file.suffix:
         case ".bat":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
+        case ".cu":
+            line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*//"}
         case ".ini":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
+        case ".json":
+            line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^JSON_LACKS_COMMENTS"}
+        case ".php":
+            line_counter, kwargs = LineCounter, {"comment_pattern": r"^\s*//"}
         case ".py":
             line_counter = PythonLineCounter
 
@@ -223,7 +238,7 @@ def main(in_folder: Path) -> None:
     for file in get_source_files(in_folder):
         cnt = LineCounter(file)
         print(f"{cnt}  lines in  {file}")
-        total.update(cnt.__dict__)
+        total |= cnt.counters
 
     print("\ntotal:")
     for k, v in total.items():

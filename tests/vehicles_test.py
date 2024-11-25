@@ -1,5 +1,6 @@
 import unittest
 from contextlib import suppress
+from types import NoneType
 
 from sqlalchemy.exc import IntegrityError
 
@@ -7,6 +8,7 @@ from bboard.transit.vehicles import (
     KEY_NAME,
     fmt_lat_lng,
     fmt_msg,
+    get_recent_vehicle_journeys,
     query_vehicles,
     store_vehicle_journeys,
 )
@@ -14,10 +16,16 @@ from bboard.util.credentials import is_enabled
 from bboard.util.testing import mark_slow_integration_test
 
 
+def _num_vehicle_journeys() -> int:
+    return len(list(get_recent_vehicle_journeys("SC")))
+
+
 class VehiclesTest(unittest.TestCase):
     @mark_slow_integration_test  # type: ignore [misc]
     def test_query_vehicles(self) -> None:
         if is_enabled(KEY_NAME):
+            check = _num_vehicle_journeys() or store_vehicle_journeys("SC")
+            assert isinstance(check, (int, NoneType))
             v = query_vehicles()
             self.assertGreater(len(str(v)), 16)  # typically 200-300 entries
 

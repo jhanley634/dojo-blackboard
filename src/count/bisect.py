@@ -12,7 +12,7 @@ from count.sloc import LineCounter, get_counts
 TEMP = Path("/tmp/bisect.d")
 
 
-def find_delta(in_file: Path, *, paranoid: bool = False) -> int:
+def find_delta(in_file: Path, *, paranoid: bool = True) -> int:
     TEMP.mkdir(exist_ok=True)
     with open(in_file) as fin:
         lines = fin.readlines()
@@ -24,11 +24,9 @@ def find_delta(in_file: Path, *, paranoid: bool = False) -> int:
         assert cloc_cnt
         cnt = LineCounter(in_file)
         assert cloc_cnt != cnt, (cnt, in_file)
-        assert cloc_cnt.blank == cnt.blank, (cnt, in_file)
+        assert cloc_cnt.blank == cnt.blank, (cnt.counters, in_file)
 
     assert len(lines) > 0
-
-    print(f"\n{in_file=}")
 
     bisector = DiscrepancyFinder(lines, in_file.suffix)
     return bisector.bisect(len(lines))
@@ -46,8 +44,6 @@ class DiscrepancyFinder:
         """Locates the first source code line which produces a discrepancy
         between cloc and SlocTest.
         """
-        print(n)
-
         lines = self.lines
         if n <= 1 or n >= len(lines) - 2:
             return n
@@ -67,12 +63,11 @@ class DiscrepancyFinder:
     def _counts_equal(self, n: int) -> bool:
         cloc_cnt, cnt = self._get_both_counts(n)
         d1: dict[str, int] = cloc_cnt.__dict__
-        d2: dict[str, int] = cnt.__dict__
+        d2: dict[str, int] = cnt.counters
         return d1 == d2
 
     def _get_both_counts(self, n: int) -> tuple[ClocCounts, LineCounter]:
         temp_file = TEMP / f"upto_{n}{self.suffix}"
-        print(n, "\t", temp_file)
         with open(temp_file, "w") as fout:
             fout.writelines(self.lines[:n])
         cloc_cnt = get_cloc_triple(temp_file)
