@@ -226,14 +226,12 @@ def get_counts(file: Path) -> LineCounter:
     match file.suffix:
         case ".bat":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
-        case ".cu":
+        case ".cu" | ".php":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*//"}
         case ".ini":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
         case ".json":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^JSON_LACKS_COMMENTS"}
-        case ".php":
-            line_counter, kwargs = LineCounter, {"comment_pattern": r"^\s*//"}
         case ".py":
             line_counter = PythonLineCounter
 
