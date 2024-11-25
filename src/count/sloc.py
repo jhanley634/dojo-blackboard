@@ -74,10 +74,10 @@ class LineCounter:
 
     def _get_line_types(self, lines: list[str]) -> Iterable[LineType]:
         continuation = False  # tells whether the previous line ended with a backslash
-        typ = LineType.CODE
-        for line in self.expand_comments(self._get_non_blank_lines(self._do_shebang(lines))):
+        typ = LineType.COMMENT
+        for line in self.expand_comments(self._do_shebang(lines)):
             if not continuation:
-                if not line.strip():
+                if line.strip() == "":
                     typ = LineType.BLANK
                 elif line.startswith(COMMENT_MARKER):
                     typ = LineType.COMMENT
@@ -109,16 +109,6 @@ class LineCounter:
             ):
                 line = COMMENT_MARKER + line
             yield line
-
-    @staticmethod
-    def _get_non_blank_lines(lines: Iterable[str]) -> Iterable[str]:
-        """This is `grep -v '^$'`.
-
-        Recall that trailing whitespace has already been stripped.
-        """
-        for line in lines:
-            if line:
-                yield line
 
     @staticmethod
     def _do_shebang(lines: list[str]) -> Iterable[str]:
