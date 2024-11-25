@@ -44,7 +44,7 @@ class LineCounter:
         self,
         lines: Iterable[str] | Path,
         *,
-        comment_pattern: str = "^UNMATCHED_SENTINEL$",
+        comment_pattern: str = r"^UNMATCHED_SENTINEL",
     ) -> None:
         self.suffix = ""
         if isinstance(lines, Path):
@@ -155,10 +155,6 @@ class BashLineCounter(LineCounter):
     Notice that Bash scripts have no notion of /* multiline comments */.
     """
 
-    def __init__(self, in_file: Path, comment_pattern: str = r"^\s*#") -> None:
-        self.comment_pattern = re.compile(comment_pattern, re.IGNORECASE)
-        super().__init__(in_file)
-
     def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends our standard COMMENT_MARKER to each commented line."""
         for line in lines:
@@ -226,7 +222,7 @@ def get_counts(file: Path) -> LineCounter:
     if file.suffix in XML_LANGUAGES:
         line_counter = XmlLineCounter
     if file.suffix in HASH_MEANS_COMMENT_LANGUAGES:
-        line_counter = BashLineCounter
+        line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*#"}
     match file.suffix:
         case ".bat":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
@@ -237,7 +233,7 @@ def get_counts(file: Path) -> LineCounter:
         case ".json":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^JSON_LACKS_COMMENTS"}
         case ".php":
-            line_counter, kwargs = LineCounter, {"comment_pattern": r"^\s*(zz#|zz//)"}
+            line_counter, kwargs = LineCounter, {"comment_pattern": r"^\s*//"}
         case ".py":
             line_counter = PythonLineCounter
 
