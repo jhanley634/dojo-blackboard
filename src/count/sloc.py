@@ -13,8 +13,9 @@ import typer
 
 
 class LineType(Enum):
-    COMMENT = auto()  # indicates that a line starts with a comment, though code may follow
-    CODE = auto()  # indicates that a line starts with code, though a comment may follow
+    BLANK = auto()  # indicates a line is blank
+    COMMENT = auto()  # indicates a line starts with a comment, though code may follow
+    CODE = auto()  # indicates a line starts with code, though a comment may follow
 
 
 def get_source_files(folder: Path) -> list[Path]:
@@ -54,13 +55,11 @@ class LineCounter:
 
         self.comment_pattern = re.compile(comment_pattern)
 
-        self.blank = sum(1 for line in lines if not line)
         line_types = list(self._get_line_types(lines))
+        self.blank = sum(bool(lt == LineType.BLANK) for lt in line_types)
         self.comment = sum(bool(lt == LineType.COMMENT) for lt in line_types)
         self.code = sum(bool(lt == LineType.CODE) for lt in line_types)
         delattr(self, "suffix")
-
-        assert self.blank + self.comment + self.code == len(lines), len(lines)
 
     @property
     def counters(self) -> dict[str, int]:
@@ -74,11 +73,18 @@ class LineCounter:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
 
     def _get_line_types(self, lines: list[str]) -> Iterable[LineType]:
+        continuation = False  # tells whether the previous line ended with a backslash
+        typ = LineType.CODE
         for line in self.expand_comments(self._get_non_blank_lines(self._do_shebang(lines))):
-            if line.startswith(COMMENT_MARKER):
-                yield LineType.COMMENT
-            else:
-                yield LineType.CODE
+            if not continuation:
+                if not line.strip():
+                    typ = LineType.BLANK
+                elif line.startswith(COMMENT_MARKER):
+                    typ = LineType.COMMENT
+                else:
+                    typ = LineType.CODE
+            yield typ
+            continuation = line.endswith("\\")
 
     def expand_comments(self, lines: Iterable[str]) -> Iterable[str]:
         """Prepends // marker to each commented line, accounting /* for multiline comments */."""
