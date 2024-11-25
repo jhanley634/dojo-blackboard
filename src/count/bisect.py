@@ -24,7 +24,7 @@ def find_delta(in_file: Path, *, paranoid: bool = True) -> int:
         assert cloc_cnt
         cnt = LineCounter(in_file)
         assert cloc_cnt != cnt, (cnt, in_file)
-        assert cloc_cnt.blank == cnt.blank, (cnt, in_file)
+        assert cloc_cnt.blank == cnt.blank, (cnt.counters, in_file)
 
     assert len(lines) > 0
 

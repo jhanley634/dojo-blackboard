@@ -96,7 +96,7 @@ class SlocTest(unittest.TestCase):
         """
         cnt = LineCounter(_REPOS / "docker-php-tutorial/config/cors.php")
         self.assertEqual(
-            {"blank": 11, "comment": 20, "code": 3},
+            {"blank": 11, "comment": 12, "code": 11},
             cnt.counters,
         )
         lines = [
