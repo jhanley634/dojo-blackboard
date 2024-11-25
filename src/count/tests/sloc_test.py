@@ -296,8 +296,7 @@ class TestBisect(TestCloc):
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     cnt = get_counts(file)
-                    if cloc_cnt.__dict__ != cnt.counters:
-                        self.assertEqual(cloc_cnt.blank, cnt.blank, (cnt, file))
+                    self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
     def test_find_delta(self) -> None:
         llama = _REPOS / "llama.cpp"
