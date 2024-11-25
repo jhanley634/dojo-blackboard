@@ -116,9 +116,9 @@ class LineCounter:
 
     @staticmethod
     def _do_shebang(lines: list[str]) -> Iterable[str]:
-        """Prepend a marker to the shebang line."""
+        """Prepend a marker to the shebang line, and trim trailing blank line."""
         if lines and lines[-1].strip() == "":
-            lines = lines[:-1]
+            lines = lines[:-1]  # cloc ignores such lines
 
         if len(lines) > 0 and lines[0].startswith("#!"):
             lines[0] = f"SHEBANG {lines[0]}"
@@ -226,12 +226,14 @@ def get_counts(file: Path) -> LineCounter:
     match file.suffix:
         case ".bat":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^rem |^::"}
-        case ".cu" | ".php":
+        case ".cu":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^\s*//"}
         case ".ini":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^;"}
         case ".json":
             line_counter, kwargs = BashLineCounter, {"comment_pattern": r"^JSON_LACKS_COMMENTS"}
+        case ".php":
+            line_counter, kwargs = LineCounter, {"comment_pattern": r"^\s*//"}
         case ".py":
             line_counter = PythonLineCounter
 

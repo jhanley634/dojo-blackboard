@@ -12,7 +12,7 @@ from count.sloc import LineCounter, get_counts
 TEMP = Path("/tmp/bisect.d")
 
 
-def find_delta(in_file: Path, *, paranoid: bool = False) -> int:
+def find_delta(in_file: Path, *, paranoid: bool = True) -> int:
     TEMP.mkdir(exist_ok=True)
     with open(in_file) as fin:
         lines = fin.readlines()

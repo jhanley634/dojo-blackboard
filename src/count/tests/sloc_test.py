@@ -290,8 +290,7 @@ class TestBisect(TestCloc):
                 file.is_file()
                 and file.suffix
                 and file.suffix not in (".txt")
-                # and file.suffix not in self.SKIP_LANGUAGE
-                # and file not in self.SKIP
+                and file.suffix not in self.SKIP_LANGUAGE
             ):
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
