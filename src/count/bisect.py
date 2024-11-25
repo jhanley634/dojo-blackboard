@@ -63,7 +63,7 @@ class DiscrepancyFinder:
     def _counts_equal(self, n: int) -> bool:
         cloc_cnt, cnt = self._get_both_counts(n)
         d1: dict[str, int] = cloc_cnt.__dict__
-        d2: dict[str, int] = cnt.__dict__
+        d2: dict[str, int] = cnt.counters
         return d1 == d2
 
     def _get_both_counts(self, n: int) -> tuple[ClocCounts, LineCounter]:

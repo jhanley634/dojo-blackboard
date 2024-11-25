@@ -23,12 +23,12 @@ class SlocHtmlTest(unittest.TestCase):
             if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 1_000_000:
                 print(file.suffix, "\t", file)
                 cnt = get_counts(file)
-                self.assertTrue(cnt.__dict__)
+                self.assertTrue(cnt.counters)
 
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     cnt = get_counts(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, f"{file}"))
+                    self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
     def test_html(self) -> None:
         lines = [
@@ -48,7 +48,7 @@ class SlocHtmlTest(unittest.TestCase):
             "</html>",
         ]
         cnt = XmlLineCounter(lines)
-        self.assertEqual({"blank": 0, "comment": 5, "code": 9}, cnt.__dict__)
+        self.assertEqual({"blank": 0, "comment": 5, "code": 9}, cnt.counters)
 
     def test_php(self) -> None:
         lines = [
@@ -56,7 +56,7 @@ class SlocHtmlTest(unittest.TestCase):
             "x = 1;",
         ]
         cnt = XmlLineCounter(lines)
-        self.assertEqual({"blank": 0, "comment": 0, "code": 2}, cnt.__dict__)
+        self.assertEqual({"blank": 0, "comment": 0, "code": 2}, cnt.counters)
 
         lines = [
             "class Authenticate extends Middleware",
@@ -71,4 +71,4 @@ class SlocHtmlTest(unittest.TestCase):
         ]
         cnt = XmlLineCounter(lines)
         assert cnt.blank == 0
-        # self.assertEqual({"blank": 0, "comment": 6, "code": 3}, cnt.__dict__)
+        # self.assertEqual({"blank": 0, "comment": 6, "code": 3}, cnt.counters)

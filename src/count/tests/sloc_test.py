@@ -52,20 +52,20 @@ class SlocTest(unittest.TestCase):
         cnt = LineCounter(INITIAL_CPP_SOURCES[0])
         self.assertEqual(
             {"blank": 46, "comment": 32, "code": 1963},
-            cnt.__dict__,
+            cnt.counters,
         )
 
         cnt = LineCounter(_REPOS / "llama.cpp/src/llama-vocab.cpp")
         self.assertEqual(
             {"blank": 287, "comment": 197, "code": 1500},
-            cnt.__dict__,
+            cnt.counters,
         )
 
     def test_count_php_lines(self) -> None:
         cnt = LineCounter(INITIAL_PHP_SOURCES[0])
         self.assertEqual(
             {"blank": 11, "comment": 9, "code": 34},
-            cnt.__dict__,
+            cnt.counters,
         )
 
         self.assertEqual(
@@ -75,14 +75,14 @@ class SlocTest(unittest.TestCase):
         cnt = LineCounter(INITIAL_PHP_SOURCES[1])
         self.assertEqual(
             {"blank": 5, "comment": 12, "code": 15},
-            cnt.__dict__,
+            cnt.counters,
             INITIAL_PHP_SOURCES[1],
         )
 
         cnt = LineCounter(_REPOS / "docker-php-tutorial/config/database.php")
         self.assertEqual(
             {"blank": 23, "comment": 45, "code": 107},
-            cnt.__dict__,
+            cnt.counters,
         )
 
     def test_config_cors_lines(self) -> None:
@@ -95,7 +95,7 @@ class SlocTest(unittest.TestCase):
         cnt = LineCounter(_REPOS / "docker-php-tutorial/config/cors.php")
         self.assertEqual(
             {"blank": 11, "comment": 20, "code": 3},
-            cnt.__dict__,
+            cnt.counters,
         )
         lines = [
             "    'paths' => ['api/*', 'sanctum/csrf-cookie'],",
@@ -109,7 +109,7 @@ class SlocTest(unittest.TestCase):
         cnt = BashLineCounter(_REPOS / "llama.cpp/ci/run.sh")
         self.assertEqual(
             {"blank": 187, "comment": 44, "code": 620},
-            cnt.__dict__,
+            cnt.counters,
         )
 
     def test_expand_comments_multiline(self) -> None:
@@ -176,7 +176,7 @@ class TestCloc(unittest.TestCase):
         )
         cnt = BashLineCounter(in_file)
         self.assertGreater(cnt.code, 0)
-        # self.assertEqual(cloc_cnt.__dict__, cnt.__dict__)  # non equal :(
+        # self.assertEqual(cloc_cnt.__dict__, cnt.cnt.counters)  # non equal :(
 
     SUPPORTED_LANGUAGES = frozenset(
         {
@@ -261,7 +261,7 @@ class TestCloc(unittest.TestCase):
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     cnt = get_counts(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, f"{file}"))
+                    self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
         for file in sorted(self.SKIP):
             cloc_cnt = get_cloc_triple(file)
@@ -270,7 +270,7 @@ class TestCloc(unittest.TestCase):
             if file.suffix == ".py":
                 line_counter = PythonLineCounter
             cnt = line_counter(file)
-            self.assertNotEqual(cloc_cnt.__dict__, cnt.__dict__, (cnt, f"{file}"))
+            self.assertNotEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
 
 class TestBisect(TestCloc):
@@ -291,7 +291,7 @@ class TestBisect(TestCloc):
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     cnt = get_counts(file)
-                    if cloc_cnt.__dict__ != cnt.__dict__:
+                    if cloc_cnt.__dict__ != cnt.counters:
                         self.assertEqual(cloc_cnt.blank, cnt.blank, (cnt, file))
 
     def test_find_delta(self) -> None:

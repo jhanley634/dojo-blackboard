@@ -43,6 +43,7 @@ class LineCounter:
     def __init__(
         self,
         lines: Iterable[str] | Path,
+        *,
         comment_pattern: str = "^UNMATCHED_SENTINEL$",
     ) -> None:
         self.suffix = ""
@@ -57,10 +58,17 @@ class LineCounter:
         line_types = list(self._get_line_types(lines))
         self.comment = sum(bool(lt == LineType.COMMENT) for lt in line_types)
         self.code = sum(bool(lt == LineType.CODE) for lt in line_types)
-        self.__dict__.pop("comment_pattern", None)
-        self.__dict__.pop("suffix", None)
+        delattr(self, "suffix")
 
         assert self.blank + self.comment + self.code == len(lines), len(lines)
+
+    @property
+    def counters(self) -> dict[str, int]:
+        return {
+            "blank": self.blank,
+            "comment": self.comment,
+            "code": self.code,
+        }
 
     def __str__(self) -> str:
         return f"{self.blank:5d} blank   {self.comment:5d} comment   {self.code:5d} code"
@@ -241,7 +249,7 @@ def main(in_folder: Path) -> None:
     for file in get_source_files(in_folder):
         cnt = LineCounter(file)
         print(f"{cnt}  lines in  {file}")
-        total.update(cnt.__dict__)
+        total.update(cnt.counters)
 
     print("\ntotal:")
     for k, v in total.items():
