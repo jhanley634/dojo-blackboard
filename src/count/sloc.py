@@ -211,7 +211,7 @@ XML_LANGUAGES = frozenset(
 
 def get_counts(file: Path) -> LineCounter:
     line_counter: type[LineCounter] = LineCounter
-    kwargs = {"comment_pattern": r"^UNMATCHED_SENTINEL}$"}
+    kwargs = {"comment_pattern": r"^UNMATCHED_SENTINEL$"}
     if file.suffix in XML_LANGUAGES:
         line_counter = XmlLineCounter
     if file.suffix in HASH_MEANS_COMMENT_LANGUAGES:
