@@ -116,10 +116,7 @@ class LineCounter:
 
     @staticmethod
     def _do_shebang(lines: list[str]) -> Iterable[str]:
-        """Prepend a marker to the shebang line, and trim trailing blank line."""
-        if lines and lines[-1].strip() == "":
-            lines = lines[:-1]  # cloc ignores such lines
-
+        """Prepend a marker to the shebang line."""
         if len(lines) > 0 and lines[0].startswith("#!"):
             lines[0] = f"SHEBANG {lines[0]}"
 
