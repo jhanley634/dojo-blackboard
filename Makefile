@@ -1,9 +1,11 @@
 
 PROJECT := dojo-blackboard
-ACTIVATE := source $(HOME)/.venv/$(PROJECT)/bin/activate
+ACTIVATE := source .venv/bin/activate
 SHELL := bash -u -e -o pipefail
 PYTHONPATH := src:.
 ENV := env PYTHONPATH=$(PYTHONPATH)
+# Once we used this, but no more.
+ANCIENT_VENV := $(HOME)/.venv/$(PROJECT)
 
 all:
 	ls -l
@@ -39,19 +41,24 @@ build: $(BUILD)
 	$(ACTIVATE) && cd $(HELLOWORLD) && briefcase build && briefcase update
 	# another relevant command would be: briefcase run iOS --update
 
-install: $(HOME)/.venv/$(PROJECT)/bin/activate $(BUILD)
+install: .venv/bin/activate $(BUILD)
 	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
 # The basemap package does not yet work with Python 3.13.
 CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; assert v.minor <= 12, v.minor'
 
-$(HOME)/.venv/$(PROJECT)/bin/activate:
-	python -m venv $(HOME)/.venv/$(PROJECT)
-	$(ACTIVATE) && python $(CHECK_INTERPRETER)
-	$(ACTIVATE) && pip install uv
-	# $(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
+.venv/bin/activate:
+	python -m venv .venv/
+	$(ACTIVATE) && python -m pip install uv
+	$(ACTIVATE) && which python && python --version && which uv
+	$(ACTIVATE) && uv venv --python=3.12.7
 	$(ACTIVATE) && which python && python --version
+	$(ACTIVATE) && python -m ensurepip
+	$(ACTIVATE) && python -m pip install uv
+	$(ACTIVATE) && ls -la .venv/bin/
+	$(ACTIVATE) && uv pip list
+	# $(ACTIVATE) && python $(CHECK_INTERPRETER)
 
 FIND_SOURCES := find . -name '*.py' | grep -v '/src/beeware-tutorial/helloworld/'
 SOURCES := $(shell $(FIND_SOURCES))
@@ -74,7 +81,7 @@ $(REPOS):
 	cd $(REPOS) && git clone https://github.com/ggerganov/llama.cpp
 	cd $(REPOS) && git clone https://github.com/paslandau/docker-php-tutorial
 	rm $(REPOS)/docker-php-tutorial/resources/views/home.blade.php
-	cd $(REPOS)/llama.cpp && git checkout b4160  # nothing special, it's just frozen
+	cd $(REPOS)/llama.cpp && git checkout --quiet b4160  # nothing special, it's just frozen
 
 FIND := find $(REPOS) -type f -name '*.cpp' -o -name '*.php'
 count: $(REPOS)
@@ -100,6 +107,6 @@ clean-cache:
 	rm -rf $(CACHES)
 
 clean: clean-cache
-	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
+	rm -rf htmlcov/ $(ANCIENT_VENV) .venv/ $(REPOS) /tmp/blackboard.db
 
 .PHONY: all lint unit test run build install coverage count talk docker clean
