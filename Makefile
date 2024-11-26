@@ -1,6 +1,7 @@
 
 PROJECT := dojo-blackboard
-ACTIVATE := source $(HOME)/.venv/$(PROJECT)/bin/activate
+ACTIVATE := source .venv/bin/activate
+ANCIENT_VENV := $(HOME)/.venv/$(PROJECT)  # Once we used this, but no more.
 SHELL := bash -u -e -o pipefail
 PYTHONPATH := src:.
 ENV := env PYTHONPATH=$(PYTHONPATH)
@@ -39,19 +40,19 @@ build: $(BUILD)
 	$(ACTIVATE) && cd $(HELLOWORLD) && briefcase build && briefcase update
 	# another relevant command would be: briefcase run iOS --update
 
-install: $(HOME)/.venv/$(PROJECT)/bin/activate $(BUILD)
+install: .venv/bin/activate $(BUILD)
 	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
 # The basemap package does not yet work with Python 3.13.
 CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; assert v.minor <= 12, v.minor'
 
-$(HOME)/.venv/$(PROJECT)/bin/activate:
-	python -m venv $(HOME)/.venv/$(PROJECT)
-	$(ACTIVATE) && python $(CHECK_INTERPRETER)
+.venv/bin/activate:
+	python -m venv .venv/
 	$(ACTIVATE) && pip install uv
-	# $(ACTIVATE) && uv venv $(HOME)/.venv/$(PROJECT) --python=3.12.7
+	$(ACTIVATE) && uv venv --python=3.12.7
 	$(ACTIVATE) && which python && python --version
+	$(ACTIVATE) && python $(CHECK_INTERPRETER)
 
 FIND_SOURCES := find . -name '*.py' | grep -v '/src/beeware-tutorial/helloworld/'
 SOURCES := $(shell $(FIND_SOURCES))
@@ -100,6 +101,6 @@ clean-cache:
 	rm -rf $(CACHES)
 
 clean: clean-cache
-	rm -rf htmlcov/ $(HOME)/.venv/$(PROJECT) $(REPOS) /tmp/blackboard.db
+	rm -rf htmlcov/ $(ANCIENT_VENV) .venv/ $(REPOS) /tmp/blackboard.db
 
 .PHONY: all lint unit test run build install coverage count talk docker clean
