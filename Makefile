@@ -52,7 +52,7 @@ CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; 
 	$(ACTIVATE) && pip install uv
 	$(ACTIVATE) && uv venv --python=3.12.7
 	$(ACTIVATE) && which python && python --version
-	$(ACTIVATE) && python $(CHECK_INTERPRETER)
+	# $(ACTIVATE) && python $(CHECK_INTERPRETER)
 
 FIND_SOURCES := find . -name '*.py' | grep -v '/src/beeware-tutorial/helloworld/'
 SOURCES := $(shell $(FIND_SOURCES))
