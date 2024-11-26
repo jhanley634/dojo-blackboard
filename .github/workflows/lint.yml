@@ -24,7 +24,8 @@ jobs:
           python --version
           id; sudo id
           sudo apt install -y cloc libgirepository1.0-dev
-          time make install lint
-          source $HOME/.venv/dojo-blackboard/bin/activate && python -m ensurepip --upgrade
-          source $HOME/.venv/dojo-blackboard/bin/activate && python -m pip install --upgrade setuptools
-          source $HOME/.venv/dojo-blackboard/bin/activate && env PYTHONPATH=src:. python -m unittest -v tests/[girw]*_test.py
+          time make install
+          source .venv/bin/activate && env PYTHONPATH=src:. ruff check
+          source .venv/bin/activate && env PYTHONPATH=src:. echo pyright .
+          source .venv/bin/activate && env PYTHONPATH=src:. mypy --strict --warn-unreachable --ignore-missing-imports --no-namespace-packages .
+          source .venv/bin/activate && env PYTHONPATH=src:. python -m unittest -v tests/[girw]*_test.py
