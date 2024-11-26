@@ -52,8 +52,10 @@ CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; 
 	python -m venv .venv/
 	$(ACTIVATE) && which python && python --version
 	$(ACTIVATE) && python -m pip install uv
-	$(ACTIVATE) && uv venv --python=3.12.7
 	$(ACTIVATE) && which python && python --version && which uv
+	$(ACTIVATE) && ls -la .venv/bin/
+	$(ACTIVATE) && uv venv --python=3.12.7
+	$(ACTIVATE) && which python && python --version
 	$(ACTIVATE) && ls -la .venv/bin/
 	$(ACTIVATE) && uv pip list
 	# $(ACTIVATE) && python $(CHECK_INTERPRETER)
