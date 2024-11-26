@@ -10,8 +10,9 @@ usage:  $ fastapi dev src/bboard/main.py
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
-from bboard.demo.clock_display import clock_display, clock_reading, stop_watch
+from bboard.demo.clock_display import clock_display, clock_reading, stop_watch, timer_countdown
 from bboard.demo.greeting import greeting
 from bboard.models.headline import Headline
 from bboard.models.iss_position import Base, IssPosition
@@ -25,6 +26,8 @@ from bboard.util.requests import patch_requests_module
 from bboard.util.web import table_of_contents
 
 app = FastAPI(lifespan=lifespan)
+
+app.mount("/assets", StaticFiles(directory="src/bboard/assets"), name="assets")
 
 assert Headline
 assert IssPosition
@@ -49,7 +52,12 @@ async def timer() -> HTMLResponse:
     return HTMLResponse(content=stop_watch())
 
 
-@app.get("/transit/clock")
+@app.get("/demo/timer-countdown")
+async def countdown() -> HTMLResponse:
+    """Simple timer counts down from 10 seconds."""
+    return HTMLResponse(content=timer_countdown())
+
+
 async def clock() -> HTMLResponse:
     """Demonstrates 1 Hz screen updates."""
     return HTMLResponse(content=str(clock_display()))
