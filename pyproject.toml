@@ -25,7 +25,7 @@ line_length =             100
 exclude = "^.*/build/"
 
 [tool.pyright]
-# typeCheckingMode = "strict"
+typeCheckingMode = "strict"
 # reportUninitializedInstanceVariable = true
 # reportUnknownVariableType = true
 # reportUnknownArgumentType = true
