@@ -103,7 +103,7 @@ docker-run:
 CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
 
 clean-cache:
-	rm -rf .venv $(HELLOWORLD)/build
+	rm -rf $(HELLOWORLD)/build
 	rm -rf $(CACHES)
 
 clean: clean-cache
