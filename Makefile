@@ -86,7 +86,7 @@ $(REPOS):
 FIND := find $(REPOS) -type f -name '*.cpp' -o -name '*.php'
 count: $(REPOS)
 	which cloc  > /dev/null || src/bin/install-cloc.sh
-	$(FIND) | sort | xargs cloc
+	$(FIND) | sort | xargs cloc | wc -l
 
 PANDOC := pandoc -o out/2024-09-24-trip-report.pdf 2024-09-24-trip-report.md
 talk:
