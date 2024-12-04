@@ -5,7 +5,6 @@ from pathlib import Path
 from random import shuffle
 
 from bboard.util.testing import mark_slow_integration_test
-from count.bisect import find_delta
 from count.cloc import get_cloc_triple
 from count.sloc import (
     HASH_MEANS_COMMENT_LANGUAGES,
@@ -265,7 +264,6 @@ class TestCloc(unittest.TestCase):
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
 
-
         # All the in_files work properly; examine just a subset in the interest of speed.
         for file in in_files[:4]:
             if (
@@ -279,7 +277,7 @@ class TestCloc(unittest.TestCase):
                     cnt = get_counts(file)
                     self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
-        for file in sorted(self.SKIP[-1:]):
+        for file in sorted(self.SKIP)[-1:]:
             cloc_cnt = get_cloc_triple(file)
             assert cloc_cnt
             line_counter = LineCounter
