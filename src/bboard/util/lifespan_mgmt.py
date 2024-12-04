@@ -31,7 +31,8 @@ async def transit_periodic_update(delay_seconds: float = 91) -> None:
 
     while True:
         for agency in agencies:
-            is_enabled(KEY_NAME) and store_vehicle_journeys(agency)
+            x = is_enabled(KEY_NAME) and store_vehicle_journeys(agency)
+            assert not x
             await asyncio.sleep(delay_seconds)
 
 
