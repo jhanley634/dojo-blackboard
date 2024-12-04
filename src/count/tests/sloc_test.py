@@ -92,9 +92,13 @@ class SlocTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/examples/llama.android/app/src/main/res/xml/backup_rules.xml"
         self.assertEqual({"blank": 0, "comment": 10, "code": 3}, get_counts(file).counters)
 
-    def test_bat(self) -> None:
+    def test_bat_lines(self) -> None:
         file = _REPOS / "llama.cpp/examples/chat-13B.bat"
         self.assertEqual({"blank": 9, "comment": 10, "code": 38}, get_counts(file).counters)
+
+    def test_cu_lines(self) -> None:
+        file = _REPOS / "llama.cpp/ggml/src/ggml-cuda/acc.cu"
+        self.assertEqual({"blank": 6, "comment": 1, "code": 40}, get_counts(file).counters)
 
     def zztest_config_cors_lines(self) -> None:
         r"""The result computed here is incorrect, it doesn't match cloc.
