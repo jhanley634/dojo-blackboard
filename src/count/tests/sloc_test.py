@@ -12,7 +12,6 @@ from count.sloc import (
     BashLineCounter,
     LineCounter,
     PythonLineCounter,
-    XmlLineCounter,
     elide_slash_star_comment_span,
     get_counts,
     get_source_files,
@@ -103,6 +102,10 @@ class SlocTest(unittest.TestCase):
     def test_ini_lines(self) -> None:
         file = _REPOS / "docker-php-tutorial/.docker/images/php/fpm/conf.d/zz-app-fpm.ini"
         self.assertEqual({"blank": 0, "comment": 1, "code": 7}, get_counts(file).counters)
+
+    def test_json_lines(self) -> None:
+        file = _REPOS / "llama.cpp/examples/gguf-hash/deps/sha256/package.json"
+        self.assertEqual({"blank": 1, "comment": 0, "code": 14}, get_counts(file).counters)
 
     def test_config_cors_lines(self) -> None:
         r"""The result computed here is incorrect, it doesn't match cloc.
