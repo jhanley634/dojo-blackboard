@@ -12,6 +12,7 @@ from count.sloc import (
     BashLineCounter,
     LineCounter,
     PythonLineCounter,
+    XmlLineCounter,
     elide_slash_star_comment_span,
     get_counts,
     get_source_files,
@@ -86,6 +87,14 @@ class SlocTest(unittest.TestCase):
             {"blank": 23, "comment": 45, "code": 107},
             cnt.counters,
         )
+
+    def test_xml_lines(self) -> None:
+        file = _REPOS / "llama.cpp/examples/llama.android/app/src/main/res/xml/backup_rules.xml"
+        self.assertEqual({"blank": 0, "comment": 10, "code": 3}, get_counts(file).counters)
+
+    def test_bat(self) -> None:
+        file = _REPOS / "llama.cpp/examples/chat-13B.bat"
+        self.assertEqual({"blank": 9, "comment": 10, "code": 38}, get_counts(file).counters)
 
     def zztest_config_cors_lines(self) -> None:
         r"""The result computed here is incorrect, it doesn't match cloc.
