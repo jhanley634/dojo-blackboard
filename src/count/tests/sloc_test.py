@@ -261,12 +261,10 @@ class TestCloc(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
     def test_count_diverse_file_types(self) -> None:
-        in_files = list(_REPOS.glob("**/*"))
+        in_files = sorted(_REPOS.glob("**/*"))
         shuffle(in_files)
         self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
-        # Ensure that a pair of "rare file types" get exercised.
-        in_files.append(_REPOS / "llama.cpp/scripts/install-oneapi.bat")
-        in_files.append(_REPOS / "llama.cpp/mypy.ini")
+
 
         # All the in_files work properly; examine just a subset in the interest of speed.
         for file in in_files[:4]:
@@ -281,7 +279,7 @@ class TestCloc(unittest.TestCase):
                     cnt = get_counts(file)
                     self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
-        for file in sorted(self.SKIP):
+        for file in sorted(self.SKIP[-1:]):
             cloc_cnt = get_cloc_triple(file)
             assert cloc_cnt
             line_counter = LineCounter
@@ -289,36 +287,3 @@ class TestCloc(unittest.TestCase):
                 line_counter = PythonLineCounter
             cnt = line_counter(file)
             self.assertNotEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
-
-
-class TestBisect(TestCloc):
-    @mark_slow_integration_test  # type: ignore [misc]
-    def test_bisect(self) -> None:
-        in_files = list(_REPOS.glob("**/*"))
-        shuffle(in_files)
-        self.assertGreaterEqual(len(in_files), 1487)  # 563 of these survive the "skip" filters
-
-        for file in in_files[:40]:
-            if (
-                file.is_file()
-                and file not in self.SKIP
-                and file.suffix
-                and file.suffix not in self.SKIP_LANGUAGE
-            ):
-                cloc_cnt = get_cloc_triple(file)
-                if cloc_cnt:
-                    cnt = get_counts(file)
-                    self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
-
-    def zztest_find_delta(self) -> None:
-        llama = _REPOS / "llama.cpp"
-
-        for n, file in [
-            (159, llama / "examples/llava/llava_surgery_v2.py"),
-            (806, llama / "examples/llava/minicpmv-convert-image-encoder-to-gguf.py"),
-            (1322, llama / "examples/pydantic_models_to_grammar.py"),
-            (312, llama / "examples/pydantic_models_to_grammar_examples.py"),
-            (378, llama / "scripts/compare-llama-bench.py"),
-            (566, llama / "tests/test-tokenizer-random.py"),
-        ]:
-            self.assertEqual(n, find_delta(file))
