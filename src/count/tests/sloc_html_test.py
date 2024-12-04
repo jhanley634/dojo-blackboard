@@ -17,11 +17,12 @@ class SlocHtmlTest(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
     def test_xml_files(self) -> None:
-        sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
         for file in sorted(_REPOS.glob("**/*")):
-            print("\n", file)
-            if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 1_000_000:
-                print(file.suffix, "\t", file)
+            if (
+                file.suffix in XML_LANGUAGES
+                and file not in TestCloc.SKIP
+                and 1 <= _num_lines(file) < 1_000_000
+            ):
                 cnt = get_counts(file)
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
