@@ -108,6 +108,10 @@ class SlocTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/examples/gguf-hash/deps/sha256/package.json"
         self.assertEqual({"blank": 1, "comment": 0, "code": 14}, get_counts(file).counters)
 
+    def test_sh_lines(self) -> None:
+        file = _REPOS / "llama.cpp/ci/run.sh"
+        self.assertEqual({"blank": 187, "comment": 44, "code": 620}, get_counts(file).counters)
+
     def test_py_lines(self) -> None:
         file = _REPOS / "llama.cpp/convert_llama_ggml_to_gguf.py"
         self.assertEqual({"blank": 41, "comment": 5, "code": 404}, get_counts(file).counters)
