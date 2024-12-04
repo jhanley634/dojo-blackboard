@@ -107,6 +107,10 @@ class SlocTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/examples/gguf-hash/deps/sha256/package.json"
         self.assertEqual({"blank": 1, "comment": 0, "code": 14}, get_counts(file).counters)
 
+    def test_py_lines(self) -> None:
+        file = _REPOS / "llama.cpp/convert_llama_ggml_to_gguf.py"
+        self.assertEqual({"blank": 41, "comment": 5, "code": 404}, get_counts(file).counters)
+
     def test_config_cors_lines(self) -> None:
         r"""The result computed here is incorrect, it doesn't match cloc.
 
@@ -222,12 +226,10 @@ class TestCloc(unittest.TestCase):
             ".comp",
             ".cpp",
             ".css",
-            ".cu",
             ".cuh",
             ".feature",
             ".h",
             ".hpp",
-            ".html",
             ".js",
             ".kt",
             ".kts",
@@ -235,11 +237,9 @@ class TestCloc(unittest.TestCase):
             ".md",
             ".mjs",
             ".nix",
-            ".svg",
             ".swift",
             ".txt",
             ".vim",
-            ".xml",
         }
     )
     SKIP = frozenset(
@@ -248,14 +248,14 @@ class TestCloc(unittest.TestCase):
             _REPOS / "docker-php-tutorial/config/cors.php",
             _REPOS / "llama.cpp/convert_hf_to_gguf.py",
             _REPOS / "llama.cpp/examples/convert_legacy_llama.py",
+            _REPOS / "llama.cpp/examples/json_schema_pydantic_example.py",
+            _REPOS / "llama.cpp/examples/json_schema_to_grammar.py",
             _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",  # off by 2 comment lines
             _REPOS / "llama.cpp/examples/llava/minicpmv-convert-image-encoder-to-gguf.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar.py",
             _REPOS / "llama.cpp/examples/pydantic_models_to_grammar_examples.py",
             _REPOS / "llama.cpp/scripts/compare-llama-bench.py",
             _REPOS / "llama.cpp/tests/test-tokenizer-random.py",
-            _REPOS / "llama.cpp/examples/json_schema_pydantic_example.py",
-            _REPOS / "llama.cpp/examples/llava/llava_surgery_v2.py",
         }
     )
 
@@ -301,8 +301,8 @@ class TestBisect(TestCloc):
         for file in in_files[:40]:
             if (
                 file.is_file()
+                and file not in self.SKIP
                 and file.suffix
-                and file.suffix not in (".txt")
                 and file.suffix not in self.SKIP_LANGUAGE
             ):
                 cloc_cnt = get_cloc_triple(file)

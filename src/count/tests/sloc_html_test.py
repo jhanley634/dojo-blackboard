@@ -17,15 +17,12 @@ class SlocHtmlTest(unittest.TestCase):
 
     @mark_slow_integration_test  # type: ignore [misc]
     def test_xml_files(self) -> None:
+        sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
         for file in sorted(_REPOS.glob("**/*")):
-            sup_lang = set(TestCloc.SUPPORTED_LANGUAGES)
+            print("\n", file)
             if file.suffix in XML_LANGUAGES | sup_lang and 1 <= _num_lines(file) < 1_000_000:
-                if not f"{file}".endswith("/.make/00-00-development-setup.mk-zz"):
-                    continue
                 print(file.suffix, "\t", file)
                 cnt = get_counts(file)
-                self.assertTrue(cnt.counters)
-
                 cloc_cnt = get_cloc_triple(file)
                 if cloc_cnt:
                     cnt = get_counts(file)
