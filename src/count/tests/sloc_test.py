@@ -8,9 +8,11 @@ from bboard.util.testing import mark_slow_integration_test
 from count.cloc import get_cloc_triple
 from count.sloc import (
     HASH_MEANS_COMMENT_LANGUAGES,
+    XML_LANGUAGES,
     BashLineCounter,
     LineCounter,
     PythonLineCounter,
+    XmlLineCounter,
     elide_slash_star_comment_span,
     get_counts,
     get_source_files,
@@ -285,3 +287,71 @@ class TestCloc(unittest.TestCase):
                 line_counter = PythonLineCounter
             cnt = line_counter(file)
             self.assertNotEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
+
+
+def _num_lines(in_file: Path) -> int:
+    return len(in_file.read_text().splitlines())
+
+
+class SlocHtmlTest(unittest.TestCase):
+
+    @mark_slow_integration_test  # type: ignore [misc]
+    def test_xml_files(self) -> None:
+        for file in sorted(_REPOS.glob("**/*")):
+            if (
+                file.suffix in XML_LANGUAGES
+                and file not in TestCloc.SKIP
+                and 1 <= _num_lines(file) < 1_000_000
+            ):
+                cnt = get_counts(file)
+                cloc_cnt = get_cloc_triple(file)
+                if cloc_cnt:
+                    cnt = get_counts(file)
+                    self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
+
+    def test_non_sourcecode(self) -> None:
+        file = _REPOS / "llama.cpp/media/matmul.png"
+        self.assertIsNone(get_cloc_triple(file))
+
+    def test_html(self) -> None:
+        lines = [
+            "<!DOCTYPE html>",
+            "<html>",
+            "<head>",
+            "  <title>Page Title</title>",
+            "</head>",
+            "<body>",
+            "  <!-- brief comment -->",
+            "  <h1>This is a Heading</h1>",
+            "  <!-- multi-line comment",
+            "  <p>This is paragraph one.</p>",
+            "  <p>This is paragraph two.</p>",
+            "  end of comment -->",
+            "</body>",
+            "</html>",
+        ]
+        cnt = XmlLineCounter(lines)
+        self.assertEqual({"blank": 0, "comment": 5, "code": 9}, cnt.counters)
+
+    def test_php(self) -> None:
+        lines = [
+            "<?php",  # No, cloc does not view this as a shebang.
+            "x = 1;",
+        ]
+        cnt = XmlLineCounter(lines)
+        self.assertEqual({"blank": 0, "comment": 0, "code": 2}, cnt.counters)
+
+        lines = [
+            "class Authenticate extends Middleware",
+            "{",
+            "    /**",
+            "     * Get the path the user should be redirected to when they are not authenticated.",
+            "     *",
+            r"     * @param  \Illuminate\Http\Request  $request",
+            "     * @return string|null",
+            "     */",
+            "    protected function redirectTo($request)",
+        ]
+        cnt = XmlLineCounter(lines)
+        assert cnt.blank == 0
+        # self.assertEqual({"blank": 0, "comment": 6, "code": 3}, cnt.counters)
