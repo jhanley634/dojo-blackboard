@@ -28,6 +28,10 @@ class SlocHtmlTest(unittest.TestCase):
                     cnt = get_counts(file)
                     self.assertEqual(cloc_cnt.__dict__, cnt.counters, (cnt, f"{file}"))
 
+    def test_non_sourcecode(self) -> None:
+        file = _REPOS / "llama.cpp/media/matmul.png"
+        self.assertIsNone(get_cloc_triple(file))
+
     def test_html(self) -> None:
         lines = [
             "<!DOCTYPE html>",
