@@ -12,7 +12,8 @@ from random import shuffle
 from fastapi import FastAPI
 
 from bboard.transit.iss import iss_lng_lat
-from bboard.transit.vehicles import store_vehicle_journeys
+from bboard.transit.vehicles import KEY_NAME, store_vehicle_journeys
+from bboard.util.credentials import is_enabled
 
 
 async def iss_periodic_update(delay_seconds: float = 61) -> None:
