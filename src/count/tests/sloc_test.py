@@ -100,6 +100,10 @@ class SlocTest(unittest.TestCase):
         file = _REPOS / "llama.cpp/ggml/src/ggml-cuda/acc.cu"
         self.assertEqual({"blank": 6, "comment": 1, "code": 40}, get_counts(file).counters)
 
+    def test_ini_lines(self) -> None:
+        file = _REPOS / "docker-php-tutorial/.docker/images/php/fpm/conf.d/zz-app-fpm.ini"
+        self.assertEqual({"blank": 0, "comment": 1, "code": 7}, get_counts(file).counters)
+
     def zztest_config_cors_lines(self) -> None:
         r"""The result computed here is incorrect, it doesn't match cloc.
 
