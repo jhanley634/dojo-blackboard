@@ -12,7 +12,8 @@ from random import shuffle
 from fastapi import FastAPI
 
 from bboard.transit.iss import iss_lng_lat
-from bboard.transit.vehicles import store_vehicle_journeys
+from bboard.transit.vehicles import KEY_NAME, store_vehicle_journeys
+from bboard.util.credentials import is_enabled
 
 
 async def iss_periodic_update(delay_seconds: float = 61) -> None:
@@ -30,7 +31,7 @@ async def transit_periodic_update(delay_seconds: float = 91) -> None:
 
     while True:
         for agency in agencies:
-            store_vehicle_journeys(agency)
+            is_enabled(KEY_NAME) and store_vehicle_journeys(agency)
             await asyncio.sleep(delay_seconds)
 
 
