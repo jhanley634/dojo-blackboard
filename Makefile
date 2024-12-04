@@ -60,7 +60,7 @@ CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; 
 	$(ACTIVATE) && uv pip list
 	# $(ACTIVATE) && python $(CHECK_INTERPRETER)
 
-FIND_SOURCES := find . -name '*.py' | grep -v '/src/beeware-tutorial/helloworld/'
+FIND_SOURCES := find . -name '*.py' | egrep -v '/.venv/|/src/beeware-tutorial/helloworld/'
 SOURCES := $(shell $(FIND_SOURCES))
 EXCLUDE := '^(main|lifespan_mgmt|clock_[ps]ub)\.py$$'
 
