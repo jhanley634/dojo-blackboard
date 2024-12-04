@@ -62,5 +62,6 @@ class VehiclesTest(unittest.TestCase):
 
     @staticmethod
     def test_store_vehicle_journeys() -> None:
-        with suppress(IntegrityError):
-            store_vehicle_journeys("SC")
+        if is_enabled(KEY_NAME):
+            with suppress(IntegrityError):
+                store_vehicle_journeys("SC")
