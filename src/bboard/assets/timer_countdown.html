@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Stop Watch</title>
+  <style>
+    /* Layout and Base Styles */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #282c34;
+        font-family: 'Arial', sans-serif;
+        color: #61dafb;
+    }
+    .center-container {
+        position: relative;
+        width: 100%;
+        max-width: 650px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    h1 {
+        font-size: 5rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        transition: opacity 0.5s ease-in-out;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Animations */
+    @keyframes shake {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(-5deg); }
+        100% { transform: rotate(0deg); }
+    }
+    @keyframes glow {
+        0%, 100% { box-shadow: 0 0 10px #ff4757, 0 0 20px #ff4757, 0 0 30px #ff4757; }
+        50% { box-shadow: 0 0 20px #ff4757, 0 0 30px #ff4757, 0 0 40px #ff4757; }
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    /* State Classes */
+    h1.finished {
+        color: #ff4757;
+        animation: shake 0.3s ease-in-out infinite, glow 1s ease-in-out infinite;
+        transform-origin: center;
+    }
+    .fade { transition: opacity 0.5s ease-in-out; }
+    .hidden { opacity: 0; }
+    .visible { opacity: 1; }
+    .blinking-colon { animation: blink 1s step-start infinite; }
+
+    /* Interactive Elements */
+    #startText, #timer {
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    #startText:hover, #timer:hover {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    #startText:active, #timer:active {
+        box-shadow: 0 0 20px rgba(97, 218, 251, 0.8);
+    }
+  </style>
+</head>
+<body>
+    <div class="center-container">
+        <h1 id="startText" onclick="startTimer()">Count ⬇ from 10</h1>
+        <h1 id="timer" style="display: none;"></h1>
+    </div>
+
+    <!-- Audio Resources -->
+    <audio id="alarm" src="/assets/sounds/iphone_alarm_sound.mp3"></audio>
+    <audio id="pauseSound" src="/assets/sounds/pause.mp3"></audio>
+    <audio id="resumeSound" src="/assets/sounds/resume.mp3"></audio>
+    <audio id="tickSound" src="/assets/sounds/tick.mp3"></audio>
+
+    <script>
+    /**
+     * Countdown Timer Application
+     * Features:
+     * - 10-second countdown with pause/resume
+     * - Sound effects and visual feedback
+     * - Finish state with animation
+     */
+
+    // Constants and State
+    const INITIAL_SECONDS = 10;
+    const INITIAL_MINUTES = 0;
+    let seconds = INITIAL_SECONDS;
+    let minutes = INITIAL_MINUTES;
+    let counter;
+    let isPaused = false;
+
+    // DOM Element Cache
+    const getElements = () => ({
+        startText: document.getElementById('startText'),
+        timerElement: document.getElementById('timer'),
+        pauseSound: document.getElementById('pauseSound'),
+        resumeSound: document.getElementById('resumeSound'),
+        tickSound: document.getElementById('tickSound'),
+        alarm: document.getElementById('alarm')
+    });
+
+    // Timer Display Functions
+    function updateTimerDisplay(element, mins, secs, useBlinkingColon = true) {
+        const colon = useBlinkingColon ? '<span class="blinking-colon">:</span>' : ':';
+        element.innerHTML = `${mins.toString().padStart(2, '0')}${colon}${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Sound Control Functions
+    function handleSounds(action, sounds) {
+        const { tickSound, pauseSound, resumeSound } = sounds;
+        switch(action) {
+            case 'pause':
+                pauseSound.play();
+                tickSound.pause();
+                break;
+            case 'resume':
+                resumeSound.play();
+                resumeSound.onended = () => tickSound.play();
+                break;
+            case 'startTick':
+                tickSound.loop = true;
+                tickSound.play();
+                break;
+        }
+    }
+
+    // Timer State Management
+    function handleFinishState(elements) {
+        const { timerElement, alarm, tickSound } = elements;
+        clearInterval(counter);
+        timerElement.textContent = "FINISH";
+        timerElement.classList.add('finished');
+        alarm.play();
+        tickSound.pause();
+
+        timerElement.onclick = (event) => handleFinishClick(event, elements);
+    }
+
+    function handleFinishClick(event, elements) {
+        const { timerElement, alarm } = elements;
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (timerElement.classList.contains('finished')) {
+            // First click: stop animation and sound
+            timerElement.classList.remove('finished');
+            alarm.pause();
+            alarm.currentTime = 0;
+            timerElement.style.color = '#61dafb';
+
+            // Set up for second click
+            timerElement.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                resetTimer(elements);
+            };
+        }
+    }
+
+    function resetTimer(elements) {
+        const { timerElement, startText } = elements;
+        timerElement.style.display = 'none';
+        startText.style.display = 'block';
+        seconds = INITIAL_SECONDS;
+        minutes = INITIAL_MINUTES;
+        timerElement.style.color = '';
+        timerElement.classList.remove('finished');
+    }
+
+    function startTimer() {
+        const elements = getElements();
+        initializeTimer(elements);
+        attachTimerClickHandler(elements);
+    }
+
+    function Timer() {
+        if (!isPaused) {
+            const elements = getElements();
+            if (seconds === INITIAL_SECONDS && minutes === 0) {
+                handleSounds('startTick', elements);
+            }
+            updateTimerState(elements);
+        }
+    }
+
+    function initializeTimer(elements) {
+        const { startText, timerElement } = elements;
+        startText.style.display = 'none';
+        timerElement.style.display = 'block';
+        updateTimerDisplay(timerElement, minutes, seconds, false);
+        counter = setInterval(Timer, 1000);
+    }
+
+    function updateTimerState(elements) {
+        const { timerElement } = elements;
+        seconds -= 1;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes += 1;
+        } else if (minutes === 0 && seconds === 0) {
+            handleFinishState(elements);
+            return;
+        }
+        updateTimerDisplay(timerElement, minutes, seconds);
+    }
+
+    function attachTimerClickHandler(elements) {
+        const { timerElement } = elements;
+        timerElement.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (isPaused) {
+                counter = setInterval(Timer, 1000);
+                isPaused = false;
+                handleSounds('resume', elements);
+                timerElement.style.color = '';
+            } else {
+                clearInterval(counter);
+                isPaused = true;
+                handleSounds('pause', elements);
+                timerElement.style.color = 'darkgrey';
+                updateTimerDisplay(timerElement, minutes, seconds, false);
+            }
+        };
+    }
+
+    </script>
+</body>
+</html>
