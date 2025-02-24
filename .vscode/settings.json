@@ -1,3 +1,4 @@
 {
+    "files.insertFinalNewline": true,
     "makefile.configureOnOpen": false
 }
