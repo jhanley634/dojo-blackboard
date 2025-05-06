@@ -1,8 +1,14 @@
 #! /usr/bin/env python
 
+from datetime import timedelta
+
 import pandas as pd
 import requests
+import requests_cache
 from bs4 import BeautifulSoup
+
+_one_day = timedelta(days=1).total_seconds()
+requests_cache.install_cache("/tmp/scraping_cache", expire_after=_one_day)
 
 target_url = (
     "https://www.cnbc.com/2025/05/05/" "cnbcs-official-global-soccer-team-valuations-2025.html"
