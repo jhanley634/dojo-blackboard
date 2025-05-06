@@ -36,7 +36,7 @@ def main() -> None:
     dfs = pd.read_html(StringIO(resp.text))
     assert 1 == len(dfs)
     df = dfs[0].iloc[1:]  # suppress initial "data" row, which is actually "headers"
-    df.columns = list(_get_col_headers(soup.find("table")))
+    df.columns = pd.Index(_get_col_headers(soup.find("table")))
     df = df.rename(columns={"Debt as % of value": "debt_pct"})
     df["debt_pct"] = pd.to_numeric(df.debt_pct.str.rstrip("%").astype(str), errors="coerce")
     df["RANK"] = pd.to_numeric(df.RANK)
