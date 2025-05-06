@@ -7,7 +7,7 @@ from io import StringIO
 import pandas as pd
 import requests
 import requests_cache
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 _one_day = timedelta(days=1).total_seconds()
 requests_cache.install_cache("/tmp/scraping_cache", expire_after=_one_day)
@@ -19,9 +19,11 @@ target_url = (
 ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:137.0) Gecko/20100101 Firefox/137.0"
 
 
-def _get_col_headers(table: Tag) -> Generator[str]:
+def _get_col_headers(table: Tag | NavigableString | None) -> Generator[str]:
     assert isinstance(table, Tag)
-    for header in table.find("tr"):
+    trs = table.find("tr")
+    assert trs
+    for header in trs:
         assert isinstance(header, Tag)
         yield str(header.get_text(strip=True))
 
@@ -34,7 +36,7 @@ def main() -> None:
     dfs = pd.read_html(StringIO(resp.text))
     assert 1 == len(dfs)
     df = dfs[0].iloc[1:]  # suppress initial "data" row, which is actually "headers"
-    df.columns = _get_col_headers(soup.find("table"))
+    df.columns = list(_get_col_headers(soup.find("table")))
     df = df.rename(columns={"Debt as % of value": "debt_pct"})
     df["debt_pct"] = pd.to_numeric(df.debt_pct.str.rstrip("%").astype(str), errors="coerce")
     df["RANK"] = pd.to_numeric(df.RANK)
