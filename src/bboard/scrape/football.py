@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from collections.abc import Generator
 from datetime import timedelta
 from io import StringIO
 
@@ -18,18 +19,22 @@ target_url = (
 ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:137.0) Gecko/20100101 Firefox/137.0"
 
 
+def _get_col_headers(table: Tag) -> Generator[str]:
+    assert isinstance(table, Tag)
+    for header in table.find("tr"):
+        assert isinstance(header, Tag)
+        yield str(header.get_text(strip=True))
+
+
 def main() -> None:
     resp = requests.get(target_url, headers={"User-Agent": ua})
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
-    table = soup.find("table")
-    assert isinstance(table, Tag)
-    col_headers = [header.get_text(strip=True) for header in table.find("tr")]
 
     dfs = pd.read_html(StringIO(resp.text))
     assert 1 == len(dfs)
     df = dfs[0].iloc[1:]  # suppress initial "data" row, which is actually "headers"
-    df.columns = col_headers
+    df.columns = _get_col_headers(soup.find("table"))
     df = df.rename(columns={"Debt as % of value": "debt_pct"})
     df["debt_pct"] = pd.to_numeric(df.debt_pct.str.rstrip("%").astype(str), errors="coerce")
     df["RANK"] = pd.to_numeric(df.RANK)
