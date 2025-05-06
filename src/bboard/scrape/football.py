@@ -28,11 +28,15 @@ def main() -> None:
 
     dfs = pd.read_html(StringIO(resp.text))
     assert 1 == len(dfs)
-    df = dfs[0]
+    df = dfs[0].iloc[1:]  # suppress initial "data" row, which is actually "headers"
     df.columns = col_headers
-    print(df.to_markdown(index=False))
+    df = df.rename(columns={"Debt as % of value": "debt_pct"})
+    df["debt_pct"] = pd.to_numeric(df.debt_pct.str.rstrip("%").astype(str), errors="coerce")
+    df["RANK"] = pd.to_numeric(df.RANK)
+    # There is room for improvement on the "$nnnM" or "$nnnB" Value, Revenue, EBITDA columns.
+    # That last one is especially simple, since figures are always in millions, e.g. "-$29M".
 
-    # print(BeautifulSoup(html, "html.parser").prettify())
+    print(df.to_markdown(index=False))
 
 
 if __name__ == "__main__":
