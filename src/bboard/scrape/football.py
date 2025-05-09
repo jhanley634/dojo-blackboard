@@ -29,13 +29,13 @@ def _get_col_headers(table: Tag | NavigableString | None) -> Generator[str]:
 
 
 def main() -> None:
-    resp = requests.get(target_url, headers={"User-Agent": ua})
+    resp = get(target_url, headers={"User-Agent": ua})
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
     dfs = pd.read_html(StringIO(resp.text))
     assert 1 == len(dfs)
-    df = dfs[0].iloc[1:]  # suppress initial "data" row, which is actually "headers"
+    df = dfs[0].iloc[1:]  # Elide the initial "data" row, which is actually "headers".
     df.columns = pd.Index(_get_col_headers(soup.find("table")))
     df = df.rename(columns={"Debt as % of value": "debt_pct"})
     df["debt_pct"] = pd.to_numeric(df.debt_pct.str.rstrip("%").astype(str), errors="coerce")
