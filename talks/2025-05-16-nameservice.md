@@ -24,8 +24,8 @@ prod.guardian.map.fastlylb.net has address 151.101.201.111
 ```
 
 BTW, that "alias" or "canonical name" RR, resource record,
-is essentially a symlink. \newline
-It instructs the client to "begin again", resolving a new name; this one happens to be \newline
+is essentially a symlink.
+It instructs the client to "begin again", resolving a new name; this one happens to be
 under `.net`.
 
 You see a pair of name resolutions there.
