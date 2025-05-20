@@ -6,11 +6,11 @@ from io import StringIO
 
 import pandas as pd
 import requests
-import requests_cache
 from bs4 import BeautifulSoup, NavigableString, Tag
+from requests_cache import install_cache
 
 _one_day = timedelta(days=1).total_seconds()
-requests_cache.install_cache("/tmp/scraping_cache", expire_after=_one_day)
+install_cache("/tmp/scraping_cache", expire_after=_one_day)
 
 
 target_url = (
@@ -29,7 +29,7 @@ def _get_col_headers(table: Tag | NavigableString | None) -> Generator[str]:
 
 
 def main() -> None:
-    resp = get(target_url, headers={"User-Agent": ua})
+    resp = requests.get(target_url, headers={"User-Agent": ua})
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
