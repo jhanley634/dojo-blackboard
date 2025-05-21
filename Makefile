@@ -29,19 +29,7 @@ HOST := localhost
 run:
 	$(ACTIVATE) && $(ENV) fastapi dev --host $(HOST) src/bboard/main.py
 
-# tutorial is at https://docs.beeware.org/en/latest/tutorial/tutorial-1.html
-HELLOWORLD := src/beeware-tutorial/helloworld
-BUILD := /tmp/dojo/helloworld/build
-
-$(BUILD):
-	mkdir -p $(BUILD)
-	cd $(HELLOWORLD) && ln -s $(BUILD)
-
-build: $(BUILD)
-	$(ACTIVATE) && cd $(HELLOWORLD) && briefcase build && briefcase update
-	# another relevant command would be: briefcase run iOS --update
-
-install: .venv/bin/activate $(BUILD)
+install: .venv/bin/activate
 	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
@@ -58,9 +46,8 @@ CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; 
 	$(ACTIVATE) && python -m pip install uv
 	$(ACTIVATE) && ls -la .venv/bin/
 	$(ACTIVATE) && uv pip list
-	# $(ACTIVATE) && python $(CHECK_INTERPRETER)
 
-FIND_SOURCES := find . -name '*.py' | egrep -v '/.venv/|/src/beeware-tutorial/helloworld/'
+FIND_SOURCES := find . -name '*.py' | egrep -v '/.venv/'
 SOURCES := $(shell $(FIND_SOURCES))
 EXCLUDE := '^(main|lifespan_mgmt|clock_[ps]ub)\.py$$'
 
@@ -101,13 +88,12 @@ docker-build: clean-cache
 docker-run:
 	docker run -p 8000:8000 -it $(PROJECT)
 
-CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(HELLOWORLD)/logs $(shell find . -name __pycache__)
+CACHES = .mypy_cache/ .pyre/ .pytype/ .ruff_cache/ $(shell find . -name __pycache__)
 
 clean-cache:
-	rm -rf $(HELLOWORLD)/build
 	rm -rf $(CACHES)
 
 clean: clean-cache
 	rm -rf htmlcov/ $(ANCIENT_VENV) .venv/ $(REPOS) /tmp/blackboard.db
 
-.PHONY: all lint unit test run build install coverage count talk docker clean
+.PHONY: all lint unit test run install coverage count talk docker clean
