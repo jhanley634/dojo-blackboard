@@ -29,7 +29,8 @@ def _get_col_headers(table: Tag | NavigableString | None) -> Generator[str]:
 
 
 def main() -> None:
-    resp = requests.get(target_url, headers={"User-Agent": ua})
+    headers = {"User-Agent": ua}
+    resp = requests.get(target_url, headers=headers)  # type: ignore[attr-defined]
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
