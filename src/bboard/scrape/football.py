@@ -32,9 +32,10 @@ def main() -> None:
     headers = {"User-Agent": ua}
     resp = requests.get(target_url, headers=headers)  # type: ignore[attr-defined]
     resp.raise_for_status()
+    text = StringIO(resp.text)
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    dfs = pd.read_html(StringIO(resp.text))
+    dfs = pd.read_html(text)
     assert 1 == len(dfs)
     df = dfs[0].iloc[1:]  # Elide the initial "data" row, which is actually "headers".
     df.columns = pd.Index(_get_col_headers(soup.find("table")))
