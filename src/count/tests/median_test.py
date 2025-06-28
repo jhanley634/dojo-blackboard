@@ -1,4 +1,5 @@
 import unittest
+from itertools import pairwise
 
 from hypothesis import given
 from hypothesis import strategies as st
@@ -42,7 +43,7 @@ def median_sorted(nums: list[float]) -> float:
 
 
 def is_monotonic(nums: list[float]) -> bool:
-    return all(a <= b for a, b in zip(nums, nums[1:]))
+    return all(a <= b for a, b in pairwise((nums[:-1], nums[1:])))
 
 
 def median_of_sorted_lists_slow(a: list[float], b: list[float]) -> float:

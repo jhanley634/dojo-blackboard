@@ -23,7 +23,7 @@ def table_of_contents(app_routes: list[BaseRoute]) -> str:
     endpoints = sorted(
         r.path
         for r in app_routes
-        if isinstance(r, (Route, APIRoute))
+        if isinstance(r, Route | APIRoute)
         and len(r.path) > 1
         and r.path not in ["/docs/oauth2-redirect", "/favicon.ico"]
         and "GET" in (r.methods or [])
