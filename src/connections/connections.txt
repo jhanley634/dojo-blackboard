@@ -1,0 +1,1334 @@
+-*- org -*-
+
+| CATEGORY                          | WORDS                                          |
+|-----------------------------------+------------------------------------------------|
+| INSPIRED                          | CREATIVE, FRESH, NOVEL, ORIGINAL               |
+| PROCURE IN ADVANCE                | BOOK, CHARTER, RESERVE, SECURE                 |
+| BIT OF PARTY DECORATION           | BALLOON, BANNER, CONFETTI, GARLAND             |
+| ONLINE PERSONALITY                | AMBASSADOR, INFLUENCER, MODEL, STREAMER        |
+|                                   |                                                |
+| SPECIFICATIONS FOR A BARTENDER    | DRY, NEAT, STRAIGHT, VIRGIN                    |
+| DECORATIVE EDGE                   | BORDER, FRILL, FRINGE, TRIM                    |
+| STRING ___                        | BEAN, BIKINI, CHEESE, THEORY                   |
+| INCREASE, IN A WAY                | GROW, MOUNT, SWELL, WAX                        |
+|                                   |                                                |
+| AREA OF HIGH GROUND               | BANK, DUNE, HILL, MOUND                        |
+| SIGNIFICANCE                      | GRAVITY, IMPORT, SUBSTANCE, WEIGHT             |
+| ACTIONS IN FANTASY SPORTS         | BENCH, DRAFT, START, TRADE                     |
+| SCI-FI MOVIES, WITH “THE”         | ABYSS, FLY, MATRIX, THING                      |
+|                                   |                                                |
+| CABINET DEPARTMENTS               | ENERGY, JUSTICE, LABOR, STATE                  |
+| ACTIONS IN CARD GAMES             | DISCARD, DRAW, PASS, PLAY                      |
+| BEDDING                           | BLANKET, SHAM, SHEET, THROW                    |
+| MAKE GOOD ON, AS A PROMISE        | FULFILL, HONOR, KEEP, UPHOLD                   |
+|                                   |                                                |
+| COMMON PERFUME INGREDIENTS        | AMBER, GRIS, MUSK, ROSE                        |
+| CHARACTERS WITH PET DOGS          | CHARLIE, DOROTHY, SHAGGY, WALLACE              |
+| COOK WITH HEAT AND WATER          | BLANCH, BOIL, POACH, STEAM                     |
+| CAPITAL CITY HOMOPHONES           | KETO, RAM, SOPHIA, SOUL                        |
+|                                   |                                                |
+| FLUSTERED STATE                   | LATHER, STEW, SWEAT, TIZZY                     |
+| FAST-MOVING WATER                 | CASCADE, CURRENT, RAPID, WAVE                  |
+| FITNESS                           | CONDITION, FORM, HEALTH, SHAPE                 |
+| DISHWASHER CYCLES                 | NORMAL, QUICK, RINSE, SANITIZE                 |
+|                                   |                                                |
+| ROBERT DE NIRO FILMS              | CASINO, HEAT, JOKER, TAXI DRIVER               |
+| PUT ON THE LINE                   | BET, CHANCE, GAMBLE, RISK                      |
+| USE A KITCHEN KNIFE               | CUBE, DICE, JULIENNE, SLICE                    |
+| DISTINCTIVE NUMBER OF ARMS        | OCTOPUS, SHIVA, SLOT MACHINE, VENUS DE MILO    |
+|                                   |                                                |
+| CARE FOR A PLANT                  | FERTILIZE, POT, PRUNE, WATER                   |
+| BEVERAGES                         | JUICE, MILK, PUNCH, SODA                       |
+| ITEM SOLD IN PAIRS                | BOOKEND, EARBUD, SKIS, SOCK                    |
+| BUGS PLUS STARTING LETTER         | BLOUSE, PANTS, MITE, STICK                     |
+|                                   |                                                |
+| SMALL AMOUNT                      | DABDASH, DOLLOP, DROP, DAB                     |
+| CONCAVITY                         | DENT, DIMPLED, DING, DIVOT                     |
+| DISNEY CHARACTERS                 | DAISY, DALE, DOC, DORY                         |
+| ___ DATE                          | DELIVERY, DINNER, DREAM, DUE                   |
+|                                   |                                                |
+| BRANDS THAT ARE GENERIC TERMS     | CHAPSTICK, JACUZZI, Q-TIP, XEROX               |
+| STEAK CUTS                        | FILET, HANGER, SKIRT, T-BONE                   |
+| KINDS OF UNDERWEAR                | BIKINI, G-STRING, HIPSTER, THONG               |
+| INVOLVED IN A DENTIST VISIT       | DRILL, SINK, TOOTHBRUSH, X-RAY                 |
+|                                   |                                                |
+| TURN TAIL                         | FLEE, LEAVE, RETREAT, WITHDRAW                 |
+| ___ CHEESE                        | COTTAGE, CREAM, GOAT, STRING                   |
+| THINGS CATS DO                    | KNEAD, PURR, SCRATCH, SHED                     |
+| PAGES ON A WEBSITE                | ABOUT, CONTACT, HOME, LOGIN                    |
+|                                   |                                                |
+| FAMOUS PRIMATES                   | BUBBLES, GEORGE, KING KONG, KOKO               |
+| SOUNDS OF LAUGHTER                | HAR-HAR, HOOT, WHOOP, YUK                      |
+| CAR ONOMATOPOEIA                  | BEEP, BEEP, PURR, SKRRT, VROOM                 |
+| KNUCKLEHEAD                       | DING-DONG, DODO, YAHOO, YO-YO                  |
+|                                   |                                                |
+| PROHIBIT                          | BAN, BLOCK, DENY, FORBID                       |
+| HALLOWEEN SYMBOLS                 | BAT, PUMPKIN, SPIDER, WITCH                    |
+| CANDY ___                         | APPLE, BAR, CANE, CORN                         |
+| FOUND ON SHEET MUSIC              | ACCIDENTAL, NOTE, REST, STAFF                  |
+|                                   |                                                |
+| BURGEON                           | BLOSSOM, DEVELOP, MATURE, PROGRESS             |
+| EFFERVESCENCE                     | BUBBLES, FIZZ, FOAM, FROTH                     |
+| ENDING WITH TABLEWARE             | BOILERPLATE, BUTTERCUP, JACKKNIFE, WITHERSPOON |
+| MUSIC PUBLICATIONS                | BILLBOARD, MOJO, PITCHFORK, SPIN               |
+|                                   |                                                |
+| ADDITIONAL BENEFIT                | BONUS, EXTRA, FROSTING, GRAVY                  |
+| BRASHNESS                         | BRASS, CHEEK, NERVES, SAUCE                    |
+| QUICK JUMP IN THE POOL            | DIP, DIVE, SPLASH, SWIM                        |
+| CHERISH                           | RELISH, SAVOR, TREASURE, VALUE                 |
+|                                   |                                                |
+| BIRD ONOMATOPOEIA                 | COOG, GOBBLE, HONK, HOOT                       |
+| DRAPED ACCESSORIES                | SCARF, SHAWL, STOLE, WRAP                      |
+| TOLERATE                          | BEAR, STAND, SWALLOW, TAKE                     |
+| STARTS OF CELL PHONE MAKERS       | APP, GO, MOTOR, SAM                            |
+|                                   |                                                |
+| ROAD RUNNER CARTOON STAPLES       | ANVIL, BOULDER, COYOTE, TNT                    |
+| MADE OF KERATIN                   | CLAW, HOOF, HORN, NAIL                         |
+| ___ ROLL                          | CALIFORNIA, DRUM, EGG, HONOR                   |
+| KINDS OF PANTS                    | CAPRI, CARGO, HAMMER, STIRRUP                  |
+|                                   |                                                |
+| SOUNDS OF THUNDER                 | CLAP, PEAL, ROLL, RUMBLE                       |
+| WAYS TO WEAR YOUR HAIR UP         | BRAID, BUN, PONY, TWIST                        |
+| RUMMAGE                           | COMB, DIG, ROOT, SIFT                          |
+| THINGS THAT CAN HAVE LEAVES       | BOOKS, SALAD, TABLE, TREE                      |
+|                                   |                                                |
+| AT SOME FUTURE POINT              | EVENTUALLY, LATER, NEXT, SOON                  |
+| BIT OF BREAKFAST CEREAL           | CHEERIO, FLAKE, PEBBLE, PUFF                   |
+| PARTS OF A TOURNAMENT SETUP       | BRACKET, BYE, ROUND, SEED                      |
+| WHAT TWO FINGERS REPRESENT        | PEACE, SCISSORS, TWO, VICTORY                  |
+|                                   |                                                |
+| GRASSY AREA                       | GREEN, LAWN, PARK, YARD                        |
+| DEAL WITH                         | ADDRESS, ANSWER, FIELD, HANDLE                 |
+| MOVIES WITH “S” REMOVED           | CAR, GOODFELLAS, JAW, WINGER                   |
+| ___ LAW                           | CRIMINAL, HARVARD, LEMON, NATURAL              |
+|                                   |                                                |
+| CLUNKER                           | BUST, DUFF, FLOP, MISS                         |
+| OPPORTUNITY                       | CHANCE, SHOT, TIME, TURN                       |
+| NON-CASH WAY TO PAY               | CARD, CHARGE, CREDIT, PLASTIC                  |
+| AMAZON ___                        | KINDLE, PRIME, RAINFOREST, RIVER               |
+|                                   |                                                |
+| VIDEO GAME FRANCHISES             | CIVILIZATION, HALO, MADDEN, METROID            |
+| THINGS THAT ARE OFTEN SCENTED     | CANDLE, INCENSE, LOTION, SOAP                  |
+| BRING ABOUT                       | GENERATE, INSPIRE, PROMPT, PROVOKE             |
+| THINGS THAT MIGHT STING           | INSULT, JELLYFISH, NETTLE, WASP                |
+|                                   |                                                |
+| NOISY DISTURBANCE                 | CLATTER, RACKET, ROW, RUCKUS                   |
+| BIT OF NEWSPAPER WRITING          | ARTICLE, COLUMN, FEATURE, STORY                |
+| TABLE TENNIS NEEDS                | BALL, NET, PADDLE, TABLE                       |
+| COORD CONJUNCTION HOMOPHONES      | BUT, FOR, OR, SEW                              |
+|                                   |                                                |
+| ATTRACT                           | DRAW, GRAB, HOOK, PULL                         |
+| AUTO GEAR SHIFTER POSITIONS       | DRIVE, LOW, NEUTRAL, REVERSE                   |
+| KINDS OF BEANS                    | KIDNEY, MUNG, NAVY, PINTO                      |
+| ___POOL                           | CARD, DEAD, LIVER, WHIRL                       |
+|                                   |                                                |
+| NASA SPACECRAFT                   | GALILEO, PIONEER, VIKING, VOYAGER              |
+| BRAND-NAME                        | DESIGNER, HAUTE, HIGH-END, LUXURY              |
+| DEVISE                            | CONCOCT, ENGINEER, HATCH, MASTERMIND           |
+| YOU SAY THE GAME’S NAME           | BINGO, MARCO POLO, TAG, UNO                    |
+|                                   |                                                |
+| LINEUP                            | BILL, PROGRAM, SCHEDULE, SLATE                 |
+| FRENCH WORDS                      | ADIEU, BELLE, PAIN, TEMPS                      |
+| NYT OFFERINGS                     | AUDIO, COOKING, GAMES, NEWS                    |
+| THINGS FROM FOLDED PAPER          | AIRPLANE, CRANE, FAN, FORTUNE TELLER           |
+|                                   |                                                |
+| IPHONE TAPBACK RESPONSES          | EXCLAMATION, HEART, QUESTION MARK, THUMBS UP   |
+| EVENT WITH DANCING                | BALL, FORMAL, HOP, RAVE                        |
+| PUNCTUATION MARKS                 | DOT, PERIOD, POINT, TITTLE                     |
+| “PAN”                             | BAD REVIEW, CAMERA MOVEMENT, COOKWARE, SATYR   |
+|                                   |                                                |
+| PLACES TO LIE/SIT THAT MOVE       | CRADLE, HAMMOCK, ROCKER, SWING                 |
+| FLUSTER                           | FAZE, RATTLE, RUFFLE, THROW                    |
+| SERIES OF MESSAGES                | CHAIN, CHAT, CONVERSATION, THREAD              |
+| CYLINDER-SHAPED THINGS            | CAN, ROLLER, SILO, POOL                        |
+|                                   |                                                |
+| UNITS                             | BARBELL, LUX, MOLE                             |
+| AMBIENCE                          | AIR, FEELING, MOOD, QUALITY                    |
+| SASSY                             | CUTE, FRESH, SMART, WISE                       |
+| THE LITTLE ___                    | MERMAID, PRINCE, RASCAL, STRAMP                |
+|                                   |                                                |
+| WEDDING VOW VERBS                 | CHERISH, HAVE, HOLD, LOVE                      |
+| INDICATE                          | MEAN, SIGNIFY, SPELL, SUGGEST                  |
+| AUDIO APPS                        | AUDIBLE, PANDORA, SHAZAM, TIDAL                |
+| MAGIC WORDS                       | ABRACADABRA, PLEASE, PRESTO, THANK YOU         |
+|                                   |                                                |
+| A FAMOUS “JULIUS CAESAR” LINE     | COUNTRYMAN, EAR, FRIEND, ROMAN                 |
+| IN PRISTINE CONDITION             | MINT, NEW, ORIGINAL, UNUSED                    |
+| MEDICAL ROLES                     | ATTENDING, FELLOW, INTERN, RESIDENT            |
+| ___ SQUARE                        | PERFECT, POCKET, TIME, TOWN                    |
+|                                   |                                                |
+| KINDS OF TAPE                     | DUCT, ELECTRICAL, GAFFER, PACKING              |
+| THINGS WITH WHEELS                | DOLLY, ROLLER, BLADES, SKATEBOARD, WAGON       |
+| UPSWING                           | BOOM, RISE, SPIKE, SURGE                       |
+| RETAIL CHAINS - 1 LETTER CHANGED  | BEST, BOY, IDEA, KRONER, STABLES               |
+|                                   |                                                |
+| TERMS OF ENDEARMENT               | DARLING, LOVE, PUMPKIN, TREASURE               |
+| THINGS YOU DO WITH YOUR EYELIDS   | BAT, BLINK, FLUTTER, WINK                      |
+| SPORTS CARS                       | DIABLO, MUSTANG, SPIDER, VIPER                 |
+| ___ HUNT                          | EGG, JOBS, CAVENGER, WITCH                     |
+|                                   |                                                |
+| WAYS TO ORDER A BEER              | BOTTLE, CAN, DRAFT, TAP                        |
+| PROGRESS SLOWLY                   | CRAWL, CREEP, DRAG, INCH                       |
+| CHEESY CORN SNACK UNIT            | BALL, CURL, DOODLE, PUFF                       |
+| ___ EFFECT                        | BUTTERFLY, DOMINO, HALO, PLACEBO               |
+|                                   |                                                |
+| SEEN IN A KITCHEN                 | COUNTER, FRIDGE, RANGE, SINK                   |
+| GROUP OF ADVISORS                 | BOARD, CABINET, COUNCIL, PANEL                 |
+| CORE EXERCISES                    | BOAT, CRUNCH, MOUNTAIN CLIMBER, PLANK          |
+| KINDS OF EARRINGS                 | CHANDELIER, DROP, HOOP, STUD                   |
+|                                   |                                                |
+| SNEAKING SUSPICION                | FEELING, HUNCH, IMPRESSION, SENSE              |
+| LEGAL SESSION                     | HEARING, INQUIRY, PROCEEDING, TRIAL            |
+| HEARTWARMING                      | MOVING, SWEET, TENDER, TOUCHING                |
+| EASY ___                          | CHAIR, LISTENING, MONEY, STREET                |
+|                                   |                                                |
+| INDIVIDUALITY                     | BEING, CHARACTER, EGO, SELF                    |
+| FURNITURE                         | CHEST, CONSOLE, VANITY, WARDROBE               |
+| EQUIP                             | FURNISH, OUTFIT, PROVISIONS, STOCK             |
+| WORDS WITH APOSTROPHES REMOVED    | CANT, ID, SHELL, WERE                          |
+|                                   |                                                |
+| FIGURES IN “SHREK”                | DONKEY, DRAGON, OGRE, PRINCESS                 |
+| THINGS WITH SHELLS                | CLAM, EGG, NUT, TURTLE                         |
+| THINGS THAT ARE FUZZY             | CATERPILLAR, FLEECE, PEACH, PIPE CLEANER       |
+| MAGIC ___                         | CARPET, KINGDOM, MARKER, MUSHROOM              |
+|                                   |                                                |
+| DVR BUTTONS                       | PAUSE, PLAY, RECORD, STOP                      |
+| GROUNDBREAKING                    | DIFFERENT, NEW, NOVEL, ORIGINAL                |
+| COMMUNICATE THROUGH WRITING       | CORRESPOND, MESSAGE, TEXT, WRITE               |
+| THINGS WITH FEET                  | BIPED, FURNITURE, POEM, YARDSTICK              |
+|                                   |                                                |
+| INFO ON A MUSEUM PLACARD          | ARTIST, MEDIUM, TITLE, YEAR                    |
+| PUBLIC STANDING                   | CHARACTER, IMAGE, NAME, REPUTATION             |
+| FOOD-RELATED JUMBLES              | HASH, SALAD, SCRAMBLES, STEW                   |
+| ANAGRAMS OF FAMOUS PAINTERS       | DIAL, EGADS, MONTE, YOGA                       |
+|                                   |                                                |
+| RISQUÉ                            | ADULT, BLUES, SPICY, SUGGESTIVE                |
+| KINDS OF PICKLES                  | DILL, KOSHER, SOUR, SWEET                      |
+| ESCAPADE                          | ANTIC, CAPER, EXPLOIT, STUNT                   |
+| CUT THE ___                       | CHEESE, CORD, DECK, MUSTARD                    |
+|                                   |                                                |
+| ALGEBRA TERMS                     | EXPONENT, POWER, RADICAL, ROOT                 |
+| CONTORTED                         | BENT, GNARLY, TWISTED, WARPED                  |
+| SMALLEST AMOUNT                   | LICK, OUNCE, SHRED, TRACE                      |
+| WORDS BEFORE "ROOM" FOR LAVATORY  | BATH, POWDER, REST, THRONE                     |
+|                                   |                                                |
+| THINGS THAT SWING                 | GOLFER, PENDULUM, SALOON DOORS, SWING          |
+| GUIDE                             | PILOT, SHEPHERD, STEER, USHER                  |
+| BARREL-SHAPED CONTAINER           | CASK, CYLINDER, DRUM, TANK                     |
+| N.F.L. TEAM MEMBER                | COWBOY, JET, RAM, RAVEN                        |
+|                                   |                                                |
+| BIRD                              | BIG, EARLY, LADY, SUE                          |
+| KINDS OF BRAS                     | DEMI, PUSH-UP, SPORT, WIRELESS                 |
+| CANDY BARS                        | CRUNCH, DOVE, MARS, PAYDAY                     |
+| GIST                              | CORE, MEAT, SUBSTANCE, THRUST                  |
+|                                   |                                                |
+| FEATURES OF JUSTICE PERSONIFIED   | BLINDFOLD, ROBE, SCALE, SWORD                  |
+| COMPLAIN                          | BELLYACHE, CARP, CRAB, GRUMBLE                 |
+| VEGETABLE UNITS                   | CLOVE, FLORET, SPEAR, STALK                    |
+| LAPTOP SPECS                      | RAM, RESOLUTION, SPEED, STORAGE                |
+|                                   |                                                |
+| BUILDING ADD-ONS                  | ADDITION, ANNEX, EXTENSION, WING               |
+| CONCERNS FOR A DENTIST            | CALCULUS, CAVITY, PLAQUE, TARTAR               |
+| THINGS THAT ARE YELLOW            | CANARY, LEMON, MINION, MUSTARD                 |
+| WORDS LONGER WRITTEN THAN SPOKEN  | COLONEL, PHARAOH, WEDNESDAY, WORCESTERSHIRE    |
+|                                   |                                                |
+| DEPLETE                           | DRAIN, EMPTY, EXHAUST, SAP                     |
+| WORDS ON A RESTAURANT RECEIPT     | SIGNATURE, TAX, TIP, TOTAL                     |
+| PLAY MUSIC WITH PASSION           | GROOVE, JAM, ROCK, SHRED                       |
+| FORMS OF SUGAR                    | CUBE, GRAIN, POWDER, SYRUP                     |
+|                                   |                                                |
+| INSTRUMENTS YOU BLOW INTO         | JUG, PIPE, RECORDER, WHISTLE                   |
+| FISSURE                           | CRACK, HOLE, LEAK, PUNCTURE                    |
+| ELEMENTS OF WRITING               | LETTER, PHRASE, SENTENCE, WORD                 |
+| ___ OF TIME                       | NICK, PASSAGE, SAND, WASTE                     |
+|                                   |                                                |
+| COLLEGE FOOTBALL TEAM MEMBERS     | GATOR, SOONER, VOLUNTEER, WOLVERINE            |
+| THINGS THAT PREVENT LEAKS         | CAP, COVER, PLUG, SEAL                         |
+| GO ___                            | BANANAS, COMMANDO, FIGURE, ROGUE               |
+| KINDS OF HATS                     | BERET, DERBY, PILLBOX, SNAPBACK                |
+|                                   |                                                |
+| CLOSE-FITTING                     | CLINGY, SLEEK, SLINKY, SNUG                    |
+| ALLIANCE                          | ASSOCIATION, GUILD, LEAGUE, UNION              |
+| OCCASIONS WHEN ONE MIGHT KNEEL    | APOLOGY, DUBBING, PRAYER, PROPOSAL             |
+| WHAT AN APOSTROPHE INDICATES      | CONTRACTION, FOOT, POSSESSIVE, QUOTATION       |
+|                                   |                                                |
+| MONTHLY EXPENSES                  | GAS, INTERNET, PHONE, RENT                     |
+| USED IN HAIR CARE                 | COMB, DRYER, HAIRSPRAY, ROLLERS                |
+| ___ CRAB                          | FIDDLER, HERMIT, HORSESHOE, SPIDER             |
+| THINGS WITH SPOTS                 | DALMATIAN, DYE, DOMINO, LADYBUG                |
+|                                   |                                                |
+| AREA OF EXPERTISE                 | CONCENTRATION, FIELD, FOCUS, SPECIALTY         |
+| WAYS TO UNLOCK A DEVICE           | FACE, FINGERPRINT, PASSWORD, PIN               |
+| PASTA SHAPES                      | EARELBO, RIBBON, WHEEL                         |
+| DOUBLE ___                        | AGENT, DRIBBLE, JEOPARDY, STANDARD             |
+|                                   |                                                |
+| SOUND LIKE A DOG                  | BARK, BAY, HOWL, SNARL                         |
+| COCKTAIL-MAKING VERBS             | GARNISH, MUDDLE, STIR, STRAIN                  |
+| BROADCAST, AS ONLINE MEDIA        | AIRPLAY, RUN, STREAM                           |
+| ORG STRUCTURES, METAPHORICALLY    | CHAIN, LADDER, PYRAMID, TREE                   |
+|                                   |                                                |
+| SPHERES IN MILK TEA               | BOBA, BUBBLE, PEARL, TAPIOCA                   |
+| KINDS OF SHIRTS                   | FLANNEL, OXFORD, POLO, TEE                     |
+| MARINE INVERTEBRATES, FAMILIARLY  | CORAL, JELLY, SPONGE, STAR                     |
+| STARTS OF PASTA NAMES             | FETT, PENN, TORTE, ZIT                         |
+|                                   |                                                |
+| WORK COMMUNICATION PLATFORMS      | MEET, SLACK, TEAMS, ZOOM                       |
+| PUBLICITY                         | ATTENTION, COVERAGE, EXPOSURE, PRESS           |
+| POINT OF VIEW                     | ANGLE, LENS, PERSPECTIVE, POSITION             |
+| “___ ISLAND”                      | FANTASY, LOVE, SHUTTER, TREASURE               |
+|                                   |                                                |
+| SECRETED BY TREES                 | GUM, LATEX, RESIN, SAP                         |
+| TELLING OF EVENTS                 | ACCOUNT, CHRONICLE, DESCRIPTION, STORY         |
+| THINGS ON STICKS                  | BALL-IN-CUP, CORN DOG, COTTON SWAB, LOLLIPOP   |
+| BLACK OR RED                      | BALANCE SHEET, CHECKERS, LICORICE, ROULETTE    |
+|                                   |                                                |
+| CAREEN                            | HEAVE, LURCH, PITCH, REEL                      |
+| ELECTRONIC DANCE MUSIC GENRES     | AMBIENT, HOUSE, JUNGLE, TRANCE                 |
+| WHAT A NOUN MIGHT BE              | IDEA, PERSON, PLACE, THING                     |
+| WORDS AFTER “ASH”                 | BLOND, TRAY, TREE, WEDNESDAY                   |
+|                                   |                                                |
+| PARTS OF A SHIP                   | ANCHOR, BOW, BRIDGE, DECK                      |
+| ATTAIN                            | EARN, LAND, SCORE, WIN                         |
+| LARGE GROUP                       | CROWD, FLOCK, HOST, SEA                        |
+| PRINCIPLES IN CHINESE PHILOSOPHY  | EXPANSIVE, LIGHT, MASCULINE, YANG              |
+|                                   |                                                |
+| GOOD THINGS TO GET AT WORK        | BONUS, EQUITY, PROMOTION, RAISE                |
+| FEATURED IN “ELOISE”              | ELOISE, PLAZA, PUG, TURTLE                     |
+| DISREGARD                         | DISCOUNT, FORGET, IGNORE, OVERLOOK             |
+| KINDS OF CRACKERS                 | ANIMAL, CLUB, GOLDFISH, RITZ                   |
+|                                   |                                                |
+| CAR PARTS                         | BUMPER, GRILLE, MIRROR, RIM                    |
+| NOT WORKING RELIABLY              | BUGGY, ERRATIC, GLITCHY, SPOTTY                |
+| WHAT A SITTER MIGHT SIT           | BABY, HOUSE, PET, PLANT                        |
+| ___ BAND                          | BOY, RUBBER, TRIBUTE, WEDDING                  |
+|                                   |                                                |
+| APPRECIATION                      | CREDIT, PRAISE, RECOGNITION, THANKS            |
+| FRAUDSTER                         | CHEAT, CON, FAKE, QUACK                        |
+| EAT VORACIOUSLY                   | BOLT, DOWN, GOBBLE, SCARF                      |
+| ___ TUESDAY                       | FAT, GIVING, SUPER, TACO                       |
+|                                   |                                                |
+| UNDERTAKING                       | ENDEAVOR, ENTERPRISE, PROJECT, VENTURE         |
+| UNITS                             | HERTZ, MOLE, SECOND, VOLT                      |
+| M.L.B. TEAM MEMBER                | NATIONAL, RAY, TIGER, TWIN                     |
+| FIRST WORDS OF HBO SHOWS          | BOARDWALK, CURB, GAME, SILICON                 |
+|                                   |                                                |
+| BALL PITCHES                      | CURVE, FAST, KNUCKLE, SCREW                    |
+| STEAL                             | LIFT, PALM, POCKET, SWIPE                      |
+| PERFORM WELL ON                   | ACE, CRUSH, NAIL, ROCK                         |
+| DANCE STYLES                      | JAZZ, MODERN, SWING, TAP                       |
+|                                   |                                                |
+| SANCTUARY                         | HAVEN, PORT, RETREAT, SHELTER                  |
+| FOOTBALL GEAR                     | CLEATS, HELMET, JERSEY, PADS                   |
+| CANDY NAMES                       | CHARMS, KINDER, WONKA, YORK                    |
+| “FREE ___”                        | BIRD, FALLIN', SOLO, WILLY                     |
+|                                   |                                                |
+| ANNOUNCE                          | BROADCAST, DECLARE, HERALD, TRUMPET            |
+| ___ CLIP                          | ALLIGATOR, HAIR, PAPER, VIDEO                  |
+| ICON EMBROIDERED ON A POLO SHIRT  | CROCODILE, LAUREL, POLO PLAYER, SWOOSH         |
+| THINGS INVOLVING MALLETS          | CARPENTRY, CROQUET, WHAC-A-MOLE, XYLOPHONE     |
+|                                   |                                                |
+| SESAME STREET CHARACTERS          | COOKIE, COUNT, OSCAR, SNUFFY                   |
+| NAMES SOUNDING LIKE TWO LETTERS   | CECE, EDIE, EMMY, KATIE                        |
+| SOPRANOS                          | CARMELA, JUNIOR, MEADOW, TONY                  |
+| FAMILIAL NICKNAMES                | CUZ, GRAMMY, MUMMY, POP                        |
+|                                   |                                                |
+| STEER                             | DIRECT, GUIDE, LEAD, SHEPHERD                  |
+| FIGURES IN GREEK MYTH             | ATLAS, ECHO, HELEN, PAN                        |
+| THINGS WITH NEEDLE/S              | COMPASS, PINE TREE, SEWING KIT, TURNTABLE      |
+| STARTING WITH LAVATORY SYNONYMS   | CANDLE, JOHNSON, LOO, FAH, TOILETRIES          |
+|                                   |                                                |
+| EXTERIOR                          | FACE, FRONT, OUTSIDE, SURFACE                  |
+| APTITUDE                          | FLAIR, GIFT, INSTINCT, NOSE                    |
+| TECH COMPANIES                    | AMAZON, APPLE, INTUIT, ORACLE                  |
+| ___STONE                          | BRIM, LIME, RHINE, YELLOW                      |
+|                                   |                                                |
+| “TOY STORY” CHARACTERS            | BUZZ, HAMMER, REX, SLINKY                      |
+| BAFFLE                            | PERPLEX, PUZZLE, STUMP, VEX                    |
+| CURSE                             | HEX, JINX, POX, SPELL                          |
+| COLLOQUIAL SUFFIXES               | CORE, GATE, MANIA, PILLED                      |
+|                                   |                                                |
+| WAYS TO ATTRACT FISH              | BAIT, CHUM, FLY, LURE                          |
+| THINK OF TOGETHER                 | AFFILIATE, ASSOCIATE, EQUATE, RELATE           |
+| W.N.B.A. TEAMS                    | LIBERTY, STORM, SUN, WINGS                     |
+| LONG___                           | BOW, FELLOW, HORN, LEGS                        |
+|                                   |                                                |
+| PUNCH                             | BELT, BLOW, SLUG, SOCK                         |
+| CRAM                              | SANDWICH, SHOEHORN, SQUEEZE, WEDGE             |
+| HOMOPHONES OF MUSIC GENRES        | INDY, METTLE, SEOUL, WRAP                      |
+| COMPANIES NAMED AFTER ANIMALS     | CATERPILLAR, DOVE, GREYHOUND, PUMA             |
+|                                   |                                                |
+| PARTS OF A FLIGHT                 | CRUISE, TAKEOFF, TAXI, TOUCHDOWN               |
+| FEEL AROUND (FOR)                 | FISH, FUMBLE, ROOT, RUMMAGE                    |
+| GIVE A TITLE TO                   | CALL, DUB, LABEL, NAME                         |
+| COUNTRIES MINUS FIRST LETTER      | INLAND, OLIVIA, RAN, WANDA                     |
+|                                   |                                                |
+| UTOPIA                            | PARADISE, SEVENTH HEAVEN, SHANGRI-LA, XANADU   |
+| THINGS YOU SHAKE                  | SPRAY, MAGIC 8 BALL, SALAD DRESSING, SNOWGLOBE |
+| PROPER NOUN PORTMANTEAUX          | JAZZERCISE, PARALYMPICS, POKÉMON, WIKIPEDIA    |
+| ENDS WITH SYNONYMS FOR “FRIEND”   | KETCHUP, PAYPAL, PRIMATE, ROSEBUD              |
+|                                   |                                                |
+| MILD OATHS                        | FUDGE, GEEZ, NUTS, RATS                        |
+| THINGS THAT SOUND LIKE "T"        | TEA, TEE (GOLF), TEE (SHIRT), TI (NOTE)        |
+| OBJECTS WITH TEETH                | COMB, GEAR, SAW, ZIPPER                        |
+| PARTS OF A RIVER                  | BANK, BED, DELTA, MOUTH                        |
+|                                   |                                                |
+| EMAIL FOLDERS                     | DRAFTS, SENT, SPAM, TRASH                      |
+| FANTASY CREATURES                 | DRAGON, GIANT, PIXIE, TROLL                    |
+| CITRUS SODAS                      | CRUSH, SPRITE, SQUIRT, STARRY                  |
+| ANIMAL HOMOPHONES                 | BOAR, LINK, FISH, TOWED                        |
+|                                   |                                                |
+| GLOBAL CURRENCIES                 | POUND, REAL, SOL, YUAN                         |
+| WORDS ENDING AN AUCTION           | GOING, ONCE, SOLD, TWICE                       |
+| FISH                              | FLUKE, MULLET, SOLE, TANG                      |
+| WORDS BEFORE “CUP”                | BUTTER, DIVA, SOLO, WORLD                      |
+|                                   |                                                |
+| PERFORM POORLY                    | FLAIL, FLOP, FLOUNDER, TANK                    |
+| SKIM THROUGH, AS PAGES            | FLIP, LEAF, RIFFLE, THUMB                      |
+| POP SINGERS MINUS “S”             | KEY, MAR, PEAR, STYLE                          |
+| SPICES                            | CLOVE, MACENUT, MEG, PEPPER                    |
+|                                   |                                                |
+| TYPES OF RADIO                    | AM, HAM, SATELLITE, WALKIE-TALKIE              |
+| SNACK CAKES                       | DEVIL DOG, DING DONG, HOHO, YODEL              |
+| KINDS OF PLAY FIGHTS              | FOOD, PILLOW, SNOWBALL, WATER BALLOON          |
+| CLASSIC JOKE STAPLES              | BAR, CHICKEN, KNOCK-KNOCK, LIGHT BULB          |
+|                                   |                                                |
+| KINDS OF TENNIS COURTS            | CARPET, CLAY, GRASS, HARD                      |
+| INTREPIDITY                       | GRIT, HEART, NERVE, PLUCK                      |
+| KINDS OF PAPER                    | CONSTRUCTION, GRAPH, TISSUE, WAX               |
+| ROAD                              | ARTERY, AVENUE, DRAG, DRIVE                    |
+|                                   |                                                |
+| STYLES OF BEER                    | BITTER, BOCK, SOUR, STOUT                      |
+| INVESTMENT VERBS                  | HEDGE, HOLD, SHORT, TRADE                      |
+| DEAL WITH                         | FIELD, HANDLE, MANAGE, TACKLE                  |
+| ___ DOME                          | CAPITOL, CHROME, ONION, TEAPOT                 |
+|                                   |                                                |
+| DEFER                             | DELAY, POSTPONE, SHELVE, TABLE                 |
+| WATERCRAFT                        | BARGE, JUNK, SUB, TUG                          |
+| BAR FIXTURES                      | COUNTER, KEG, TOOL, TAP                        |
+| SEEN IN “DONKEY KONG”             | BARREL, GORILLA, HAMMER, LADDER                |
+|                                   |                                                |
+| TYPES OF SENTENCES                | COMMANDEXCLAMATIONQUESTIONSTATEMENT            |
+| CONCOCTION                        | COCKTAIL, COMPOUND, MIXTURE, SOLUTION          |
+| KINDS OF BROS                     | CRYPTO, FINANCE, PHARMA, TECH                  |
+| COMPLAINT HOMOPHONES              | GROWN, MOWN, WHALE, WINE                       |
+|                                   |                                                |
+| KINDS OF BEDS                     | BUNK, CANOPY, MURPHY, SLEIGH                   |
+| COOKING VESSELS                   | CASSEROLE, CROCK, PAN, POT                     |
+| LOOP                              | BAND, CIRCLE, HOOP, RING                       |
+| THINGS CALLED “OSCAR”             | BALONEY, GROUCH, O, STATUETTE                  |
+|                                   |                                                |
+| POLICE PROCEDURALS                | BONE, ELEMENTARY, KOJAK, MONK                  |
+| PALINDROMES                       | ABBA, KAYAK, NUN, STATS                        |
+| SLANG FOR HEAD                    | COCONUT, CROWN, DOME, SKULL                    |
+| FIRST IN A COMEDY DUO             | ABBOTT, FRY, KEY, LAUREL                       |
+|                                   |                                                |
+| HOMOPHONES                        | EWE, UYE, YOU, EW                              |
+| NECKLINES                         | BOAT, CREW, SCOOP, V                           |
+| WAYS TO EXPRESS 1,000             | GRAND, K, M, THOU                              |
+| SUPER ___                         | 8, BOWL, GLUE, TUESDAY                         |
+|                                   |                                                |
+| BELOVED, AS A FRIEND              | CLOSE, DEAR, INTIMATE, TIGHT                   |
+| WORDS SOUND LIKE PLURAL LETTERS   | BEES, EASE, JAYS, USE                          |
+| DOROTHY GALE'S SONG               | BEAR, LION, OH MY, TIGER                       |
+| WHEN TRIPLED, HIT SONG TITLES     | BILL, BYE, GIMME, PLEASE                       |
+|                                   |                                                |
+| CELESTIAL OBJECTS                 | COMET, MOON, PLANET, STAR                      |
+| FEMALE ANIMALS                    | JENNY, NANNY, QUEEN, VIXEN                     |
+| ARCHERS                           | CUPID, HAWKEYE, ROBIN HOOD, SAGITTARIUS        |
+| “S.N.L.” CAST MEMBERS             | FEY, RUDOLPH, SHANNON, STRONG                  |
+|                                   |                                                |
+| US STATE ABBREVIATIONS, AP STYLE  | ALA, ARK, MISS, ORE                            |
+| TREES                             | ELDER, PALM, PINE, SPRUCE                      |
+| SIZABLE, AS AN AMOUNT             | HANDSOME, HEALTHY, RESPECTABLE, TIDY           |
+| APPROXIMATELY                     | ABOUT, AROUND, LIKE, ROUGHLY                   |
+|                                   |                                                |
+| PUSHES, AS A BUTTON               | CLICK, SHIT, PRESS, TAPS                       |
+| BREAKFAST SIDES                   | BACON, GRITS, HASH, TOAST                      |
+| OSCAR-WINNING ACTORS              | BRIDGES, IRONS, PHOENIX, WASHINGTON            |
+| THEY HAVE A HORN                  | AFRICA, BUGLER, CAR, UNICORN                   |
+|                                   |                                                |
+| OBJECTS FROM GREEK MYTH           | AEGIS, GOLDEN CHAO, GOLDEN FLEECE, PANDORA BOX |
+| “NOTHING TO IT!”                  | EASY, NO SWEAT, PIECE OF CAKE, SURE THING      |
+| BEGIN WITH POSSESSIVE PRONOUNS    | HERSHEY, HISTAMINE, ITSY, MINEFIELD            |
+| PROVERBIAL THINGS TO KICK         | CAN, HABIT, HORNETS’ NEST, TIRES               |
+|                                   |                                                |
+| DIFFERENT AMOUNTS OF HAIR         | HEAD, LOCK, STRAND, WISP                       |
+| SHADES OF RED                     | BRICK, CHERRY, MAROON, RUBY                    |
+| APPOINTMENT SPECIFICATIONS        | DATE, DURATION, LOCATION, TIME                 |
+| TREE HOMOPHONES                   | BEACH, FUR, PAIR, YOU                          |
+|                                   |                                                |
+| PAY, WITH "UP"                    | ANTE, COUP, PONY, SETTLE                       |
+| LUNCH ORDERS                      | CLUB, HERO, MELT, WRAP                         |
+| USED TO MAKE COFFEE               | BEANS, FILTER, GRINDER, WATER                  |
+| NAMES FEATURING "!"               | AIRPLANE, JEOPARDY, PINKY, YAHOO               |
+|                                   |                                                |
+| MOVE QUICKLY                      | BOLT, DART, DASH, FLY                          |
+| WORDS BEFORE AN ADDRESSEE         | ATTENTION, DEAR, FOR, TO                       |
+| FUN TIME                          | BALL, BLAST, KICK, THRILL                      |
+| NAME ___                          | BRAND, DROP, GAME, NAMES                       |
+|                                   |                                                |
+| THINGS THAT LUMINESCE             | AURORA, FIREFLY, GLOWSTICK, RADIUM             |
+| ENDING WITH SYNONYMS FOR "PLUNGE" | GATECRASH, RAINDROP, SKYDIVE, WATERFALL        |
+| SLIMY ANIMALS                     | EARTHWORM, EEL, SALAMANDER, SLUG               |
+| DUTCH SYMBOLS                     | CANAL, CLOG, TULIP, WINDMILL                   |
+|                                   |                                                |
+| CADENCE                           | BEAT, METER, RHYTHM, TIME                      |
+| PERCEIVE                          | CATCH, CLOCK, NOTICE, REGISTER                 |
+| DOG                               | DAY, PAD, TAG, TIRED                           |
+| ONE IN A GROUP OF TWELVE          | DONUT, INCH, JUROR, MONTH                      |
+|                                   |                                                |
+| KINDS OF MUSHROOMS                | BUTTON, MORELLO, OYSTER, TRUMPET               |
+| ONE DOLLAR                        | BUCK, CLAM, SINGLE, SMACKER                    |
+| PARTS OF A FOOT                   | ARCH, BALL, HEEL, SOLE                         |
+| POT___                            | BELLY, HOLE, LUCK, STICKER                     |
+|                                   |                                                |
+| FASTENERS                         | BUCKLE, CLIP, HOOK, SNAP                       |
+| MARK AS COMPLETED                 | CHECK, CROSS, STRIKE, TICK                     |
+| CRUSH INTO A COMPACT SHAPE        | BALL, CRUMPLE, CRUNCH, WAD                     |
+| IN DALÍ’S “PERSISTENCE OF MEMORY” | ANT, BRANCH, CLOCK, MELTING                    |
+|                                   |                                                |
+| HARDLY BUSTLING                   | CALM, QUIET, SLEEPY, SLOW                      |
+| REMOTE CONTROL FUNCTIONS          | HOME, MUTE, STOP, VOLUME                       |
+| EARN                              | GROSS, MAKE, NET, YIELD                        |
+| WORDS BEFORE “DRUM”               | EAR, KETTLE, OIL, SNARE                        |
+|                                   |                                                |
+| BREATHE HARD                      | GASP, HEAVE, PANT, PUFF                        |
+| METAPHORS FOR EASY THINGS         | ABC, BREEZE, PICNIC, PIE                       |
+| CATCHALL                          | BLANKET, BROAD, GENERAL, UMBRELLA              |
+| SHORTENED SYNONYMS FOR REAR END   | ARS, BOOT, BUT, RUM                            |
+|                                   |                                                |
+| VOCAL MUSIC                       | A CAPPELLA, BARBERSHOP, DOO-WOP, MADRIGAL      |
+| A HANDFUL OF                      | A FEW, CERTAIN, SOME, VARIOUS                  |
+| BOOK SUBTITLES                    | A LIFE, A NOVEL, ESSAYS, PART ONE              |
+| ___ IS ___ (IS ___)               | A DEAL, A ROSE, ENOUGH, LOVE                   |
+|                                   |                                                |
+| SECTION                           | BRANCH, DIVISION, LIMB, WING                   |
+| ACCESSORIES TO PLAY AN INSTRUMENT | BOW, DRUMSTICK, MALLET, PICK                   |
+| DISTICTIVE ELEPHANT FEATURES      | EAR, MEMORY, TRUNK, TUSK                       |
+| MISSPELLED IN NU METAL BAND NAMES | BISCUIT, CORN, LINCOLN, STAINED                |
+|                                   |                                                |
+| VENDOR’S SPOT AT A MARKET         | BOOTH, STALL, STAND, TABLE                     |
+| DOG COMMANDS                      | COME, HEEL, SIT, STAY                          |
+| CORPORATE DEPARTMENTS             | FINANCE, IT, LEGAL, SALES                      |
+| WORDS IN “AMERICA THE BEAUTIFUL”  | FROM, SEA, SHINING, TO                         |
+|                                   |                                                |
+| INGREDIENTS IN AN OLD FASHIONED   | BITTERS, ORANGE, YE, SUGAR                     |
+| BE CONTINGENT (ON)                | DEPEND, HINGE, RELY, REST                      |
+| “CALM DOWN”                       | CHILL, EASY, ENOUGH, RELAX                     |
+| PART OF THE MONTY HALL PROBLEM    | CAR, DOOR, GOAT, HOST                          |
+|                                   |                                                |
+| THINGS TO DO AT A WORK EVENT      | CIRCULATE, CONVERSE, MINGLE, NETWORK           |
+| DISPLAY OF ROWS AND COLUMNS       | ARRAY, GRID, MATRIX, TABLE                     |
+| ___ COURT                         | FOOD, KANGAROO, SUPREME, TENNIS                |
+| OLYMPIC EVENTS SINCE 2000         | BREAKING, SURFING, TAEKWONDO, TRAMPOLINE       |
+|                                   |                                                |
+| CLASSIC ATARI GAMES               | ASTEROIDS, BREAKOUT, CENTIPEDE, DEFENDER       |
+| FABRICATION                       | FAIRY TALE, FANTASY, FICTION, INVENTION        |
+| WOO                               | CHARM, COURT, PURSUER, ROMANCE                 |
+| THINGS FEATURING TAILS            | COIN TOSS, COMETS, DRESS COAT, SONIC HEDGEHOG  |
+|                                   |                                                |
+| TEACH                             | COACH, GUIDE, SCHOOL, TRAIN                    |
+| ___WORM                           | BOOK, EARTH, GLOW, INCH                        |
+| CACHE                             | BANK, POOL, RESERVE, STORE                     |
+| DRIVING INSTRUCTOR DIRECTIVES     | BRAKE, PARK, SIGNAL, TURN                      |
+|                                   |                                                |
+| THINGS IN A CAMERA KIT            | BODY, FLASH, LENS, STRAP                       |
+| OPERATING                         | ACTIVE, FUNCTIONAL, RUNNING, WORKING           |
+| TERM                              | MEETING, PERIOD, SESSION, SITTING              |
+| BIRD PLUS LETTER                  | CROWD, GULLY, PUFFING, SWANK                   |
+|                                   |                                                |
+| MEANS                             | MECHANISM, MEDIUM, TOOL, VEHICLE               |
+| LACKING                           | LIGHT, LOW, SHORT, SHY                         |
+| MARTINI SPECIFICATIONS            | DIRTY, DRY, PERFECT, WET                       |
+| FICTIONAL MISTERS                 | BIG, PEANUT, ROBOT, TOAD                       |
+|                                   |                                                |
+| BUYING AND SELLING                | BUSINESS, COMMERCE, MARKET, TRADE              |
+| INSTALLED ON A WALL               | BASEBOARD, OUTLETS, CONCE, SWITCH              |
+| SPY                               | AGENT, ASSET, MOLE, PLANT                      |
+| ___ RAT                           | GYM, MALL, PACK, RUG                           |
+|                                   |                                                |
+| WEB BROWSERS                      | CHROME, EDGE, OPERA, SAFARI                    |
+| FRANKFURTER                       | BANGER, BRAT, LINK, SAUSAGE                    |
+| STRIKE                            | BOP, HIT, KNOCK, TAP                           |
+| ENDING WITH BEER BRANDS           | AUTO, HARP, CONTRABASS, PEPPERONIROSEBUD       |
+|                                   |                                                |
+| INFO ON A RECORD                  | ALBUM, ARTIST, LABEL, TRACK                    |
+| DESIRE                            | DRIVE, IMPULSE, ITCH, URGE                     |
+| BARB                              | SPINE, SPUR, STICKER, THORN                    |
+| TURN THE ___                      | CORNER, PAGE, TABLE, TIDE                      |
+|                                   |                                                |
+| FUND                              | KITTY, POOL, POT, PURSE                        |
+| COURT FILING                      | ACTION, CASE, CLAIM, SUIT                      |
+| LANDFORMS                         | BASIN, BLUFF, CAPE, PLAIN                      |
+| THEY HAVE RAYS                    | AQUARIUM, GEOMETRY, SUN, TAMPA BAY             |
+|                                   |                                                |
+| CORNERS                           | ANGLE, BEND, CROOK, ELBOW                      |
+| TAKE ON, AS A RESPONSIBILITY      | ASSUME, BEAR, HANDLE, SHOULDER                 |
+| ASSOCIATED WITH POPEYE            | ANCHOR, FOREARM, PIPES, SPINACH                |
+| ___ SHEET                         | BALANCE, CHEAT, COOKIE, FITTED                 |
+|                                   |                                                |
+| USED TO CLEAR SNOW                | PLOW, SALT, SAND, SHOVEL                       |
+| SMALL LIKENESS                    | DOLL, FIGURE, MINIATURE, MODEL                 |
+| PUTDOWN                           | BARB, CRACK, DIG, SLIGHT                       |
+| DOCTORS IN POP CULTURE            | NO, OCTOPUS, PEPPER, WHO                       |
+|                                   |                                                |
+| TYPES OF ACADEMIC COURSES         | DISCUSSION, LECTURE, SEMINAR, CLASS            |
+| RESULTS OF SOME DIGGING           | DITCH, HOLE, PIT, TRENCH                       |
+| ONES WEARING ROBES                | BOXER, JUDGE, MONK, WIZARD                     |
+| ___ UP                            | BATTER, BOTTOM, CHIN, LAWYER                   |
+|                                   |                                                |
+| OUTDO                             | BETTER, ECLIPSE, SURPASS, TOP                  |
+| PICNIC ACCESSORIES                | BASKET, BLANKET, COOLER, UTENSILS              |
+| PARTS OF AN INDIANA JONES COSTUME | BOMBER, FEDORA, SATCHEL, WHIP                  |
+| RHYMES OF U.S. PRESIDENT NAMES    | PAGAN, SMARTER, VIXEN, WIDEN                   |
+|                                   |                                                |
+| CONTEMPLATE                       | BROOD, MUSE, PONDER, REFLECT                   |
+| VOCATION                          | CRAFT, LINE, TRADE, WORK                       |
+| RUDE THINGS TO DO                 | INTERRUPT, LITTER, POINT, STARE                |
+| ___ PATCH                         | CABBAGE, NICOTINE, ROUGH, SOUL                 |
+|                                   |                                                |
+| SCHOOL PERIODS                    | CLASS, HOMEROOM, LUNCH, RECESS                 |
+| FEATURES OF A SKI RESORT          | LIFT, LODGE, MOGUL, SLOPE                      |
+| WORDS DERIVED FROM JAPANESE       | EMOJI, GINKGO, KARAOKE, TYCOON                 |
+| WORDS AFTER THE PREFIX “TRI-”     | ANGLE, CYCLE, DENT, POD                        |
+|                                   |                                                |
+| PARTS OF A BIG RIG                | AXLE, HITCH, TRACTOR, TRAILER                  |
+| WAYS TO GET FOOD                  | FARM, FISH, GATHER, HUNT                       |
+| KEEP APART                        | CLOISTER, SECLUDE, SEPARATE, SILO              |
+| DANCE EVENTS PLUS A LETTER        | BALLY, DISCOG, PROMO, RAVEN                    |
+|                                   |                                                |
+| SMALL AMOUNT OF FOOD TO TRY       | BITE, MOUTHFUL, SAMPLE, TASTE                  |
+| “EXTRA VIRGIN OLIVE OIL”          | EXTRA, OIL, OLIVE, VIRGIN                      |
+| PROTECTIVE COVERINGS IN NATURE    | BARK, SCALE, SHELL, SKIN                       |
+| SEEN IN “THE SHINING”             | AXE, HEDGE MAZE, TWIN, TYPEWRITER              |
+|                                   |                                                |
+| FUNNY PERSON                      | CARD, CHARACTER, JOKER, LAUGH                  |
+| RESISTANCE TRAINING EQUIPMENT     | BAND, BENCH, DUMBBELL, MAT                     |
+| CANDY BARS MINUS “S”              | AIRHEAD, MAR, MOUND, SNICKER                   |
+| SPEED ___                         | BUMP, CHESS, DEMON, DIAL                       |
+|                                   |                                                |
+| MOVIE SERIES WITH 2024 RELEASES   | ALIEN, GLADIATOR, VENOM, WICKED                |
+| THINGS YOU MIGHT DO IN YOUR SLEEP | DREAM, DROOL, SNORE, TALK                      |
+| OWNED                             | BORE, HAD, HELD, POSSESSED                     |
+| ___ HOUSE                         | FULL, GINGERBREAD, HAUNTED, WHITE              |
+|                                   |                                                |
+| INTANGIBLE QUALITY                | AURA, URGE, VIBE, SPIRIT                       |
+| KEEP GOING ON ABOUT, WITH “ON”    | DWELL, HARP, INSIST, LINGER                    |
+| GAME DAY FARE                     | BEER, DIP, PIZZA, WINGS                        |
+| STARTING WITH EUROPEAN CAPITALS   | BERLIN, PARIS, RIGA, ROME                      |
+|                                   |                                                |
+| STORAGE CONTAINERS                | CASE, CHEST, CRATE, TRUNK                      |
+| ONES WITH DISCERNING TASTES       | CONNOISSEUR, CRITIC, EXPERT, SNOB              |
+| SCHNOZZ                           | BEAK, HONKER, SNOOT, SNOUT                     |
+| STARTS OF SWIMMING STROKES        | BACK, BREAST, BUTTER, FREE                     |
+|                                   |                                                |
+| COMPONENTS OF A MYSTERY           | ALIBI, CLUE, DETECTIVE, SUSPECT                |
+| TAKE ISSUE WITH                   | CHALLENGE, CONTEST, DISPUTE, QUESTION          |
+| TINT                              | HUE, SHADE, TINGE, TONE                        |
+| STRIKE A ___                      | CHORD, DEAL, MATCH, POSE                       |
+|                                   |                                                |
+| DEJECTED                          | BLUEDOWN, HANGDOG, SORRY, SAD                  |
+| BIRDS THAT ARE VERBS              | DUCK, GROUSE, HAWK, SWALLOW                    |
+| TV COMEDY FAMILIES                | GRIFFIN, MUNSTER, PARTRIDGE, PICKLES           |
+| WORDS AFTER “K”                   | MART, POP, STREET, SWISS                       |
+|                                   |                                                |
+| TINY AMOUNT, WITH “A”             | BIT, LITTLE, MITE, TAD                         |
+| COMMENT AFTER AN INSULT           | BURN, OUCH, SNAP, ZING                         |
+| BIT OF CITRUS GARNISH             | SLICE, TWIST, WEDGE, ZEST                      |
+| BUNGLE, WITH “UP”                 | FOUL, LOUSE, MUCK, SCREW                       |
+|                                   |                                                |
+| CONSERVE                          | KEEP, PRESERVE, SAVE, STORE                    |
+| SMOOTH USING FRICTION             | BUFF, FILE, GRIND, SAND                        |
+| SPORTS GAMBLING TERMS             | FAVORITE, PARLAY, SPREAD, UNDER                |
+| WORDS BEFORE "FINGERS"            | BUTTER, CHICKEN, LADY, STICKY                  |
+|                                   |                                                |
+| THINGS TO DO WITH A DECK OF CARDS | CUT, DEAL, FAN, SHUFFLE                        |
+| INDICATION                        | FLAG, GIVEAWAY, SIGN, TELL                     |
+| PARTS OF A COMPENSATION PACKAGE   | BONUS, INSURANCE, SALARY, VACATION             |
+| WHAT “BILL” MIGHT REFER TO        | BANKNOTE, BEAK, INVOICE, WILLIAM               |
+|                                   |                                                |
+| MAGNANIMOUS                       | GRAND, GREAT, LOFTY, NOBLE                     |
+| DELICATE                          | FAINT, LIGHT, MILD, SOFT                       |
+| FIRST NAMES IN JAZZ               | CAB, COUNT, DIZZY, DUKE                        |
+| THINGS WITH NECKS                 | BOTTLE, GIRAFFE, GUITAR, LAMP                  |
+|                                   |                                                |
+| BE IN CHARGE OF                   | DIRECT, HEAD, LEAD, RUN                        |
+| THINGS MADE OF RUBBER             | BALLOON, ERA, SER, GALOSH, TIRE                |
+| RED ___                           | BULL, CROSS, HERRING, VELVET                   |
+| ASSOCIATED WITH “ALADDIN” GENIE   | BLUE, EARRING, LAMP, WISHES                    |
+|                                   |                                                |
+| TIME ADVERBS                      | LATER, NOW, SOON, THEN                         |
+| INFO ON A BASEBALL CARD           | BIO, PLAYER, STAT, TEAM                        |
+| SCRUNCH, AS FABRIC                | BUNCH, GATHER, PUCKER, RUFFLE                  |
+| ___ FOOD                          | FAST, FINGER, JUNK, SOUL                       |
+|                                   |                                                |
+| SCI-FI FRANCHISES                 | ALIEN, AVATAR, DUNE, TRON                      |
+| MASSIVE                           | GIANT, JUMBO, MONSTER, SUPER                   |
+| USED WHEN SERVING SOUP            | BOWL, LADLE, POT, SPOON                        |
+| SOMEBODY                          | CHARACTER, INDIVIDUAL, PARTY, PERSON           |
+|                                   |                                                |
+| SCENTS OF WINE                    | AROMA, BOUQUET, NOSE, NOTE                     |
+| SPRINKLE                          | DUST, PEPPER, SCATTER, SHOWER                  |
+| “AAH, ENOUGH!”                    | MERCY, STOP, TRUCE, UNCLE                      |
+| WORDS PRONOUNCED DIFFERENT WAYS   | AUNT, EITHER, TOMATO, VASE                     |
+|                                   |                                                |
+| WREST                             | JERK, TUG, WRENCH, YANK                        |
+| BUSTER                            | BUB, BUD, JACK, MAN                            |
+| YOGA ACCESSORIES                  | BLOCK, BOLSTER, MAT, STRAP                     |
+| ___CAP                            | HUB, KNEE, MAD, NIGHT                          |
+|                                   |                                                |
+| BITS IN A VARIETY SHOW            | DANCE, MONOLOGUE, SKETCH, SONG                 |
+| DOCUMENTS OF OWNERSHIP            | CERTIFICATE, DEED, RECEIPT, TITLE              |
+| CHARACTER PROPS ON “THE SIMPSONS” | DONUT, PACIFIER, SAXOPHONE, SKATEBOARD         |
+| START WITH SHAKE, RATTLE AND ROLL | ANDROID, RATTLESNAKE, ROLLERBLADE, SHAKESPEARE |
+|                                   |                                                |
+| TEMPLATE                          | BLUEPRINT, GUIDE, MODEL, MOLD                  |
+| DEMONSTRATION, AS OF APPRECIATION | EXPRESSION, GESTURE, SYMBOL, TOKEN             |
+| MODAL VERBS                       | CAN, MIGHT, MUST, WILL                         |
+| ___ TRIP                          | EGO, GUILT, HEAD, POWER                        |
+|                                   |                                                |
+| SAID TO AN UNSUSPECTING PERSON    | BOO, GOTCHA, GUESS WHO, SURPRISE               |
+| MOLLYCODDLE                       | BABY, HUMOR, INDULGE, PAMPER                   |
+| THINGS A RATTLESNAKE DOES         | HISS, RATTLE, SHED, SLITHER                    |
+| HOMOPHONES OF BODIES OF WATER     | BAE, CREEK, SEE, STRAIGHT                      |
+|                                   |                                                |
+| DIVULGE                           | BLAB, DISH, SPILL, TELL                        |
+| WORDS SHORTENED IN ROCK GENRES    | ALTERNATIVE, EMOTIONAL, POPULAR, PROGRESSIVE   |
+| WORDS ON A MAC KEYBOARD           | COMMAND, CONTROL, OPTION, RETURN               |
+| ___CAKE                           | CHEESE, CUP, PAN, SHORT                        |
+|                                   |                                                |
+| FAMOUS PUPPETS                    | LAMB CHOP, OSCAR, PUNCH, TRIUMPH               |
+| GLIMMER                           | HINT, SUGGESTION, TOUCH, TRACE                 |
+| CORRESPOND WELL WITH              | COMPLEMENT, FIT, MATCH, SUIT                   |
+| DOG BREEDS MINUS “ER” SOUND       | BOX, POINT, RETRIEVE, SET                      |
+|                                   |                                                |
+| TIME OFF                          | BREAK, LEAVE, REST, VACATION                   |
+| FOLLOW A MEANDERING COURSE        | CURVE, SNAKE, WEAVE, WIND                      |
+| BOWLING RESULTS                   | DOUBLE, SPARE, STRIKE, TURKEY                  |
+| ___FISH                           | BLOW, CAT, GOLD, SWORD                         |
+|                                   |                                                |
+| CRATER                            | CAVITY, HOLE, HOLLOW, PIT                      |
+| ACCESSIBLE                        | AVAILABLE, HANDY, NEARBY, READY                |
+| SUBSTANTIAL, AS A MEAL            | FILLING, HEARTY, SOLID, SQUARE                 |
+| BRITISHISMS                       | BUTTY, CHIPPY, FOOTY, TELLY                    |
+|                                   |                                                |
+| STRUCTURES BY THE SHORE           | BOARDWALK, DOCK, LIGHTHOUSE, WHARF             |
+| SMALL IMPERFECTION                | DENT, DING, NICK, SCRATCH                      |
+| ___TAIL                           | COCK, MOCK, PIG, PONY                          |
+| SOUNDS A CUCKOO CLOCK MAKES       | CHIME, CUCKOO, TICK, TOCK                      |
+|                                   |                                                |
+| ALERT                             | ALARM, FLARE, SIGNAL, SOS                      |
+| SPEND THE NIGHT (AT)              | BUNK, CRASH, SLEEP, STAY                       |
+| ASSOCIATED WITH EARLY MORNING     | DEW, ROOSTER, SUNRISE, WORM                    |
+| SQUID GAME COOKIE CUTTER SHAPES   | CIRCLE, STAR, TRIANGLE, UMBRELLA               |
+|                                   |                                                |
+| WAY OF SOLVING A PROBLEM          | ANSWER, FIX, REMEDY, SOLUTION                  |
+| COLLECT, AS FROM AN ORCHARD       | GATHER, HARVEST, PICK, REAP                    |
+| PHOTOSHOP TOOLS                   | ERASER, EYEDROPPER, LASSO, MAGIC WAND          |
+| OBJECTS WITH HANDEDNESS           | BASEBALL GLOVE, CAN OPENER, GOLF CLUB, GUITAR  |
+|                                   |                                                |
+| TEAM WITH MOST CHAMPIONSHIPS      | CANADIEN, CELTIC, PACKER, YANKEE               |
+| CREATE  VOLUME/TEXTURE IN HAIR    | CRIMP, CURL, FEATHER, TEASE                    |
+| SUPPLIES FOR MACARONI ART         | GLITTER, GLUE, MACARONI, PAPER                 |
+| WORDS AFTER “GOLDEN”              | DOODLE, GOOSE, PARACHUTE, ROD                  |
+|                                   |                                                |
+| RUB TOGETHER                      | GNASH, GRATE, GRIND, SCRAPE                    |
+| WAYS TO PRESERVE FOOD             | CAN, FERMENT, FREEZE, PICKLE                   |
+| BREAKFAST CONDIMENTS              | BUTTER, HOT SAUCE, JAM, SYRUP                  |
+| PROVERBIAL THINGS WE SPILL        | BEANS, GUTS, MILK, TEA                         |
+|                                   |                                                |
+| EAT VORACIOUSLY                   | GOBBLE, GULP, SCARF, WOLF                      |
+| BEND UNDER PRESSURE               | BOW, BUCKLE, CAVE, GIVE                        |
+| CLASSIC NAUTICAL TATTOOS          | ANCHOR, COMPASS, MERMAID, SWALLOW              |
+| BODY PARTS PLUS LETTER            | BUTT, CHIN, HEART, SHINE                       |
+|                                   |                                                |
+| ENTHUSIASM                        | GUSTO, PASSION, RELISH, ZEST                   |
+| RECTANGULAR PRISMS                | BRICK, FISH TANK, MICROWAVE, SHOEBOX           |
+| “MANY” IN DIFFERENT LANGUAGES     | BEAUCOUP, MOLTO, MUCH, MULTI                   |
+| RHYME WITH U.S. COINS             | JENNY, LIME, MORTAR, PICKLE                    |
+|                                   |                                                |
+| EXPENDITURE                       | CHARGE, COST, PRICE, RATE                      |
+| MADE WITH HORIZONTAL LINES        | DASH, HYPHEN, MINUS, UNDERSCORE                |
+| ONETIME                           | FORMER, LATE, PAST, PRIOR                      |
+| SIMPSON FAMILY, CHANGE 1ST LETTER | BAGGIE, BARGE, COMER, PISA                     |
+|                                   |                                                |
+| CONTACT VIA TELEPHONE             | CALL, DIAL, PHONE, RING                        |
+| LEVELS OF BIOLOGICAL ORGANIZATION | ATOM, CELL, ORGAN, TISSUE                      |
+| ENDING WITH UNITS OF MEASURE      | BIGFOOT, COMPOUND, INSTAGRAM, THERMOMETER      |
+| PARTS OF A CAR                    | BELT, HORN, MIRROR, WHEEL                      |
+|                                   |                                                |
+| THINGS THAT CAN’T BE UNDONE       | BELL, EGG, GENIE,TOOTHPASTE                    |
+| BE INDECISIVE                     | HESITATE, WAFFLE, WAVER, YO-YO                 |
+| LOVELY PERSON                     | ANGEL, DEAR, DOLL, PEACH                       |
+| LUCIDITY                          | MARBLES, MIND, SENSE, WITS                     |
+|                                   |                                                |
+| THINGS THAT CAN’T BE UNDONE       | BELL, EGG, GENIE, TOOTHPASTE                   |
+| BE INDECISIVE                     | HESITATE, WAFFLE, WAVE, YO-YO                  |
+| LOVELY PERSON                     | ANGEL, DEAR, DOLL, PEACH                       |
+| LUCIDITY                          | MARBLES, MINDS, SENSE, WITS                    |
+|                                   |                                                |
+| GOOD LUCK                         | HORSESHOE, LADYBUG, PENNY, SHAMROCK            |
+| FILM & MUSIC                      | DRUGSTORE, MIDNIGHT, RHINESTONE, SPACE         |
+| COMPOUND WORDS                    | TOLLBOOTH, TOMBOY, TOOLBOX, TOWBOAT            |
+| BROADWAY                          | FIDDLER, MERRILY, PHANTOM, SUNSET              |
+|                                   |                                                |
+| EVADE                             | DODGE, ESCAPE, LOSE, SHAKE                     |
+| WHAT “W” MIGHT STAND FOR          | TUNGSTEN, WATT, WEST, WIN                      |
+| CELLPHONE MODES                   | AIRPLANE, DO NOT DISTURB, RING, VIBRATE        |
+| ___STRING                         | DRAW, HAM, HEART, SHOE                         |
+|                                   |                                                |
+| BE AT LEISURE                     | CHILL, LOAF, LOUNGE, REST                      |
+| FORMATS OF GOLD                   | BAR, COIN, LEAF, NUGGET                        |
+| CYLINDER OF MATERIAL              | BOLT, REEL, ROLL, SCROLL                       |
+| SEEN IN “THE FLINTSTONES”         | BONE, CLUB, DINOSAUR, RUBBLE                   |
+|                                   |                                                |
+| ADJECTIVES FOR NICE SKIN          | DEWY, FRESH, GLOWING, SMOOTH                   |
+| MESS OF HAIR                      | MAT, MOP, TANGLED, THATCH                      |
+| ___ CHAIN                         | DAISY, FOOD, MOUNTAIN, SUPPLY                  |
+| DICKENS CHARACTERS                | BUCKET, PIPES, SCROOGE, TWIST                  |
+|                                   |                                                |
+| PERIPHERY                         | BORDER, EDGE, FRINGE, SKIRT                    |
+| MIGHT BRING TEARS TO YOUR EYES    | ALLERGY, MELODRAMA, ONION, RELIEF              |
+| THINGS PEOPLE DO TO FINGERNAILS   | BITE, CLIP, FILE, PAINT                        |
+| ___BALL RECREATIONAL SPORTS       | DODGE, KICK, PICKLE, SOFT                      |
+|                                   |                                                |
+| SHOES                             | FLAT, MARY JANE, MULE, SLIDE                   |
+| TASKS IN THE GARDEN               | PLANT, PRUNE, WATER, WEED                      |
+| WANE                              | DWINDLE, FADE, PETER, TAPER                    |
+| SAND ___                          | CASTLE, PAPER, PIPER, STONE                    |
+|                                   |                                                |
+| EMBLEM                            | LABEL, MARK, SEAL, STAMP                       |
+| SUBJECTS OF MUSICAL BIOPICS       | BROWN, CASH, DYLAN, MERCURY                    |
+| U.S. CITIES                       | BUFFALO, HELENA, IRVING, PHOENIX               |
+| FRUITS WITH 2ND LETTERS CHANGED   | AMPLE, DOTE, LUMON, POACH                      |
+|                                   |                                                |
+| WORDS FROM “BILL AND TED” MOVIES  | BOGUS, DUDE, EXCELLENT, TOTALLY                |
+| FAUX                              | ARTIFICIAL, FAKE, IMITATION, MOCK              |
+| ___BOX                            | CHATTER, JUKES, SHADOW, SOAP                   |
+| WASHING MACHINE CYCLES/SETTINGS   | BULKY, COTTON, DELICATES, PIN                  |
+|                                   |                                                |
+| SONGS FROM 1982                   | ABRACADABRA, CENTERFOLD, MICKEY, PHYSICAL      |
+| BUILDING MATERIALS                | BRICK, CONCRETE, METAL, STONE                  |
+| COMPUTER INPUT DEVICES            | MICROPHONE, MOUSE, SCANNER, TABLET             |
+| HELPFUL DEED                      | FAVOR, KINDNESS, SERVICE, SOLID                |
+|                                   |                                                |
+| ATTRACTIONS ICONICALLY CHANGED    | LIBERTY BELL, STATUE, TWR PISA, VENUS DE MILO  |
+| FAMOUS SMILES                     | CHESHIRE CAT, COMEDY MASK, JOKER, MONA LISA    |
+| CAT BREEDS                        | RAGDOLL, RUSSIAN BLUE, SPHINX, TURKISH ANGORA  |
+| FROM “THE DUDE” LEBOWSKI          | BATHROBE, BOWLING, RUG, WHITE RUSSIAN          |
+|                                   |                                                |
+| VARIATION FROM THE NORM           | ALTERNATIVE, BREAK, CHANGE, DEPARTURE          |
+| THINGS THAT RING                  | ALARM, BELL, INTERCOM, PHONE                   |
+| SINGER-SONGWRITER PIANISTS        | KEYS, KING, LEGEND, WONDER                     |
+| MADE OF LEATHER                   | FOOTBALL, MOCCASINS, SADDLE, WALLET            |
+|                                   |                                                |
+| INGREDIENTS IN CLASSIC POUND CAKE | BUTTER, EGGS, FLOUR, SUGAR                     |
+| THINGS THAT ARE RED               | CARDINAL, ELMO, KETCHUP, ROSE                  |
+| WORDS WITH NO EXACT RHYMES        | MONTH, ORANGE, PURPLE, SILVER                  |
+| ___ CANDY                         | COTTON, EYE, JOHN, ROCK                        |
+|                                   |                                                |
+| SIGNAL DOWN, AS A TAXI            | FLAG, HAIL, WAVE, WHISTLE                      |
+| PARTIALITY                        | ANGLE, BIAS, SLANT, SPIN                       |
+| CARDS IN TEXAS HOLD ’EM           | FLOP, HOLE, RIVER, TURN                        |
+| SHAKESPEAREAN WORDS               | ANON, ART, THOU, WILT                          |
+|                                   |                                                |
+| MOVIES OF VARIOUS LENGTHS         | EPIC, FEATURE, FILM SERIES, SHORT              |
+| IMPOSE, AS A PENALTY              | ASSESS, CHARGE, FINE, LEVY                     |
+| CHECKOUT LINE IMPULSE BUYS        | CANDY, CHAPSTICK, CHARGING CABLE, MAGAZINE     |
+| ___ ROAD                          | DIRT, HIGH, ROCKY, SILK                        |
+|                                   |                                                |
+| SHARP PROTRUSION                  | BARB, BRISTLE, NEEDLE, SPINE                   |
+| LITIGATION VERBS                  | CHARGE, MOVE, SERVE, SUE                       |
+| FEATURES OF STRINGED INSTRUMENTS  | BRIDGE, NECK, PEG, STRING                      |
+| IN “STAR LIGHT, STAR BRIGHT”      | MAY, MIGHT, TONIGHT, WISH                      |
+|                                   |                                                |
+| BUNCH                             | CLUSTER, COLLECTION, CONSTELLATION, GROUP      |
+| SERIAL KILLER MOVIES              | MONSTER, PSYCHO, SEVEN, ZODIAC                 |
+| ENDING WITH SILENT “T”            | BALLET, DEBUT, RAPPORT, TAROT                  |
+| STARTING WITH CONSTELLATIONS      | DRACONIAN, HYDRANT, LEONARD, LIBRARY           |
+|                                   |                                                |
+| FILAMENT                          | FIBER, STRAND, STRING, THREAD                  |
+| UNINHIBITEDNESS                   | ABANDON, FREEDOM, SPONTANEITY, UNRESTRAINT     |
+| KINDS OF TRUCKS                   | DUMP, GARBAGE, MONSTER, PICKUP                 |
+| BANDS MINUS THE NUMBER FIVE       | BEN FOLDS, JACKSON, MAROON, MC                 |
+|                                   |                                                |
+| EXCEPTIONAL                       | REMARKABLE, SINGULAR, SPECIAL, UNIQUE          |
+| PLURAL DIFFERS FROM SINGULAR      | DICE, LICE, MICE, OXEN                         |
+| PLURAL ANIMALS MATCH SINGULAR     | DEER, SHEEP, SHRIMP, SQUID                     |
+| GERMAN WORDS                      | ANGST, DIE, KINDER, WURST                      |
+|                                   |                                                |
+| À/A LA ___                        | CARTE, KING, MODE, PLANCHA                     |
+| SIGNIFY                           | CONVEY, EXPRESS, MEAN, SPELL                   |
+| WEB BROWSER BUTTONS               | BACK, EXTENSIONS, FORWARD, REFRESH             |
+| PARTS OF A ROAD                   | DIVIDER, LANE, MEDIAN, SHOULDER                |
+|                                   |                                                |
+| BODIES OF WATER                   | BAY, CHANNEL, SOUND, STRAIT                    |
+| KINDS OF CORDS                    | BUNGEE, EXTENSION, SPINAL, UMBILICAL           |
+| OUTSPOKEN                         | DIRECT, FRANK, LOUD, VOCAL                     |
+| THINGS IN BOTTLES                 | GENIE, LIGHTNING, MESSAGE, SHIP                |
+|                                   |                                                |
+| BAR                               | CHART, EXAM, MITZVAH, SOAP                     |
+| LUMINARY                          | GREAT, ICON, LEGEND, LION                      |
+| ARCHITECTURAL DRAWING TOOLS       | COMPASS, RULER, STENCIL, T-SQUARE              |
+| MILIEU                            | CIRCLE, SCENE, SPHERE, WORLD                   |
+|                                   |                                                |
+| MUSICAL INSTRUMENTS               | TAMBOURINE, THEREMIN, TIMPANI, TROMBONE        |
+| KNICKKNACK                        | TCHOTCHKE, THINGAMAJIG, TRIFLE, TRINKET        |
+| WORDS WITH PREFIX MEANING "THREE" | TRIANGLE, TRIDENT, TRILLION, TRILOBITE         |
+| ABBREVIATED WITH “T” + LETTER     | TELEVISION, TOUCHDOWN, TRADEMARK, TUBERCULOSIS |
+|                                   |                                                |
+| CAPTIVATE                         | ABSORB, ENTRANCE, GRAB, RIVET                  |
+| THINGS WITH WINGS                 | AIRPLANE, FAIRY, FLY, HOSPITAL                 |
+| WORDS THAT MODIFY “WATCH”         | POCKET, SMART, STOP, WRIST                     |
+| REPEATED IN “MISS MARY MACK”      | BACK, BLACK, BUTTON, MACK                      |
+|                                   |                                                |
+| ESRB AGE RATINGS                  | ADULTS ONLY, EVERYONE, MATURE, TEEN            |
+| BAD-SMELLING                      | FOUL, RANK, RIPE, SOUR                         |
+| UNFLUCTUATING                     | CONSTANT, LEVEL, STABLE, UNIFORM               |
+| THINGS WITH LAYERS                | EARTH, HENHOUSE, ONION, PHOTOSHOP              |
+|                                   |                                                |
+| BLACK-AND-WHITE THINGS            | CROSSWORD, OREO, PANDA, TUXEDO                 |
+| ANAGRAMS                          | ABEL, ABE, BALE, BELA                          |
+| U.S. PRESIDENTIAL NICKNAMES       | ABE, CAL, DICK, TEDDY                          |
+| CLEAR AS ___                      | A BELL, CRYSTAL, DAY, MUD                      |
+|                                   |                                                |
+| SLANG FOR MONEY                   | CHANGE, GREEN, PAPER, SCRATCH                  |
+| YOU GOT IT!                       | BINGO, CORRECT, DING, RIGHT                    |
+| AFFECT                            | MOVE, REACH, SWAY, TOUCH                       |
+| OBJECTS WITH "MICRO-"             | CHIP, PHONE, SCOPE, WAVE                       |
+|                                   |                                                |
+| HURL                              | CHUCK, PELT, PITCH, SLING                      |
+| BE ON BOTH SIDES OF               | BOOKEND, BRACKET, FLANK, SURROUND              |
+| PARTS OF A GIRL SCOUT UNIFORM     | BADGE, BERET, ASH, SKIRT                       |
+| ___ HALL                          | BINGO, CITY, MOUNTY, STUDY                     |
+|                                   |                                                |
+| NOUNS IN A FAMOUS PALINDROME      | CANAL, MAN, PANAMA, PLANA                      |
+| ASSOCIATED WITH FANCY DINING      | CHINA, CRYSTAL, LINEN, SILVER                  |
+| KINDS OF SHORTS                   | BERMAUDA, BIKE, BOXER, CARGO                   |
+| MOVIES FROM 1985                  | BRAZIL, CLUE, COMMANDO, WITNESS                |
+|                                   |                                                |
+| AVERAGE                           | MEAN, NORM, PAR, STANDARD                      |
+| NOUNS IN BROADWAY MUSICAL TITLES  | BIRDIE, DOLLY, KATE, YANKEES                   |
+| PICTURED ON THE U.S. GREAT SEAL   | ARROWS, EAGLE, OLIVE BRANCH, SHIELD            |
+| ___MAN                            | BOGEY, CRAFTS, GENTLE, SPOKES                  |
+|                                   |                                                |
+| CURRENCY SYMBOLS                  | $ DOLLAR, £ POUND, ¥ YEN, € EURO               |
+| AND/TOGETHER WITH                 | &, +, N, X                                     |
+| EMOTICON MOUTHS                   | (, ), O, P                                     |
+| "RIGHT"                           | R RIGHT, →, ⊾, CHECK-MARK                      |
+|                                   |                                                |
+| CAPRICE                           | FANCY, IMPULSE, LARK, WHIM                     |
+| ILK                               | KIND, LIKE, SORT, TYPE                         |
+| WILLIAMSES                        | HANK, ROBIN, TENNESSEE, VENUS                  |
+| PROPER NOUN PRONOUNCED DIFFERENT  | HERB, JOB, NICE, READING                       |
+|                                   |                                                |
+| PRINTED NOTIFICATION              | ANNOUNCEMENT, BULLETIN, NOTICE, POSTER         |
+| SEEN AT GROCERY CHECKOUT COUNTER  | CONVEYOR BELT, REGISTER, SCALE, SCANNER        |
+| THINGS WITH TABS                  | BROWSER, FOLDER, KEYBOARD, SODA CAN            |
+| PALM ___                          | BEACH, READER, SUNDAY, TREE                    |
+|                                   |                                                |
+| WHAT’S LEFTOVER                   | BALANCE, DIFFERENCE, REMAINDER, REST           |
+| CAR TRIP                          | CRUISE, DRIVE, RIDE, SPIN                      |
+| BASEBALL VENUES                   | DIAMOND, FIELD, PARK, STADIUM                  |
+| COMPANIES WITH “E” REMOVED        | BAY, HARMONY, INK, TRADE                       |
+|                                   |                                                |
+| PARTS OF A WEBSITE                | BANNER, HEADER, MENU, SIDEBAR                  |
+| EMPLOY                            | CONTRACT, ENGAGE, RETAIN, SIGN                 |
+| MAGAZINES                         | BILLBOARD, PEOPLE, STAR, TIME                  |
+| ENDING WITH MEDIEVAL WEAPONS      | CROSSWORD, GRIMACE, RAINBOW, SEMBLANCE         |
+|                                   |                                                |
+| UTILITIES                         | CABLE, GAS, TRASH, WATER                       |
+| WHAT AN ELECTROMETER MEASURES     | CHARGE, CURRENT, RESISTANCE, VOLTAGE           |
+| ALOOF                             | COOL, DISTANT, REMOTE, RESERVED                |
+| ___ JOINT                         | DOVETAIL, HIP, PIZZA, SPIKE LEE                |
+|                                   |                                                |
+| THROB                             | BEAT, POUND, PULSE, THUMP                      |
+| LANDFORMS                         | CAPE, CRATER, GORGE, RIDGE                     |
+| PICTURE HANGING NEEDS             | HAMMER, HANGER, LEVEL, NAIL                    |
+| FOOT___                           | BALL, HILLS, LOCKER, PRINT                     |
+|                                   |                                                |
+| PRICK                             | JAB, PIERCE, POKE, STICK                       |
+| RADIO LINGO                       | COPY, NEGATIVE, OVER, ROGER                    |
+| OLD TESTAMENT BOOKS               | DANIEL, JOB, JUDGES, NUMBERS                   |
+| PRONOUNCED “SH” WITHOUT AN “SH”   | SEAN, SIOBHAN, SUGAR, SURE                     |
+|                                   |                                                |
+| SHADES OF YELLOW                  | CANARY, GOLD, LEMON, MUSTARD                   |
+| ANTI-SPIRIT OF CHRISTMAS          | BAH, COAL, GRINCH, NAUGHTY                     |
+| SUPPLY                            | MINER, RESERVE, STORE, WELL                    |
+| SPANISH WORDS                     | ELLA, GUSTO, MAYO, SOY                         |
+|                                   |                                                |
+| SOURCES OF VITAMINS               | CITRUS, LEAFY GREENS, SUNSHINE, SUPPLEMENTS    |
+| PLACES USED IN RETAIL SUFFIXES    | CITY, LAND, TOWN, WORLD                        |
+| PLACES TO FIND STARS              | AMERICAN FLAG, GALAXY, RED CARPET, UBER RATING |
+| WORDS AFTER “GO”                  | ALL OUT, BETWEEN, KARTS, STEADY                |
+|                                   |                                                |
+| DO WRONG                          | ERR, FALL, SIN STRAY                           |
+| SHORT PERIOD OF TIME              | BIT, FLASH, JIFF, SEC                          |
+| N.B.A. PLAYER                     | BUCK, NET, SPUR, SUN                           |
+| STARTS OF AFRICAN COUNTRIES       | BOT, CAM, KEN, TAN                             |
+|                                   |                                                |
+| STEAL                             | NICK, PINCH, POCKET, SWIPE                     |
+| ATTENDANCE STATUS                 | ABSENT, EXCUSED, LATE, PRESENT                 |
+| FONT-MODIFYING WORDS              | GOTHIC, ROMAN, SANS, TYPEWRITER                |
+| ___BERRY                          | CAPER, ELDER, GOOSE, LOGAN                     |
+|                                   |                                                |
+| RESTRICT                          | BLOCK, CHECK, DAM, STOP                        |
+| TICKETED EVENTS                   | CONCERT, GAME, MOVIE, PLAY                     |
+| FROM THE GAME THE OREGON TRAIL    | DYSENTERY, FORD, HUNT, OXEN                    |
+| WHAT “FORD” MIGHT REFER TO        | ACTOR, CAR, DIRECTOR, PRESIDENT                |
+|                                   |                                                |
+| UNITS OF BEER                     | CASE, FORTY, GROWLER, SIX-PACK                 |
+| CENTRAL SECTION OF THE BODY       | CORE, MIDRIFT, TORSO, TRUNK                    |
+| COMPONENTS OF A PIZZA             | CHEESE, CRUST, SAUCE, TOPPINGS                 |
+| BASEBALL GREATS                   | BONDS, MANTLE, TROUT, YOUNG                    |
+|                                   |                                                |
+| HORROR MOVIES, WITH “THE”         | BIRDS, EXORCIST, HAUNTING, SHINING             |
+| PERSONAL PROPERTY MINUS “S”       | BELONGING, EFFECT, GOOD, POSSESSION            |
+| INTERJECTIONS                     | BOY, GOODNESS!, MAN, WOW                       |
+| THINGS YOU CAN PICK               | APPLE, BANJO, CARD, NOSE                       |
+|                                   |                                                |
+| ADJECTIVES FOR A DESERT           | DRY, HOT, SANDY, VAST                          |
+| SPOKEN PRESENTATION               | ADDRESS, LECTURE, SPEECH, TALK                 |
+| DOG BREEDS, INFORMALLY            | BULLY, CHOW, GOLDEN, LAB                       |
+| REPRESENTED BY 3-DIGIT NUMBERS    | CANNABIS, DEVIL, INTRO CLASS, JAMES BOND       |
+|                                   |                                                |
+| GLIMPSE                           | GANDER, GLANCE, LOOK, PEEP                     |
+| WORDS BEFORE “HOP”                | BAR, BUNNY, HIP, SOCK                          |
+| THINGS YOU CAN CRACK              | CODE, EGG, JOKE, WHIP                          |
+| NEEDS FOR TIE-DYEING A SHIRT      | BASIN, DYE, RUBBER BANDS, SHIRT                |
+|                                   |                                                |
+| HELICAL THINGS                    | CORKSCREW, DNA, FUSILLI, SPRING                |
+| METAPHOR FOR SOMETHING UNEXPECTED | BOMBSHELL, CURVEBALL, TWIST, WRENCH            |
+| INFO ON A NUTRITION LABEL         | FAT, IRON, PROTEIN, SODIUM                     |
+| THINGS INSERTED IN A SPREADSHEET  | CELL, COLUMN, ROW, SHEET                       |
+|                                   |                                                |
+| SEEN IN A POTTERY STUDIO          | CLAY, GLAZE, KILN, WHEEL                       |
+| NATURAL PRODUCERS OF HEAT         | FIRE, LIGHTNING, SUN, VOLCANO                  |
+| CANCEL, AS A PROJECT              | AXE, CUT, DROP, SCRAP                          |
+| THINGS THAT ARE SLIPPERY          | BANANA PEEL, EEL, GREASE, ICE                  |
+|                                   |                                                |
+| PARTS OF A TREE                   | BRANCH, LEAF, ROOT, TRUNK                      |
+| ___POLE                           | BEAN, FLAG, MAY, TAD                           |
+| COMEDIC ROUTINE                   | ACT, BIT, GAG, SKETCH                          |
+| CANINE/FELINE FEATURES            | FUR, MUZZLE, PAW, TAIL                         |
+|                                   |                                                |
+| "BATMAN" VILLAINS                 | BANE, JOKER, PENGUIN, SCARECROW                |
+| KINDS OF LETTUCE                  | BUTTERHEAD, ICEBERG, LEAF, ROMAINE             |
+| THINGS THAT ARE WHITE             | BABY POWDER, MILK, POLAR BEAR, SNOW            |
+| HAVING LITERAL / IDIOMATIC EARS   | CORNFIELD, MUSICIANS, PITCHERS, WALLS          |
+|                                   |                                                |
+| TUBE                              | FALLOPIAN, INNER, TEST, VACUUM                 |
+| GUM FLAVORS                       | BUBBLEGUM, CINNAMON, MENTHOL, WINTERGREEN      |
+| GREAT AMERICAN SONGBOOK SONGS     | AUTUMN, SUMMERTIME, UNFORGETTABLE, WITCHCRAFT  |
+| STARTING POINT                    | CATALYST, LAUNCHPAD, SPARK, SPRINGBOARD        |
+|                                   |                                                |
+| TINT                              | COLOR, HUE, SHADE, TONE                        |
+| VALLEY                            | DALE, DELL, GLEN, HOLLOW                       |
+| BOBS                              | DOLE, HOPE, MARLEY, ROSS                       |
+| COLOR ANAGRAMS                    | DRE, GARY, GENRE, LUBE                         |
+|                                   |                                                |
+| CALCULATOR BUTTONS                | EQUALS, MINUS, PERCENT, TIMES                  |
+| AMOUNTS OF HAIR                   | LOCK, SHOCK, THATCH, TUFT                      |
+| SWEDISH ___                       | CHEF, FISH, MASSAGE, MEATBALL                  |
+| SALTY SNACK UNIT                  | COMBO, GOLDFISH, RUFFLE, TAKI                  |
+|                                   |                                                |
+| CLUES AT A CRIME SCENE            | FIBER, FINGERPRINT, HAIR, TIRE MARK            |
+| WEARY                             | BORE, DRAIN, EXHAUST, TIRE                     |
+| HAIR PRODUCTS                     | GEL, MOUSSE, SPRAY, WAX                        |
+| AUSTERE                           | BARE, PLAIN, SIMPLE, SPARE                     |
+|                                   |                                                |
+| COOKING CONCOCTIONS               | BATTER, DOUGH, MIXTURE, PASTE                  |
+| SEEN ON A TABLE AT A DINNER PARTY | CANDLESTICK, PITCHER, PLACEMAT, PLATE          |
+| WHAT "DIAMOND" CAN REFER TO       | GEMSTONE, INFIELD, RHOMBUS, SUIT               |
+| THINGS TO CLIMB                   | LADDER, MOUNTAIN, ROPE, TREE                   |
+|                                   |                                                |
+| REPUTATION                        | FACE, IMAGE, REGARD, STANDING                  |
+| PARTS OF A SHOE                   | HEEL, SOLE, TONGUE, UPPER                      |
+| ACCOMMODATION                     | CAPACITY, CHAIRS, ROOM, SEATING                |
+| ENDING WITH SYNONYMS FOR “YUCK”   | DYNASTY, ENGROSS, GIMMICK, MILDEW              |
+|                                   |                                                |
+| MOVIE CAMERA VERBS                | DOLLY, PAN, TILT, ZOOM                         |
+| WINNINGS                          | POT, PRIZE, PURSE, REWARD                      |
+| WORDS THAT PRECEDE "-SIZE"        | BITE, FUN, POCKET, TRAVEL                      |
+| STOP, AS A HABIT                  | BREAK, DROP, KICK, SHAKE                       |
+|                                   |                                                |
+| KINDS OF CARVINGS                 | BUST, RELIEF, STATUE, TORSO                    |
+| PILLAR                            | BRACE, POST, PROPS, SUPPORT                    |
+| BBQ OFFERING                      | DOG, LINK, RIB, WING                           |
+| ___NECK                           | BOTTLE, BREAK, GOOSE, TURTLE                   |
+|                                   |                                                |
+| AWESOME                           | DOPE, FIRE, LIT, SICK                          |
+| URL ENDINGS PLUS A LETTER         | COMP, MILK, NETI, ORGO                         |
+| DEFEAT SOUNDLY                    | CREAM, LICK, PASTE, SMOKE                      |
+| WILL CONTRACTION, SANS APOSTROPHE | HELL, ILL, SHELL, WELL                         |
+|                                   |                                                |
+| PLAY SOME ELECTRIC GUITAR         | JAM, NOODLE, SHRED, SOLO                       |
+| QUALITIES OF OVERCOOKED MEAT      | CHEWY, DRY, STRINGY, TOUGH                     |
+| INGREDIENTS IN BUBBLE TEA         | BOBA, MILK, SUGAR, TEA                         |
+| PLANETS WITH FIRST LETTER CHANGED | BLUTO, CARS, DARTH, GENUS                      |
+|                                   |                                                |
+| SILENCE                           | CALM, HUSH, PEACE, STILL                       |
+| COMPARATIVELY SMALL               | BABY, COMPACT, MINUTE, TOY                     |
+| TENNIS COMPETITION UNITS          | GAME, MATCH, SET, TOURNAMENT                   |
+| STARTING WITH “TEASE” SYNONYMS    | KIDNEY, MOCKINGBIRD, RAZZMATAZZ, RIBBON        |
+|                                   |                                                |
+| TAROT MINOR ARCANA SUITS          | CUPS, PENTACLES, SWORDS, WANDS                 |
+| NOT INCLUDING                     | BESIDES, BUT, EXCEPT, SAVE                     |
+| HOMOPHONES OF GEMSTONES           | CHORAL, OPEL, PURL, QUARTS                     |
+| GET BETTER, AS A BROKEN BONE      | HEAL, KNIT, MEND, RECOVER                      |
+|                                   |                                                |
+| COMMIT TO PAPER                   | AUTHOR, COMPOSE, PEN, WRITE                    |
+| NEEDS FOR PLAYING YAHTZEE         | CUP, DICE, PENCIL, SCORECARD                   |
+| HEROES OF ACTION MOVIE FRANCHISES | BOND, JONES, OCEAN, WICK                       |
+| ___STICK                          | CANDLE, CHOP, JOY, YARD                        |
+|                                   |                                                |
+| TV DISPLAY SETTINGS               | BRIGHTNESS, COLOR, CONTRAST, TINT              |
+| RESULTS OF SOME ARITHMETIC        | DIFFERENCE, PRODUCT, QUOTIENT, SUM             |
+| FUZZY, AS A MEMORY                | DIM, FAINT, REMOTE, VAGUE                      |
+| WINDOW TREATMENTS IN THE SINGULAR | BLIND, DRAPES, SHADE, SHUTTER                  |
+|                                   |                                                |
+| LETTER SIGN-OFFS                  | BEST, CHEERS, LOVE, SINCERELY                  |
+| WITHOUT                           | ABSENT, MINUS, SANS, WANTING                   |
+| VIGOR                             | BEANS, ENERGY, PEP, ZIP                        |
+| ___ STRIP                         | BACON, COMIC, LANDINGS, SUNSET                 |
+|                                   |                                                |
+| MAKE HAPPY                        | DELIGHT, PLEASE, SUIT, TICKLE                  |
+| EVADE                             | DODGE, DUCK, SHAKE SKIRT,                      |
+| COMMON VIDEO GAME FEATURES        | BOSS, HEALTH, LEVEL, POWER-UP                  |
+| MOTHER ___                        | EARTH, GOOSE, MAY I, SUPERIOR                  |
+|                                   |                                                |
+| THINGS TRACKED BY WEB ANALYTICS   | CLICK, HIT, PAGE VIEW, VISIT                   |
+| THINGS YOU CAN DO WITH YOUR LIPS  | CURL, PUCKER, PURSE, SMACK                     |
+| PLACES TO FIND PAPER MONEY        | ATM, CASH REGISTER, TIP JAR, WALLET            |
+| REBOUND                           | BANK, BOUNCE, CAROM, RICOCHET                  |
+|                                   |                                                |
+| ENDING WITH COLORS                | EVERGREEN, INFRARED, MARIGOLD, QUICKSILVER     |
+| PLACES TO SHOP                    | BAZAAR, FAIR, MARKET, OUTLET                   |
+| KINDS OF PIZZA                    | HAWAIIAN, PLAIN, SUPREME, VEGGIE               |
+| ___ CLEANER                       | BATHROOM, DRY, PIPE, VACUUM                    |
+|                                   |                                                |
+| ABSORB USING CAPILLARY ACTION     | DRAW, PULL, SUCK, WICK                         |
+| STARTING WITH SILENT LETTERS      | GNOME, KNEE, MNEMONIC, PSYCHE                  |
+| GREEK PREFIXES                    | HYPER, KILO, META, NEO                         |
+| TITULAR ANIMALS OF FILM           | BABE, BOLT, DUMBO, TED                         |
+|                                   |                                                |
+| TYPES OF SNOW                     | CRUST, ICE, POWDER, SLUSH                      |
+| RATIONALE                         | BASIS, FOUNDATION, GROUNDS, REASON             |
+| LAST WORDS OF FAMOUS OPERA TITLES | BESS, BUTTERFLY, FLUTE, SEVILLE                |
+| REAL ___                          | DEAL, ESTATE, MADRID, WORLD                    |
+|                                   |                                                |
+| KINDS OF PLANTS                   | HERB, SHRUB, TREE, VINE                        |
+| DISCONTINUE                       | DISSOLVE, END, SCRAP, SUNSET                   |
+| ENDING WITH BUILDING MATERIALS    | HOLLYWOOD, HOURGLASS, KUBRICK, NEUROPLASTIC    |
+| ASSOCIATED WITH BULLS             | MICHAEL JORDAN, RODEO, TAURUS, WALL STREET     |
+|                                   |                                                |
+| MEMBER OF A KINGDOM IN TAXONOMY   | ANIMAL, BACTERIA, FUNGUS, PLANT                |
+| GRADUATED INSTRUMENTS             | BEAKER, PROTRACTOR, RULER, SYRINGE             |
+| KINDS OF PENGUINS                 | CHINSTRAP, EMPEROR, KINGDOM, MACARONI          |
+| “E” THINGS                        | COMMERCE, EMAIL, SCOOTER, SIGNATURE            |
+|                                   |                                                |
+| TASKS FOR A STUDENT               | ASSIGNMENT, DRILL, EXERCISE, LESSON            |
+| GUESS GAME ENCOURAGING RESPONSES  | ALMOST, CLOSE, NOT QUITE, WARM                 |
+| UP FOR ANYTHING                   | EASY, FLEXIBLE, GAME, OPEN                     |
+| WHAT “A” MIGHT MEAN               | AREA, ATHLETIC, EXCELLENT, ONE                 |
+|                                   |                                                |
+| FUNDRAISING EVENT                 | BALL, BENEFIT, FUNCTION, GALA                  |
+| HOMOPHONES OF PARTS OF THE FOOT   | BAWL, HEAL, SOUL, TOW                          |
+| FEATURES OF A TOOTHED WHALE       | BLUBBER, FLIPPER, FLUKE, MELON                 |
+| SPACES ON A MONOPOLY BOARD        | AVENUE, CHANCE, RAILROAD, UTILITY              |
+|                                   |                                                |
+| SEEN IN A BARN                    | BALE, HORSE, PITCHFORK, TROUGH                 |
+| WORDS BEFORE “BED”                | CANOPY, DAY, MURPHY, WATER                     |
+| ACCOUNT BOOK                      | LEDGER, LOG, RECORD, REGISTER                  |
+| DETECTIVES OF KID-LIT             | BROWN, DREWE, HARDY, HOLMES                    |
+|                                   |                                                |
+| PROHIBIT, AS ENTRY                | BAR, BLOCK, DENY, REFUSE                       |
+| FOLDERS ON A MAC                  | DESKTOP, MUSIC, PICTURES, TRASH                |
+| MEDICINE FORMATS                  | CREAM, PATCH, SPRAY, TABLET                    |
+| THINGS THAT OPEN LIKE A CLAM      | CLAMP, COMPACT, LAPTOP, WAFFLE IRON            |
+|                                   |                                                |
+| CHARACTERS WITH GREEN SKIN        | ELPHABA, GRINCH, HULK, SHREK                   |
+| FAMOUS RIDDLE-GIVERS              | BRIDGE TROLL, MAD HATTER, RIDDLER, SPHINX      |
+| FEATURES OF D.C.'S NATIONAL MALL  | CAPITOL, MALL, OBELISK, POOL                   |
+| FINE PRINT                        | ASTERISK, CATCH, CONDITIONAL, STRINGS          |
+|                                   |                                                |
+| QUITE THE PARTY                   | BASH, BLAST, BLOWOUT, RAVE                     |
+| ONE’S CONSTITUTION                | CHARACTER, FIBER, MAKEUP, NATURE               |
+| BRITISH IMPERIAL UNITS OF WEIGHT  | DRAM, OUNCE, POUND, STONE                      |
+| WHAT “CAT’S EYE” MIGHT DESCRIBE   | EYELINER, GLASSES, MARBLE, NEBULA              |
+|                                   |                                                |
+| NEW YORK SPORTS TEAM MEMBERS      | JET, MET, NET, RANGER                          |
+| BABY GEAR                         | BIB, BOTTLE, MONITOR, STROLLER                 |
+| KINDS OF PANTS MINUS "S"          | CAPRI, JEAN, JOGGER, SLACK                     |
+| BLACK WOMEN AUTHORS               | BUTLER, GAY, HOOKS, WALKER                     |
+|                                   |                                                |
+| DOPPELGÄNGER                      | CLONE, DOUBLE, RINGER, TWIN                    |
+| PLAYING CARDS                     | ACE, JACK, KING, QUEEN                         |
+| ___ MAIL                          | CHAIN, ELECTRONIC, JUNK, SNAIL                 |
+| EAR PIERCING SITES                | CONCH, HELIX, LOBE, ROOK                       |
+|                                   |                                                |
+| ITEMS IN A LINEN CLOSET           | PILLOWCASE, SHEET, TOWEL, WASHCLOTH            |
+| LINGERIE                          | GARTER, HOSE, SLIP, TEDDY                      |
+| DIAMETRIC                         | COUNTER, OPPOSITE, POLAR, REVERSE              |
+| CARD GAME WITH 1ST LETTER CHANGED | DIN, FRIDGE, GUMMY, JOKER                      |
+|                                   |                                                |
+| GUITAR PLAYING TECHNIQUES         | BEND, PICK, SLIDE, STRUM                       |
+| WHAT CHARACTERS BECAME IN BEAUTY  | BEAST, CANDELABRA, CLOCK, TEACUP               |
+| ROUND FLAT THINGS                 | COASTER, FRISBEE, PANCAKE, RECORD              |
+| AIRPORT FEATURES                  | CAROUSEL, FOOD COURT, GATE, LOUNGE             |
+|                                   |                                                |
+| CONNECT                           | BRIDGE, JOIN, LINK, UNITE                      |
+| PARTS OF A BIKE                   | CHAIN, PEDALS, SADDLE, WHEEL                   |
+| BEST PICTURE WINNERS SINCE 2000   | CHICAGO, CRASH, GLADIATOR, MOONLIGHT           |
+| MUSIC GENRES PLUS A LETTER        | BLUES, POP, ROCKY, SKAT                        |
+|                                   |                                                |
+| RODS                              | BAT, CLUB, STAFF, STICK                        |
+| THEY'RE ON A ROLL!                | FOIL, RIBBON, TAPE, TOILET PAPER               |
+| WORDS BEFORE “SHACK”              | CADDY, LOVE, RADIO, SHAKE                      |
+| COMMON SWAG ITEMS                 | HAT, TEE, TOTE, WATER BOTTLE                   |
+|                                   |                                                |
+| ALCOVE                            | CAVITY, HOLLOW, NOOK, RECESS                   |
+| VERBS IN BREADMAKING              | FERMENT, PROOF, REST, RISE                     |
+| WAYS TO RECOGNIZE ACHIEVEMENT     | CERTIFICATE, MEDAL, PLAQUE, TROPHY             |
+| THINGS YOU CAN BLOW               | BUBBLE, FUSE, KISS, RASPBERRY                  |
+|                                   |                                                |
+| ___ FUND                          | HEDGE, MUTUAL, SLUSH, TRUST                    |
+| LOCAL WATERING HOLE               | DIVE, ESTABLISHMENT, HAUNT, JOINT              |
+| COMPETE IN A MODERN PENTATHON     | FENCE, RIDE, SHOOT, SWIM                       |
+| ENSURE, AS A VICTORY              | CINCH, GUARANTEE, ICE, LOCK                    |
+|                                   |                                                |
+| EXPEDITION                        | JOURNEY, ODYSSEY, QUEST, VOYAGE                |
+| HOLD DEAR                         | ESTEEM, PRIZE, TREASURE, VALUE                 |
+| WORDS WHOSE ONLY VOWEL IS “Y”     | MYRRH, NYMPH, RHYTHM, SPHINX                   |
+| NAMES ENDING IN “K” PLUS WORD     | FRANKINCENSE, JACKPOT, MARKDOWN, NICKNAME      |
+|                                   |                                                |
+| BE OSTENTATIOUS                   | GRANDSTAND, POSTURE, SHOWBOAT, SWAGGER         |
+| COPACETIC                         | FINE, HUNKY-DORY, OK, SWELL                    |
+| KINDS OF BRACELETS                | CHARM, FRIENDSHIP, ID, TENNIS                  |
+| THINGS YOU CAN PRACTICE           | LAW, MEDICINE, SELF-CARE, WITCHCRAFT           |
+|                                   |                                                |
+| PARTS OF A SONG                   | BRIDGE, CHORUS, HOOK, REFRAIN                  |
+| IMAGERY IN MAGRITTE PAINTINGS     | APPLE, BOWLER, CLOUD, PIPE                     |
+| THINGS IN AN ENTRYWAY             | BENCH, COAT RACK, CONSOL, RUNNER               |
+| SUPPORT AUDIBLY                   | CHEER, CLAP, ROAR, WHISTLE                     |
+|                                   |                                                |
+| WAYS TO MODIFY A CAR'S EXTERIOR   | BUMPER, GRILL, RIM, SPOILER                    |
+| PLUMBING EQUIPMENT                | PIPE, PLUNGER, SNAKE, WRENCH                   |
+| PRECIPICE                         | BRINK, CUSP, EVE, VERGE                        |
+| BEST FEMALE ROCKER GRAMMY WINNERS | APPLE, CROW, SUMMER, TURNER                    |
+|                                   |                                                |
+| NEWSPAPER JOBS                    | COLUMNIST, EDITOR, PHOTOGRAPHER, REPORTER      |
+| EVERYDAY                          | COMMON, REGULAR, ROUTINE, STANDARD             |
+| ENDING WITH KINDS OF DOGS         | NEWSHOUND, SHADOWBOXER, SNKDOODLE, TRENDSETTER |
+| WHAT “CON” MIGHT MEAN             | CONVENTION, CRIMINAL, DRAWBACK, SWINDLE        |
+|                                   |                                                |
+| DITTY                             | AIR, NUMBER, SONG, STRAIN                      |
+| TIPS FOR WORKING OUT SAFELY       | BREATHE, HYDRATE, REST, STRETCH                |
+| ESTABLISH                         | FOUND, INSTITUTE, LAUNCH, START                |
+| SPRING ___                        | CHICKEN, EQUINOX, FLING, ONION                 |
+|                                   |                                                |
+| PERSIST                           | HOLD, LAST, STAND, STAY                        |
+| WIKIPEDIA BIOGRAPHY SIDEBAR INFO  | BORN, EDUCATION, OCCUPATION, SPOUSE            |
+| ANIMAL METAPHORS IN ECONOMICS     | BEAR, BULL, DOVE, HAWK                         |
+| HOMOPHONES OF SLANG FOR MONEY     | BREED, CACHE, DOE, LUTE                        |
+|                                   |                                                |
+| KEYBOARD SHORTCUT COMMANDS        | PASTE, PRINT, QUIT, SAVE                       |
+| SECURE IN ADVANCE                 | BOOK, ORDER, REQUEST, RESERVE                  |
+| SPELLING BEE RANKS MINUS A LETTER | GENUS, GOO, MAZING, SLID                       |
+| CRIME ORGANIZATION                | CREW, FAMILY, RING, SYNDICATE                  |
+|                                   |                                                |
+| THINGS TO INSERT IN A DOCUMENT    | CHART, IMAGE, TABLE, TEXT BOX                  |
+| '80S SLANG                        | CHILL, PSYCH, RADICAL, WORD                    |
+| ARBITRATE                         | CHAIR, JUDGE, MEDIATE, MODERATE                |
+| ___ DUTY                          | CIVIC, CUSTOMS, HEAVY, JURY                    |
+|                                   |                                                |
+| BOAST                             | BLUSTER, CROW, SHOW OFF, STRUT                 |
+| WAYS TO DENOTE A CITATION         | ASTERISK, DAGGER, NUMBER, PARENS               |
+| CEREAL MASCOTS                    | COUNT, ELVES, LEPRECHAUN, ROOSTER              |
+| ARC-SHAPED THINGS                 | BANANA, EYEBROW, FLIGHT PATH, RAINBOW          |
+|                                   |                                                |
+| GETTING COZY                      | CUDDLING, HUGGING, SNUGGLING, SPOONING         |
+| GOSSIPING                         | BUZZING, DISHING, SPILLING, WHISPERING         |
+| STARTING WITH TITLES              | DOCTORING, LORDING, MISSING, SIRING            |
+| ACTIVITY WITH PINS OR NEEDLES     | ACUPUNCTURING, BOWLING, SEWING, WRESTLING      |
+|                                   |                                                |
+| SEEN AT AN ICE CREAM SHOP         | CONE, CUP, LITTLE SPOON, SCOOP                 |
+| PERSPECTIVE                       | ANGLE, BENT, LENS, POINT OF VIEW               |
+| HOT ___                           | DOG, POTATO, ROD, WATER BOTTLE                 |
+| HIT SONGS OF 1998                 | CLOSING TIME, IRIS, ONE WEEK, TOO CLOSE        |
+|                                   |                                                |
+| GODDESS                           | DIVA, ICON, LEGEND, QUEEN                      |
+| DOGS OF THE SCREEN                | ASTRO, BLUE, HOOCH, TOTO                       |
+| ELEMENTS OF CLASSIC “MOM” TATTOO  | ARROW, HEART, MOM, RIBBON                      |
+| ___ TERRIER                       | BORDER, BOSTON, BULL, RAT                      |
+|                                   |                                                |
+| SLANG FOR COFFEE                  | BREW, JAVA, MUD, ROCKET FUEL                   |
+| "AW, HECK!"                       | BLAST, CRUD, CURSES, FUDGE                     |
+| CONSIDERATIONS FOR MOVIE RATINGS  | ACTION, LANGUAGE, NUDITY, SMOKING              |
+| WHAT “POP” MIGHT MEAN             | BURST, FATHER, POPULAR, SODA                   |
+|                                   |                                                |
+| WHAT A DRINK IS SERVED WITH       | COASTER, GARNISH, GLASS, STRAW                 |
+| EXPRESSIONLESS                    | BLANK, FLAT, INANIMATE, WOODEN                 |
+| DRAPERY HANGING ITEMS             | BRACKET, CURTAIN, HOOK, ROD                    |
+| STARTS W/ MEANS OF TRANSPORTATION | BUSBOY, CARBON, SHIPSHAPE, TRAINEE             |
+|                                   |                                                |
+| FIGURES IN DISNEY ANIMATED FILMS  | ELEPHANT, FAWN, MARIONETTE, MOUSE              |
+| BAD THINGS FOR A WEBSITE TO DO    | FREEZE, GLITCH, QUIT, TIMEOUT                  |
+| METTLE                            | FIGHT, GRIT, RESOLVE, SPIRIT                   |
+| THINGS TO BOOK FOR A VACATION     | CAR, FLIGHT, HOTEL, TOUR                       |
+|                                   |                                                |
+| QUALITIES OF A RAINY DAY          | COLD, GRAY, WET, WINDY                         |
+| SQUARELY                          | DEAD, EXACTLY, RIGHT, SMACK                    |
+| CONTENTS OF A POD                 | ASTRONAUT, COFFEE, PEA, WHALE                  |
+| BODY PART PLUS A STARTING LETTER  | BARM, LEAR, RANKLE, SHIP                       |
+|                                   |                                                |
+| FENCING GEAR                      | FOILS, GLOVES, JACKETS, MASKS                  |
+| MAP APP OPTIONS                   | DESTINATION, ROUTE, STARTING POINT, STOPS      |
+| COMPONENTS OF ONE’S GRADE         | ATTENDANCE, FINAL, HOMEWORK, PAPERS            |
+| CLASSIC TOYS                      | BALL, BLOCKS, JACKS, TRAIN                     |
+|                                   |                                                |
+| CAPTURE ON VIDEO                  | FILM, RECORD, SHOOT, TAPE                      |
+| ITEMS IN A SEWING KIT             | BUTTON, NEEDLE, SCISSORS, THREAD               |
+| PRO WRESTLING ICONS, WITH “THE”   | HITMAN, ROCK, SNAKE, UNDERTAKER                |
+| WAX ___                           | MUSEUM, PAPER, POETIC, SEAL                    |
+|                                   |                                                |
+| STOCKY                            | SOLID, SQUAT, STOUT, THICK                     |
+| COMPANY                           | CONCERN, FIRM, HOUSE, OUTFIT                   |
+| STARTS OF EUROPEAN COUNTRIES      | GERM, LUXE, MALT, PORT                         |
+| APPLE PRODUCTS                    | BRANDY, BUTTER, CIDER, SAUCE                   |
+|                                   |                                                |
+| DECLARATION OF INDEPENDENCE       | HAPPINESS, LIBERTY, LIFE, PURSUIT              |
+| NEWS ANNOUNCEMENT                 | BULLETIN, FLASH, REPORT, WIRE                  |
+| HBO SHOWS                         | ENTOURAGE, EUPHORIA, INSECURE, SUCCESSION      |
+| WHAT “LEFT” MIGHT MEAN            | DEPARTED, PORT, PROGRESSIVE, REMAINING         |
+|                                   |                                                |
+| ___ GLASS GLASSWARE               | COCKTAIL, COLLINS, OLD FASHIONED, SHOT         |
+| FICTION CATEGORIES                | HISTORICAL, LITERARY, SPECULATIVE, YOUNG ADULT |
+| KINDS OF JEANS                    | BOYFRIEND, FLARE, MOM, SKINNY                  |
+| WORDS IN HEMINGWAY TITLES         | BELL, FAREWELL, OLD MAN, SUN                   |
+|                                   |                                                |
+| BOTANICAL COVERINGS               | HULL, HUSK, POD, SHELL                         |
+| STRICT                            | FIRM, RIGID, STERN, TOUGH                      |
+| SEEN IN OPENING CREDITS           | CAST, DIRECTOR, STUDIO, TITLE                  |
+| OBJECTS IN 0-, 1-, 2-, 3-D SPACE  | LINE, PLANE, POINT, SOLID                      |
+|                                   |                                                |
+| KINDS OF CHEESES                  | BLUE, GOAT, JACK, SWISS                        |
+| WOODWORKING HAND TOOLS            | CHISEL, PLANE, RASP, SAW                       |
+| BEVERAGE SELF-SERVICE ITEMS       | CUP, LID, NAPKIN, STRAW                        |
+| BIRDS MINUS LAST LETTER           | CRAN, FLAMING, HERO, RAVE                      |
+|                                   |                                                |
+| COMPONENTS OF A SALAD             | CHEESE, DRESSING, LETTUCE, PROTEIN             |
+| KINDS OF MACHINES                 | ENIGMA, PINBALL, SEWING, VENDING               |
+| ENDING WITH PLAYING CARDS         | BOJACK, HAWKING, LOVELACE, MCQUEEN             |
+| LEGAL DRAMAS                      | DAMAGES, GOLIATH, MATLOCK, SUITS               |
+|                                   |                                                |
+| PARTS OF AN ANGEL COSTUME         | HALO, HARP, ROBE, WINGS                        |
+| IN FASHION                        | CHIC, CURRENT, FRESH, HAPPENING                |
+| “SESAME STREET” FIGURES           | BIRD, COUNT, GROUCH, MONSTER                   |
+| ___ BROTHERS                      | BLOOD, BLUES, CHEMICAL, MARX                   |
+|                                   |                                                |
+| INDUSTRIAL REVOLUTION INVENTORS   | BELL, DIESEL, SINGER, WATT                     |
+| THINGS A DOG CAN FETCH            | BALL, BONE, FRISBEE, STICK                     |
+| RESULTS OF A TRAFFIC VIOLATION    | BOOT, POINTS, TICKET, TOW                      |
+| GREAT MANY                        | DROVE, HOST, LOAD, SCORE                       |
+|                                   |                                                |
