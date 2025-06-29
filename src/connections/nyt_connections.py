@@ -3,6 +3,7 @@
 
 # from difflib import unified_diff
 
+import pandas as pd
 from langchain_core.messages import AIMessage
 from langchain_ollama import ChatOllama
 
@@ -18,7 +19,8 @@ def get_llm_response(prompt: str, model: str = "phi4") -> str:
 
 
 def main() -> None:
-    df = get_examples()
+    df = pd.DataFrame(get_examples())
+    print(df)
     validate(df)
 
 
