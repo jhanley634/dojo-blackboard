@@ -59,7 +59,7 @@
 |                                   |                                                |
 | FAMOUS PRIMATES                   | BUBBLES, GEORGE, KING KONG, KOKO               |
 | SOUNDS OF LAUGHTER                | HAR-HAR, HOOT, WHOOP, YUK                      |
-| CAR ONOMATOPOEIA                  | BEEP, BEEP, PURR, SKRRT, VROOM                 |
+| CAR ONOMATOPOEIA                  | BEEP BEEP, PURR, SKRRT, VROOM                  |
 | KNUCKLEHEAD                       | DING-DONG, DODO, YAHOO, YO-YO                  |
 |                                   |                                                |
 | PROHIBIT                          | BAN, BLOCK, DENY, FORBID                       |
@@ -142,7 +142,7 @@
 | SERIES OF MESSAGES                | CHAIN, CHAT, CONVERSATION, THREAD              |
 | CYLINDER-SHAPED THINGS            | CAN, ROLLER, SILO, POOL                        |
 |                                   |                                                |
-| UNITS                             | BARBELL, LUX, MOLE                             |
+| UNITS                             | BAR, BELL, LUX, MOLE                           |
 | AMBIENCE                          | AIR, FEELING, MOOD, QUALITY                    |
 | SASSY                             | CUTE, FRESH, SMART, WISE                       |
 | THE LITTLE ___                    | MERMAID, PRINCE, RASCAL, STRAMP                |
@@ -158,9 +158,9 @@
 | ___ SQUARE                        | PERFECT, POCKET, TIME, TOWN                    |
 |                                   |                                                |
 | KINDS OF TAPE                     | DUCT, ELECTRICAL, GAFFER, PACKING              |
-| THINGS WITH WHEELS                | DOLLY, ROLLER, BLADES, SKATEBOARD, WAGON       |
+| THINGS WITH WHEELS                | DOLLY, ROLLER  BLADES, SKATEBOARD, WAGON       |
 | UPSWING                           | BOOM, RISE, SPIKE, SURGE                       |
-| RETAIL CHAINS - 1 LETTER CHANGED  | BEST, BOY, IDEA, KRONER, STABLES               |
+| RETAIL CHAINS - 1 LETTER CHANGED  | BEST BOY, IDEA, KRONER, STABLES               |
 |                                   |                                                |
 | TERMS OF ENDEARMENT               | DARLING, LOVE, PUMPKIN, TREASURE               |
 | THINGS YOU DO WITH YOUR EYELIDS   | BAT, BLINK, FLUTTER, WINK                      |
@@ -259,12 +259,12 @@
 |                                   |                                                |
 | AREA OF EXPERTISE                 | CONCENTRATION, FIELD, FOCUS, SPECIALTY         |
 | WAYS TO UNLOCK A DEVICE           | FACE, FINGERPRINT, PASSWORD, PIN               |
-| PASTA SHAPES                      | EARELBO, RIBBON, WHEEL                         |
+| PASTA SHAPES                      | EAR, ELBO, RIBBON, WHEEL                       |
 | DOUBLE ___                        | AGENT, DRIBBLE, JEOPARDY, STANDARD             |
 |                                   |                                                |
 | SOUND LIKE A DOG                  | BARK, BAY, HOWL, SNARL                         |
 | COCKTAIL-MAKING VERBS             | GARNISH, MUDDLE, STIR, STRAIN                  |
-| BROADCAST, AS ONLINE MEDIA        | AIRPLAY, RUN, STREAM                           |
+| BROADCAST, AS ONLINE MEDIA        | AIR, PLAY, RUN, STREAM                         |
 | ORG STRUCTURES, METAPHORICALLY    | CHAIN, LADDER, PYRAMID, TREE                   |
 |                                   |                                                |
 | SPHERES IN MILK TEA               | BOBA, BUBBLE, PEARL, TAPIOCA                   |
@@ -335,7 +335,7 @@
 | STEER                             | DIRECT, GUIDE, LEAD, SHEPHERD                  |
 | FIGURES IN GREEK MYTH             | ATLAS, ECHO, HELEN, PAN                        |
 | THINGS WITH NEEDLE/S              | COMPASS, PINE TREE, SEWING KIT, TURNTABLE      |
-| STARTING WITH LAVATORY SYNONYMS   | CANDLE, JOHNSON, LOO, FAH, TOILETRIES          |
+| STARTING WITH LAVATORY SYNONYMS   | CANDLE, JOHNSON, LOOFAH, TOILETRIES            |
 |                                   |                                                |
 | EXTERIOR                          | FACE, FRONT, OUTSIDE, SURFACE                  |
 | APTITUDE                          | FLAIR, GIFT, INSTINCT, NOSE                    |
@@ -407,7 +407,7 @@
 | BAR FIXTURES                      | COUNTER, KEG, TOOL, TAP                        |
 | SEEN IN “DONKEY KONG”             | BARREL, GORILLA, HAMMER, LADDER                |
 |                                   |                                                |
-| TYPES OF SENTENCES                | COMMANDEXCLAMATIONQUESTIONSTATEMENT            |
+| TYPES OF SENTENCES                | COMMAND, EXCLAMATION, QUESTION, STATEMENT      |
 | CONCOCTION                        | COCKTAIL, COMPOUND, MIXTURE, SOLUTION          |
 | KINDS OF BROS                     | CRYPTO, FINANCE, PHARMA, TECH                  |
 | COMPLAINT HOMOPHONES              | GROWN, MOWN, WHALE, WINE                       |
@@ -653,7 +653,7 @@
 | THINGS WITH NECKS                 | BOTTLE, GIRAFFE, GUITAR, LAMP                  |
 |                                   |                                                |
 | BE IN CHARGE OF                   | DIRECT, HEAD, LEAD, RUN                        |
-| THINGS MADE OF RUBBER             | BALLOON, ERA, SER, GALOSH, TIRE                |
+| THINGS MADE OF RUBBER             | BALLOON, ERASER, GALOSH, TIRE                  |
 | RED ___                           | BULL, CROSS, HERRING, VELVET                   |
 | ASSOCIATED WITH “ALADDIN” GENIE   | BLUE, EARRING, LAMP, WISHES                    |
 |                                   |                                                |
@@ -757,7 +757,7 @@
 | ENDING WITH UNITS OF MEASURE      | BIGFOOT, COMPOUND, INSTAGRAM, THERMOMETER      |
 | PARTS OF A CAR                    | BELT, HORN, MIRROR, WHEEL                      |
 |                                   |                                                |
-| THINGS THAT CAN’T BE UNDONE       | BELL, EGG, GENIE,TOOTHPASTE                    |
+| THINGS THAT CAN’T BE UNDONE       | BELL, EGG, GENIE, TOOTHPASTE                   |
 | BE INDECISIVE                     | HESITATE, WAFFLE, WAVER, YO-YO                 |
 | LOVELY PERSON                     | ANGEL, DEAR, DOLL, PEACH                       |
 | LUCIDITY                          | MARBLES, MIND, SENSE, WITS                     |
@@ -962,7 +962,7 @@
 | PLACES TO FIND STARS              | AMERICAN FLAG, GALAXY, RED CARPET, UBER RATING |
 | WORDS AFTER “GO”                  | ALL OUT, BETWEEN, KARTS, STEADY                |
 |                                   |                                                |
-| DO WRONG                          | ERR, FALL, SIN STRAY                           |
+| DO WRONG                          | ERR, FALL, SIN, STRAY                          |
 | SHORT PERIOD OF TIME              | BIT, FLASH, JIFF, SEC                          |
 | N.B.A. PLAYER                     | BUCK, NET, SPUR, SUN                           |
 | STARTS OF AFRICAN COUNTRIES       | BOT, CAM, KEN, TAN                             |
@@ -1093,7 +1093,7 @@
 | ___ STRIP                         | BACON, COMIC, LANDINGS, SUNSET                 |
 |                                   |                                                |
 | MAKE HAPPY                        | DELIGHT, PLEASE, SUIT, TICKLE                  |
-| EVADE                             | DODGE, DUCK, SHAKE SKIRT,                      |
+| EVADE                             | DODGE, DUCK, SHAKE, SKIRT                      |
 | COMMON VIDEO GAME FEATURES        | BOSS, HEALTH, LEVEL, POWER-UP                  |
 | MOTHER ___                        | EARTH, GOOSE, MAY I, SUPERIOR                  |
 |                                   |                                                |
