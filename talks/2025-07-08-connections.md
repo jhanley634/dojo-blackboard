@@ -83,6 +83,8 @@ If the farmer is at a location, no sheep will be eaten.
 If sheep outnumber wolves at a location, no sheep will be eaten.
 Otherwise wolves will eat sheep, for example if 1 wolf and 1 sheep are alone on a bank.
 
+\newpage
+
 The farmer makes a  sequence of moves to safely arrange for all animals to be on the right bank.
 No sheep should be eaten by wolves.
 After the final move we should see 3 wolves and 5 sheep in the right bank.
@@ -121,4 +123,37 @@ magistral:latest            5dd7e640d9d9    14 GB     3 weeks ago
 
 \blank
 
-![](asset/M4.png)
+![](asset/2025-07-08/M4.png)
+
+# simple problems
+
+- How many R's in "strawberry" ?
+- recent SCOTUS appointees
+- related word pairs
+- farmer moves wolves + sheep across river
+
+\newpage
+
+# recent SC justices
+
+I'm interested in recent US supreme court appointments:
+year appointed, age at appointment, party affiliation of president,
+term number of president, name of president, name of justice.
+
+Give just the last name of the president, and just the last name of the justice.
+G. Bush was presidential term number 41, G. H. W. Bush was 43, Trump was 45 and again 47.
+Only consider justices who ultimately were successfully confirmed by the Senate.
+
+Present it in tabular form, with column headings of year, age, party, term, president, justice.
+Choose one of {Dem., Rep.} for party.
+
+Put it in reverse chronological order.
+Be sure to list the 20 most recent appointments.
+
+# related word pairs
+
+Create a dozen pairs of related words, such as {taper, tapper}, where doubling the consonant changes the vowel sound. In the example it changes from long A to a short A sound.
+
+Each word must be two or three syllables long.
+Both words must have the identical ending.
+So do not e.g. append an -ed or -ly or -ing suffix to alter a word.
