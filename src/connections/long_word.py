@@ -24,6 +24,7 @@ def find_longest_match(squished: str) -> tuple[str, str]:
             if rev_squished.startswith(rev_word) and len(rev_word) > len(match):
                 match = f"{row.word}"
 
+    assert match
     pfx = squished[: -len(match)]
     assert f"{pfx}{match}" == squished, (pfx, match, squished)
     return pfx, match
