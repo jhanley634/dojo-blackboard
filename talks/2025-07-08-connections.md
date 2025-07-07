@@ -51,7 +51,7 @@ Tell us how you found better results, please.
 \hfill
 ![](https://web.archive.org/web/20250706001708if_/https://toolsowner.com/wp-content/uploads/2023/08/What-Is-The-Difference-Between-Flathead-And-Phillips-Screwdriver-768x576.jpg){height=4.7cm}
 
-- choose an appropriate datastructure
+- choose an appropriate data structure
 - .CSV, RDBMS
 - Kafka, Redis
 - 3SAT solvers (ORtools)
