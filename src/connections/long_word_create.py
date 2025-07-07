@@ -3,15 +3,13 @@
 """
 Inits a sqlite database of English words.
 
-We do alphabetic search on *reversed* letters of a word,
-since word1 S word2 will tend to pluralize word1.
-For example if the original word2 was SCAR,
-greedily go for the 4-letter match rather than just CAR.
+We index on reversed word spellings in order to support
+the queries issued by find_longest_match().
 """
 
 from pathlib import Path
 
-from sqlalchemy import Column, Engine, Integer, String, Table, __version__, create_engine
+from sqlalchemy import Column, Engine, String, Table, __version__, create_engine
 from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 
@@ -30,7 +28,6 @@ class Word(Base):  # type: ignore
     __tablename__ = "word"
 
     rev_word = Column(String, primary_key=True)
-    size = Column(Integer)  # word length -- we avoid len() and length() keyword conflict
     word = Column(String)
 
 
