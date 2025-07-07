@@ -200,3 +200,49 @@ which maps from CATEGORY to four comma-separated WORDS or phrases within the cat
 Be sure to place a ", " COMMA SPACE between each of those four WORDS.
 
 Everything in both columns shall be in ALL CAPS.
+
+\newpage
+
+# fragility
+
+Different ollama runs, using various models, would sometimes
+produce wildly divergent results.
+
+The biggest difficulty was letters bleeding across word boundaries.
+Consider "QUITSAVE".
+There's a fair chance we capture the longer 5-letter word "quits",
+and then we're stuck with "ave".
+
+Or there might be no "conservation of matter" or of "letters",
+so we get both "quits" and "save".
+
+\newpage
+
+# proper solution
+
+\begin{normalsize}
+\begin{verbatim}
+{   const labeledElements = document.querySelectorAll("[aria-label]");
+    const results = [];
+    labeledElements.forEach((element) => {
+        const label = element.getAttribute("aria-label");
+        if (label && label.startsWith("Correct group ")) {
+            const parts = label.split(". ");
+            const groupName = parts[0].replace("Correct group ", "").trim();
+            const items = parts
+                .slice(1)
+                .join(". ")
+                .split(",")
+                .map((item) => item.trim());
+            const formattedItems = items.join(", ");
+            results.push(`| ${groupName} | ${formattedItems} |`);
+        }
+    });
+    console.log(results.join("\n"));
+}
+\end{verbatim}
+\end{normalsize}
+
+# JS solution
+
+\hfil ![](asset/2025-07-08/NYT-june-9b.png){height=12cm}
