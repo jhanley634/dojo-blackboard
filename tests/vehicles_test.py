@@ -25,7 +25,7 @@ class VehiclesTest(unittest.TestCase):
     def test_query_vehicles(self) -> None:
         if is_enabled(KEY_NAME):
             check = _num_vehicle_journeys() or store_vehicle_journeys("SC")
-            assert isinstance(check, (int, NoneType))
+            assert isinstance(check, int | NoneType)
             v = query_vehicles()
             self.assertGreater(len(str(v)), 16)  # typically 200-300 entries
 
