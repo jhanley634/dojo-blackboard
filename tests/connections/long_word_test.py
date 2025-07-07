@@ -48,9 +48,7 @@ def is_difficult(squished: str, words: list[str]) -> bool:
     # can't necessarily get back, and I'm not keen to change the API
     # to return several candidate answers.
     ret = False
-    for word in words:
-        if word not in english_words:
-            ret = True
+    ret |= any(word not in english_words for word in words)
     if " " in squished:
         ret = True
     prefixes = [
