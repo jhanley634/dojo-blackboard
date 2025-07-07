@@ -14,7 +14,6 @@ def find_longest_match(squished: str) -> tuple[str, str]:
     For example if the original word2 was SCAR,
     greedily go for the 4-letter match rather than just CAR.
     """
-    assert " " not in squished
     rev_squished = squished[::-1]
     wildcard = rev_squished[:3] + "%"
     match = ""
@@ -28,3 +27,12 @@ def find_longest_match(squished: str) -> tuple[str, str]:
     pfx = squished[: -len(match)]
     assert f"{pfx}{match}" == squished
     return pfx, match
+
+
+def find_words(squished: str) -> list[str]:
+    assert " " not in squished
+    ret: list[str] = []
+    while squished:
+        squished, word = find_longest_match(squished)
+        ret.append(word)
+    return list(reversed(ret))
