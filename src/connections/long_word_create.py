@@ -48,7 +48,7 @@ def etl(in_file: Path = ENGLISH_WORDS) -> None:
             if word in seen or len(word) < 3:
                 continue
             seen.add(word)
-            row = Word(rev_word=word[::-1], size=len(word), word=word)
+            row = Word(rev_word=word[::-1], word=word)
             sess.add(row)
         sess.commit()
 
