@@ -9,7 +9,7 @@ the queries issued by find_longest_match().
 
 from pathlib import Path
 
-from sqlalchemy import Column, Engine, String, Table, __version__, create_engine
+from sqlalchemy import Column, Engine, String, __version__, create_engine
 from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 
@@ -40,8 +40,7 @@ def etl(in_file: Path = ENGLISH_WORDS) -> None:
     seen = set()
     with Session(engine) as sess, open(in_file) as fin:
         # Clear out all rows before we start inserting, to avoid dup PK.
-        tbl = Table("word", Base.metadata)
-        sess.execute(tbl.delete())
+        sess.query(Word).delete()
 
         for line in fin:
             word = line.upper().rstrip()
