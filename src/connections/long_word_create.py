@@ -31,7 +31,10 @@ class Word(Base):  # type: ignore
     word = Column(String)
 
 
-def etl(in_file: Path = Path("/usr/share/dict/words")) -> None:
+ENGLISH_WORDS = Path("/usr/share/dict/words")
+
+
+def etl(in_file: Path = ENGLISH_WORDS) -> None:
     engine = get_engine()
     Base.metadata.create_all(engine)
     seen = set()

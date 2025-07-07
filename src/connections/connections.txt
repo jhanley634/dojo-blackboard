@@ -42,8 +42,8 @@
 | ITEM SOLD IN PAIRS                | BOOKEND, EARBUD, SKIS, SOCK                    |
 | BUGS PLUS STARTING LETTER         | BLOUSE, PANTS, MITE, STICK                     |
 |                                   |                                                |
-| SMALL AMOUNT                      | DABDASH, DOLLOP, DROP, DAB                     |
-| CONCAVITY                         | DENT, DIMPLED, DING, DIVOT                     |
+| SMALL AMOUNT                      | DAB, DASH, DOLLOP, DROP                        |
+| CONCAVITY                         | DENT, DIMPLE, DING, DIVOT                      |
 | DISNEY CHARACTERS                 | DAISY, DALE, DOC, DORY                         |
 | ___ DATE                          | DELIVERY, DINNER, DREAM, DUE                   |
 |                                   |                                                |

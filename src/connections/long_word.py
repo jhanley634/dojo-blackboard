@@ -25,7 +25,7 @@ def find_longest_match(squished: str) -> tuple[str, str]:
                 match = f"{row.word}"
 
     pfx = squished[: -len(match)]
-    assert f"{pfx}{match}" == squished
+    assert f"{pfx}{match}" == squished, (pfx, match, squished)
     return pfx, match
 
 
