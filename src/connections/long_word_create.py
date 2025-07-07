@@ -11,7 +11,7 @@ greedily go for the 4-letter match rather than just CAR.
 
 from pathlib import Path
 
-from sqlalchemy import Column, Engine, Index, Integer, String, __version__, create_engine
+from sqlalchemy import Column, Engine, Integer, String, Table, __version__, create_engine
 from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 
@@ -33,21 +33,19 @@ class Word(Base):  # type: ignore
     size = Column(Integer)  # word length -- we avoid len() and length() keyword conflict
     word = Column(String)
 
-    __table_args__ = (Index("idx_word_size", "rev_word", "size", order_by="size DESC"),)
-
 
 def etl(in_file: Path = Path("/usr/share/dict/words")) -> None:
     engine = get_engine()
     Base.metadata.create_all(engine)
     seen = set()
     with Session(engine) as sess, open(in_file) as fin:
+        # Clear out all rows before we start inserting, to avoid dup PK.
+        tbl = Table("word", Base.metadata)
+        sess.execute(tbl.delete())
+
         for line in fin:
             word = line.upper().rstrip()
-            if len(word) > 23:
-                print(word)
-            if len(word) < 3:
-                continue
-            if word in seen:
+            if word in seen or len(word) < 3:
                 continue
             seen.add(word)
             row = Word(rev_word=word[::-1], size=len(word), word=word)
