@@ -122,8 +122,7 @@ magistral:latest            5dd7e640d9d9    14 GB     3 weeks ago
 # platform
 
 \blank
-
-![](asset/2025-07-08/M4.png)
+\hfil ![](asset/2025-07-08/M4.png)
 
 # simple problems
 
@@ -157,3 +156,47 @@ Create a dozen pairs of related words, such as {taper, tapper}, where doubling t
 Each word must be two or three syllables long.
 Both words must have the identical ending.
 So do not e.g. append an -ed or -ly or -ing suffix to alter a word.
+
+\newpage
+
+# motivating problem
+
+In a NYTimes puzzle, save categories and their words.
+
+\vspace{1mm}
+
+\hfil ![](asset/2025-07-08/NYT-june-9a.png){height=8.5cm}
+
+# input
+
+CSS formatting issues make
+copy-n-paste of the first line give:
+`PASTEPRINTQUITSAVE`
+
+# desired output
+
+\begin{normalsize}
+\begin{verbatim}
+| CATEGORY                          | WORDS                         |
+|-----------------------------------+-------------------------------|
+| KEYBOARD SHORTCUT COMMANDS        | PASTE, PRINT, QUIT, SAVE      |
+| SECURE IN ADVANCE                 | BOOK, ORDER, REQUEST, RESERVE |
+| SPELLING BEE RANKS MINUS A LETTER | GENUS, GOO, MAZING, SLID      |
+| CRIME ORGANIZATION                | CREW, FAMILY, RING, SYNDICATE |
+\end{verbatim}
+\end{normalsize}
+
+# specification
+
+Insert 3 "," commas, so we get 4 English words.
+
+\newpage
+
+# prompt
+
+Produce a two-column four-row markdown table using | - + characters,
+which maps from CATEGORY to four comma-separated WORDS or phrases within the category.
+
+Be sure to place a ", " COMMA SPACE between each of those four WORDS.
+
+Everything in both columns shall be in ALL CAPS.
