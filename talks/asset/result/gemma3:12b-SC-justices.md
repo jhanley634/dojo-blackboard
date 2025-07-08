@@ -2,9 +2,9 @@
 
 + cat
 + ollama run gemma3:12b
-⠙ ⠹ ⠸ ⠸ ⠼ ⠴ ⠧ ⠧ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠦ ⠧ ⠏ ⠏ ⠙ ⠙ ⠸ ⠼ ⠼ ⠴ ⠦ ⠧ ⠏ ⠋ ⠙ ⠙ ⠹ ⠼ ⠼ ⠦ ⠦ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ # PRESIDENTS
+⠙ ⠹ ⠸ ⠼ ⠴ ⠴ ⠧ ⠇ ⠏ ⠏ ⠙ ⠹ ⠹ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠙ ⠸ ⠸ ⠴ ⠦ ⠦ ⠧ ⠏ ⠏ ⠙ ⠙ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠇ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠴ ⠦ ⠇ ⠏ ⠋ ⠙ ⠙ ⠸ ⠼ # PRESIDENTS
 
-| term | party | president |
+| Term | Party | President |
 |---|---|---|
 | 47 | Rep. | Trump |
 | 45 | Rep. | Trump |
@@ -19,35 +19,41 @@
 | 36 | Dem. | Truman |
 | 35 | Rep. | Hoover |
 | 34 | Dem. | Roosevelt |
-
-
+| 33 | Rep. | Harding |
+| 32 | Dem. | Wilson |
+| 31 | Rep. | Taft |
+| 30 | Dem. | Roosevelt |
+| 29 | Rep. | Harding |
+| 28 | Dem. | Woodrow |
+| 27 | Rep. | McKinley |
 
 # JUSTICES
 
-| year | age | party | term | president | justice |
+| Year | Age | Party | Term | President | Justice |
 |---|---|---|---|---|---|
-| 2024 | 54 | Rep. | 45 | Trump | Barrett |
-| 2020 | 53 | Rep. | 45 | Trump | Kavanaugh |
-| 2018 | 50 | Rep. | 45 | Trump | Gorsuch |
-| 2017 | 55 | Rep. | 44 | Trump | Jackson |
-| 2016 | 55 | Rep. | 44 | Obama | Sotomayor |
-| 2009 | 52 | Rep. | 44 | Obama | Alito |
-| 2006 | 51 | Dem. | 43 | Bush | Breyer |
-| 2005 | 50 | Rep. | 43 | Bush | Roberts |
-| 2005 | 53 | Rep. | 43 | Bush | Roberts |
-| 2002 | 50 | Rep. | 42 | Bush | Thomas |
-| 2000 | 43 | Rep. | 41 | Bush | Scalia |
-| 1996 | 52 | Rep. | 42 | Clinton | Rehnquist |
-| 2000 | 51 | Rep. | 42 | Clinton | Stevens |
-| 1993 | 56 | Dem. | 42 | Clinton | Ginsburg |
-| 1991 | 59 | Rep. | 41 | Bush | Kennedy |
-| 1990 | 55 | Rep. | 41 | Bush | White |
-| 1988 | 56 | Rep. | 40 | Reagan | O'Connor |
-| 2006 | 64 | Rep. | 41 | Reagan | Kennedy |
-| 2006 | 58 | Dem. | 43 | Reagan | Blackmun |
-| 1988 | 46 | Dem. | 40 | Reagan | Marshall |
+| 2024 | 53 | Rep. | 45 | Trump | Jackson |
+| 2020 | 54 | Rep. | 45 | Trump | Barrett |
+| 2018 | 54 | Rep. | 45 | Trump | Kavanaugh |
+| 2017 | 55 | Rep. | 45 | Trump | Gorsuch |
+| 2016 | 53 | Rep. | 44 | Obama | Sotomayor |
+| 2009 | 50 | Dem. | 44 | Obama | Alito |
+| 2005 | 51 | Rep. | 43 | Bush | Roberts |
+| 2003 | 51 | Rep. | 42 | Bush | Thomas |
+| 2000 | 44 | Rep. | 41 | Bush | Breyer |
+| 1996 | 51 | Dem. | 42 | Clinton | Ginsburg |
+| 1991 | 46 | Rep. | 41 | Bush | Scalia |
+| 1990 | 53 | Rep. | 41 | Bush | Kennedy |
+| 1988 | 50 | Rep. | 40 | Reagan | White |
+| 1986 | 53 | Rep. | 40 | Reagan | O'Connor |
+| 1981 | 56 | Rep. | 40 | Reagan | Rehnquist |
+| 1981 | 46 | Rep. | 40 | Reagan | Powell |
+| 1975 | 56 | Rep. | 38 | Ford | Stevens |
+| 1973 | 57 | Rep. | 37 | Nixon | Burger |
+| 1969 | 56 | Rep. | 37 | Nixon | Blackmun |
+| 1969 | 55 | Rep. | 37 | Nixon | Douglas |
 
 
-real	1m1.541s
-user	0m0.059s
-sys	0m0.059s
+
+real	1m6.938s
+user	0m0.070s
+sys	0m0.074s

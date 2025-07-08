@@ -11,6 +11,8 @@ ctrl_c() {
 cd ../dojo-blackboard/
 cd ../dojo-blackboard/talks/asset/result/
 
+export PATH="$PATH:."
+
 MODELS=(
     gemma3:12b
     olmo2:13b

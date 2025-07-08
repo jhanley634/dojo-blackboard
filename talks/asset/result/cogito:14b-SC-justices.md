@@ -2,47 +2,45 @@
 
 + cat
 + ollama run cogito:14b
-⠙ ⠹ ⠸ ⠼ ⠴ ⠴ ⠧ ⠧ ⠏ ⠏ ⠋ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠦ ⠇ ⠏ ⠏ ⠋ ⠹ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠴ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠼ ⠴ ⠧ ⠇ ⠏ ⠋ ⠋ ⠙ ⠹ ⠼ ⠴ ⠴ ⠧ ⠧ ⠇ ⠏ ⠋ ⠹ ⠸ ⠼ ⠼ ⠦ ⠦ ⠇ ⠏ ⠏ ⠋ ⠹ ⠹ ⠼ ⠴ ⠴ ⠧ ⠇ # PRESIDENTS
+⠙ ⠙ ⠸ ⠼ ⠴ ⠦ ⠦ ⠧ ⠏ ⠋ ⠋ ⠹ ⠹ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠹ ⠸ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠦ ⠇ ⠇ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠇ ⠋ ⠙ ⠹ ⠹ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠋ ⠹ ⠹ ⠸ ⠴ ⠴ ⠧ ⠇ # PRESIDENTS
 
-| term | party   | president |
-|------|---------|-----------|
-| 46   | Dem.    | Biden     |
-| 45   | Rep.    | Trump     |
-| 47   | Rep.    | Trump     |
-| 44   | Dem.    | Obama     |
-| 43   | Rep.    | Bush      |
-| 41   | Rep.    | Bush      |
-| 35   | Dem.    | Clinton   |
-| 32   | Dem.    | Carter    |
-| 30   | Rep.    | Ford      |
-| 28   | Dem.    | Johnson   |
+| term | party | president |
+|------|-------|-----------|
+| 46   | Dem.  | Biden     |
+| 45   | Rep.  | Trump     |
+| 47   | Rep.  | Trump     |
+| 44   | Dem.  | Obama     |
+| 43   | Rep.  | Bush      |
+| 41   | Rep.  | G. Bush   |
+| 38   | Dem.  | Clinton   |
+| 35   | Dem.  | Carter    |
 
 # JUSTICES
 
-| number | year | age | party | term | president | justice |
-|--------|------|-----|-------|------|-----------|---------|
-| 20     | 2023 | 59  | Rep.  | 46   | Biden     | Jackson |
-| 19     | 2023 | 63  | Dem.  | 46   | Biden     | Ketanji |
-| 18     | 2022 | 57  | Rep.  | 45,47| Trump     | Barrett |
-| 17     | 2019 | 53  | Rep.  | 46   | Biden     | Kagan   |
-| 16     | 2018 | 54  | Rep.  | 46   | Biden     | Gorsuch |
-| 15     | 2017 | 53  | Rep.  | 45,47| Trump     | Kavanaugh|
-| 14     | 2017 | 69  | Dem.  | 45   | Obama     | Sotomayor|
-| 13     | 2010 | 56  | Rep.  | 43,41| Bush      | Alito   |
-| 12     | 2009 | 55  | Dem.  | 45   | Obama     | Souter  |
-| 11     | 2005 | 67  | Rep.  | 43,41| Bush      | Roberts|
-| 10     | 2006 | 59  | Dem.  | 43   | Bush      | Alito   |
-| 9      | 2006 | 58  | Rep.  | 43,41| Bush      | Kennedy|
-| 8      | 2005 | 50  | Rep.  | 43,41| Bush      | Breyer |
-| 7      | 2005 | 66  | Dem.  | 43   | Bush      | Ginsburg|
-| 6      | 1998 | 68  | Rep.  | 43,41| Bush      | Scalia |
-| 5      | 1994 | 50  | Rep.  | 41   | Bush      | Thomas |
-| 4      | 1992 | 45  | Dem.  | 43   | Bush      | Stevens|
-| 3      | 1986 | 43  | Rep.  | 40,39| Reagan    | Scalia |
-| 2      | 1975 | 51  | Dem.  | 38   | Ford      | Brennan|
-| 1      | 1972 | 62  | Dem.  | 37,34| Nixon     | Burger |
+| year | age | party | term | president | justice |
+|------|-----|-------|------|-----------|---------|
+| 2023 | 49  | Rep.  | 47   | Trump     | Jackson |
+| 2020 | 52  | Rep.  | 45   | Trump     | Barrett |
+| 2018 | 53  | Dem.  | 44   | Obama     | Kagan   |
+| 2017 | 53  | Rep.  | 45   | Trump     | Gorsuch |
+| 2016 | 50  | Dem.  | 44   | Obama     | Sotomayor|
+| 2010 | 55  | Rep.  | 43   | Bush      | Thomas  |
+| 2009 | 55  | Dem.  | 43   | Bush      | Alito   |
+| 2006 | 57  | Dem.  | 41   | G.Bush    | Roberts |
+| 2005 | 58  | Rep.  | 43   | Bush      | Breyer  |
+| 1994 | 60  | Dem.  | 41   | G.Bush    | Ginsburg|
+| 1993 | 62  | Dem.  | 35   | Clinton   | Stevens |
+| 1987 | 43  | Rep.  | 41   | G.Bush    | Scalia  |
+| 1986 | 50  | Rep.  | 41   | G.Bush    | O'Connor|
+| 1975 | 43  | Dem.  | 35   | Carter    | Rehnquist|
+| 1972 | 43  | Dem.  | 38   | Nixon     | Blackmun|
+| 1969 | 49  | Rep.  | 35   | Johnson   | Brennan |
+| 1967 | 40  | Dem.  | 35   | LBJ       | Burger  |
+| 1959 | 49  | Dem.  | 38   | Eisenhower| Harlan |
+| 1956 | 52  | Dem.  | 38   | Eisenhower| Brennan|
+| 1957 | 60  | Dem.  | 38   | Eisenhower| Warren |
 
 
-real	1m26.675s
-user	0m0.080s
-sys	0m0.082s
+real	1m14.083s
+user	0m0.069s
+sys	0m0.074s
