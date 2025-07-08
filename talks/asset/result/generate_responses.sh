@@ -26,8 +26,7 @@ echo "${MODELS[*]}"
 
 for prompt in prompt-*.md
 do
-    title="$(echo "$prompt" | sed -e 's/-recent//')"
-    title="${title#prompt-}"
+    title="${prompt#prompt-}"
     title="${title%.md}"
 
     for model in "${MODELS[@]}"
