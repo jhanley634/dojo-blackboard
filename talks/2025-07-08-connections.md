@@ -133,7 +133,7 @@ magistral:latest            5dd7e640d9d9    14 GB     3 weeks ago
 
 \newpage
 
-# recent SC justices
+# SC justices
 
 I'm interested in recent US supreme court appointments:
 year appointed, age at appointment, party affiliation of president,
