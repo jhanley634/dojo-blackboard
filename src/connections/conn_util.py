@@ -4,10 +4,10 @@ from pathlib import Path
 import pandas as pd
 
 TOP = Path().absolute()
-IN_FILE = TOP / "src/connections/connections.txt"
+CONNECTIONS_EXAMPLES = TOP / "src/connections/connections.txt"
 
 
-def get_examples(in_file: Path = IN_FILE) -> Generator[dict[str, list[str] | str]]:
+def get_examples(in_file: Path = CONNECTIONS_EXAMPLES) -> Generator[dict[str, list[str] | str]]:
     with open(in_file) as fin:
         line = next(fin)
         assert "-*- org -*-\n" == line, line
