@@ -2,59 +2,47 @@
 
 + cat
 + ollama run phi4
-⠙ ⠹ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠙ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠋ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠙ ⠸ ⠼ ⠴ ⠴ ⠧ ⠇ ⠏ ⠋ Certainly! Here are twelve pairs of related words where doubling the consonant changes the vowel sound, and both words share the same ending:
+⠙ ⠹ ⠸ ⠼ ⠼ ⠦ ⠦ ⠇ ⠏ ⠏ ⠙ Certainly! Here are twelve pairs of related words where doubling the consonant changes the vowel sound, each meeting your specified criteria:
 
-1. **Complain** / **Complainer**
-   - Complain (long A)
-   - Complainer (short A)
+1. **Favor** - Favour
+   (The long A becomes a short U sound.)
 
-2. **Confer** / **Conferrer**
-   - Confer (o as in "cot")
-   - Conferrer (o as in "stock")
+2. **Traveler** - Traveller
+   (The long E becomes a shorter U sound.)
 
-3. **Refer** / **Referrer**
-   - Refer (e as in "bed")
-   - Referrer (e as in "get")
+3. **Meter** - Meeter
+   (The long E becomes a short E sound.)
 
-4. **Favor** / **Favoured** (British English)
-   - Favor (long A)
-   - Favoured (short A)
+4. **Leader** - Leeder
+   (The long E becomes a short E sound.)
 
-5. **Deliberate** / **Deliberater**
-   - Deliberate (i as in "machine")
-   - Deliberater (i as in "sit")
+5. **Ruler** - Ryealer
+   (The long U becomes a short I sound.)
 
-6. **Occur** / **Occurrer**
-   - Occur (u as in "flute")
-   - Occurrer (u as in "strut")
+6. **Pilot** - Pylottor
+   (The long I becomes a short O sound.)
 
-7. **Permit** / **Permitter**
-   - Permit (i as in "machine")
-   - Permitter (i as in "sit")
+7. **Matter** - Mattor
+   (The long A becomes a short O sound.)
 
-8. **Prefer** / **Preferrer**
-   - Prefer (e as in "bed")
-   - Preferrer (e as in "get")
+8. **Calmness** - Callminess
+   (The long A becomes a short U sound.)
 
-9. **Benefit** / **Benefitter**
-   - Benefit (i as in "machine")
-   - Benefitter (i as in "sit")
+9. **Banner** - Bananner
+   (The long A becomes a short A sound.)
 
-10. **Desert** / **Deserter**
-    - Desert (e as in "bed")
-    - Deserter (e as in "get")
+10. **Wanderer** - Wanderrer
+    (The long A becomes a short E sound.)
 
-11. **Harbor** / **Harboured** (British English)
-    - Harbor (short A)
-    - Harboured (long A)
+11. **Sufferer** - Sufffferer
+    (The short U becomes the longer O sound in some accents, though primarily it retains its pronunciation with emphasis.)
 
-12. **Conduct** / **Conductor**
-    - Conduct (u as in "flute")
-    - Conductor (u as in "strut")
+12. **Gravelly** - Gravvelly
+    (The short E remains as is but can vary slightly in vowel quality depending on regional pronunciations.)
 
-These pairs maintain the same ending while altering vowel sounds through consonant doubling.
+Each pair shares an identical ending and involves changing the vowel sound through consonant doubling.
 
 
-real	0m47.203s
-user	0m0.051s
-sys	0m0.052s
+real	0m30.840s
+user	0m0.035s
+sys	0m0.032s
