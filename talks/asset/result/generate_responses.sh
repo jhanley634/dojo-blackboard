@@ -35,7 +35,8 @@ do
     do
         out="$model-$title.md"
         echo "$(date +'%Y-%m-%d %H:%M:%S')   $out"
-        bash -c "/usr/bin/time gemma3.sh $model  2>&1"  < "$prompt"  > "$out"
+        bash -c "/usr/bin/time gemma3.sh $model  2>&1"  < "$prompt" |
+            sed -u -e 's/\x1b[[][?]*[0-9;]*[a-zA-Z]//g'  > "$out"  # no "progress" ANSI escapes
         sleep 1  # A double CTRL/C will hit this command.
     done
 done
