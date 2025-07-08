@@ -5,7 +5,7 @@ set -e
 trap ctrl_c SIGINT
 
 ctrl_c() {
-    echo Bye.
+    echo " Bye."
 }
 
 cd ../dojo-blackboard/
@@ -36,5 +36,6 @@ do
         out="$model-$title.md"
         echo "$(date +'%Y-%m-%d %H:%M:%S')   $out"
         bash -c "/usr/bin/time gemma3.sh $model  2>&1"  < "$prompt"  > "$out"
+        sleep 1  # A double CTRL/C will hit this command.
     done
 done
