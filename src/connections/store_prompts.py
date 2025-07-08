@@ -15,15 +15,29 @@ def _get_prompts(in_file: Path = TALK_MD) -> Generator[str]:
         "related word pairs",
     }
     with open(in_file) as fin:
-        for line in fin:
-            line = line.removeprefix("# ").rstrip()
-            if line in titles:
-                prompt: list[str] = []
-                while not line.startswith("#"):
-                    if not line.startswith("\\"):
-                        prompt.append(line)
-                    line = next(fin).rstrip()
-                yield "\n".join(prompt)
+        lines = fin.read().splitlines()
+    i = 0
+    while i < len(lines):
+        if lines[i].removeprefix("# ") in titles:
+            i, prompt = _grab_section(i, lines)
+            yield prompt
+        i += 1
+
+
+def _grab_section(i: int, lines: list[str]) -> tuple[int, str]:
+    """Grab lines of a prompt until we see a section marker.
+
+    Reports on how far we went, and what we found.
+    """
+    prompt: list[str] = []
+    line = lines[i].removeprefix("# ")
+    while not line.startswith("#") and i < len(lines) - 1:
+        if not line.startswith("\\"):
+            prompt.append(line)
+        i += 1
+        line = lines[i]
+    i -= 1  # just in case the "end of section" line is wanted for next section
+    return i, "\n".join(prompt)
 
 
 def store_prompts() -> None:
