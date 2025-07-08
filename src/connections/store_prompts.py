@@ -13,7 +13,7 @@ TALK_MD = TALKS / "2025-07-08-connections.md"
 def _get_prompts(in_file: Path = TALK_MD) -> Generator[str]:
     titles = {
         "river crossing",
-        "recent SC justices",
+        "SC justices",
         "related word pairs",
     }
     with open(in_file) as fin:

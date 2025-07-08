@@ -16,17 +16,18 @@ MODELS=(
     olmo2:13b
     deepseek-coder-v2
     cogito:14b
-    deepseek-r1:14b
+    # deepseek-r1:14b
     phi4
-    phi4-reasoning
-    devstral
+    # phi4-reasoning
+    # devstral
 )
 
 echo "${MODELS[*]}"
 
 for prompt in prompt-*.md
 do
-    title="${prompt#prompt-}"
+    title="$(echo "$prompt" | sed -e 's/-recent//')"
+    title="${title#prompt-}"
     title="${title%.md}"
 
     for model in "${MODELS[@]}"
