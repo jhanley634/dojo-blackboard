@@ -1,11 +1,13 @@
 #! /usr/bin/env python
 
+import re
 from collections.abc import Generator
 from pathlib import Path
 
 from connections.conn_util import TOP
 
-TALK_MD = TOP / "talks/2025-07-08-connections.md"
+TALKS = TOP / "talks"
+TALK_MD = TALKS / "2025-07-08-connections.md"
 
 
 def _get_prompts(in_file: Path = TALK_MD) -> Generator[str]:
@@ -40,10 +42,21 @@ def _grab_section(i: int, lines: list[str]) -> tuple[int, str]:
     return i, "\n".join(prompt)
 
 
-def store_prompts() -> None:
+RESULT = TALKS / "asset/result"
+
+
+def store_prompts(result_dir: Path = RESULT) -> None:
+    result_dir.mkdir(exist_ok=True)
+    title_re = re.compile(r"^[\w ]+")
+    no_punct = str.maketrans("", "", r'''"'"''')
+
     for prompt in _get_prompts():
-        print("\n\n===========\n\n")
-        print(prompt)
+        m = title_re.search(prompt)
+        assert m
+        name = m[0].replace(" ", "-").translate(no_punct)
+
+        with open(result_dir / f"prompt-{name}.md", "w") as fout:
+            fout.write(prompt)
 
 
 if __name__ == "__main__":
