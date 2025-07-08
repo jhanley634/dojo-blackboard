@@ -34,9 +34,15 @@ do
     for model in "${MODELS[@]}"
     do
         out="$model-$title.md"
-        echo "$(date +'%Y-%m-%d %H:%M:%S')   $out"
-        bash -c "/usr/bin/time gemma3.sh $model  2>&1"  < "$prompt" |
-            sed -u -e 's/\x1b[[][?]*[0-9;]*[a-zA-Z]//g'  > "$out"  # no "progress" ANSI escapes
-        sleep 1  # A double CTRL/C will hit this command.
+        if [ -r "$out" ]
+        then
+            ls -l "$out"
+        else
+            echo "$(date +'%Y-%m-%d %H:%M:%S')   $out"
+            bash -c "/usr/bin/time gemma3.sh $model  2>&1"  < "$prompt" |
+                sed -u -e 's/\x1b[[][?]*[0-9;]*[a-zA-Z]//g'  > "$out"
+            # The sed suppresses any "progress" ANSI escapes.
+            sleep 1  # A double CTRL/C will hit this command.
+        fi
     done
 done
