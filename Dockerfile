@@ -7,6 +7,7 @@ FROM ubuntu:noble AS base
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
+    apt-get upgrade -y && \
     apt-get install -y \
         libcairo2-dev \
         libgif-dev \
