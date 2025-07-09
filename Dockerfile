@@ -9,7 +9,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --allow-releaseinfo-change && \
     apt-get update --fix-missing && \
     apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
+    apt-cache show uuid-dev && \
+    apt-cache show libblkid-dev && \
+    apt-cache show libmount-dev && \
+    apt-get install -y --fix-missing --no-install-recommends \
         libcairo2-dev \
         libgif-dev \
         libgirepository1.0-dev \
