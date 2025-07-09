@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y \
+    apt-get install -y --fix-missing \
         libcairo2-dev \
         libgif-dev \
         libgirepository1.0-dev \
