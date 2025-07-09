@@ -2,47 +2,58 @@
 
 + cat
 + ollama run deepseek-coder-v2
-⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠧ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠴ ⠦ ⠇ ⠇ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠦ ⠧ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠋ ⠹ ⠸ ⠼ ⠴ ⠦ ⠦ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴  Here's a markdown table of U.S. presidents since F.D.R, listed in reverse chronological order, including their term number, party affiliation, and last name:
+⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ ⠧ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠇ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ ⠇ ⠏ ⠏ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠙ ⠹ ⠸ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠋ ⠙ ⠹ ⠼ ⠼ ⠦ ⠧ ⠧ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠼ ⠦ ⠦ ⠇ ⠏ ⠏ ⠙ ⠹ ⠹ ⠸ ⠴ ⠴ ⠧ ⠇ ⠏ ⠋ ⠋ ⠹ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠇ ⠋ ⠙ ⠙ ⠹ ⠼ ⠴ ⠦ ⠧ ⠧ ⠇ ⠋ ⠋ ⠹ ⠸ ⠼ ⠼ ⠦ ⠦ ⠇ ⠏ ⠋ ⠙ ⠙ ⠹ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠋ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠇ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠴ ⠧ ⠧ ⠏ ⠋ ⠋ ⠙  Here is a markdown table with U.S. presidents since Franklin Delano Roosevelt in reverse chronological order, including their term number, party affiliation, and last name:
 
 ```markdown
-| term | party       | president |
-|------|-------------|-----------|
-| 44   | Dem.        | Obama     |
-| 43   | Dem.        | Kerry      |
-| 42   | Rep.        | Bush      |
-| 41   | Rep.        | Reagan    |
-| 40   | Other       | Carter    |
-| 39   | Rep.        | Nixon     |
-| 38   | Dem.        | Ford      |
-| 37   | Rep.        | Carter    |
-| 36   | Rep.        | Bush      |
-| 35   | Other       | Johnson   |
-| 34   | Dem.        | Kennedy   |
-| 33   | Dem.        | Johnson   |
-| 32   | Rep.        | Nixon     |
-| 31   | Rep.        | Ford      |
-| 30   | Other       | Carter    |
-| 29   | Rep.        | Reagan    |
-| 28   | Dem.        | Bush      |
-| 27   | Rep.        | H.W. Bush |
-| 26   | Rep.        | Nixon     |
-| 25   | Other       | Ford      |
-| 24   | Dem.        | Carter    |
-| 23   | Rep.        | Reagan    |
-| 22   | Rep.        | Bush      |
-| 21   | Other       | HW Bush   |
-| 20   | Dem.        | Clinton   |
-| 19   | Rep.        | Bush      |
-| 18   | Other       | Dole      |
-| 17   | Dem.        | Gore      |
-| 16   | Rep.        | Bush      |
-| 15   | Other       | Clinton   |
-| 14   | Dem.        | Obama     |
+| term | party    | president |
+|------|----------|-----------|
+| 44   | Dem.     | Obama     |
+| 43   | Dem.     | Biden      |
+| 42   | Rep.     | Cheney    |
+| 41   | Dem.     | Gore      |
+| 40   | Rep.     | Quayle    |
+| 39   | Rep.     | Bush      |
+| 38   | Dem.     | Mondale   |
+| 37   | Rep.     | Rockefeller |
+| 36   | Rep.     | Agnew     |
+| 35   | Dem.     | Humphrey  |
+| 34   | Dem.     | Johnson   |
+| 33   | Rep.     | Nixon     |
+| 32   | Dem.     | Barkley   |
+| 31   | Dem.     | Truman    |
+| 30   | Rep.     | Curtis    |
+| 29   | Rep.     | Dawes     |
+| 28   | Rep.     | Coolidge  |
+| 27   | Dem.     | Marshall  |
+| 26   | Dem.     | Sherman   |
+| 25   | Rep.     | Fairbanks |
+| 24   | Dem.     | Roosevelt |
+| 23   | Dem.     | Stevenson I |
+| 22   | Rep.     | Morton    |
+| 21   | Dem.     | Hendricks |
+| 20   | Rep.     | Truman    |
+| 19   | Rep.     | Arthur    |
+| 18   | Rep.     | Wheeler   |
+| 17   | Dem.     | Wilson    |
+| 16   | Rep.     | Colfax    |
+| 15   | Rep.     | Johnson   |
+| 14   | Rep.     | Breckinridge |
+| 13   | Rep.     | King      |
+| 12   | Dem.     | Truman    |
+| 11   | Rep.     | Fillmore  |
+| 10   | Dem.     | Dallas    |
+| 9    | Vacant   |           |
+| 8    | Rep.     | Tyler     |
+| 7    | Dem.     | Johnson   |
+| 6    | Dem.     | Van Buren |
+| 5    | Dem.     | Calhoun   |
+| 4    | Whig     | Madison   |
+| 3    | Dem.     | Jefferson |
+| 2    | Dem.     | Adams     |
+| 1    | Rep.     | Washington |
 ```
 
-This table lists the U.S. presidents from FDR to the present, with their term number, party affiliation, and last name as specified.
 
-
-real	0m16.894s
-user	0m0.048s
-sys	0m0.055s
+real	0m36.795s
+user	0m0.070s
+sys	0m0.083s
