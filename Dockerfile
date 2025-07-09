@@ -9,6 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean &&
     apt-get update --fix-missing --allow-releaseinfo-change && \
     apt-get upgrade -y && \
+    apt search uuid-dev && \
     apt-cache policy build-essential uuid-dev libblkid-dev libmount-dev && \
     apt-get install -y --fix-missing --no-install-recommends \
         libcairo2-dev \
