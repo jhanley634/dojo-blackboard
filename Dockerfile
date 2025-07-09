@@ -6,13 +6,8 @@ FROM ubuntu:noble AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get clean &&
-    apt-get update --fix-missing --allow-releaseinfo-change && \
-    apt-get upgrade -y && \
-    apt search uuid-dev && \
-    apt-cache policy build-essential uuid-dev libblkid-dev libmount-dev && \
-    apt install -y uuid-dev && \
-    apt-get install -y --fix-missing --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y \
         libcairo2-dev \
         libgif-dev \
         libgirepository1.0-dev \
