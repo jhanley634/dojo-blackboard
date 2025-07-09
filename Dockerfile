@@ -6,7 +6,8 @@ FROM ubuntu:noble AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update --fix-missing --allow-releaseinfo-change && \
+RUN apt-get clean &&
+    apt-get update --fix-missing --allow-releaseinfo-change && \
     apt-get upgrade -y && \
     apt-get install -y --fix-missing --no-install-recommends \
         libcairo2-dev \
