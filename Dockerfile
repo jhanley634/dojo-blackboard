@@ -1,14 +1,14 @@
 # docker buildx build -t blackboard .
 # docker run -it blackboard
 
-# Noble Numbat, 24.04 LTS
-FROM ubuntu:noble AS base
+# Jammy Jellyfish, 22.04 LTS
+FROM ubuntu:jammy AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y --fix-missing \
+    apt-get install -y \
         libcairo2-dev \
         libgif-dev \
         libgirepository1.0-dev \
