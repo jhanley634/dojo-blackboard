@@ -1,12 +1,12 @@
 # docker buildx build -t blackboard .
 # docker run -it blackboard
 
-# Jammy Jellyfish, 22.04 LTS
-FROM ubuntu:jammy AS base
+# Noble Numbat, 24.04 LTS
+FROM ubuntu:noble AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && \
+RUN apt-get update --fix-missing && \
     apt-get upgrade -y && \
     apt-get install -y \
         libcairo2-dev \
