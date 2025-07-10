@@ -12,7 +12,8 @@ def get_pres(out_file: Path = TEMP / "pres.csv") -> None:
     url = "https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States"
     df = pd.read_html(url)[0]
     # print(df.to_markdown())
-    print(df.to_json())
+    print(df.to_csv(index=False))
+
 
 
 if __name__ == "__main__":
