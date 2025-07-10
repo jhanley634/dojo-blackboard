@@ -61,3 +61,4 @@ Each row in the table should contain the following fields:
 Column headings shall be lowercase.
 President last name shall be a single word with initial letter uppercased,
 for example "Bush" rather than "bush".
+Notice that `term` shall always be less than 48.
