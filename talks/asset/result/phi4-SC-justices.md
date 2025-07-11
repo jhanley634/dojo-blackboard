@@ -2,54 +2,51 @@
 
 + cat
 + ollama run phi4
-⠙ ⠙ ⠹ ⠼ ⠼ ⠴ ⠧ ⠧ ⠇ ⠏ ⠙ ⠹ ⠹ ⠸ ⠼ ⠦ ⠦ ⠧ ⠇ ⠋ ⠋ ⠹ ⠸ ⠼ ⠼ # PRESIDENTS
+⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ # PRESIDENTS
 
-| Term | Party | President |
+Below is a markdown table listing U.S. presidents since Franklin Delano Roosevelt, in reverse chronological order, with each row containing their term number, party affiliation (abbreviated as Dem. for Democratic and Rep. for Republican), and last name:
+
+| term | party | president |
 |------|-------|-----------|
 | 46   | Dem.  | Biden     |
-| 45b  | Rep.  | Trump     |
-| 45a  | Rep.  | Trump     |
+| 45   | Rep.  | Trump     |
 | 44   | Dem.  | Obama     |
-| 43   | Rep.  | G.H.W. Bush|
+| 43   | Rep.  | Bush      |
 | 42   | Dem.  | Clinton   |
-| 41   | Rep.  | G. Bush   |
-| 40   | Dem.  | H.W. Bush |
+| 41   | Rep.  | H. W. Bush|
+| 40   | Rep.  | Reagan    |
 | 39   | Dem.  | Carter    |
-| 38   | Rep.  | Ford      |
-| 37   | Rep.  | Nixon     |
-| 36   | Dem.  | Johnson   |
-| 35   | Dem.  | Kennedy   |
-| 34   | Dem.  | E. Roosevelt|
-| 33   | Dem.  | F. Roosevelt|
 
 # JUSTICES
 
-| Number | Year | Age | Party | Term | President | Justice     |
-|--------|------|-----|-------|------|-----------|-------------|
-| 20     | 2022 | 51  | Rep.  | 46   | Biden     | Jackson     |
-| 19     | 2018 | 53  | Dem.  | 45a  | Trump     | Kavanaugh   |
-| 18     | 2017 | 49  | Dem.  | 45a  | Trump     | Gorsuch     |
-| 17     | 2016 | 46  | Rep.  | 44   | Obama     | Kagan       |
-| 16     | 2009 | 50  | Dem.  | 44   | Obama     | Sotomayor   |
-| 15     | 2006 | 55  | Rep.  | 43   | G.H.W. Bush | Alito     |
-| 14     | 1994 | 60  | Dem.  | 42   | Clinton   | Ginsburg    |
-| 13     | 1993 | 52  | Dem.  | 42   | Clinton   | Breyer      |
-| 12     | 1986 | 50  | Rep.  | 41   | G. Bush   | Kennedy     |
-| 11     | 1981 | 43  | Rep.  | 40   | H.W. Bush | O'Connor    |
-| 10     | 1990 | 58  | Dem.  | 39   | Carter    | Rehnquist   |
-| 9      | 1986 | 64  | Dem.  | 38   | Reagan    | Stevens     |
-| 8      | 1981 | 43  | Rep.  | 37   | Reagan    | Sandra      |
-| 7      | 1975 | 60  | Dem.  | 36   | Ford      | Powell      |
-| 6      | 1969 | 42  | Rep.  | 35   | Nixon     | Blackmun    |
-| 5      | 1968 | 40  | Dem.  | 35   | Nixon     | Burger      |
-| 4      | 1967 | 43  | Rep.  | 34   | Johnson   | Marshall    |
-| 3      | 1956 | 51  | Dem.  | 33   | E. Roosevelt | Warren   |
-| 2      | 1939 | 60  | Dem.  | 34   | F. Roosevelt | Frankfurter|
-| 1     | 1937 | 51  | Dem.  | 34   | F. Roosevelt | Stone    |
+Here is a markdown table with information on the most recent U.S. Supreme Court appointments, including year appointed, age at appointment, party affiliation of the president, term number of the president, name of the president, and name of the justice:
 
-Note: Term numbers for G.H.W. Bush and Trump are based on the sequence given in your instruction.
+| number | year | age | party | term | president  | justice      |
+|--------|------|-----|-------|------|------------|--------------|
+| 20     | 2022 | 51  | Rep.  | 47   | Trump      | Jackson      |
+| 19     | 2018 | 53  | Rep.  | 45   | Trump      | Kavanagh     |
+| 18     | 2017 | 49  | Rep.  | 45   | Trump      | Gorsuch      |
+| 17     | 2016 | 63  | Dem.  | 44   | Obama      | Kennedy (Retired)|
+| 16     | 2018 | 51  | Dem.  | 46   | Biden      | Jackson      |
+| 15     | 2017 | 45  | Dem.  | 44   | Obama      | Kagan        |
+| 14     | 2010 | 50  | Dem.  | 43   | Obama      | Sotomayor    |
+| 13     | 2009 | 56  | Dem.  | 43   | Obama      | Gorsuch (Replaced)|
+| 12     | 2006 | 51  | Rep.  | 43   | G. W. Bush | Alito        |
+| 11     | 1994 | 60  | Rep.  | 42   | Clinton    | Thomas       |
+| 10     | 1993 | 50  | Dem.  | 42   | Clinton    | Ginsburg     |
+| 9      | 1986 | 56  | Rep.  | 41   | H. W. Bush | Kennedy      |
+| 8      | 1981 | 43  | Rep.  | 40   | Reagan     | Rehnquist (Chief)|
+| 7      | 1975 | 51  | Dem.  | 38   | Ford       | Stevens      |
+| 6      | 1969 | 42  | Rep.  | 37   | Nixon      | Blackmun     |
+| 5      | 1967 | 43  | Dem.  | 36   | Johnson    | Powell       |
+| 4      | 1967 | 36  | Dem.  | 36   | Johnson    | Burger (Chief)|
+| 3      | 1962 | 40  | Dem.  | 35   | Kennedy    | Fortas       |
+| 2      | 1956 | 64  | Rep.  | 34   | Eisenhower | Whittaker    |
+| 1      | 1954 | 60  | Rep.  | 34   | Eisenhower | Warren (Chief)|
+
+Note: The table includes justices who were ultimately confirmed by the Senate and excludes those who were not or who retired before confirmation.
 
 
-real	1m20.649s
-user	0m0.074s
-sys	0m0.073s
+real	1m42.596s
+user	0m0.090s
+sys	0m0.092s
