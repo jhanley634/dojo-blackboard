@@ -50,9 +50,11 @@
 |    2 | Federalist                                   | John Adams             |
 |    1 | Unaffiliated                                 | George Washington      |
 
-Generate a response with low randomness. Please provide a clear and structured answer to the following question
+Generate a response with low randomness.
+Please provide a clear and structured answer to the following question:
 
-Produce a markdown table of U.S. presidents since Franklin Delano Roosevelt, in reverse chronological order.
+Produce a markdown table of U.S. presidents since Franklin Delano Roosevelt,
+in reverse chronological order.
 Each row in the table should contain the following fields:
 - `term`: the number of the president, with Washington. as 1 and Obama as 44
 - `party`: the party affiliation of the president, one of {Dem., Rep., Other}
@@ -65,4 +67,9 @@ Be sure to avoid including Hoover in the table,
 nor anyone who served in the years before him.
 Notice that `term` shall always be less than 48.
 Do not include an entry in the table if its `term` is less than 32.
+
+Do not write "Republican"; it should be "Rep."
+
+Do not write "Democratic"; it should be "Dem."
+
 Think in steps. Verify each line of the table.

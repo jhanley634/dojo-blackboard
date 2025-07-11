@@ -2,32 +2,41 @@
 
 + cat
 + ollama run deepseek-coder-v2
-⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠋ ⠙ ⠹  Here's a markdown table of U.S. presidents since Franklin Delano Roosevelt, in reverse chronological order, including only those who served after term 31 and excluding Hoover:
+⠙ ⠹ ⠹ ⠼ ⠼ ⠦ ⠦ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ ⠇ ⠇ ⠋ ⠋ ⠙ ⠸ ⠼ ⠼ ⠦ ⠧ ⠇ ⠏ ⠋ ⠋ ⠹ ⠸ ⠼ ⠼ ⠦ ⠧ ⠧ ⠇ ⠋ ⠙ ⠹ ⠹ ⠼ ⠴ ⠴ ⠦ ⠇ ⠏ ⠋ ⠋ ⠹ ⠹ ⠼ ⠴ ⠦ ⠦ ⠇ ⠏ ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏ ⠏ ⠙ ⠹ ⠹ ⠸ ⠼ ⠦ ⠦ ⠇ ⠏ ⠏ ⠋ ⠙ ⠸ ⠼ ⠼ ⠴  To generate a markdown table of U.S. presidents since Franklin Delano Roosevelt, in reverse chronological order, excluding Hoover and anyone who served before his term, we need to filter out those not meeting the criteria and format them accordingly. Here's the step-by-step process:
+
+1. **Filter Data**: Select only those entries where `term` is greater than or equal to 32 (corresponding to Roosevelt).
+2. **Map Party Names**: Replace "Republican" with "Rep." and "Democratic" with "Dem.".
+3. **Format President's Last Name**: Ensure the president's last name starts with a capital letter.
+4. **Exclude Hoover**: Remove any entry for Richard Nixon (term 37).
+5. **Sort Data**: Sort the filtered data in reverse chronological order based on `term`.
+6. **Generate Table**: Format the data into a markdown table with appropriate column headings.
+
+Here is the resulting table:
 
 ```markdown
 | term | party    | president |
 |------|----------|-----------|
-| 47   | Republican| Trump     |
-| 46   | Democratic| Biden      |
-| 45   | Republican| Trump     |
-| 44   | Democratic| Obama     |
-| 43   | Republican| Bush      |
-| 42   | Democratic| Clinton   |
-| 41   | Republican| Bush      |
-| 40   | Republican| Reagan    |
-| 39   | Democratic| Carter    |
-| 38   | Republican| Ford      |
-| 37   | Republican| Nixon     |
-| 36   | Democratic| Johnson   |
-| 35   | Democratic| Kennedy   |
-| 34   | Republican| Eisenhower|
-| 33   | Democratic| Truman    |
-| 32   | Democratic| Roosevelt |
+| 47   | Rep.     | Trump     |
+| 46   | Dem.     | Biden      |
+| 45   | Rep.     | Trump     |
+| 44   | Dem.     | Obama     |
+| 43   | Rep.     | Bush      |
+| 42   | Dem.     | Clinton   |
+| 41   | Rep.     | Bush      |
+| 40   | Rep.     | Reagan    |
+| 39   | Dem.     | Carter    |
+| 38   | Rep.     | Ford      |
+| 37   | Rep.     | Nixon     |
+| 36   | Dem.     | Johnson   |
+| 35   | Dem.     | Kennedy   |
+| 34   | Rep.     | Eisenhower|
+| 33   | Dem.     | Truman    |
+| 32   | Dem.     | Roosevelt |
 ```
 
-To generate this table, I first identified the relevant terms for each president and included only those with a term greater than or equal to 32. Then, I mapped the given party affiliations to either "Democratic," "Republican," or "Other" based on historical context. Finally, I formatted the names of the presidents correctly by capitalizing the first letter and ensuring that Hoover was excluded from the list.
+This table includes all U.S. presidents since Franklin Delano Roosevelt, in reverse chronological order, with the specified formatting and exclusions applied.
 
 
-real	0m15.795s
-user	0m0.041s
-sys	0m0.047s
+real	0m19.378s
+user	0m0.050s
+sys	0m0.059s
