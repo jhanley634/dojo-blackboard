@@ -9,6 +9,7 @@ ctrl_c() {
 }
 
 cd ../dojo-blackboard/
+TOP=$(pwd)
 cd ../dojo-blackboard/talks/asset/result/
 
 export PATH="$PATH:."
@@ -42,7 +43,7 @@ do
             (echo "-*- org -*-";
              echo;
              gemma3.sh "$model"  < "$prompt"  2>&1 |
-                 egrep --line-buffered -v '^\xe2\xa0' |
+                 grep -E --line-buffered -v '^\xe2\xa0' |
                  sed -u -e 's/\x1b[[][?]*[0-9;]*[a-zA-Z]//g') |
             cat  > "$out"
             # The sed suppresses any "progress" ANSI escapes.
@@ -50,3 +51,6 @@ do
         fi
     done
 done
+
+cd "$TOP"
+talks/asset/result/grab_tables.sh

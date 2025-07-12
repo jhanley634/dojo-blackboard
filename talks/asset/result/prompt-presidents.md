@@ -1,9 +1,5 @@
 -*- org -*-
 
-recent SC justices
-
--*- org -*-
-
 | term | party                                        | name                   |
 |------+----------------------------------------------+------------------------|
 |   47 | Republican                                   | Donald Trump           |
@@ -57,8 +53,6 @@ recent SC justices
 Generate a response with low randomness.
 Please provide a clear and structured answer to the following question:
 
-Display a markdown heading of "# PRESIDENTS"
-
 Produce a markdown table of U.S. presidents since Franklin Delano Roosevelt,
 in reverse chronological order.
 Each row in the table should contain the following fields:
@@ -79,22 +73,3 @@ Do not write "Republican"; it should be "Rep."
 Do not write "Democratic"; it should be "Dem."
 
 Think in steps. Verify each line of the table.
-
-
-Display a markdown heading of "# JUSTICES"
-
-I'm interested in recent US supreme court appointments: number,
-year appointed, age at appointment, party affiliation of president,
-term number of president, name of president, name of justice.
-
-The number column starts at 20 for the most recent justice, and counts down to 1.
-
-Give just the last name of the president, and just the last name of the justice.
-G. Bush was presidential term number 41, G. H. W. Bush was 43, Trump was 45 and again 47.
-Only consider justices who ultimately were successfully confirmed by the Senate.
-
-Present it in tabular form, with column headings of year, age, party, term, president, justice.
-Choose one of {Dem., Rep.} for party.
-
-Put it in reverse chronological order.
-Be sure to list the 20 most recent appointments.

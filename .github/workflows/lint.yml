@@ -3,8 +3,8 @@ name: lint
 on: [push, pull_request]
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build-macos:
+    runs-on: self-hosted
     strategy:
       max-parallel: 2
       matrix:
@@ -22,8 +22,7 @@ jobs:
         run: |
           which python
           python --version
-          id; sudo id
-          sudo apt install -y cloc libgirepository1.0-dev
+          id
           time make install
           source .venv/bin/activate && env PYTHONPATH=src:. ruff check
           source .venv/bin/activate && env PYTHONPATH=src:. echo pyright .
