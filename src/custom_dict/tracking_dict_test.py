@@ -29,3 +29,10 @@ class TrackingDictTest(unittest.TestCase):
             if i >= 1:
                 break
         self.assertEqual(["d"], list(d.unread_keys()))
+
+    def test_update(self) -> None:
+        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d.update({"b": 12, "x": 13, "y": 14, "z": 15})
+        del d["c"]
+        del d["y"]
+        self.assertEqual("abdxz", "".join(d.unread_keys()))
