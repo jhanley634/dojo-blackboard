@@ -36,3 +36,11 @@ class TrackingDictTest(unittest.TestCase):
         del d["c"]
         del d["y"]
         self.assertEqual("abdxz", "".join(d.unread_keys()))
+
+    def test_union(self) -> None:
+        """Same as test_update(), pretty much."""
+        d1 = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = d1 | {"b": 12, "x": 13, "y": 14, "z": 15}
+        del d["c"]
+        del d["y"]
+        self.assertEqual("abdxz", "".join(d.unread_keys()))
