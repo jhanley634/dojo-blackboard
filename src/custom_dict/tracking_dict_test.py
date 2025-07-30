@@ -1,4 +1,5 @@
 import unittest
+from copy import deepcopy
 
 from custom_dict.tracking_dict import TrackingDict
 
@@ -59,3 +60,11 @@ class TrackingDictTest(unittest.TestCase):
         d = d1.copy()
         self.assertEqual("", "".join(d1.unread_keys()))
         self.assertEqual("abcd", "".join(d.unread_keys()))
+
+    def test_deepcopy(self) -> None:
+        d1 = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = deepcopy(d1)
+        self.assertEqual("", "".join(d1.unread_keys()))
+
+        self.assertEqual(3, d["c"])
+        self.assertEqual("abd", "".join(d.unread_keys()))

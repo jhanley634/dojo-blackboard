@@ -1,9 +1,18 @@
 from collections import UserDict
 from collections.abc import Generator
+from copy import deepcopy
 from typing import Any
 
 
 class TrackingDict(UserDict[Any, Any]):
+    """
+    A dict that tracks whether the app ever bothered to read what it stored.
+
+    This can help with finding things like overly verbose DB queries,
+    application reporting function bugs, and API mismatches.
+    Call the .unread_keys() generator to find entries that have not yet been read.
+    """
+
     def __init__(
         self, initial_data: dict[Any, Any] | None = None, /, **kwargs: dict[str, Any]
     ) -> None:
@@ -14,6 +23,13 @@ class TrackingDict(UserDict[Any, Any]):
     def copy(self) -> "TrackingDict":
         c = TrackingDict()
         c.update(self)
+        return c
+
+    def __deepcopy__(self, _memo: dict[Any, Any]) -> "TrackingDict":
+        c = TrackingDict()
+        c.used = deepcopy(self.used)
+        for k, v in self.items():
+            c[k] = deepcopy(v)
         return c
 
     def __delitem__(self, key: Any) -> None:
