@@ -11,6 +11,11 @@ class TrackingDict(UserDict[Any, Any]):
         super().__init__(d, **kwargs)
         self.used: set[str] = set()  # Keys the app has read / consumed
 
+    def copy(self) -> "TrackingDict":
+        c = TrackingDict()
+        c.update(self)
+        return c
+
     def __delitem__(self, key: Any) -> None:
         self.used.discard(key)
         return super().__delitem__(key)

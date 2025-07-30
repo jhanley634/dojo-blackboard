@@ -23,7 +23,7 @@ class TrackingDictTest(unittest.TestCase):
     def test_items(self) -> None:
         d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
         self.assertEqual(3, d["c"])
-        self.assertEqual(["a", "b", "d"], list(d.unread_keys()))
+        self.assertEqual("abd", "".join(d.unread_keys()))
 
         for i, (_k, _v) in enumerate(d.items()):
             if i >= 1:
@@ -50,3 +50,12 @@ class TrackingDictTest(unittest.TestCase):
         self.assertEqual(("a", 1), d.popitem())
         self.assertEqual(("b", 2), d.popitem())
         self.assertEqual("cd", "".join(d.unread_keys()))
+
+        self.assertEqual(3, d.pop("c"))
+        self.assertEqual("d", "".join(d.unread_keys()))
+
+    def test_copy(self) -> None:
+        d1 = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = d1.copy()
+        self.assertEqual("", "".join(d1.unread_keys()))
+        self.assertEqual("abcd", "".join(d.unread_keys()))
