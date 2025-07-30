@@ -19,3 +19,13 @@ class TrackingDictTest(unittest.TestCase):
         del d["d"]
         self.assertEqual(5, d["e"])
         self.assertEqual([], list(d.unread_keys()))
+
+    def test_items(self) -> None:
+        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        self.assertEqual(3, d["c"])
+        self.assertEqual(["a", "b", "d"], list(d.unread_keys()))
+
+        for i, (_k, _v) in enumerate(d.items()):
+            if i >= 1:
+                break
+        self.assertEqual(["d"], list(d.unread_keys()))
