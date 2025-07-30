@@ -44,3 +44,9 @@ class TrackingDictTest(unittest.TestCase):
         del d["c"]
         del d["y"]
         self.assertEqual("abdxz", "".join(d.unread_keys()))
+
+    def test_popitem(self) -> None:
+        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        self.assertEqual(("a", 1), d.popitem())
+        self.assertEqual(("b", 2), d.popitem())
+        self.assertEqual("cd", "".join(d.unread_keys()))
