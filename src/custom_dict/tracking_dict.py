@@ -14,11 +14,11 @@ class TrackingDict(UserDict[Any, Any]):
     """
 
     def __init__(
-        self, initial_data: dict[Any, Any] | None = None, /, **kwargs: dict[str, Any]
+        self, initial_data: dict[Any, Any] | None = None, /, **kwargs: dict[Any, Any]
     ) -> None:
         d: dict[Any, Any] = initial_data or {}
         super().__init__(d, **kwargs)
-        self.used: set[str] = set()  # Keys the app has read / consumed
+        self.used: set[Any] = set()  # Keys the app has read / consumed
 
     def copy(self) -> "TrackingDict":
         c = TrackingDict()
@@ -40,7 +40,7 @@ class TrackingDict(UserDict[Any, Any]):
         self.used.add(key)
         return super().__getitem__(key)
 
-    def unread_keys(self) -> Generator[str]:
+    def unread_keys(self) -> Generator[Any]:
         for k in self.keys():
             if k not in self.used:
                 yield k
