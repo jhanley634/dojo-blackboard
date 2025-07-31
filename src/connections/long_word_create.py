@@ -9,9 +9,15 @@ the queries issued by find_longest_match().
 
 from pathlib import Path
 
-from sqlalchemy import Column, Engine, String, __version__, create_engine
+from sqlalchemy import Column, Engine, String, __version__, create_engine, inspect
 from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy.orm.decl_api import DeclarativeMeta
+
+
+def table_exists(table_name: str) -> bool:
+    inspector = inspect(get_engine())
+    return inspector.has_table(table_name)
+
 
 TEMP = Path("/tmp")
 
@@ -37,6 +43,7 @@ ENGLISH_WORDS = Path("/usr/share/dict/words")
 def etl(in_file: Path = ENGLISH_WORDS) -> None:
     engine = get_engine()
     Base.metadata.create_all(engine)
+    assert table_exists("word")
     seen = set()
     with Session(engine) as sess, open(in_file) as fin:
         # Clear out all rows before we start inserting, to avoid dup PK.
