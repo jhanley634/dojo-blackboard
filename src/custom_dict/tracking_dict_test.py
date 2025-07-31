@@ -83,9 +83,9 @@ class TrackingDictPickleTest(unittest.TestCase):
 
         with open(pkl, "rb") as f:
             d1 = pickle.load(f)
+        pkl.unlink()
 
         self._verify_equality(d, d1)
-        pkl.unlink()
 
     def test_pickle_roundtrip_with_bytesio(self) -> None:
         d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
