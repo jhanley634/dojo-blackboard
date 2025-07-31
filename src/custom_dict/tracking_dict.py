@@ -10,7 +10,16 @@ class TrackingDict(UserDict[Any, Any]):
 
     This can help with finding things like overly verbose DB queries,
     application reporting function bugs, and API mismatches.
-    Call the .unread_keys() generator to find entries that have not yet been read.
+    Call the `.unread_keys()` generator to find entries that have not yet been read.
+
+    Space complexity:
+        We store twice as many key pointers as `dict`.
+        And possibly twice as many key bytes, though not in
+        certain caching cases, such as when keys are small ints.
+    Time complexity:
+        Scanning `.unread_keys()` incurs linear O(N) cost to scan `.keys()`.
+        No change for any other operations, though note that OO dispatch via
+        `UserDict` is more expensive than calling into the `dict` native C code.
     """
 
     def __init__(
@@ -18,7 +27,7 @@ class TrackingDict(UserDict[Any, Any]):
     ) -> None:
         d: dict[Any, Any] = initial_data or {}
         super().__init__(d, **kwargs)
-        self.used: set[Any] = set()  # Keys the app has read / consumed
+        self.used: set[Any] = set()  # keys the app has read / consumed
 
     def copy(self) -> "TrackingDict":
         c = TrackingDict()
@@ -41,6 +50,7 @@ class TrackingDict(UserDict[Any, Any]):
         return super().__getitem__(key)
 
     def unread_keys(self) -> Generator[Any]:
+        """Generates keys that were stored, are still valid, and have not been read."""
         for k in self.keys():
             if k not in self.used:
                 yield k

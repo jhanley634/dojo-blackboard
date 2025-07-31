@@ -5,10 +5,14 @@ import pandas as pd
 
 from connections.conn_util import get_examples
 from connections.long_word import find_longest_match, find_words
-from connections.long_word_create import ENGLISH_WORDS
+from connections.long_word_create import ENGLISH_WORDS, etl, table_exists
 
 
 class LongWordTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        table_exists("word") or etl()
 
     def test_longest_match(self) -> None:
         pfx, word = find_longest_match("CUPSCAR")
