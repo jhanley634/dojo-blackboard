@@ -13,17 +13,16 @@ from sqlalchemy import Column, Engine, String, __version__, create_engine, inspe
 from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 
-
-def table_exists(table_name: str) -> bool:
-    inspector = inspect(get_engine())
-    return inspector.has_table(table_name)
-
-
 TEMP = Path("/tmp")
 
 
 def get_engine(db_file: Path = Path(TEMP / "words.db")) -> Engine:
     return create_engine(f"sqlite:///{db_file}")
+
+
+def table_exists(table_name: str) -> bool:
+    inspector = inspect(get_engine())
+    return inspector.has_table(table_name)
 
 
 Base = declarative_base()
