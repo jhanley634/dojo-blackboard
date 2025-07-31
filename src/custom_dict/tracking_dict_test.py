@@ -1,5 +1,7 @@
+import pickle
 import unittest
 from copy import deepcopy
+from pathlib import Path
 
 from custom_dict.tracking_dict import TrackingDict
 
@@ -68,3 +70,16 @@ class TrackingDictTest(unittest.TestCase):
 
         self.assertEqual(3, d["c"])
         self.assertEqual("abd", "".join(d.unread_keys()))
+
+    def test_pickle_roundtrip(self) -> None:
+        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        self.assertEqual(3, d["c"])
+        pkl = Path("/tmp/dict.pkl")
+        with open(pkl, "wb") as f:
+            pickle.dump(d, f)
+
+        with open(pkl, "rb") as f:
+            d1 = pickle.load(f)
+
+        self.assertEqual(list(d.unread_keys()), list(d1.unread_keys()))
+        pkl.unlink()
