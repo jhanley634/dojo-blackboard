@@ -82,4 +82,7 @@ class TrackingDictTest(unittest.TestCase):
             d1 = pickle.load(f)
 
         self.assertEqual(list(d.unread_keys()), list(d1.unread_keys()))
+        self.assertEqual(d.used, d1.used)
+        self.assertEqual(d.data, d1.data)
+        self.assertEqual(d, d1)
         pkl.unlink()
