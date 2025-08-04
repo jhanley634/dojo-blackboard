@@ -7,7 +7,14 @@ from pathlib import Path
 from custom_dict.tracking_dict import TrackingDict
 
 
+def _example_mapping() -> TrackingDict:
+    return TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+
+
 class TrackingDictTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.d = _example_mapping()
+
     def test_tracking_dict(self) -> None:
         d = TrackingDict()
         d["a"] = 1
@@ -19,13 +26,13 @@ class TrackingDictTest(unittest.TestCase):
         d["d"] = 4
         d["e"] = 6
         d["e"] = 5
-        self.assertEqual(["d", "e"], list(d.unread_keys()))
+        self.assertEqual("de", "".join(d.unread_keys()))
         del d["d"]
         self.assertEqual(5, d["e"])
         self.assertEqual([], list(d.unread_keys()))
 
     def test_items(self) -> None:
-        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = self.d.copy()
         self.assertEqual(3, d["c"])
         self.assertEqual("abd", "".join(d.unread_keys()))
 
@@ -35,7 +42,7 @@ class TrackingDictTest(unittest.TestCase):
         self.assertEqual(["d"], list(d.unread_keys()))
 
     def test_update(self) -> None:
-        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = self.d.copy()
         d.update({"b": 12, "x": 13, "y": 14, "z": 15})
         del d["c"]
         del d["y"]
@@ -43,14 +50,14 @@ class TrackingDictTest(unittest.TestCase):
 
     def test_union(self) -> None:
         """Same as test_update(), pretty much."""
-        d1 = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d1 = self.d.copy()
         d = d1 | {"b": 12, "x": 13, "y": 14, "z": 15}
         del d["c"]
         del d["y"]
         self.assertEqual("abdxz", "".join(d.unread_keys()))
 
     def test_popitem(self) -> None:
-        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = self.d.copy()
         self.assertEqual(("a", 1), d.popitem())
         self.assertEqual(("b", 2), d.popitem())
         self.assertEqual("cd", "".join(d.unread_keys()))
@@ -59,13 +66,13 @@ class TrackingDictTest(unittest.TestCase):
         self.assertEqual("d", "".join(d.unread_keys()))
 
     def test_copy(self) -> None:
-        d1 = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d1 = self.d.copy()
         d = d1.copy()
         self.assertEqual("", "".join(d1.unread_keys()))
         self.assertEqual("abcd", "".join(d.unread_keys()))
 
     def test_deepcopy(self) -> None:
-        d1 = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d1 = self.d.copy()
         d = deepcopy(d1)
         self.assertEqual("", "".join(d1.unread_keys()))
 
@@ -74,8 +81,11 @@ class TrackingDictTest(unittest.TestCase):
 
 
 class TrackingDictPickleTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.d = _example_mapping()
+
     def test_pickle_roundtrip_with_filesystem(self) -> None:
-        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = self.d.copy()
         self.assertEqual(3, d["c"])
         pkl = Path("/tmp/dict.pkl")
         with open(pkl, "wb") as f:
@@ -88,7 +98,7 @@ class TrackingDictPickleTest(unittest.TestCase):
         self._verify_equality(d, d1)
 
     def test_pickle_roundtrip_with_bytesio(self) -> None:
-        d = TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+        d = self.d.copy()
         self.assertEqual(3, d["c"])
         buf = io.BytesIO()
         pickle.dump(d, buf)
