@@ -1,4 +1,5 @@
 from collections import Counter, UserDict
+from copy import deepcopy
 from typing import Any, Self
 
 
@@ -17,6 +18,13 @@ class AccessCounterDict(UserDict[Any, Any]):
         c = AccessCounterDict()
         c.update(self)
         c.reset_counts()
+        return c
+
+    def __deepcopy__(self, _memo: dict[Any, Any]) -> "AccessCounterDict":
+        c = AccessCounterDict()
+        c.count = deepcopy(self.count)
+        for k, v in self.items():
+            c[k] = deepcopy(v)
         return c
 
     def reset_counts(self) -> Self:
