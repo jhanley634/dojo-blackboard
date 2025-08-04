@@ -32,7 +32,7 @@ class AccessCounterDict(UserDict[Any, Any]):
         self.count.clear()
         return self
 
-    def get_count(self, key: str) -> int:
+    def get_count(self, key: Any) -> int:
         return self.count[key]
 
     def __delitem__(self, key: Any) -> None:
