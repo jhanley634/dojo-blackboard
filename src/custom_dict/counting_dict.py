@@ -45,6 +45,4 @@ class AccessCounterDict(UserDict[Any, Any]):
 
     def unread_keys(self) -> Generator[Any]:
         """Generates keys that were stored, are still valid, and have not been read."""
-        for k in self.keys():
-            if not self.count[k]:
-                yield k
+        return (k for k in self if self.count[k] == 0)
