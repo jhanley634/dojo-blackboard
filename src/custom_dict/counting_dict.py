@@ -1,5 +1,5 @@
 from collections import Counter, UserDict
-from typing import Any
+from typing import Any, Self
 
 
 class AccessCounterDict(UserDict[Any, Any]):
@@ -12,6 +12,16 @@ class AccessCounterDict(UserDict[Any, Any]):
         d: dict[Any, Any] = initial_data or {}
         super().__init__(d, **kwargs)
         self.count: Counter[Any] = Counter()  # per-key access counts
+
+    def copy(self) -> "AccessCounterDict":
+        c = AccessCounterDict()
+        c.update(self)
+        c.reset_counts()
+        return c
+
+    def reset_counts(self) -> Self:
+        self.count.clear()
+        return self
 
     def __delitem__(self, key: Any) -> None:
         del self.count[key]

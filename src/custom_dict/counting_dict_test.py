@@ -11,9 +11,12 @@ class AccessCounterDictTest(unittest.TestCase):
     def test_access_counter_dict(self) -> None:
         d = self.d.copy()
         self.assertEqual(4, len(d))
-        self.assertEqual(0, len(d.count))
 
-        # self.assertEqual(5, d["b"] + d["c"])
-        self.assertEqual(5, d.get("b", 0) + d.get("c"))
-        print(d.count)
         self.assertEqual(0, len(d.count))
+        self.assertEqual(5, d["b"] + d["c"])
+        self.assertEqual(2, len(d.count))
+
+        d.reset_counts()
+        self.assertEqual(0, len(d.count))
+        self.assertEqual(5, d.get("b", 0) + d.get("c"))
+        self.assertEqual(2, len(d.count))
