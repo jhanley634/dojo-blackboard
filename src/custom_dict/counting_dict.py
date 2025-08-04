@@ -12,3 +12,11 @@ class AccessCounterDict(UserDict[Any, Any]):
         d: dict[Any, Any] = initial_data or {}
         super().__init__(d, **kwargs)
         self.count: Counter[Any] = Counter()  # per-key access counts
+
+    def __delitem__(self, key: Any) -> None:
+        del self.count[key]
+        return super().__delitem__(key)
+
+    def __getitem__(self, key: Any) -> Any:
+        self.count[key] += 1
+        return super().__getitem__(key)
