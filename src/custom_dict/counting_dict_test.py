@@ -33,6 +33,9 @@ class AccessCounterDictTest(unittest.TestCase):
             self.assertEqual(i, d.get_count("d"))
             self.assertEqual(4, d["d"])
 
+        del d["d"]
+        self.assertEqual(0, d.get_count("d"))
+
         d.reset_counts()
         self.assertEqual(0, d.get_count("d"))
 
