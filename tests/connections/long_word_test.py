@@ -12,7 +12,7 @@ class LongWordTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        table_exists("word") or etl()
+        assert table_exists("word") or etl()
 
     def test_longest_match(self) -> None:
         pfx, word = find_longest_match("CUPSCAR")
