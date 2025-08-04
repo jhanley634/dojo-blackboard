@@ -1,4 +1,5 @@
 import unittest
+from copy import deepcopy
 
 from custom_dict.counting_dict import AccessCounterDict
 from custom_dict.tracking_dict_test import _example_mapping
@@ -34,3 +35,18 @@ class AccessCounterDictTest(unittest.TestCase):
 
         d.reset_counts()
         self.assertEqual(0, d.get_count("d"))
+
+    def test_update(self) -> None:
+        d = self.d.copy()
+        d.update({"b": 12, "x": 13, "y": 14, "z": 15})
+        del d["c"]
+        del d["y"]
+        self.assertEqual("abdxz", "".join(d.unread_keys()))
+
+    def test_deepcopy(self) -> None:
+        d1 = self.d.copy()
+        d = deepcopy(d1)
+        self.assertEqual("", "".join(d1.unread_keys()))
+
+        self.assertEqual(3, d["c"])
+        self.assertEqual("abd", "".join(d.unread_keys()))

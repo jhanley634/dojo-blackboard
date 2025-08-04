@@ -1,4 +1,5 @@
 from collections import Counter, UserDict
+from collections.abc import Generator
 from copy import deepcopy
 from typing import Any, Self
 
@@ -41,3 +42,9 @@ class AccessCounterDict(UserDict[Any, Any]):
     def __getitem__(self, key: Any) -> Any:
         self.count[key] += 1
         return super().__getitem__(key)
+
+    def unread_keys(self) -> Generator[Any]:
+        """Generates keys that were stored, are still valid, and have not been read."""
+        for k in self.keys():
+            if not self.count[k]:
+                yield k
