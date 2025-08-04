@@ -23,6 +23,9 @@ class AccessCounterDict(UserDict[Any, Any]):
         self.count.clear()
         return self
 
+    def get_count(self, key: str) -> int:
+        return self.count[key]
+
     def __delitem__(self, key: Any) -> None:
         del self.count[key]
         return super().__delitem__(key)

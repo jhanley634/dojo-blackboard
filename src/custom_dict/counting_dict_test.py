@@ -20,3 +20,17 @@ class AccessCounterDictTest(unittest.TestCase):
         self.assertEqual(0, len(d.count))
         self.assertEqual(5, d.get("b", 0) + d.get("c"))
         self.assertEqual(2, len(d.count))
+
+    def test_get_count(self) -> None:
+        d = self.d.copy()
+
+        self.assertEqual(0, d.get_count("z"))
+        d["z"] = 26
+        self.assertEqual(0, d.get_count("z"))  # we count reads, not writes
+
+        for i in range(12):
+            self.assertEqual(i, d.get_count("d"))
+            self.assertEqual(4, d["d"])
+
+        d.reset_counts()
+        self.assertEqual(0, d.get_count("d"))
