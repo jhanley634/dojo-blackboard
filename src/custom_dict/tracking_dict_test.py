@@ -8,7 +8,7 @@ from custom_dict.counting_dict import AccessCounterDict
 from custom_dict.tracking_dict import TrackingDict
 
 
-def _example_mapping() -> TrackingDict:
+def example_mapping() -> TrackingDict:
     return TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
 
 
@@ -18,7 +18,7 @@ def unread_keys(d: TrackingDict | AccessCounterDict) -> str:
 
 class TrackingDictTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.d = _example_mapping()
+        self.d = example_mapping()
 
     def test_tracking_dict(self) -> None:
         d = TrackingDict()
@@ -87,7 +87,7 @@ class TrackingDictTest(unittest.TestCase):
 
 class TrackingDictPickleTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.d = _example_mapping()
+        self.d = example_mapping()
 
     def test_pickle_roundtrip_with_filesystem(self) -> None:
         d = self.d.copy()

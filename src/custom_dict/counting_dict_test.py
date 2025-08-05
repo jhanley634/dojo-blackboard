@@ -2,12 +2,12 @@ import unittest
 from copy import deepcopy
 
 from custom_dict.counting_dict import AccessCounterDict
-from custom_dict.tracking_dict_test import _example_mapping, unread_keys
+from custom_dict.tracking_dict_test import example_mapping, unread_keys
 
 
 class AccessCounterDictTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.d = AccessCounterDict(dict(_example_mapping()))
+        self.d = AccessCounterDict(dict(example_mapping()))
 
     def test_access_counter_dict(self) -> None:
         d = self.d.copy()
