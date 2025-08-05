@@ -89,6 +89,11 @@ class TrackingDictTest(unittest.TestCase):
         self.assertEqual(3, d["c"])
         self.assertEqual("a b d", unread_keys(d))
 
+    def test_tuple_keys(self) -> None:
+        d = TrackingDict({(5, 57): "a", (5, 59): "b", (7, 59): "c"})
+        self.assertEqual("b", d[(5, 59)])
+        self.assertEqual("(5, 57) (7, 59)", unread_keys(d))
+
 
 class TrackingDictPickleTest(unittest.TestCase):
     def setUp(self) -> None:
