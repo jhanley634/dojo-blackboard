@@ -21,7 +21,7 @@ class AccessCounterDict(UserDict[Any, Any]):
         c.reset_counts()
         return c
 
-    def __deepcopy__(self, _memo: dict[Hashable, Any]) -> "AccessCounterDict":
+    def __deepcopy__(self, _memo: dict[int, Any]) -> "AccessCounterDict":
         c = AccessCounterDict()
         c.count = deepcopy(self.count)
         for k, v in self.items():

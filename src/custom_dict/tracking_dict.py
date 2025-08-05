@@ -34,7 +34,7 @@ class TrackingDict(UserDict[Any, Any]):
         c.update(self)
         return c
 
-    def __deepcopy__(self, _memo: dict[Hashable, Any]) -> "TrackingDict":
+    def __deepcopy__(self, _memo: dict[int, Any]) -> "TrackingDict":
         c = TrackingDict()
         c.used = deepcopy(self.used)
         for k, v in self.items():
