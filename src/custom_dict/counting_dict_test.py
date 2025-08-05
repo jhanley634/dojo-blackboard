@@ -44,7 +44,7 @@ class AccessCounterDictTest(unittest.TestCase):
         d.update({"b": 12, "x": 13, "y": 14, "z": 15})
         del d["c"]
         del d["y"]
-        self.assertEqual("abdxz", unread_keys(d))
+        self.assertEqual("a b d x z", unread_keys(d))
 
     def test_deepcopy(self) -> None:
         d1 = self.d.copy()
@@ -52,4 +52,4 @@ class AccessCounterDictTest(unittest.TestCase):
         self.assertEqual("", unread_keys(d1))
 
         self.assertEqual(3, d["c"])
-        self.assertEqual("abd", unread_keys(d))
+        self.assertEqual("a b d", unread_keys(d))
