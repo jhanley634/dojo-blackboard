@@ -4,11 +4,16 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
+from custom_dict.counting_dict import AccessCounterDict
 from custom_dict.tracking_dict import TrackingDict
 
 
 def _example_mapping() -> TrackingDict:
     return TrackingDict({"a": 1, "b": 2, "c": 3, "d": 4})
+
+
+def unread_keys(d: TrackingDict | AccessCounterDict) -> str:
+    return "".join(map(str, d.unread_keys()))
 
 
 class TrackingDictTest(unittest.TestCase):
@@ -26,7 +31,7 @@ class TrackingDictTest(unittest.TestCase):
         d["d"] = 4
         d["e"] = 6
         d["e"] = 5
-        self.assertEqual("de", "".join(d.unread_keys()))
+        self.assertEqual("de", unread_keys(d))
         del d["d"]
         self.assertEqual(5, d["e"])
         self.assertEqual([], list(d.unread_keys()))
@@ -34,19 +39,19 @@ class TrackingDictTest(unittest.TestCase):
     def test_items(self) -> None:
         d = self.d.copy()
         self.assertEqual(3, d["c"])
-        self.assertEqual("abd", "".join(d.unread_keys()))
+        self.assertEqual("abd", unread_keys(d))
 
         for i, (_k, _v) in enumerate(d.items()):
             if i >= 1:
                 break
-        self.assertEqual(["d"], list(d.unread_keys()))
+        self.assertEqual("d", unread_keys(d))
 
     def test_update(self) -> None:
         d = self.d.copy()
         d.update({"b": 12, "x": 13, "y": 14, "z": 15})
         del d["c"]
         del d["y"]
-        self.assertEqual("abdxz", "".join(d.unread_keys()))
+        self.assertEqual("abdxz", unread_keys(d))
 
     def test_union(self) -> None:
         """Same as test_update(), pretty much."""
@@ -54,30 +59,30 @@ class TrackingDictTest(unittest.TestCase):
         d = d1 | {"b": 12, "x": 13, "y": 14, "z": 15}
         del d["c"]
         del d["y"]
-        self.assertEqual("abdxz", "".join(d.unread_keys()))
+        self.assertEqual("abdxz", unread_keys(d))
 
     def test_popitem(self) -> None:
         d = self.d.copy()
         self.assertEqual(("a", 1), d.popitem())
         self.assertEqual(("b", 2), d.popitem())
-        self.assertEqual("cd", "".join(d.unread_keys()))
+        self.assertEqual("cd", unread_keys(d))
 
         self.assertEqual(3, d.pop("c"))
-        self.assertEqual("d", "".join(d.unread_keys()))
+        self.assertEqual("d", unread_keys(d))
 
     def test_copy(self) -> None:
         d1 = self.d.copy()
         d = d1.copy()
-        self.assertEqual("", "".join(d1.unread_keys()))
-        self.assertEqual("abcd", "".join(d.unread_keys()))
+        self.assertEqual("", unread_keys(d1))
+        self.assertEqual("abcd", unread_keys(d))
 
     def test_deepcopy(self) -> None:
         d1 = self.d.copy()
         d = deepcopy(d1)
-        self.assertEqual("", "".join(d1.unread_keys()))
+        self.assertEqual("", unread_keys(d1))
 
         self.assertEqual(3, d["c"])
-        self.assertEqual("abd", "".join(d.unread_keys()))
+        self.assertEqual("abd", unread_keys(d))
 
 
 class TrackingDictPickleTest(unittest.TestCase):

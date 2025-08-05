@@ -1,5 +1,5 @@
 from collections import UserDict
-from collections.abc import Generator
+from collections.abc import Generator, Hashable
 from copy import deepcopy
 from typing import Any
 
@@ -23,33 +23,33 @@ class TrackingDict(UserDict[Any, Any]):
     """
 
     def __init__(
-        self, initial_data: dict[Any, Any] | None = None, /, **kwargs: dict[Any, Any]
+        self, initial_data: dict[Hashable, Any] | None = None, /, **kwargs: dict[Any, Any]
     ) -> None:
-        d: dict[Any, Any] = initial_data or {}
+        d: dict[Hashable, Any] = initial_data or {}
         super().__init__(d, **kwargs)
-        self.used: set[Any] = set()  # keys the app has read / consumed
+        self.used: set[Hashable] = set()  # keys the app has read / consumed
 
     def copy(self) -> "TrackingDict":
         c = TrackingDict()
         c.update(self)
         return c
 
-    def __deepcopy__(self, _memo: dict[Any, Any]) -> "TrackingDict":
+    def __deepcopy__(self, _memo: dict[Hashable, Any]) -> "TrackingDict":
         c = TrackingDict()
         c.used = deepcopy(self.used)
         for k, v in self.items():
             c[k] = deepcopy(v)
         return c
 
-    def __delitem__(self, key: Any) -> None:
+    def __delitem__(self, key: Hashable) -> None:
         self.used.discard(key)
         return super().__delitem__(key)
 
-    def __getitem__(self, key: Any) -> Any:
+    def __getitem__(self, key: Hashable) -> Any:
         self.used.add(key)
         return super().__getitem__(key)
 
-    def unread_keys(self) -> Generator[Any]:
+    def unread_keys(self) -> Generator[Hashable]:
         """Generates keys that were stored, are still valid, and have not been read."""
         for k in self.keys():
             if k not in self.used:
