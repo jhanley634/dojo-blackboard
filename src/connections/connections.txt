@@ -160,7 +160,7 @@
 | KINDS OF TAPE                     | DUCT, ELECTRICAL, GAFFER, PACKING              |
 | THINGS WITH WHEELS                | DOLLY, ROLLER  BLADES, SKATEBOARD, WAGON       |
 | UPSWING                           | BOOM, RISE, SPIKE, SURGE                       |
-| RETAIL CHAINS - 1 LETTER CHANGED  | BEST BOY, IDEA, KRONER, STABLES               |
+| RETAIL CHAINS - 1 LETTER CHANGED  | BEST BOY, IDEA, KRONER, STABLES                |
 |                                   |                                                |
 | TERMS OF ENDEARMENT               | DARLING, LOVE, PUMPKIN, TREASURE               |
 | THINGS YOU DO WITH YOUR EYELIDS   | BAT, BLINK, FLUTTER, WINK                      |
@@ -1153,9 +1153,9 @@
 | FINE PRINT                        | ASTERISK, CATCH, CONDITIONAL, STRINGS          |
 |                                   |                                                |
 | QUITE THE PARTY                   | BASH, BLAST, BLOWOUT, RAVE                     |
-| ONE’S CONSTITUTION                | CHARACTER, FIBER, MAKEUP, NATURE               |
+| ONE'S CONSTITUTION                | CHARACTER, FIBER, MAKEUP, NATURE               |
 | BRITISH IMPERIAL UNITS OF WEIGHT  | DRAM, OUNCE, POUND, STONE                      |
-| WHAT “CAT’S EYE” MIGHT DESCRIBE   | EYELINER, GLASSES, MARBLE, NEBULA              |
+| WHAT "CAT'S EYE" MIGHT DESCRIBE   | EYELINER, GLASSES, MARBLE, NEBULA              |
 |                                   |                                                |
 | NEW YORK SPORTS TEAM MEMBERS      | JET, MET, NET, RANGER                          |
 | BABY GEAR                         | BIB, BOTTLE, MONITOR, STROLLER                 |
