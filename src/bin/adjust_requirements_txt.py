@@ -27,7 +27,7 @@ def read_old(req: Path = REQ) -> dict[str, str]:
         for line in fin:
             m = pat.search(line)
             assert m, line
-            pkg = m[1].replace("_", "-")
+            pkg = m[1]
             if pkg not in ret:
                 ver = d[pkg]
                 ret[pkg] = ver
