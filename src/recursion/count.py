@@ -19,7 +19,7 @@ def recursive_count(i: int, ceil: int) -> int:
 
 
 def main() -> None:
-    big = 10_000_000
+    big = 10_000_000  # 64_000 is safe on interpreter 3.8
     sys.setrecursionlimit(big + 10)
 
     n = 1_024

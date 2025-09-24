@@ -15,9 +15,11 @@ setup: \
   $(REC)/py3.9 \
   $(REC)/py3.8 \
 
+GREP := awk '/^Using / {print "\t\t\t", $$0}'
+
 py%:
-	mkdir -p $@
-	cd $@ && uv venv --managed-python --python $(shell basename $*)
+	@mkdir -p $@
+	cd $@ && uv venv --managed-python --python $(shell basename $*) 2>&1 | $(GREP)
 	cd $@ && source .venv/bin/activate && python $(DIR)/count.py
 
 clean:
