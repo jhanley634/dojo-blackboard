@@ -2,10 +2,9 @@
 
 import re
 from pathlib import Path
-from pprint import pp
 from subprocess import check_output
 
-REQ = "requirements.txt"
+REQ = Path("requirements.txt")
 
 
 def read_old(req: Path = REQ) -> dict[str, str]:
