@@ -2,6 +2,8 @@
 
 # from https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth
 
+import sys
+
 
 def iterative_count(i: int, ceil: int) -> int:
     assert 0 == i, i  # Count up from zero, please.
@@ -16,7 +18,16 @@ def recursive_count(i: int, ceil: int) -> int:
     return i
 
 
-if __name__ == "__main__":
-    for n in range(600, 1_000, 100):
-        print(n)
+def main() -> None:
+    big = 10_000_000
+    sys.setrecursionlimit(big + 10)
+
+    n = 1_024
+    while n < big:
+        print(f"{n:20,}")
         assert recursive_count(0, n) == iterative_count(0, n)
+        n *= 2
+
+
+if __name__ == "__main__":
+    main()
