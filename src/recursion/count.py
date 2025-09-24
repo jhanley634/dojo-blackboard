@@ -23,7 +23,10 @@ def main() -> None:
     sys.setrecursionlimit(big + 10)
 
     n = 1_024
-    while n < big:
+    if sys.version_info < (3, 11):
+        n = big = 42_782  # max feasible value for interpreter 3.10.16
+
+    while n <= big:
         print(f"{n:20,}")
         assert recursive_count(0, n) == iterative_count(0, n)
         n *= 2
