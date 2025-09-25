@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
-# from https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth
+# loosely based on https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth
 
+import json
 import sys
 from time import time
 
@@ -30,7 +31,7 @@ def main() -> int:
 
     assert recursive_count(0, n) == n
 
-    ver = sys.version.split()[0].ljust(12)
+    ver = sys.version.split()[0].ljust(10)
     print(end=f"{ver} {n:16,}\t")
     return n
 
@@ -40,4 +41,13 @@ if __name__ == "__main__":
     n = main()
     elapsed = time() - t0
     tput = f"{n / elapsed:12,.1f}".rjust(14)
-    print(f"elapsed: {elapsed:.6f} seconds; {tput} counts per second\n")
+    print(f"elapsed: {elapsed:.6f} seconds; {tput} counts per second")
+
+    d = {
+        "py": sys.version.split()[0].ljust(10),
+        "n": n,
+        "elapsed": float(f"{elapsed:.6f}"),
+        "tput": float(tput.replace(",", "")),
+    }
+    with open("/tmp/recursion/timings.jsonl", "a") as fout:
+        fout.write(f"{json.dumps(d)}\n")
