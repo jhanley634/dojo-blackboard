@@ -25,6 +25,8 @@ def main() -> None:
     n = 1_024
     if sys.version_info < (3, 11):
         n = big = 42_782  # max feasible value for interpreter 3.10.16
+    if sys.version_info < (3, 10):
+        n = big = 72_289  # interpreters 3.8.20 & 3.9.23
 
     while n <= big:
         print(f"{n:20,}")

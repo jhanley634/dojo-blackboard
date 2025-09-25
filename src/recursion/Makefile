@@ -1,16 +1,21 @@
 
 REC := /tmp/recursion
-
 DIR := $(shell pwd)
+SHELL := bash
 
 all:
-	cd /tmp && ls -l
+	cd /tmp && ls -l && echo && ulimit -s
 
 setup: \
   $(REC)/py3.14 \
   $(REC)/py3.13 \
   $(REC)/py3.12 \
   $(REC)/py3.11 \
+  $(REC)/py3.10 \
+  $(REC)/py3.9 \
+  $(REC)/py3.8 \
+
+setup3.10: \
   $(REC)/py3.10 \
   $(REC)/py3.9 \
   $(REC)/py3.8 \
