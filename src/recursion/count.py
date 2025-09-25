@@ -4,7 +4,12 @@
 
 import json
 import sys
+from collections.abc import Generator
+from pathlib import Path
 from time import time
+from typing import Any
+
+import polars as pl
 
 
 def iterative_count(i: int, ceil: int) -> int:
@@ -36,6 +41,12 @@ def main() -> int:
     return n
 
 
+def _read_lines(jsonl: Path) -> Generator[dict[str, Any]]:
+    with open(jsonl) as fin:
+        for line in fin:
+            yield json.loads(line)
+
+
 if __name__ == "__main__":
     t0 = time()
     n = main()
@@ -47,7 +58,10 @@ if __name__ == "__main__":
         "py": sys.version.split()[0].ljust(10),
         "n": n,
         "elapsed": float(f"{elapsed:.6f}"),
-        "tput": float(tput.replace(",", "")),
+        "tput1m": float(tput.replace(",", "")) / 1e6,
     }
-    with open("/tmp/recursion/timings.jsonl", "a") as fout:
+    dataset = Path("/tmp/recursion/timings.jsonl")
+    with open(dataset, "a") as fout:
         fout.write(f"{json.dumps(d)}\n")
+    df = pl.DataFrame(_read_lines(dataset))
+    print(df)

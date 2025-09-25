@@ -20,11 +20,13 @@ measure3.10: \
   $(REC)/py3.9 \
   $(REC)/py3.8 \
 
+ACTIVATE := source .venv/bin/activate
 
 py%:
 	@mkdir -p $@
 	@cd $@ && uv venv -q --managed-python --python $(shell basename $*)
-	@cd $@ && source .venv/bin/activate && python $(DIR)/count.py
+	@cd $@ && $(ACTIVATE) && uv pip install polars
+	@cd $@ && $(ACTIVATE) && python $(DIR)/count.py
 
 clean:
 	rm -rf $(REC)
