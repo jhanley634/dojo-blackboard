@@ -4,10 +4,8 @@
 
 import json
 import sys
-from collections.abc import Generator
 from pathlib import Path
 from time import time
-from typing import Any
 
 import polars as pl
 
@@ -41,10 +39,12 @@ def main() -> int:
     return n
 
 
-def _read_lines(jsonl: Path) -> Generator[dict[str, Any]]:
+# def _read_lines(jsonl: Path) -> list[dict[str, Any]]:
+
+
+def _read_lines(jsonl: Path) -> list:  # type:ignore
     with open(jsonl) as fin:
-        for line in fin:
-            yield json.loads(line)
+        return [json.loads(line) for line in fin]
 
 
 if __name__ == "__main__":
