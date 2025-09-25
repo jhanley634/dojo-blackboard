@@ -3,6 +3,7 @@
 # from https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth
 
 import sys
+from time import time
 
 
 def iterative_count(i: int, ceil: int) -> int:
@@ -18,21 +19,25 @@ def recursive_count(i: int, ceil: int) -> int:
     return i
 
 
-def main() -> None:
-    big = 10_000_000  # 64_000 is safe on interpreter 3.8
-    sys.setrecursionlimit(big + 10)
+def main() -> int:
+    n = 30_000_000
+    sys.setrecursionlimit(n + 10)
 
-    n = 1_024
     if sys.version_info < (3, 11):
-        n = big = 42_782  # max feasible value for interpreter 3.10.16
-    if sys.version_info < (3, 10):
-        n = big = 72_289  # interpreters 3.8.20 & 3.9.23
+        n = 42_782  # max feasible value for interpreter 3.10.16
+    if sys.version_info < (3, 10):  # noqa
+        n = 72_289  # interpreters 3.8.20 & 3.9.23
 
-    while n <= big:
-        print(f"{n:20,}")
-        assert recursive_count(0, n) == iterative_count(0, n)
-        n *= 2
+    assert recursive_count(0, n) == n
+
+    ver = sys.version.split()[0].ljust(12)
+    print(end=f"{ver} {n:16,}\t")
+    return n
 
 
 if __name__ == "__main__":
-    main()
+    t0 = time()
+    n = main()
+    elapsed = time() - t0
+    tput = f"{n / elapsed:12,.1f}".rjust(14)
+    print(f"elapsed: {elapsed:.6f} seconds; {tput} counts per second\n")
