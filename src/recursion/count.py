@@ -7,8 +7,6 @@ import sys
 from pathlib import Path
 from time import time
 
-import polars as pl
-
 
 def iterative_count(i: int, ceil: int) -> int:
     assert 0 == i, i  # Count up from zero, please.
@@ -39,12 +37,7 @@ def main() -> int:
     return n
 
 
-# def _read_lines(jsonl: Path) -> list[dict[str, Any]]:
-
-
-def _read_lines(jsonl: Path) -> list:  # type:ignore
-    with open(jsonl) as fin:
-        return [json.loads(line) for line in fin]
+TIMINGS = Path("/tmp/recursion/timings.jsonl")
 
 
 if __name__ == "__main__":
@@ -60,8 +53,5 @@ if __name__ == "__main__":
         "elapsed": float(f"{elapsed:.6f}"),
         "tput1m": float(tput.replace(",", "")) / 1e6,
     }
-    dataset = Path("/tmp/recursion/timings.jsonl")
-    with open(dataset, "a") as fout:
+    with open(TIMINGS, "a") as fout:
         fout.write(f"{json.dumps(d)}\n")
-    df = pl.DataFrame(_read_lines(dataset))
-    print(df)
