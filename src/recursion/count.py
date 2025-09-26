@@ -3,9 +3,12 @@
 # loosely based on https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth
 
 import json
+import os
 import sys
 from pathlib import Path
 from time import time
+
+import psutil
 
 
 def iterative_count(i: int, ceil: int) -> int:
@@ -41,6 +44,10 @@ TIMINGS = Path("/tmp/recursion/timings.jsonl")
 
 
 if __name__ == "__main__":
+    recursive_count(0, 990)  # warmup
+    proc = psutil.Process(os.getpid())
+    rss0 = proc.memory_info().rss
+
     t0 = time()
     n = main()
     elapsed = time() - t0
@@ -55,3 +62,6 @@ if __name__ == "__main__":
     }
     with open(TIMINGS, "a") as fout:
         fout.write(f"{json.dumps(d)}\n")
+
+    rss_delta = (proc.memory_info().rss - rss0) / 1024 / 1024
+    print(f"{rss_delta:.3f} MiB")

@@ -25,7 +25,7 @@ ACTIVATE := source .venv/bin/activate
 py%:
 	@mkdir -p $@
 	@cd $@ && uv venv -q --managed-python --python $(shell basename $*)
-	@cd $@ && $(ACTIVATE) && uv pip -q install polars
+	@cd $@ && $(ACTIVATE) && uv pip -q install polars psutil
 	@cd $@ && $(ACTIVATE) && python $(DIR)/count.py
 
 clean:
