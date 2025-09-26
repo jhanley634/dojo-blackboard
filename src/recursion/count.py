@@ -3,12 +3,14 @@
 # loosely based on https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth
 
 import json
-import os
 import sys
 from pathlib import Path
 from time import time
 
-import psutil
+from numba import njit
+from numba.core.registry import CPUDispatcher
+
+jit = njit  # nowadays, these are pretty much the same
 
 
 def iterative_count(i: int, ceil: int) -> int:
@@ -18,14 +20,17 @@ def iterative_count(i: int, ceil: int) -> int:
     return i
 
 
+@jit  # type:ignore
 def recursive_count(i: int, ceil: int) -> int:
     if i < ceil:
-        return recursive_count(i + 1, ceil)
+        return int(recursive_count(i + 1, ceil))
     return i
 
 
 def main() -> int:
     n = 30_000_000
+    if isinstance(recursive_count, CPUDispatcher):
+        n = 300_000  # compiled code is given a smaller stack allocation
     sys.setrecursionlimit(n + 10)
 
     if sys.version_info < (3, 11):
@@ -45,8 +50,6 @@ TIMINGS = Path("/tmp/recursion/timings.jsonl")
 
 if __name__ == "__main__":
     recursive_count(0, 990)  # warmup
-    proc = psutil.Process(os.getpid())
-    rss0 = proc.memory_info().rss
 
     t0 = time()
     n = main()
@@ -62,6 +65,3 @@ if __name__ == "__main__":
     }
     with open(TIMINGS, "a") as fout:
         fout.write(f"{json.dumps(d)}\n")
-
-    rss_delta = (proc.memory_info().rss - rss0) / 1024 / 1024
-    print(f"{rss_delta:.3f} MiB")

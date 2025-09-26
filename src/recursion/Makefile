@@ -7,7 +7,6 @@ all:
 	cd /tmp && ls -l && echo && ulimit -s
 
 measure: \
-  $(REC)/py3.14 \
   $(REC)/py3.13 \
   $(REC)/py3.12 \
   $(REC)/py3.11 \
@@ -25,7 +24,7 @@ ACTIVATE := source .venv/bin/activate
 py%:
 	@mkdir -p $@
 	@cd $@ && uv venv -q --managed-python --python $(shell basename $*)
-	@cd $@ && $(ACTIVATE) && uv pip -q install polars psutil
+	@cd $@ && $(ACTIVATE) && uv pip -q install polars psutil numba
 	@cd $@ && $(ACTIVATE) && python $(DIR)/count.py
 
 clean:
