@@ -1,10 +1,13 @@
 
+-- cargo run --bin rlctl -- set-policy mykey --capacity 500 --refill 5.0
+
 use clap::{Parser, Subcommand};
 use serde::{Serialize, Deserialize};
 use valkey::ValKeyClient;
 use redis::Client as RedisClient;
 use anyhow::Result;
 use std::env;
+use tracing_subscriber;
 
 #[derive(Parser)]
 #[command(name = "rlctl")]
@@ -29,10 +32,14 @@ enum Commands {
 }
 
 #[derive(Serialize, Deserialize)]
-struct Policy { capacity: u32, refill_per_sec: f64 }
+struct Policy {
+    capacity: u32,
+    refill_per_sec: f64,
+}
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    tracing_subscriber::fmt::init();
     let cli = Cli::parse();
     let redis_url = env::var("REDIS_URL").unwrap_or_else(|_| "redis://127.0.0.1/".to_string());
     let client = RedisClient::open(redis_url.as_str())?;
@@ -59,12 +66,13 @@ async fn main() -> Result<()> {
             println!("deleted");
         }
         Commands::ListPolicies => {
-            // naive scan using Redis KEYS - acceptable for small sets; for large use SCAN
+            // use KEYS for simplicity; replace with SCAN in large datasets
             let mut conn = vk.client().get_async_connection().await?;
             let keys: Vec<String> = redis::cmd("KEYS").arg("policy:api:*").query_async(&mut conn).await?;
             for k in keys {
                 if let Some(p) = vk.get::<Policy>(&k).await? {
-                    println!("{} => capacity={}, refill={}", k, p.capacity, p.refill_per_sec);
+                    let api_key = k.trim_start_matches("policy:api:");
+                    println!("{} => capacity={}, refill={}", api_key, p.capacity, p.refill_per_sec);
                 }
             }
         }
