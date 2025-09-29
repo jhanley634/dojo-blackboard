@@ -70,3 +70,10 @@ hanoi(3, "A", "C", "B")
 \begin{minipage}[t]{0.2\linewidth}
 \hspace*{4cm}\raisebox{-4.8cm}{\includegraphics[height=5cm]{tall-tower.jpg}}
 \end{minipage}
+
+
+\newpage
+# image credits
+
+- https://en.wikipedia.org/wiki/Tower_of_Hanoi
+  - AlejandroLinaresGarcia: https://en.wikipedia.org/wiki/File:UniversumUNAM34.JPG
