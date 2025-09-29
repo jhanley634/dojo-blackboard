@@ -8,6 +8,8 @@ geometry: paperwidth=8in, paperheight=6in
 header-includes:
     - \usepackage{setspace}
     - \onehalfspacing
+    - \usepackage{graphicx}
+    - \usepackage{caption}
 ---
 [//]: # ( Copyright 2025 John Hanley. MIT Licensed. )
 
@@ -54,6 +56,7 @@ hanoi(3, "A", "C", "B")
     hanoi(n - 1, aux, target, source)
 ```
 `hanoi(3, "A", "C", "B")`\blank
+\begin{minipage}[t]{0.39\linewidth}
 
 - Move disk 1 from A to C
 - Move disk 2 from A to B
@@ -63,4 +66,7 @@ hanoi(3, "A", "C", "B")
 - Move disk 2 from B to C
 - Move disk 1 from A to C
 
-![](tall-tower.jpg){height=6cm}
+\end{minipage}
+\begin{minipage}[t]{0.2\linewidth}
+\hspace*{4cm}\raisebox{-4.8cm}{\includegraphics[height=5cm]{tall-tower.jpg}}
+\end{minipage}
