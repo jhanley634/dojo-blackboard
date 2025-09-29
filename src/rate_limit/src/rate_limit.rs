@@ -27,6 +27,12 @@ pub struct RateLimiter {
     default_policy: Policy,
 }
 
+let res: (i32,i32,i64) = redis::cmd("EVALSHA")
+  .arg(&sha)
+  .arg(2).arg(&bucket_key).arg(&policy_key)
+  .arg(now_ms).arg(requested).arg(self.default_capacity).arg(self.default_refill)
+  .query_async(&mut *conn).await?;
+
 impl RateLimiter {
     pub async fn new(pool: Pool) -> Result<Self> {
         // Create valkey client that uses the same redis pool
