@@ -38,5 +38,5 @@
 (let ([n 250000])
   (for ([fn (in-list (list fact-slow fact))])
     (let-values ([(result elapsed-time) (measure-time fn n)])
-      (printf "Factorial of ~a found by ~a~ in ~a msec\n"
+      (printf "Factorial ~a found by ~a~ in ~a msec\n"
               n fn elapsed-time))))

@@ -72,15 +72,18 @@ hanoi(3, "A", "C", "B")
 \end{minipage}
 
 # timing
+\blank
+```
+Factorial 250000 found by #<procedure:fact-slow> in 29848 msec
+
+Factorial 250000 found by #<procedure:fact>      in 10349 msec
 
 ```
-Factorial of 250000 found by #<procedure:fact-slow>in 29848 msec
-Factorial of 250000 found by #<procedure:fact>in      10349 msec
-
-```
-
+\blank\hfill
+![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
 \newpage
 # image credits
 
 - https://en.wikipedia.org/wiki/Tower_of_Hanoi
-  - AlejandroLinaresGarcia: https://en.wikipedia.org/wiki/File:UniversumUNAM34.JPG
+  - AlejandroLinaresGarcia:
+  - https://en.wikipedia.org/wiki/File:UniversumUNAM34.JPG
