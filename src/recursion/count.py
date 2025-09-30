@@ -7,10 +7,9 @@ import sys
 from pathlib import Path
 from time import time
 
-from numba import njit
-from numba.core.registry import CPUDispatcher
-
-jit = njit  # nowadays, these are pretty much the same
+# from numba import jit
+# from numba.core.registry import CPUDispatcher
+# @jit  # type:ignore for def recursive_count()
 
 
 def iterative_count(i: int, ceil: int) -> int:
@@ -20,7 +19,6 @@ def iterative_count(i: int, ceil: int) -> int:
     return i
 
 
-@jit  # type:ignore
 def recursive_count(i: int, ceil: int) -> int:
     if i < ceil:
         return int(recursive_count(i + 1, ceil))
@@ -29,8 +27,6 @@ def recursive_count(i: int, ceil: int) -> int:
 
 def main() -> int:
     n = 30_000_000
-    if isinstance(recursive_count, CPUDispatcher):
-        n = 300_000  # compiled code is given a smaller stack allocation
     sys.setrecursionlimit(n + 10)
 
     if sys.version_info < (3, 11):
