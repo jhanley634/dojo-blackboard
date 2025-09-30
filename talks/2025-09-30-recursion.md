@@ -200,17 +200,6 @@ hanoi(3, "A", "C", "B")
       (_fact (sub1 n) (* acc n))))
 ```
 
-# timing
-\blank
-```
-Factorial 250000 found by #<procedure:fact-slow> in 29848 msec
-
-Factorial 250000 found by #<procedure:fact>      in 10349 msec
-
-```
-\blank
-![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
-
 # stability -- ubuntu
 
 ![](ubuntu-versions.png)
@@ -237,6 +226,7 @@ Factorial 250000 found by #<procedure:fact>      in 10349 msec
 
 # Makefile
 
+
 ```
 measure: \
   $(REC)/py3.13 \
@@ -247,12 +237,22 @@ measure: \
   $(REC)/py3.8 \
 
 py%:
-	@mkdir -p $@
-	@cd $@ && uv venv -q --managed-python --python $(shell basename $*)
-	@cd $@ && $(ACTIVATE) && uv pip -q install polars psutil numba
-	@cd $@ && $(ACTIVATE) && python $(DIR)/count.py
+        mkdir $@
+        cd $@ && uv venv --python $(shell basename $*)
+        cd $@ && python $(DIR)/count.py
 ```
+\newpage
 
+# timing
+\blank
+```
+Factorial 250000 found by #<procedure:fact-slow> in 29848 msec
+
+Factorial 250000 found by #<procedure:fact>      in 10349 msec
+
+```
+\blank
+![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
 
 # image credits
 
