@@ -243,6 +243,41 @@ py%:
 ```
 \newpage
 
+# counting
+
+```
+def iterative_count(i: int, ceil: int) -> int:
+    assert 0 == i, i  # Count up from zero, please.
+    while i < ceil:
+        i += 1
+    return i
+
+
+def recursive_count(i: int, ceil: int) -> int:
+    if i < ceil:
+        return int(recursive_count(i + 1, ceil))
+    return i
+```
+
+# counting
+
+```
+def main() -> int:
+    n = 30_000_000
+    sys.setrecursionlimit(n + 10)
+
+    if sys.version_info < (3, 11):
+        n = 42_782  # max feasible value for interpreter 3.10.16
+    if sys.version_info < (3, 10):  # noqa
+        n = 72_289  # interpreters 3.8.20 & 3.9.23
+
+    assert recursive_count(0, n) == n
+
+    ver = sys.version.split()[0].ljust(10)
+    print(end=f"{ver} {n:16,}\t")
+    return n
+```
+
 # timing
 \blank
 ```

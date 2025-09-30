@@ -21,8 +21,8 @@ def iterative_count(i: int, ceil: int) -> int:
 
 def recursive_count(i: int, ceil: int) -> int:
     if i < ceil:
-        return int(recursive_count(i + 1, ceil))
-    return i
+        return recursive_count(i + 1, ceil)
+    return int(i)
 
 
 def main() -> int:
@@ -30,9 +30,9 @@ def main() -> int:
     sys.setrecursionlimit(n + 10)
 
     if sys.version_info < (3, 11):
-        n = 42_782  # max feasible value for interpreter 3.10.16
+        n = 42_780  # max feasible value for interpreter 3.10.16
     if sys.version_info < (3, 10):  # noqa
-        n = 72_289  # interpreters 3.8.20 & 3.9.23
+        n = 72_287  # interpreters 3.8.20 & 3.9.23
 
     assert recursive_count(0, n) == n
 
