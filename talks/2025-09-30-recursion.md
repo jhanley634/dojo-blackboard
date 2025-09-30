@@ -26,6 +26,7 @@ Connect with me at https://www.linkedin.com/in/jhanley714
 
 # agenda
 
+- improvements
 - recursion
 - recursion in Scheme
 - TCO
@@ -35,6 +36,57 @@ Connect with me at https://www.linkedin.com/in/jhanley714
 
 \blank
 \hrule
+\newpage
+
+# transparent improvements
+
+\blank
+
+- diverse speedups, in libs and interpreter
+- quadratic string append
+- bare `except` vs. CTRL/C
+- timsort speed from Tim Peters
+- `dict` storage & iteration order from Raymond Hettinger
+- "zero cost" `try:` blocks, also by Raymond
+
+\blank
+\newpage
+
+# quadratic $O(n^2)$ [string append](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html#append-java.lang.CharSequence-)
+
+```
+    n = 1_000_000
+    s = ""
+    for _ in range(n):
+        s += " hello"
+    return s
+```
+\vfill
+_versus_
+\vfill
+```
+    text = []
+    for _ in range(n):
+	    text.append(" hello")
+
+	return "".join(text)
+```
+\blank
+\newpage
+
+# coming soon
+
+\blank
+
+Interpreter 3.14 hits the streets October 7\textsuperscript{th}.
+
+\vspace{1cm}
+
+It will feature
+[template t-strings](https://peps.python.org/pep-0750/#motivation),
+similar to formatted f-strings.
+
+\blank
 \newpage
 
 # motivation
@@ -182,6 +234,24 @@ Factorial 250000 found by #<procedure:fact>      in 10349 msec
 - 3.13.8: Tuesday, 2025-10-07
 - 3.13.9: Tuesday, 2025-12-02
 - 3.13.10: Tuesday, 2026-02-03 ...
+
+# Makefile
+
+```
+measure: \
+  $(REC)/py3.13 \
+  $(REC)/py3.12 \
+  $(REC)/py3.11 \
+  $(REC)/py3.10 \
+  $(REC)/py3.9 \
+  $(REC)/py3.8 \
+
+py%:
+	@mkdir -p $@
+	@cd $@ && uv venv -q --managed-python --python $(shell basename $*)
+	@cd $@ && $(ACTIVATE) && uv pip -q install polars psutil numba
+	@cd $@ && $(ACTIVATE) && python $(DIR)/count.py
+```
 
 
 # image credits
