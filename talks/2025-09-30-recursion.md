@@ -13,6 +13,11 @@ header-includes:
 ---
 [//]: # ( Copyright 2025 John Hanley. MIT Licensed. )
 
+\vfill
+\begin{center}
+Connect with me at https://www.linkedin.com/in/jhanley714
+\end{center}
+
 \newcommand{\blank}{\vspace{4mm}\vfill}
 \Large
 \newpage
@@ -30,6 +35,35 @@ header-includes:
 
 \blank
 \hrule
+\newpage
+
+# motivation
+
+\blank
+
+StackOverflow question:
+
+> [Why does python limit recursion depth?](https://stackoverflow.com/questions/79770935/why-does-python-limit-recursion-depth-and-how-is-this-limit-decided#79770941)
+
+\blank
+
+# cheaper, lazy Python frames
+
+\blank
+
+Buried in the
+[3.11 rel notes](https://docs.python.org/3/whatsnew/3.11.html#faster-runtime)
+we find:
+
+\blank
+
+> - Streamlined the internal frame struct to contain only essential information
+
+> For most user code, no frame objects are created at all. As a result, nearly all Python functions calls have sped up significantly.
+
+> Most Python function calls now consume no C stack space, speeding them up.
+
+\blank
 \newpage
 
 # recursion
@@ -83,9 +117,7 @@ hanoi(3, "A", "C", "B")
 6
 ```
 
-# factorial
-
-[tail call optimization](https://en.wikipedia.org/wiki/Tail_call)
+# factorial -- [tail call optimization](https://en.wikipedia.org/wiki/Tail_call)
 
 ```
 (define (fact-slow n)  ; TCO is disabled, so the call stack grows
@@ -99,7 +131,7 @@ hanoi(3, "A", "C", "B")
 ```
 \newpage
 
-# factorial
+# factorial -- tail call optimization
 
 ```
 (define (fact-slow n)  ; TCO is disabled, so the call stack grows
@@ -124,7 +156,7 @@ Factorial 250000 found by #<procedure:fact-slow> in 29848 msec
 Factorial 250000 found by #<procedure:fact>      in 10349 msec
 
 ```
-\blank\hfill
+\blank
 ![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
 
 # stability -- ubuntu
@@ -135,7 +167,26 @@ Factorial 250000 found by #<procedure:fact>      in 10349 msec
 
 ![](python-versions.png)
 
+# stability -- PEP-719 interpreter releases
+
+- 3.13.1: Tuesday, 2024-12-03
+- 3.13.2: Tuesday, 2025-02-04
+- 3.13.3: Tuesday, 2025-04-08
+- 3.13.4: Tuesday, 2025-06-03
+- 3.13.5: Wednesday, 2025-06-11
+- 3.13.6: Wednesday, 2025-08-06
+- 3.13.7: Thursday, 2025-08-14
+
+[future](https://peps.python.org/pep-0719/#lifespan):
+
+- 3.13.8: Tuesday, 2025-10-07
+- 3.13.9: Tuesday, 2025-12-02
+- 3.13.10: Tuesday, 2026-02-03 ...
+
+
 # image credits
+
+\small
 
 - https://en.wikipedia.org/wiki/Tower_of_Hanoi
   - AlejandroLinaresGarcia:
