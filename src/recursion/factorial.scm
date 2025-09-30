@@ -35,12 +35,8 @@
   (define end-time (current-inexact-milliseconds))
   (values result (inexact->exact (round (- end-time start-time)))))
 
-(for ([n (in-range 250000
-		   250001)])
-  (let-values ([(result elapsed-time) (measure-time fact-slow n)])
-    (printf "Factorial of ~a computed in ~a msec\n" n elapsed-time)))
-
-(for ([n (in-range 250000
-		   250001)])
-  (let-values ([(result elapsed-time) (measure-time fact n)])
-    (printf "Factorial of ~a computed in ~a msec\n" n elapsed-time)))
+(let ([n 250000])
+  (for ([fn (in-list (list fact-slow fact))])
+    (let-values ([(result elapsed-time) (measure-time fn n)])
+      (printf "Factorial of ~a found by ~a~ in ~a msec\n"
+              n fn elapsed-time))))

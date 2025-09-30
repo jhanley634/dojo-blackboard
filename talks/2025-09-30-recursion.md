@@ -71,6 +71,13 @@ hanoi(3, "A", "C", "B")
 \hspace*{4cm}\raisebox{-4.8cm}{\includegraphics[height=5cm]{tall-tower.jpg}}
 \end{minipage}
 
+# timing
+
+```
+Factorial of 250000 found by #<procedure:fact-slow>in 29848 msec
+Factorial of 250000 found by #<procedure:fact>in      10349 msec
+
+```
 
 \newpage
 # image credits
