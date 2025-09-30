@@ -24,6 +24,7 @@ header-includes:
 - recursion
 - recursion in Scheme
 - TCO
+- stability
 - python
 - recent interpreters
 
@@ -71,6 +72,50 @@ hanoi(3, "A", "C", "B")
 \hspace*{4cm}\raisebox{-4.8cm}{\includegraphics[height=5cm]{tall-tower.jpg}}
 \end{minipage}
 
+# the lambda calculus
+
+![](lisp_cycles.png){height=6cm}
+\blank
+```
+#lang racket
+
+(+ 1 2 3)
+6
+```
+
+# factorial
+
+[tail call optimization](https://en.wikipedia.org/wiki/Tail_call)
+
+```
+(define (fact-slow n)  ; TCO is disabled, so the call stack grows
+  (if (zero? n)
+      1
+      (* n (fact-slow (sub1 n)))))
+
+
+(fact-slow 5)
+120
+```
+\newpage
+
+# factorial
+
+```
+(define (fact-slow n)  ; TCO is disabled, so the call stack grows
+  (if (zero? n)
+      1
+      (* n (fact-slow (sub1 n)))))
+
+(define (fact n)
+  (_fact n 1))
+
+(define (_fact n acc)
+  (if (zero? n)
+      acc
+      (_fact (sub1 n) (* acc n))))
+```
+
 # timing
 \blank
 ```
@@ -81,9 +126,23 @@ Factorial 250000 found by #<procedure:fact>      in 10349 msec
 ```
 \blank\hfill
 ![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
-\newpage
+
+# stability -- ubuntu
+
+![](ubuntu-versions.png)
+
+# stability -- python interpreter
+
+![](python-versions.png)
+
 # image credits
 
 - https://en.wikipedia.org/wiki/Tower_of_Hanoi
   - AlejandroLinaresGarcia:
   - https://en.wikipedia.org/wiki/File:UniversumUNAM34.JPG
+- https://xkcd.com/297 -- Randall Munroe
+- https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg
+- https://en.wikipedia.org/wiki/Ubuntu_version_history
+  - https://upload.wikimedia.org/wikipedia/en/timeline/swfdceo7tl9n28j9pamsv083nwmv0l7.png
+- https://en.wikipedia.org/wiki/History_of_Python
+  - https://upload.wikimedia.org/wikipedia/en/timeline/3aeqr87p1hb7nohu4c5lnlkdiiypums.png
