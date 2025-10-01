@@ -50,7 +50,7 @@ if __name__ == "__main__":
     n = main()
     elapsed = time() - t0
     tput = f"{n / elapsed:,.1f}".rjust(13)
-    print(f"  {elapsed:.6f} elapsed sec; {tput} count/sec")
+    print(f"  {elapsed:.6f} sec; {tput} count/sec")
 
     d = {
         "py": sys.version.split()[0].ljust(10),

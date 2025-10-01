@@ -311,13 +311,13 @@ def main(n: int = 30_000_000) -> int:
 # results
 
 ```
-3.14.0rc2        30,000,000	elapsed: 1.257676 seconds;   23,853,522.5 counts per second
-3.13.7           30,000,000	elapsed: 1.269021 seconds;   23,640,274.5 counts per second
-3.12.8           30,000,000	elapsed: 1.248508 seconds;   24,028,685.7 counts per second
-3.11.11          30,000,000	elapsed: 1.233898 seconds;   24,313,194.3 counts per second
-3.10.16              42,780	elapsed: 0.007198 seconds;    5,943,435.7 counts per second
-3.9.23               72,287	elapsed: 0.013137 seconds;    5,502,507.3 counts per second
-3.8.20               72,287	elapsed: 0.013445 seconds;    5,376,536.6 counts per second
+3.14.0rc2  30,000,000  1.274513 sec;  23,538,402.4 count/sec
+3.13.7     30,000,000  1.282322 sec;  23,395,061.2 count/sec
+3.12.8     30,000,000  1.268134 sec;  23,656,808.2 count/sec
+3.11.11    30,000,000  1.246084 sec;  24,075,419.4 count/sec
+3.10.16        42,780  0.008580 sec;   4,986,031.8 count/sec
+3.9.23         72,287  0.013965 sec;   5,176,249.8 count/sec
+3.8.20         72,287  0.016485 sec;   4,384,959.7 count/sec
 ```
 \newpage
 
