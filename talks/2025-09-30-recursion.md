@@ -74,6 +74,23 @@ _versus_
 \blank
 \newpage
 
+# zero cost `try:` blocks
+
+\blank
+
+old way:
+
+- Execute `try:` --> push some state onto the stack.
+
+\blank
+
+new way:
+
+- Occasionally `raise` an exception --> go find some state.
+
+\blank
+\newpage
+
 # coming soon
 
 \blank
@@ -200,6 +217,17 @@ hanoi(3, "A", "C", "B")
       (_fact (sub1 n) (* acc n))))
 ```
 
+# timing
+\blank
+```
+Factorial 250000 found by #<procedure:fact-slow> in 29848 msec
+
+Factorial 250000 found by #<procedure:fact>      in 10349 msec
+
+```
+\blank
+![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
+
 # stability -- ubuntu
 
 ![](ubuntu-versions.png)
@@ -245,6 +273,8 @@ py%:
 
 # counting
 
+\blank
+
 ```
 def iterative_count(i: int, ceil: int) -> int:
     assert 0 == i, i  # Count up from zero, please.
@@ -261,33 +291,39 @@ def recursive_count(i: int, ceil: int) -> int:
 
 # counting
 
-```
-def main() -> int:
-    n = 30_000_000
-    sys.setrecursionlimit(n + 10)
+\blank
 
+```
+def main(n: int = 30_000_000) -> int:
+    """Chooses large N, appropriate for current interpreter."""
+    sys.setrecursionlimit(n)
     if sys.version_info < (3, 11):
-        n = 42_782  # max feasible value for interpreter 3.10.16
+        n = 42_780  # max feasible value for interpreter 3.10.16
     if sys.version_info < (3, 10):  # noqa
-        n = 72_289  # interpreters 3.8.20 & 3.9.23
+        n = 72_287  # interpreters 3.8.20 & 3.9.23
 
     assert recursive_count(0, n) == n
 
-    ver = sys.version.split()[0].ljust(10)
-    print(end=f"{ver} {n:16,}\t")
     return n
 ```
+\newpage
 
-# timing
-\blank
-```
-Factorial 250000 found by #<procedure:fact-slow> in 29848 msec
-
-Factorial 250000 found by #<procedure:fact>      in 10349 msec
+# results
 
 ```
-\blank
-![](https://asset.conrad.com/media10/isa/160267/c1/-/en/860048_BB_00_FB/image.jpg){height=4cm}
+3.14.0rc2        30,000,000	elapsed: 1.257676 seconds;   23,853,522.5 counts per second
+3.13.7           30,000,000	elapsed: 1.269021 seconds;   23,640,274.5 counts per second
+3.12.8           30,000,000	elapsed: 1.248508 seconds;   24,028,685.7 counts per second
+3.11.11          30,000,000	elapsed: 1.233898 seconds;   24,313,194.3 counts per second
+3.10.16              42,780	elapsed: 0.007198 seconds;    5,943,435.7 counts per second
+3.9.23               72,287	elapsed: 0.013137 seconds;    5,502,507.3 counts per second
+3.8.20               72,287	elapsed: 0.013445 seconds;    5,376,536.6 counts per second
+```
+\newpage
+
+# questions?
+
+\newpage
 
 # image credits
 
