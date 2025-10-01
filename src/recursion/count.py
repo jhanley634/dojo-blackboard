@@ -35,8 +35,8 @@ def main(n: int = 30_000_000) -> int:
 
     assert recursive_count(0, n) == n
 
-    ver = sys.version.split()[0].ljust(10)
-    print(end=f"{ver} {n:16,}\t")
+    ver = sys.version.split()[0].ljust(9)
+    print(end=f"{ver} {n:11,}")
     return n
 
 
@@ -49,8 +49,8 @@ if __name__ == "__main__":
     t0 = time()
     n = main()
     elapsed = time() - t0
-    tput = f"{n / elapsed:12,.1f}".rjust(14)
-    print(f"elapsed: {elapsed:.6f} seconds; {tput} counts per second")
+    tput = f"{n / elapsed:,.1f}".rjust(13)
+    print(f"  {elapsed:.6f} elapsed sec; {tput} count/sec")
 
     d = {
         "py": sys.version.split()[0].ljust(10),
