@@ -246,7 +246,7 @@ Factorial 250000 found by #<procedure:fact>      in 10349 msec
 - 3.13.6: Wednesday, 2025-08-06
 - 3.13.7: Thursday, 2025-08-14
 
-[future](https://peps.python.org/pep-0719/#lifespan):
+[future:](https://peps.python.org/pep-0719/#lifespan)
 
 - 3.13.8: Tuesday, 2025-10-07
 - 3.13.9: Tuesday, 2025-12-02
