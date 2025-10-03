@@ -7,10 +7,6 @@ import sys
 from pathlib import Path
 from time import time
 
-# from numba import jit
-# from numba.core.registry import CPUDispatcher
-# @jit  # type:ignore for def recursive_count()
-
 
 def iterative_count(i: int, ceil: int) -> int:
     assert 0 == i, i  # Count up from zero, please.
