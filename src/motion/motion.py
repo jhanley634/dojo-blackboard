@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
-
-# motion.py
-#
-# Detect motion in a video and return a list of (start, end) timestamps.
-#
-# Requirements: opencv-python  (pip install opencv-python inside .venv/)
-#
-# Usage:
-#     python motion.py one-hour.mp4
-# or
-#     >>> from motion import detect_motion
-#     >>> events = detect_motion("one-hour.mp4")
-#     >>> for s, e in events:
-#     ...     print(f"Motion from {s:.2f}s to {e:.2f}s")
+"""
+Detects motion in a video to find a list of (start, end) timestamps.
+"""
 
 import sys
+from dataclasses import dataclass
+from pathlib import Path
 from pprint import pp
 
 import cv2
+
+
+@dataclass
+class MotionConfig:
+    min_area: int = 500
+    min_duration: float = 7.0
+    skip_frames: int = 1
+    history: int = 500
+    var_threshold: int = 16
+    detect_shadows: bool = True
+    verbose: bool = False
 
 
 def _format_time(sec: float) -> str:
@@ -29,15 +31,8 @@ def _format_time(sec: float) -> str:
 
 
 def detect_motion(
-    video_path: str,
-    min_area: int = 500,
-    min_duration: float = 7.0,
-    skip_frames: int = 1,
-    history: int = 500,
-    var_threshold: int = 16,
-    *,
-    detect_shadows: bool = True,
-    verbose: bool = False,
+    video_path: Path,
+    cfg: MotionConfig,
 ) -> list[tuple[float, float]]:
     """
     Detect motion in a video file.
@@ -56,7 +51,7 @@ def detect_motion(
 
     # Background subtractor
     back_sub = cv2.createBackgroundSubtractorMOG2(
-        history=history, varThreshold=var_threshold, detectShadows=detect_shadows
+        history=cfg.history, varThreshold=cfg.var_threshold, detectShadows=cfg.detect_shadows
     )
 
     motion_events: list[tuple[float, float]] = []
@@ -70,7 +65,7 @@ def detect_motion(
         if not ret:
             break
 
-        if frame_idx % skip_frames != 0:
+        if frame_idx % cfg.skip_frames != 0:
             frame_idx += 1
             continue
 
@@ -85,25 +80,25 @@ def detect_motion(
 
         contours, _ = cv2.findContours(fg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        motion_detected = any(cv2.contourArea(cnt) >= min_area for cnt in contours)
+        motion_detected = any(cv2.contourArea(cnt) >= cfg.min_area for cnt in contours)
 
         current_time = frame_idx / fps
 
         if motion_detected:
             if motion_start is None:
                 motion_start = current_time
-                if verbose:
+                if cfg.verbose:
                     print(f"[DEBUG] Motion starts at {current_time:.2f}s")
         elif motion_start is not None:
             time_since_motion_start = current_time - motion_start
-            if time_since_motion_start >= min_duration:
+            if time_since_motion_start >= cfg.min_duration:
                 motion_events.append((motion_start, current_time))
-                if verbose:
+                if cfg.verbose:
                     print(
                         f"[DEBUG] Motion ends at {current_time:.2f}s"
                         f" (duration {time_since_motion_start:.2f}s)"
                     )
-            elif verbose:
+            elif cfg.verbose:
                 print(f"[DEBUG] Ignored short motion of {time_since_motion_start:.2f}s")
             motion_start = None
 
@@ -112,7 +107,7 @@ def detect_motion(
     # Final cleanup
     if motion_start is not None:
         motion_events.append((motion_start, duration_sec))
-        if verbose:
+        if cfg.verbose:
             print(
                 f"[DEBUG] Final motion ends at {duration_sec:.2f}s (duration {(duration_sec -
 motion_start):.2f}s)"
@@ -122,14 +117,13 @@ motion_start):.2f}s)"
     return motion_events
 
 
-# Demo / CLI
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python motion.py <video_path>")
         sys.exit(1)
 
-    video_file = sys.argv[1]
-    events = detect_motion(video_file, min_area=800, skip_frames=2)
+    video_file = Path(sys.argv[1])
+    events = detect_motion(video_file, MotionConfig())
 
     print("\n=== Motion events ===")
     for i, (s, e) in enumerate(events, start=1):
