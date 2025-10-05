@@ -9,27 +9,21 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
 import tempfile
+from collections.abc import Iterable
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from motion.motion import MotionConfig, detect_motion
+import typer
+
+from motion.find_motion import MotionConfig, detect_motion
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
 
 def _run_ffmpeg(cmd: list[str]) -> None:
-    """
-    Run a command via subprocess.check_call and surface any errors
-    with a friendly message.
-    """
-    try:
-        subprocess.check_call(cmd, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as exc:
-        msg = f"ffmpeg failed with exit code {exc.returncode}"
-        raise RuntimeError(msg) from exc
+    subprocess.check_call(cmd, stderr=subprocess.STDOUT)
 
 
 def create_highlights_reel(
@@ -135,14 +129,22 @@ def create_highlights_reel(
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
+def main(
+    video_path: Path,
+    output_path: Path = Path("highlights.mp4"),
+    context_sec: float = 1.0,
+    *,
+    verbose: bool = False,
+) -> None:
+    events = detect_motion(video_path, MotionConfig())
+    create_highlights_reel(
+        video_path,
+        events,
+        output_path,
+        context_sec=context_sec,
+        verbose=verbose,
+    )
+
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python create_highlights.py <video_path> [output_path]")
-        sys.exit(1)
-
-    src = Path(sys.argv[1])
-    out = Path(sys.argv[2] if len(sys.argv) > 2 else "highlights.mp4")
-
-    events = detect_motion(src, MotionConfig())
-
-    create_highlights_reel(src, events, output_path=out, verbose=True)
+    typer.run(main)
