@@ -9,8 +9,14 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from pprint import pp
+from typing import TYPE_CHECKING
 
 import cv2
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+
+    import numpy as np
 
 
 @dataclass
@@ -41,20 +47,20 @@ def _create_bg_subtractor(cfg: MotionConfig) -> cv2.BackgroundSubtractorMOG2:
     )
 
 
-def _preprocess_frame(frame: cv2.Mat) -> cv2.Mat:
+def _preprocess_frame(frame: np.ndarray) -> np.ndarray:
     """Convert to gray and blur the frame."""
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     return cv2.GaussianBlur(gray, (5, 5), 0)
 
 
-def _apply_mask(mask: cv2.Mat) -> cv2.Mat:
+def _apply_mask(mask: np.ndarray) -> np.ndarray:
     """Clean up the foreground mask with morphological operations."""
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=2)
     return cv2.dilate(mask, kernel, iterations=2)
 
 
-def _contour_detects_motion(contours: list[cv2.Mat], cfg: MotionConfig) -> bool:
+def _contour_detects_motion(contours: Iterable[np.ndarray], cfg: MotionConfig) -> bool:
     """Return True if any contour is large enough."""
     return any(cv2.contourArea(cnt) >= cfg.min_area for cnt in contours)
 
