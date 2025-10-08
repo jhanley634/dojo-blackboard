@@ -12,21 +12,6 @@ def ordered(x: int, y: int) -> tuple[int, int]:
     return x, y
 
 
-def find_two_sum_quadratic(arr: list[int], target: int) -> tuple[int, int]:
-    """
-    Finds the two numbers x + y that sum to a target number.
-
-    We are guaranteed a unique solution;
-    exactly two of the inputs will sum to the desired target.
-
-    The naïve solution has O(n^2) quadratic complexity.
-    """
-    for x in arr:
-        for y in arr:
-            if x + y == target:
-                return ordered(x, y)
-
-    raise InputArrayError(target)
 
 
 def find_two_sum(arr: list[int], target: int) -> tuple[int, int]:
@@ -45,6 +30,21 @@ def find_two_sum(arr: list[int], target: int) -> tuple[int, int]:
 
     raise InputArrayError(target)
 
+def find_two_sum_quadratic(arr: list[int], target: int) -> tuple[int, int]:
+    """
+    Finds the two numbers x + y that sum to a target number.
+
+    We are guaranteed a unique solution;
+    exactly two of the inputs will sum to the desired target.
+
+    The naïve solution has O(n^2) quadratic complexity.
+    """
+    for x in arr:
+        for y in arr:
+            if x + y == target:
+                return ordered(x, y)
+
+    raise InputArrayError(target)
 
 def find_two_sum_with_set(arr: list[int], target: int) -> tuple[int, int]:
     """
