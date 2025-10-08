@@ -1,6 +1,10 @@
 import unittest
 
-from challenge.two_sum.find_two_sum import find_two_sum, find_two_sum_quadratic
+from challenge.two_sum.find_two_sum import (
+    find_two_sum,
+    find_two_sum_quadratic,
+    find_two_sum_with_set,
+)
 
 arr = [7, 3, 5, 9]
 target = 8
@@ -18,4 +22,10 @@ class FindTwoSumTest(unittest.TestCase):
         self.assertEqual(
             (3, 5),
             find_two_sum(arr, target),
+        )
+
+    def test_find_two_sum_with_set(self) -> None:
+        self.assertEqual(
+            (3, 5),
+            find_two_sum_with_set(arr, target),
         )
