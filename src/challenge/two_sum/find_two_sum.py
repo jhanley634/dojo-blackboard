@@ -71,7 +71,7 @@ def find_two_sum_naive(arr: list[int], target: int) -> tuple[int, int]:
     # operation creates a smaller copy of the list,
     # roughly doubling the work we do.
     # Prefer to use enumerate(), range(), and indexing
-    # of arr[i] if you really want the 50% savings.
+    # of arr[j] if you really want the 50% savings.
     # OTOH numpy slicing _is_ efficient in the hoped for way.
 
 
