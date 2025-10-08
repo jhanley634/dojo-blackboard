@@ -12,8 +12,6 @@ def ordered(x: int, y: int) -> tuple[int, int]:
     return x, y
 
 
-
-
 def find_two_sum(arr: list[int], target: int) -> tuple[int, int]:
     """
     Finds the two numbers x + y that sum to a target number.
@@ -30,6 +28,7 @@ def find_two_sum(arr: list[int], target: int) -> tuple[int, int]:
 
     raise InputArrayError(target)
 
+
 def find_two_sum_quadratic(arr: list[int], target: int) -> tuple[int, int]:
     """
     Finds the two numbers x + y that sum to a target number.
@@ -45,6 +44,7 @@ def find_two_sum_quadratic(arr: list[int], target: int) -> tuple[int, int]:
                 return ordered(x, y)
 
     raise InputArrayError(target)
+
 
 def find_two_sum_with_set(arr: list[int], target: int) -> tuple[int, int]:
     """
