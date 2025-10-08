@@ -14,9 +14,7 @@ class InputArrayError(ValueError):
 
 
 def ordered(x: int, y: int) -> tuple[int, int]:
-    if x < y:
-        return x, y
-    return y, x
+    return (x, y) if x < y else (y, x)
 
 
 def find_two_sum(arr: list[int], target: int) -> tuple[int, int]:
