@@ -7,12 +7,14 @@ from hypothesis import strategies as st
 from challenge.two_sum.find_two_sum import (
     InputArrayError,
     find_two_sum,
+    find_two_sum_naive,
     find_two_sum_quadratic,
     find_two_sum_with_set,
 )
 
 fns = [
     find_two_sum,
+    find_two_sum_naive,
     find_two_sum_quadratic,
     find_two_sum_with_set,
 ]
@@ -38,7 +40,7 @@ class FindTwoSumTest(unittest.TestCase):
 
     @given(st.lists(st.integers(), min_size=2))
     def test_with_hypothesis(self, arr: list[int]) -> None:
-        x, y = (arr[0], arr[1])
+        x, y = arr[0], arr[1]
         shuffle(arr)
         for fn in fns:
             u, v = fn(arr, x + y)
