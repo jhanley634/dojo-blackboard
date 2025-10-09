@@ -3,20 +3,19 @@
 Detects motion in a video to find a list of (start, end) timestamps.
 """
 
-from __future__ import annotations
-
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 from pprint import pp
-from typing import TYPE_CHECKING
 
 import cv2
+import numpy as np
 
-if TYPE_CHECKING:
-    from collections.abc import Iterable
 
-    import numpy as np
+class VideoMissingError(ValueError):
+    def __init__(self, message: str = "No video stream found") -> None:
+        super().__init__(message)
 
 
 @dataclass
@@ -120,7 +119,7 @@ def detect_motion(video_path: Path, cfg: MotionConfig) -> list[tuple[float, floa
         msg = f"Cannot open video file {video_path}"
         raise OSError(msg)
 
-    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    fps = cap.get(cv2.CAP_PROP_FPS)
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     duration_sec = frame_count / fps
 

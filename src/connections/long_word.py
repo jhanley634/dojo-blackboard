@@ -1,6 +1,9 @@
+import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
 from connections.long_word_create import Word, get_engine
+
+assert sa.__version__ >= "2.0.43"
 
 
 def find_longest_match(squished: str) -> tuple[str, str]:
