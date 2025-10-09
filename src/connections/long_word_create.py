@@ -14,18 +14,21 @@ from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 
 TEMP = Path("/tmp")
+WORDS_DB = TEMP / "words.db"
 
-_d: dict[str, Engine] = {}  # singleton
 
+class DbMgr:
+    _engine: Engine | None = None  # singleton
 
-def get_engine(db_file: Path = Path(TEMP / "words.db")) -> Engine:
-    if not _d.get("engine"):
-        _d["engine"] = create_engine(f"sqlite:///{db_file}")
-    return _d["engine"]
+    @classmethod
+    def get_engine(cls, db_file: Path = WORDS_DB) -> Engine:
+        if cls._engine is None:
+            cls._engine = create_engine(f"sqlite:///{db_file}")
+        return cls._engine
 
 
 def table_exists(table_name: str) -> bool:
-    inspector = inspect(get_engine())
+    inspector = inspect(DbMgr.get_engine())
     return inspector.has_table(table_name)
 
 
@@ -44,7 +47,7 @@ ENGLISH_WORDS = Path("/usr/share/dict/words")
 
 
 def etl(in_file: Path = ENGLISH_WORDS) -> None:
-    engine = get_engine()
+    engine = DbMgr.get_engine()
     Base.metadata.create_all(engine)
     assert table_exists("word")
     seen = set()

@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
-from connections.long_word_create import Word, get_engine
+from connections.long_word_create import DbMgr, Word
 
 assert sa.__version__ >= "2.0.43"
 
@@ -20,7 +20,7 @@ def find_longest_match(squished: str) -> tuple[str, str]:
     rev_squished = squished[::-1]
     wildcard = rev_squished[:3] + "%"
     match = ""
-    with Session(get_engine()) as sess:
+    with Session(DbMgr.get_engine()) as sess:
         query = sess.query(Word).filter(Word.rev_word.like(wildcard))
         for row in query:
             rev_word = f"{row.rev_word}"
