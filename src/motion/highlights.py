@@ -80,12 +80,12 @@ def create_highlights_reel(
                 "-ss",
                 f"{clip_start:.6f}",
                 "-i",
-                str(video_path),
+                f"{video_path}",
                 "-t",
                 f"{clip_duration:.6f}",
                 "-c",
                 "copy",
-                str(fragment_path),
+                f"{fragment_path}",
             ]
             if verbose:
                 print("Running:", " ".join(ffmpeg_cmd))
@@ -111,10 +111,10 @@ def create_highlights_reel(
             "-safe",
             "0",
             "-i",
-            str(concat_file),
+            f"{concat_file}",
             "-c",
             "copy",
-            str(output_path),
+            f"{output_path}",
         ]
         if verbose:
             print("Running:", " ".join(final_cmd))
