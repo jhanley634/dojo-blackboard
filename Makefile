@@ -33,14 +33,14 @@ install: .venv/bin/activate
 	$(ACTIVATE) && uv pip install --upgrade -r requirements.txt
 	$(ACTIVATE) && pre-commit install
 
-# The basemap package does not yet work with Python 3.13.
-CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; assert v.minor <= 12, v.minor'
+# The basemap & ortools packages do not yet work with Python 3.14.
+CHECK_INTERPRETER := -c 'import sys; v = sys.version_info; assert v.major == 3; assert v.minor <= 13, v.minor'
 
 .venv/bin/activate:
 	python -m venv .venv/
 	$(ACTIVATE) && python -m pip install uv
 	$(ACTIVATE) && which python && python --version && which uv
-	$(ACTIVATE) && uv venv --python=3.12.7
+	$(ACTIVATE) && uv venv --python=3.13
 	$(ACTIVATE) && which python && python --version
 	$(ACTIVATE) && python -m ensurepip
 	$(ACTIVATE) && python -m pip install uv
