@@ -7,6 +7,7 @@ Uses ffmpeg to catenate video segments.
 
 from __future__ import annotations
 
+import shlex
 import shutil
 import subprocess  # nosec
 import tempfile
@@ -23,7 +24,8 @@ if TYPE_CHECKING:
 
 
 def _run_ffmpeg(cmd: list[str]) -> None:
-    subprocess.check_call(cmd, stderr=subprocess.STDOUT)  # nosec
+    cmd = list(map(shlex.quote, cmd))
+    subprocess.check_call(cmd, stderr=subprocess.STDOUT)
 
 
 def create_highlights_reel(
