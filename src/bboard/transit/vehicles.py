@@ -33,7 +33,7 @@ def query_transit(url: str) -> dict[str, Any]:
     assert "?" in url, url
     api_key = get_api_key("TRANSIT_KEY")
     url += f"&api_key={api_key}"
-    resp = get(url)
+    resp = get(url, timeout=10)
     resp.raise_for_status()
     bom = "\ufeff"
     hdr = resp.headers

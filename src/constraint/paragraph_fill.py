@@ -14,7 +14,7 @@ CONNECTICUT_YANKEE = "https://www.gutenberg.org/cache/epub/86/pg86.txt"
 
 def get_paragraphs(url: str = CONNECTICUT_YANKEE) -> Iterable[str]:
     """Uses spacy to produce the paragraphs of the given URL."""
-    with requests.get(url) as response:  # type: ignore [attr-defined]
+    with requests.get(url, timeout=10) as response:  # type: ignore [attr-defined]
         response.raise_for_status()
         text = response.text.replace("\r\n", "\n")
 
