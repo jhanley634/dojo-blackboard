@@ -15,9 +15,13 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 
 TEMP = Path("/tmp")
 
+_d: dict[str, Engine] = {}  # singleton
+
 
 def get_engine(db_file: Path = Path(TEMP / "words.db")) -> Engine:
-    return create_engine(f"sqlite:///{db_file}")
+    if not _d.get("engine"):
+        _d["engine"] = create_engine(f"sqlite:///{db_file}")
+    return _d["engine"]
 
 
 def table_exists(table_name: str) -> bool:
