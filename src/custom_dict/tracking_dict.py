@@ -1,7 +1,9 @@
 from collections import UserDict
-from collections.abc import Generator, Hashable
 from copy import deepcopy
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from collections.abc import Generator, Hashable
 
 
 class TrackingDict(UserDict[Any, Any]):

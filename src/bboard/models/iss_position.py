@@ -1,9 +1,11 @@
-import datetime as dt
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import inspect
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy_utc import UtcDateTime
+
+if TYPE_CHECKING:
+    import datetime as dt
 
 
 class Base(DeclarativeBase):

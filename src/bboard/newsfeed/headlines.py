@@ -2,12 +2,15 @@ import datetime as dt
 import json
 from base64 import urlsafe_b64encode
 from hashlib import sha3_224
+from typing import TYPE_CHECKING
 
 import newspaper as news
-from sqlalchemy.orm import Session
 
 from bboard.models.headline import Headline
 from bboard.util.database import get_session
+
+if TYPE_CHECKING:
+    from sqlalchemy.orm import Session
 
 
 def get_hash(title: str, url: str, prefix: int = 8) -> str:

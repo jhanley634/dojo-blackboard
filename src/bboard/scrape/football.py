@@ -1,13 +1,16 @@
 #! /usr/bin/env python
 
-from collections.abc import Generator
 from datetime import timedelta
 from io import StringIO
+from typing import TYPE_CHECKING
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
 from requests_cache import install_cache
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 _one_day = timedelta(days=1).total_seconds()
 install_cache("/tmp/scraping_cache", expire_after=_one_day)

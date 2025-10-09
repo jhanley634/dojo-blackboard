@@ -1,7 +1,10 @@
-from collections.abc import Generator
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-import pandas as pd
+if TYPE_CHECKING:
+    from collections.abc import Generator
+
+    import pandas as pd
 
 TOP = Path().absolute()
 CONNECTIONS_EXAMPLES = TOP / "src/connections/connections.txt"

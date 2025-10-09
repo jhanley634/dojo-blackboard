@@ -3,9 +3,8 @@ Tracks the current location of the International Space Station (ISS).
 """
 
 import datetime as dt
-from collections.abc import Generator
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import matplotlib
 import matplotlib as mpl
@@ -17,6 +16,9 @@ from bboard.models.iss_position import IssPosition
 from bboard.util.cache_buster import every
 from bboard.util.database import get_session
 from bboard.util.fs import temp_dir
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 matplotlib.use("Agg")
 

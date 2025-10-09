@@ -1,9 +1,8 @@
 import datetime as dt
 import json
-from collections.abc import Generator
 from contextlib import suppress
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import matplotlib
 import matplotlib as mpl
@@ -18,6 +17,9 @@ from bboard.models.vehicle_journey import VehicleJourney
 from bboard.util.credentials import get_api_key
 from bboard.util.database import get_session
 from bboard.util.fs import temp_dir
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 matplotlib.use("Agg")
 

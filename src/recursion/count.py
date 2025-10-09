@@ -24,8 +24,6 @@ def recursive_count(i: int, ceil: int) -> int:
 def main(n: int = 30_000_000) -> int:
     """Chooses large N, appropriate for current for current interpreter."""
     sys.setrecursionlimit(n + 10)
-    if sys.version_info < (3, 11):
-        n = 42_780  # max feasible value for interpreter 3.10.16
     if sys.version_info < (3, 10):  # noqa
         n = 72_287  # interpreters 3.8.20 & 3.9.23
 

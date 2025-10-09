@@ -1,12 +1,14 @@
 #! /usr/bin/env python
 
 import json
-from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import polars as pl
 
 from src.recursion.count import TIMINGS
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 def _read_lines(jsonl: Path) -> list[dict[str, Any]]:

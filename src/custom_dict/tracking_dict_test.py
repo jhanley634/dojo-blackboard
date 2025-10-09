@@ -3,9 +3,12 @@ import pickle
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from custom_dict.counting_dict import AccessCounterDict
 from custom_dict.tracking_dict import TrackingDict
+
+if TYPE_CHECKING:
+    from custom_dict.counting_dict import AccessCounterDict
 
 
 def example_mapping() -> TrackingDict:
