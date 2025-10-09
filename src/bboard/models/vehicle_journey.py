@@ -1,12 +1,9 @@
-from typing import TYPE_CHECKING
+import datetime as dt
 
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy_utc import UtcDateTime
 
 from bboard.models.iss_position import Base
-
-if TYPE_CHECKING:
-    import datetime as dt
 
 
 class VehicleJourney(Base):  # type: ignore [misc]

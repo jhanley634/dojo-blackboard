@@ -1,13 +1,10 @@
 #! /usr/bin/env python
 
 import re
-from typing import TYPE_CHECKING
+from collections.abc import Generator
+from pathlib import Path
 
 from connections.conn_util import TOP
-
-if TYPE_CHECKING:
-    from collections.abc import Generator
-    from pathlib import Path
 
 TALKS = TOP / "talks"
 TALK_MD = TALKS / "2025-07-08-connections.md"

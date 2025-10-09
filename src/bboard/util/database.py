@@ -1,5 +1,5 @@
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import TYPE_CHECKING
 
 from pint import Quantity
 from pint import UnitRegistry as Unit
@@ -8,9 +8,6 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from bboard.models.iss_position import IssPosition
 from bboard.models.vehicle_journey import VehicleJourney
-
-if TYPE_CHECKING:
-    from collections.abc import Generator
 
 engine: Engine = create_engine(url="sqlite:////tmp/blackboard.db")
 

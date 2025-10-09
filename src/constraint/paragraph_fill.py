@@ -1,12 +1,9 @@
-from typing import TYPE_CHECKING
+from collections.abc import Iterable
 
 import pandas as pd
 import requests
 
 from bboard.util.requests import patch_requests_module
-
-if TYPE_CHECKING:
-    from collections.abc import Iterable
 
 patch_requests_module()
 CONNECTICUT_YANKEE = "https://www.gutenberg.org/cache/epub/86/pg86.txt"

@@ -5,18 +5,15 @@ It starts several background tasks which poll external APIs for updates.
 """
 
 import asyncio
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from random import shuffle
-from typing import TYPE_CHECKING
+
+from fastapi import FastAPI
 
 from bboard.transit.iss import iss_lng_lat
 from bboard.transit.vehicles import KEY_NAME, store_vehicle_journeys
 from bboard.util.credentials import is_enabled
-
-if TYPE_CHECKING:
-    from collections.abc import AsyncGenerator
-
-    from fastapi import FastAPI
 
 
 async def iss_periodic_update(delay_seconds: float = 61) -> None:

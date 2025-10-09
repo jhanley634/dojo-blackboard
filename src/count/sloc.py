@@ -4,15 +4,12 @@ Counts source lines of code.
 """
 import re
 from collections import Counter
+from collections.abc import Iterable
 from enum import Enum, auto
 from functools import partial
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 import typer
-
-if TYPE_CHECKING:
-    from collections.abc import Iterable
 
 
 class LineType(Enum):

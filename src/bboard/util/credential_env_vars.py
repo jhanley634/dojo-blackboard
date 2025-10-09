@@ -1,12 +1,10 @@
 #! /usr/bin/env python
 
-from typing import TYPE_CHECKING
+
+from collections.abc import Generator
 
 from bboard.util.credentials import read_api_keys
 from bboard.util.fs import temp_dir
-
-if TYPE_CHECKING:
-    from collections.abc import Generator
 
 
 def _get_env_var_exports() -> Generator[str]:

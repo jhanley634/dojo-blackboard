@@ -1,9 +1,7 @@
 from collections import Counter, UserDict
+from collections.abc import Generator, Hashable
 from copy import deepcopy
-from typing import TYPE_CHECKING, Any, Self
-
-if TYPE_CHECKING:
-    from collections.abc import Generator, Hashable
+from typing import Any, Self
 
 
 class AccessCounterDict(UserDict[Any, Any]):
