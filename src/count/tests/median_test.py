@@ -13,7 +13,7 @@ class SlicedList:
         self.start = start
         self.end = len(nums) if end is None else end
 
-    def slice(self, start: int, end: int | None = None) -> "SlicedList":  # noqa: UP037
+    def slice(self, start: int, end: int | None = None) -> "SlicedList":
         length = self.end - self.start
         end_i: int = length if end is None else end
         assert 0 <= start <= end_i <= length
