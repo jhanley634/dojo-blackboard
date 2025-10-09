@@ -8,7 +8,7 @@ Uses ffmpeg to catenate video segments.
 from __future__ import annotations
 
 import shutil
-import subprocess
+import subprocess  # nosec
 import tempfile
 from collections.abc import Iterable
 from pathlib import Path
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 
 def _run_ffmpeg(cmd: list[str]) -> None:
-    subprocess.check_call(cmd, stderr=subprocess.STDOUT)
+    subprocess.check_call(cmd, stderr=subprocess.STDOUT)  # nosec
 
 
 def create_highlights_reel(
@@ -52,7 +52,7 @@ def create_highlights_reel(
     ]
     try:
         raw_duration = subprocess.check_output(
-            probe_cmd, stderr=subprocess.STDOUT, text=True
+            probe_cmd, stderr=subprocess.STDOUT, text=True  # nosec
         ).strip()
         total_duration = float(raw_duration)
     except Exception as exc:

@@ -11,12 +11,14 @@ all:
 	ls -l
 
 STRICT = --strict --warn-unreachable --ignore-missing-imports --no-namespace-packages
+SKIP = B101,B108,B603,B607
 
 ruff-check:
 	$(ACTIVATE) && black . && isort . && ruff check
 lint: ruff-check
 	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
+	$(ACTIVATE) && bandit -q --skip $(SKIP) --format=txt --recursive src tests
 
 unit: count
 	$(ACTIVATE) && $(ENV) SKIP_SLOW=1 python -m unittest $(VERBOSE) {src/count/,}tests**/*_test.py

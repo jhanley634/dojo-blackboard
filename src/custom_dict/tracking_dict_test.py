@@ -1,5 +1,5 @@
 import io
-import pickle
+import pickle  # nosec
 import unittest
 from copy import deepcopy
 from pathlib import Path
@@ -107,7 +107,7 @@ class TrackingDictPickleTest(unittest.TestCase):
             pickle.dump(d, f)
 
         with open(pkl, "rb") as f:
-            d1 = pickle.load(f)
+            d1 = pickle.load(f)  # nosec
         pkl.unlink()
 
         self._verify_equality(d, d1)
@@ -119,7 +119,7 @@ class TrackingDictPickleTest(unittest.TestCase):
         pickle.dump(d, buf)
         buf.seek(0)
 
-        d1 = pickle.load(buf)
+        d1 = pickle.load(buf)  # nosec
 
         self._verify_equality(d, d1)
 
