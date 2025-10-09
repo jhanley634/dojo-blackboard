@@ -83,3 +83,5 @@ class IssTest(unittest.TestCase):
             row = result.first() or throw(ValueError("no rows"))
             self.assertEqual(expected, f"{row}")
             self.assertEqual(stamp1, row.stamp)  # thanks to sqlalchemy_utc on non-PG DBs
+
+        eng.dispose()
