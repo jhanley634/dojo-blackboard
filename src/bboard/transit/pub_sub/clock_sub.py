@@ -13,7 +13,7 @@ from pynng import Sub0
 from bboard.transit.pub_sub.clock_pub import PUB_SUB_URL, TOPIC
 
 
-def subscribe(num_messages: int = 6) -> Generator[float, None, None]:
+def subscribe(num_messages: int = 6) -> Generator[float]:
     with Sub0(dial=PUB_SUB_URL) as sock:
         sock.subscribe(TOPIC)
         for _ in range(num_messages):

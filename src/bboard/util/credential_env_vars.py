@@ -5,7 +5,7 @@ from bboard.util.credentials import read_api_keys
 from bboard.util.fs import temp_dir
 
 
-def _get_env_var_exports() -> Generator[str, None, None]:
+def _get_env_var_exports() -> Generator[str]:
     """Generates shell script "export" lines for setting API key environment variables."""
     for name, value in read_api_keys().items():
         yield f"export {name}='{value}'"

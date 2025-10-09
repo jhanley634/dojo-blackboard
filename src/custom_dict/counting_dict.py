@@ -15,13 +15,13 @@ class AccessCounterDict(UserDict[Any, Any]):
         super().__init__(d, **kwargs)
         self.count: Counter[Hashable] = Counter()  # per-key access counts
 
-    def copy(self) -> "AccessCounterDict":
+    def copy(self) -> AccessCounterDict:
         c = AccessCounterDict()
         c.update(self)
         c.reset_counts()
         return c
 
-    def __deepcopy__(self, _memo: dict[int, Any]) -> "AccessCounterDict":
+    def __deepcopy__(self, _memo: dict[int, Any]) -> AccessCounterDict:
         c = AccessCounterDict()
         c.count = deepcopy(self.count)
         for k, v in self.items():

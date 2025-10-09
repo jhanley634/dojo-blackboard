@@ -93,7 +93,7 @@ def plot_agency_vehicles(
 def get_recent_vehicle_journeys(
     agency: str,
     minutes: float = 14,
-) -> Generator[VehicleJourney, None, None]:
+) -> Generator[VehicleJourney]:
     recent = dt.datetime.now(dt.UTC) - dt.timedelta(minutes=minutes)
     j = VehicleJourney
     with get_session() as sess:

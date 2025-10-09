@@ -4,7 +4,6 @@ Tracks the current location of the International Space Station (ISS).
 
 import datetime as dt
 from collections.abc import Generator
-from datetime import timezone as tz
 from pathlib import Path
 from typing import Any
 
@@ -33,7 +32,7 @@ def iss_lng_lat() -> tuple[float, float]:
     resp.raise_for_status()
     j = resp.json()
     assert "success" == j["message"], j
-    stamp = dt.datetime.fromtimestamp(j["timestamp"], tz.utc)
+    stamp = dt.datetime.fromtimestamp(j["timestamp"], dt.UTC)
     pos = j["iss_position"]
     lng, lat = map(float, (pos["longitude"], pos["latitude"]))
 
@@ -48,7 +47,7 @@ def iss_lng_lat() -> tuple[float, float]:
     return lng, lat
 
 
-def get_iss_breadcrumbs(limit: int) -> Generator[tuple[float, float], None, None]:
+def get_iss_breadcrumbs(limit: int) -> Generator[tuple[float, float]]:
     with get_session() as sess:
         for row in sess.query(IssPosition).order_by(IssPosition.stamp.desc()).limit(limit):
             yield row.longitude, row.latitude
