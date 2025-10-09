@@ -120,6 +120,7 @@ def detect_motion(video_path: Path, cfg: MotionConfig) -> list[tuple[float, floa
         raise OSError(msg)
 
     fps = cap.get(cv2.CAP_PROP_FPS)
+    assert fps
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     duration_sec = frame_count / fps
 
