@@ -33,7 +33,7 @@ def query_transit(url: str) -> dict[str, Any]:
     assert "?" in url, url
     api_key = get_api_key("TRANSIT_KEY")
     url += f"&api_key={api_key}"
-    resp = get(url)
+    resp = get(url, timeout=10)
     resp.raise_for_status()
     bom = "\ufeff"
     hdr = resp.headers
@@ -93,7 +93,7 @@ def plot_agency_vehicles(
 def get_recent_vehicle_journeys(
     agency: str,
     minutes: float = 14,
-) -> Generator[VehicleJourney, None, None]:
+) -> Generator[VehicleJourney]:
     recent = dt.datetime.now(dt.UTC) - dt.timedelta(minutes=minutes)
     j = VehicleJourney
     with get_session() as sess:

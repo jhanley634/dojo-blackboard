@@ -37,7 +37,7 @@ async def transit_periodic_update(delay_seconds: float = 91) -> None:
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     assert app
     asyncio.create_task(iss_periodic_update())
     asyncio.create_task(transit_periodic_update())

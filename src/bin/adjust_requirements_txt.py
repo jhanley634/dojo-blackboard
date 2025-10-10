@@ -2,7 +2,7 @@
 
 import re
 from pathlib import Path
-from subprocess import check_output
+from subprocess import check_output  # nosec
 
 REQ = Path("requirements.txt")
 

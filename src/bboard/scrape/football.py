@@ -30,7 +30,7 @@ def _get_col_headers(table: Tag | NavigableString | None) -> Generator[str]:
 
 def main() -> None:
     headers = {"User-Agent": ua}
-    resp = requests.get(target_url, headers=headers)  # type: ignore[attr-defined]
+    resp = requests.get(target_url, headers=headers, timeout=10)  # type: ignore[attr-defined]
     resp.raise_for_status()
     text = StringIO(resp.text)
     soup = BeautifulSoup(resp.text, "html.parser")

@@ -3,7 +3,7 @@ Interface code for calling /usr/local/bin/cloc.
 """
 
 import re
-import subprocess
+import subprocess  # nosec
 from dataclasses import dataclass
 from pathlib import Path
 

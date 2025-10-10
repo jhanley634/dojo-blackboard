@@ -12,7 +12,7 @@ class RequestsTest(unittest.TestCase):
         """Verifies that a get() can produce "stale" results, due to caching."""
         patch_requests_module()
         while True:
-            resp = get(ISS_URL)
+            resp = get(ISS_URL, timeout=10)
             resp.raise_for_status()
             sleep(0.005)
             j = resp.json()

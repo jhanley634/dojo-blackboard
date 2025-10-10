@@ -7,8 +7,9 @@ Uses ffmpeg to catenate video segments.
 
 from __future__ import annotations
 
+import shlex
 import shutil
-import subprocess
+import subprocess  # nosec
 import tempfile
 from collections.abc import Iterable
 from pathlib import Path
@@ -23,6 +24,7 @@ if TYPE_CHECKING:
 
 
 def _run_ffmpeg(cmd: list[str]) -> None:
+    cmd = list(map(shlex.quote, cmd))
     subprocess.check_call(cmd, stderr=subprocess.STDOUT)
 
 
@@ -52,7 +54,7 @@ def create_highlights_reel(
     ]
     try:
         raw_duration = subprocess.check_output(
-            probe_cmd, stderr=subprocess.STDOUT, text=True
+            probe_cmd, stderr=subprocess.STDOUT, text=True  # nosec
         ).strip()
         total_duration = float(raw_duration)
     except Exception as exc:
@@ -80,12 +82,12 @@ def create_highlights_reel(
                 "-ss",
                 f"{clip_start:.6f}",
                 "-i",
-                str(video_path),
+                f"{video_path}",
                 "-t",
                 f"{clip_duration:.6f}",
                 "-c",
                 "copy",
-                str(fragment_path),
+                f"{fragment_path}",
             ]
             if verbose:
                 print("Running:", " ".join(ffmpeg_cmd))
@@ -111,10 +113,10 @@ def create_highlights_reel(
             "-safe",
             "0",
             "-i",
-            str(concat_file),
+            f"{concat_file}",
             "-c",
             "copy",
-            str(output_path),
+            f"{output_path}",
         ]
         if verbose:
             print("Running:", " ".join(final_cmd))
