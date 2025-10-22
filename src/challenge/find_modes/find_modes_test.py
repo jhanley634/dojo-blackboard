@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from numpy.typing import NDArray
 
+from challenge.find_modes.counting import find_modes_via_counting
 from challenge.find_modes.sorting import find_modes_via_sorting, get_runs
 
 
@@ -49,12 +50,17 @@ class FindModesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             list(get_runs(np.array(xs)))
 
+    tests = (
+        (100, [188, 208, 374, 546, 641, 694]),
+        (200, [242]),
+        (10_000, [284]),
+        (1_000_000, [242]),
+    )
+
     def test_sorting(self) -> None:
-        tests = [
-            (100, [188, 208, 374, 546, 641, 694]),
-            (200, [242]),
-            (10_000, [284]),
-            (1_000_000, [242]),
-        ]
-        for n, modes in tests:
+        for n, modes in self.tests:
             self.assertEqual(modes, find_modes_via_sorting(fetch_input_data(n)))
+
+    def test_counting(self) -> None:
+        for n, modes in self.tests:
+            self.assertEqual(modes, find_modes_via_counting(fetch_input_data(n)))
