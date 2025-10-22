@@ -50,7 +50,11 @@ class FindModesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             list(get_runs(np.array(xs)))
 
-    # The "100" result is easily verified with this bash pipeline:
+    def test_single_element_input_array(self) -> None:
+        self.assertEqual([7], find_modes_via_sorting(np.array([7])))
+        self.assertEqual([7], find_modes_via_counting(np.array([7])))
+
+    # The "length 100" result is easily verified with this bash pipeline:
     # sort -n src/challenge/find_modes/data/100_random_numbers.txt |
     #   uniq -c | awk '$1 > 1'
 
