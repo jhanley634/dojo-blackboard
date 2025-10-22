@@ -1,0 +1,15 @@
+from collections import Counter
+
+import numpy as np
+from numpy.typing import NDArray
+
+from challenge.find_modes.timed import timed
+
+
+@timed  # type: ignore
+def find_modes_via_counting(xs: NDArray[np.int16]) -> list[int]:
+    assert len(xs) > 0
+
+    c = Counter(map(int, xs))
+    mode_count = max(c.values())
+    return sorted(k for k, v in c.items() if v == mode_count)
