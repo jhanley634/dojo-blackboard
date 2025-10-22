@@ -56,19 +56,5 @@ class FindModesTest(unittest.TestCase):
             (10_000, [284]),
             (1_000_000, [242]),
         ]
-        self.assertEqual(
-            [188, 208, 374, 546, 641, 694],
-            find_modes_via_sorting(fetch_input_data(100)),
-        )
-        self.assertEqual(
-            [242],
-            find_modes_via_sorting(fetch_input_data(200)),
-        )
-        self.assertEqual(
-            [284],
-            find_modes_via_sorting(fetch_input_data(10_000)),
-        )
-        self.assertEqual(
-            [242],
-            find_modes_via_sorting(fetch_input_data(1_000_000)),
-        )
+        for n, modes in tests:
+            self.assertEqual(modes, find_modes_via_sorting(fetch_input_data(n)))

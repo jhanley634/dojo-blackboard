@@ -11,12 +11,7 @@ def find_modes_via_sorting(xs: NDArray[np.int32]) -> list[int]:
     for n, _ in get_runs(xs):
         max_n = max(n, max_n)
 
-    ret: list[int] = []
-    for n, value in get_runs(xs):
-        if max_n == n:
-            ret.append(value)
-
-    return ret
+    return [value for n, value in get_runs(xs) if max_n == n]
 
 
 def get_runs(xs: NDArray[np.int32]) -> Generator[tuple[int, int]]:
