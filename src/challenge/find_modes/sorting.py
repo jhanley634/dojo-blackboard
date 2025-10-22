@@ -3,7 +3,10 @@ from collections.abc import Generator
 import numpy as np
 from numpy.typing import NDArray
 
+from challenge.find_modes.timed import timed
 
+
+@timed  # type: ignore
 def find_modes_via_sorting(xs: NDArray[np.int16]) -> list[int]:
     xs.sort()
 
