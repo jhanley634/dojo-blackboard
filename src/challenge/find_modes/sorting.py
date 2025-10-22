@@ -9,12 +9,13 @@ from challenge.find_modes.timed import timed
 @timed  # type: ignore
 def find_modes_via_sorting(xs: NDArray[np.int16]) -> list[int]:
     xs.sort()
+    runs = list(get_runs(xs))
 
     max_n = 0
-    for n, _ in get_runs(xs):
+    for n, _ in runs:
         max_n = max(n, max_n)
 
-    return [value for n, value in get_runs(xs) if max_n == n]
+    return [value for n, value in runs if max_n == n]
 
 
 def get_runs(xs: NDArray[np.int16]) -> Generator[tuple[int, int]]:
