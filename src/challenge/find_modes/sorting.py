@@ -7,6 +7,13 @@ from challenge.find_modes.timed import timed
 
 
 @timed  # type: ignore
+def find_modes_via_sort_unique(xs: NDArray[np.int16]) -> list[int]:
+    values, counts = np.unique(xs, return_counts=True)
+    max_count = counts.max()
+    return [int(v) for v, c in zip(values, counts, strict=True) if c == max_count]
+
+
+@timed  # type: ignore
 def find_modes_via_sorting(xs: NDArray[np.int16]) -> list[int]:
     xs.sort()
     runs = list(get_runs(xs))

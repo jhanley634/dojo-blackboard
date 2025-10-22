@@ -6,7 +6,11 @@ import pandas as pd
 from numpy.typing import NDArray
 
 from challenge.find_modes.counting import find_modes_via_counting
-from challenge.find_modes.sorting import find_modes_via_sorting, get_runs
+from challenge.find_modes.sorting import (
+    find_modes_via_sort_unique,
+    find_modes_via_sorting,
+    get_runs,
+)
 
 
 def fetch_input_data(num_elts: int) -> NDArray[np.int16]:
@@ -74,3 +78,4 @@ class FindModesTest(unittest.TestCase):
     def test_counting(self) -> None:
         for n, modes in self.tests:
             self.assertEqual(modes, find_modes_via_counting(fetch_input_data(n)))
+            self.assertEqual(modes, find_modes_via_sort_unique(fetch_input_data(n)))
