@@ -9,17 +9,17 @@ from challenge.find_modes.counting import find_modes_via_counting
 from challenge.find_modes.sorting import find_modes_via_sorting, get_runs
 
 
-def fetch_input_data(n: int) -> NDArray[np.int32]:
+def fetch_input_data(num_elts: int) -> NDArray[np.int16]:
     data_dir = Path("src/challenge/find_modes/data")
     assert data_dir.exists()
 
-    csv = data_dir / f"{n:,}_random_numbers.txt".replace(",", "_")
+    csv = data_dir / f"{num_elts:,}_random_numbers.txt".replace(",", "_")
     if csv.exists():
         df = pd.read_csv(csv, header=None, names=["n"])
-        return np.array(df.n.astype(np.int32).to_numpy())
+        return np.array(df.n.astype(np.int16).to_numpy())
 
     rng = np.random.default_rng(seed=42)
-    return rng.integers(0, 1_000, size=1_000_000, dtype=np.int32)
+    return rng.integers(0, 1_000, size=num_elts, dtype=np.int16)
 
 
 class FindModesTest(unittest.TestCase):
@@ -50,11 +50,17 @@ class FindModesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             list(get_runs(np.array(xs)))
 
+    # The "100" result is easily verified with this bash pipeline:
+    # sort -n src/challenge/find_modes/data/100_random_numbers.txt |
+    #   uniq -c | awk '$1 > 1'
+
     tests = (
         (100, [188, 208, 374, 546, 641, 694]),
-        (200, [242]),
+        (1_000, [458, 804]),
         (10_000, [284]),
-        (1_000_000, [242]),
+        (1_000_000, [25]),
+        (10_000_000, [221]),
+        # (100_000_000, [422]),  # This runs fine, slowly, in ~ 12 seconds.
     )
 
     def test_sorting(self) -> None:

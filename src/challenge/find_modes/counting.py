@@ -4,7 +4,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 
-def find_modes_via_counting(xs: NDArray[np.int32]) -> list[int]:
+def find_modes_via_counting(xs: NDArray[np.int16]) -> list[int]:
     assert len(xs) > 0
 
     c = Counter(map(int, xs))
