@@ -51,7 +51,7 @@ class LineCounter:
         if isinstance(lines, Path):
             self.suffix = lines.suffix
             lines = lines.read_text().splitlines()
-        lines = list(map(str.rstrip, lines))
+        lines = [line.rstrip() for line in lines]
 
         self.comment_pattern = re.compile(comment_pattern)
 

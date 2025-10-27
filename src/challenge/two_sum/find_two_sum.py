@@ -32,6 +32,7 @@ def ordered(x: int, y: int) -> tuple[int, int]:
 
 def find_two_sum(arr: list[int], target: int) -> tuple[int, int]:
     xs = SortedList(arr)
+    assert isinstance(xs, SortedList)  # pyrefly's not too bright, yet.
     for y in (target - x for x in xs):  # O(n) linear cost
         # Binary search for the `in` probe has O(log n) cost.
         if y in xs:

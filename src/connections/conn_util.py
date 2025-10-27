@@ -23,7 +23,7 @@ def get_examples(in_file: Path = CONNECTIONS_EXAMPLES) -> Generator[dict[str, li
 
             cols[0] = cols[0].rstrip()
             if not hdr:  # initial line
-                hdr = list(map(str.lower, cols))
+                hdr = [col.lower() for col in cols]
                 continue
             cat = cols[0]
             words = cols[1].split(", ")
