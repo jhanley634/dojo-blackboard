@@ -74,3 +74,6 @@ ignore = [
     "RUF006",
     "SIM300",
 ]
+
+[tool.pyrefly]
+project-excludes = [".venv/"]

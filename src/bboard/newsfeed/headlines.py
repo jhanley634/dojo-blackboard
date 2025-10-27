@@ -60,7 +60,7 @@ def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> dict[st
 
     row = {
         "hash": h,
-        "stamp": dt.datetime.now(dt.UTC),
+        "stamp": dt.datetime.now(dt.UTC).isoformat(),
         "url": art.url,
         "title": art.title,
         # "content": art.text,
@@ -70,5 +70,4 @@ def _add_headline(art: news.Article, sess: Session, hashes: set[str]) -> dict[st
     hashes.add(h)
     sess.add(Headline(**row))
 
-    row["stamp"] = row["stamp"].isoformat()
     return row
