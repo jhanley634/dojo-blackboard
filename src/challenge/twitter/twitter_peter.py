@@ -6,13 +6,12 @@
 # You can follow either this spec, or the Leetcode one
 ###
 
-from typing import Dict, List
 
 # Globals / storage
 G_timestamp = 0
-tweets: List["Tweet"] = []
-followers: Dict[int, set[int]] = {}
-user_tweets: Dict[int, List[int]] = {}
+tweets: list["Tweet"] = []
+followers: dict[int, set[int]] = {}
+user_tweets: dict[int, list[int]] = {}
 
 
 class Tweet:
@@ -40,7 +39,7 @@ def unfollow(myid: int, to_unfollow_id: int) -> None:
         followers[myid].discard(to_unfollow_id)
 
 
-def follow_list(myid: int) -> List[int]:
+def follow_list(myid: int) -> list[int]:
     return list(followers.get(myid, set()))
 
 
@@ -52,15 +51,15 @@ def tweet(myid: int, content: str) -> int:
     return len(tweets) - 1
 
 
-def users_tweets(userid: int) -> List[Tweet]:
+def users_tweets(userid: int) -> list[Tweet]:
     idxs = user_tweets.get(userid, [])
     return [tweets[i] for i in idxs]
 
 
-def timeline(myid: int, limit: int = 10) -> List[Tweet]:
+def timeline(myid: int, limit: int = 10) -> list[Tweet]:
     ids = set(followers.get(myid, set()))
     ids.add(myid)  # include own tweets
-    pool: List[Tweet] = []
+    pool: list[Tweet] = []
     for u in ids:
         pool.extend(users_tweets(u)[-limit:])
     pool.sort(key=lambda t: t.timestamp, reverse=True)
