@@ -43,13 +43,11 @@ def tweet(myid: int, content: str) -> int:
 
 
 def users_tweets(userid: int) -> list[Tweet]:
-    idxs = user_tweets.get(userid, [])
-    return [tweets[i] for i in idxs]
+    return [tweets[i] for i in user_tweets[userid]]
 
 
 def timeline(myid: int, limit: int = 10) -> list[Tweet]:
-    ids = set(followers.get(myid, set()))
-    ids.add(myid)  # include own tweets
+    ids = followers[myid] | {myid}  # include own tweets
     pool: list[Tweet] = []
     for u in ids:
         pool.extend(users_tweets(u)[-limit:])
