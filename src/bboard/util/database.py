@@ -21,7 +21,7 @@ def get_session() -> Generator[Session]:
             sess.commit()
 
 
-_one_day = 1 * Unit().day
+_one_day: Quantity[int] = 1 * Unit().day
 assert isinstance(_one_day, Quantity)
 
 MINUTES_PER_DAY = _one_day.to("minutes").magnitude
