@@ -7,12 +7,6 @@
 ###
 
 
-g = {"timestamp": 0}
-tweets: list["Tweet"] = []
-followers: dict[int, set[int]] = {}
-user_tweets: dict[int, list[int]] = {}
-
-
 class Tweet:
     def __init__(self, userid: int, content: str, timestamp: int) -> None:
         self.userid = userid
@@ -21,6 +15,12 @@ class Tweet:
 
     def __repr__(self) -> str:
         return f"Tweet(u={self.userid}, t={self.timestamp}, c={self.content!r})"
+
+
+g = {"timestamp": 0}
+tweets: list[Tweet] = []
+followers: dict[int, set[int]] = {}
+user_tweets: dict[int, list[int]] = {}
 
 
 def _next_ts() -> int:
