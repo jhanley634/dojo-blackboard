@@ -15,7 +15,7 @@ user_tweets: dict[int, list[int]] = {}
 
 
 class Tweet:
-    def __init__(self, userid: int, content: str, timestamp: int):
+    def __init__(self, userid: int, content: str, timestamp: int) -> None:
         self.userid = userid
         self.content = content
         self.timestamp = timestamp
@@ -66,7 +66,7 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
     return pool[:limit]
 
 
-def test_timeline_basic():
+def test_timeline_basic() -> None:
     # reset globals (assumes the fixed implementation from earlier is in scope)
     global G_timestamp, tweets, followers, user_tweets
     G_timestamp = 0
@@ -116,7 +116,7 @@ def test_timeline_basic():
     assert len(tl1_top3) == min(3, len([t20, t21, t30, t31, t10]))
 
 
-def main():
+def main() -> None:
     test_timeline_basic()
 
 
