@@ -20,8 +20,8 @@ class Tweet:
 
 
 tweets: list[Tweet] = []
-followers = defaultdict[int, set[int]](set)
 user_tweets = defaultdict[int, list[int]](list)
+followers = defaultdict[int, set[int]](set)
 
 
 def follow(myid: int, to_follow_id: int) -> None:
@@ -30,10 +30,6 @@ def follow(myid: int, to_follow_id: int) -> None:
 
 def unfollow(myid: int, to_unfollow_id: int) -> None:
     followers[myid].discard(to_unfollow_id)
-
-
-def follow_list(myid: int) -> list[int]:
-    return list(followers[myid])
 
 
 def tweet(myid: int, content: str) -> int:
