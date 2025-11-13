@@ -7,6 +7,7 @@
 ###
 
 from collections import defaultdict
+from collections.abc import Callable
 from dataclasses import dataclass
 from operator import attrgetter
 
@@ -32,20 +33,20 @@ def init() -> None:
     user_tweets.clear()
 
 
-def follow(myid: int, to_follow_id: int) -> None:
-    followers[myid].add(to_follow_id)
-
-
-def unfollow(myid: int, to_unfollow_id: int) -> None:
-    followers[myid].discard(to_unfollow_id)
-
-
 def tweet(myid: int, content: str) -> int:
     tweet_id = len(tweets)
     tweet = Tweet(myid, content, tweet_id)
     tweets.append(tweet)
     user_tweets[myid].append(tweet_id)
     return tweet_id
+
+
+def follow(myid: int, to_follow_id: int) -> None:
+    followers[myid].add(to_follow_id)
+
+
+def unfollow(myid: int, to_unfollow_id: int) -> None:
+    followers[myid].discard(to_unfollow_id)
 
 
 def users_tweets(userid: int) -> list[Tweet]:
@@ -59,6 +60,15 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
         pool.extend(users_tweets(u)[-limit:])
     pool.sort(key=attrgetter("timestamp"), reverse=True)
     return pool[:limit]
+
+
+@dataclass
+class Implementation:
+    init: Callable[[], None]
+    tweet: Callable[[int, str], int]
+    follow: Callable[[int, int], None]
+    unfollow: Callable[[int, int], None]
+    users_tweets: Callable[[int], list[Tweet]]
 
 
 def test_timeline_basic(*, verbose: bool = False) -> None:
