@@ -26,6 +26,12 @@ user_tweets = defaultdict[int, list[int]](list)
 followers = defaultdict[int, set[int]](set)
 
 
+def init() -> None:
+    tweets.clear()
+    followers.clear()
+    user_tweets.clear()
+
+
 def follow(myid: int, to_follow_id: int) -> None:
     followers[myid].add(to_follow_id)
 
@@ -56,9 +62,7 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
 
 
 def test_timeline_basic(*, verbose: bool = False) -> None:
-    tweets.clear()
-    followers.clear()
-    user_tweets.clear()
+    init()
 
     # Users: 1, 2, 3
     follow(1, 2)
