@@ -102,9 +102,5 @@ def test_timeline_basic() -> None:
     assert len(tl1_top3) == min(3, len([t20, t21, t30, t31, t10]))
 
 
-def main() -> None:
-    test_timeline_basic()
-
-
 if __name__ == "__main__":
-    main()
+    test_timeline_basic()
