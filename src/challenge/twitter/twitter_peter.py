@@ -8,6 +8,7 @@
 
 from collections import defaultdict
 from dataclasses import dataclass
+from operator import attrgetter
 
 
 @dataclass
@@ -52,7 +53,7 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
     pool: list[Tweet] = []
     for u in ids:
         pool.extend(users_tweets(u)[-limit:])
-    pool.sort(key=lambda t: t.timestamp, reverse=True)
+    pool.sort(key=attrgetter("timestamp"), reverse=True)
     return pool[:limit]
 
 
