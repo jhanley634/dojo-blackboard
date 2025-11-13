@@ -1,4 +1,3 @@
-
 # from https://github.com/PeterTheobald/HackerDojoPythonGroup/blob/main/challenges/twitter.py
 
 ###
@@ -7,7 +6,7 @@
 # You can follow either this spec, or the Leetcode one
 ###
 
-from typing import List, Dict
+from typing import Dict, List
 
 # Globals / storage
 G_timestamp = 0
@@ -15,28 +14,35 @@ tweets: List["Tweet"] = []
 followers: Dict[int, set[int]] = {}
 user_tweets: Dict[int, List[int]] = {}
 
+
 class Tweet:
     def __init__(self, userid: int, content: str, timestamp: int):
         self.userid = userid
         self.content = content
         self.timestamp = timestamp
+
     def __repr__(self) -> str:
         return f"Tweet(u={self.userid}, t={self.timestamp}, c={self.content!r})"
+
 
 def _next_ts() -> int:
     global G_timestamp
     G_timestamp += 1
     return G_timestamp
 
+
 def follow(myid: int, to_follow_id: int) -> None:
     followers.setdefault(myid, set()).add(to_follow_id)
+
 
 def unfollow(myid: int, to_unfollow_id: int) -> None:
     if myid in followers:
         followers[myid].discard(to_unfollow_id)
 
+
 def follow_list(myid: int) -> List[int]:
     return list(followers.get(myid, set()))
+
 
 def tweet(myid: int, content: str) -> int:
     ts = _next_ts()
@@ -45,9 +51,11 @@ def tweet(myid: int, content: str) -> int:
     user_tweets.setdefault(myid, []).append(len(tweets) - 1)
     return len(tweets) - 1
 
+
 def users_tweets(userid: int) -> List[Tweet]:
     idxs = user_tweets.get(userid, [])
     return [tweets[i] for i in idxs]
+
 
 def timeline(myid: int, limit: int = 10) -> List[Tweet]:
     ids = set(followers.get(myid, set()))
@@ -57,6 +65,7 @@ def timeline(myid: int, limit: int = 10) -> List[Tweet]:
         pool.extend(users_tweets(u)[-limit:])
     pool.sort(key=lambda t: t.timestamp, reverse=True)
     return pool[:limit]
+
 
 def test_timeline_basic():
     # reset globals (assumes the fixed implementation from earlier is in scope)
@@ -107,8 +116,10 @@ def test_timeline_basic():
     print("Timeline(1) top 3:", [(t.userid, t.timestamp, t.content) for t in tl1_top3])
     assert len(tl1_top3) == min(3, len([t20, t21, t30, t31, t10]))
 
+
 def main():
     test_timeline_basic()
 
+
 if __name__ == "__main__":
-  main()
+    main()
