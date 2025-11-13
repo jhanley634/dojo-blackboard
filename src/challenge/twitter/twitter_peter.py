@@ -6,6 +6,8 @@
 # You can follow either this spec, or the Leetcode one
 ###
 
+from collections import defaultdict
+
 
 class Tweet:
     def __init__(self, userid: int, content: str, timestamp: int) -> None:
@@ -17,36 +19,29 @@ class Tweet:
         return f"Tweet(u={self.userid}, t={self.timestamp}, c={self.content!r})"
 
 
-g = {"timestamp": 0}
 tweets: list[Tweet] = []
-followers: dict[int, set[int]] = {}
-user_tweets: dict[int, list[int]] = {}
-
-
-def _next_ts() -> int:
-    g["timestamp"] += 1
-    return g["timestamp"]
+followers = defaultdict[int, set[int]](set)
+user_tweets = defaultdict[int, list[int]](list)
 
 
 def follow(myid: int, to_follow_id: int) -> None:
-    followers.setdefault(myid, set()).add(to_follow_id)
+    followers[myid].add(to_follow_id)
 
 
 def unfollow(myid: int, to_unfollow_id: int) -> None:
-    if myid in followers:
-        followers[myid].discard(to_unfollow_id)
+    followers[myid].discard(to_unfollow_id)
 
 
 def follow_list(myid: int) -> list[int]:
-    return list(followers.get(myid, set()))
+    return list(followers[myid])
 
 
 def tweet(myid: int, content: str) -> int:
-    ts = _next_ts()
-    tw = Tweet(myid, content, ts)
-    tweets.append(tw)
-    user_tweets.setdefault(myid, []).append(len(tweets) - 1)
-    return len(tweets) - 1
+    tweet_id = len(tweets)
+    tweet = Tweet(myid, content, tweet_id)
+    tweets.append(tweet)
+    user_tweets[myid].append(tweet_id)
+    return tweet_id
 
 
 def users_tweets(userid: int) -> list[Tweet]:
@@ -65,7 +60,6 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
 
 
 def test_timeline_basic() -> None:
-    g["timestamp"] = 0
     tweets.clear()
     followers.clear()
     user_tweets.clear()
