@@ -7,13 +7,14 @@
 ###
 
 from collections import defaultdict
+from dataclasses import dataclass
 
 
+@dataclass
 class Tweet:
-    def __init__(self, userid: int, content: str, timestamp: int) -> None:
-        self.userid = userid
-        self.content = content
-        self.timestamp = timestamp
+    userid: int
+    content: str
+    timestamp: int
 
     def __repr__(self) -> str:
         return f"Tweet(u={self.userid}, t={self.timestamp}, c={self.content!r})"
