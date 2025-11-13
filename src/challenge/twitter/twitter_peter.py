@@ -57,7 +57,7 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
     return pool[:limit]
 
 
-def test_timeline_basic() -> None:
+def test_timeline_basic(*, verbose: bool = False) -> None:
     tweets.clear()
     followers.clear()
     user_tweets.clear()
@@ -76,7 +76,8 @@ def test_timeline_basic() -> None:
 
     # Timeline for user 1 (follows 2 and 3 + self)
     tl1 = timeline(1, limit=10)
-    print("Timeline(1):", [(t.userid, t.timestamp, t.content) for t in tl1])
+    if verbose:
+        print("Timeline(1):", [(t.userid, t.timestamp, t.content) for t in tl1])
     # Basic checks
     assert len(tl1) <= 10
     assert tl1 == sorted(tl1, key=lambda x: x.timestamp, reverse=True)
@@ -85,22 +86,27 @@ def test_timeline_basic() -> None:
     # Unfollow 3; timeline should exclude user 3 tweets
     unfollow(1, 3)
     tl1_after = timeline(1, limit=10)
-    print("Timeline(1) after unfollow(3):", [(t.userid, t.timestamp, t.content) for t in tl1_after])
+    if verbose:
+        msg = "Timeline(1) after unfollow(3):"
+        print(msg, [(t.userid, t.timestamp, t.content) for t in tl1_after])
     assert 3 not in {t.userid for t in tl1_after}
 
     # User 2 timeline (follows 3)
     tl2 = timeline(2, limit=5)
-    print("Timeline(2):", [(t.userid, t.timestamp, t.content) for t in tl2])
+    if verbose:
+        print("Timeline(2):", [(t.userid, t.timestamp, t.content) for t in tl2])
     assert {t.userid for t in tl2} <= {2, 3}
 
     # Edge: user with no follows and no tweets
     tl999 = timeline(999, limit=5)
-    print("Timeline(999) (no follows/tweets):", tl999)
+    if verbose:
+        print("Timeline(999) (no follows/tweets):", tl999)
     assert tl999 == []
 
     # Edge: limit smaller than available
     tl1_top3 = timeline(1, limit=3)
-    print("Timeline(1) top 3:", [(t.userid, t.timestamp, t.content) for t in tl1_top3])
+    if verbose:
+        print("Timeline(1) top 3:", [(t.userid, t.timestamp, t.content) for t in tl1_top3])
     assert len(tl1_top3) == min(3, len([t20, t21, t30, t31, t10]))
 
 
