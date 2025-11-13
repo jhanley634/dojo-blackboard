@@ -7,8 +7,7 @@
 ###
 
 
-# Globals / storage
-G_timestamp = 0
+g = {"timestamp": 0}
 tweets: list["Tweet"] = []
 followers: dict[int, set[int]] = {}
 user_tweets: dict[int, list[int]] = {}
@@ -25,9 +24,8 @@ class Tweet:
 
 
 def _next_ts() -> int:
-    global G_timestamp
-    G_timestamp += 1
-    return G_timestamp
+    g["timestamp"] += 1
+    return g["timestamp"]
 
 
 def follow(myid: int, to_follow_id: int) -> None:
@@ -67,12 +65,10 @@ def timeline(myid: int, limit: int = 10) -> list[Tweet]:
 
 
 def test_timeline_basic() -> None:
-    # reset globals (assumes the fixed implementation from earlier is in scope)
-    global G_timestamp, tweets, followers, user_tweets
-    G_timestamp = 0
-    tweets = []
-    followers = {}
-    user_tweets = {}
+    g["timestamp"] = 0
+    tweets.clear()
+    followers.clear()
+    user_tweets.clear()
 
     # Users: 1, 2, 3
     follow(1, 2)
