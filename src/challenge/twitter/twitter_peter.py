@@ -8,7 +8,7 @@
 
 from collections import defaultdict
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from operator import attrgetter
 
 
@@ -68,10 +68,10 @@ class Implementation:
     tweet: Callable[[int, str], int]
     follow: Callable[[int, int], None]
     unfollow: Callable[[int, int], None]
-    users_tweets: Callable[[int], list[Tweet]]
 
 
-def test_timeline_basic(*, verbose: bool = False) -> None:
+def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
+    init, tweet, follow, unfollow = asdict(impl).values()
     init()
 
     # Users: 1, 2, 3
@@ -123,4 +123,4 @@ def test_timeline_basic(*, verbose: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    test_timeline_basic()
+    test_timeline_basic(Implementation(init, tweet, follow, unfollow))
