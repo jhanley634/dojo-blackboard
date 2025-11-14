@@ -58,16 +58,19 @@ class TwitterTableUnitTest(unittest.TestCase):
 
     def test_create_tweet(self) -> None:
         init()
+
         with get_session() as sess:
-            mr_zero: UserId = 1
-            user = User(id=mr_zero)
+            alice: UserId = 0
+            user = User(id=alice)
             sess.add(user)
             sess.commit()
 
-            tweet_id = tweet(mr_zero, "Hello")
+            tweet_id = tweet(alice, "Hello from Alice")
             self.assertEqual(1, tweet_id)
 
-            result = sess.query(Tweet).filter_by(user_id=mr_zero, msg="Hello").first()
+            result = sess.query(Tweet).filter_by(user_id=alice).first()
             assert result
-            self.assertEqual(1, result.user_id)
-            self.assertEqual("Hello", result.msg)
+            self.assertEqual(0, result.user_id)
+            self.assertEqual("Hello from Alice", result.msg)
+
+        get_engine().pool.dispose()

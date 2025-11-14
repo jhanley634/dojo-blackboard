@@ -33,15 +33,20 @@ def workload() -> None:
 
 DB_FILE = Path("/tmp/twitter.db")
 
+_engine: list[Engine] = []
+
 
 def get_engine() -> Engine:
-    return create_engine(f"sqlite:///{DB_FILE}")
+    if not _engine:
+        _engine.append(
+            create_engine(f"sqlite:///{DB_FILE}", echo_pool=False),
+        )
+    return _engine[0]
 
 
 @contextmanager
 def get_session() -> Generator[Session]:  # pyright: ignore
     with sessionmaker(bind=get_engine())() as sess:
-        # assert isinstance(sess, Session)
         try:
             yield sess
         finally:
