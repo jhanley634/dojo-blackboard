@@ -1,8 +1,13 @@
 import unittest
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Engine, MetaData, Table
 
-from src.challenge.twitter.schema import Base, get_engine
+from challenge.twitter.schema import Base, Tweet, User, get_engine, get_session
+from challenge.twitter.twitter_table import init, tweet
+
+if TYPE_CHECKING:
+    from challenge.twitter.twitter_pete import UserId
 
 
 class TwitterSchemaTest(unittest.TestCase):
@@ -36,3 +41,33 @@ class TwitterSchemaTest(unittest.TestCase):
 
         self.assertIn("follower_id", [col.name for col in follower_table.columns])
         self.assertIn("followee_id", [col.name for col in follower_table.columns])
+
+
+class TwitterTableUnitTest(unittest.TestCase):
+
+    engine: Engine | None = None
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.engine = get_engine()
+        Base.metadata.create_all(cls.engine)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        Base.metadata.drop_all(cls.engine)
+
+    def test_create_tweet(self) -> None:
+        init()
+        with get_session() as sess:
+            mr_zero: UserId = 1
+            user = User(id=mr_zero)
+            sess.add(user)
+            sess.commit()
+
+            tweet_id = tweet(mr_zero, "Hello")
+            self.assertEqual(1, tweet_id)
+
+            result = sess.query(Tweet).filter_by(user_id=mr_zero, msg="Hello").first()
+            assert result
+            self.assertEqual(1, result.user_id)
+            self.assertEqual("Hello", result.msg)
