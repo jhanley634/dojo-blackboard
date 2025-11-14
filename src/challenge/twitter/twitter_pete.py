@@ -11,20 +11,23 @@ from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from operator import attrgetter
 
+UserId = int
+TweetId = int
+
 
 @dataclass
 class Tweet:
-    userid: int
+    userid: UserId
     content: str
-    timestamp: int
+    timestamp: TweetId
 
     def __repr__(self) -> str:
         return f"Tweet(u={self.userid}, t={self.timestamp}, c={self.content!r})"
 
 
 tweets: list[Tweet] = []
-user_tweets = defaultdict[int, list[int]](list)
-followers = defaultdict[int, set[int]](set)
+user_tweets = defaultdict[UserId, list[TweetId]](list)
+followers = defaultdict[UserId, set[UserId]](set)
 
 
 def init() -> None:
@@ -33,27 +36,27 @@ def init() -> None:
     user_tweets.clear()
 
 
-def tweet(myid: int, content: str) -> int:
-    tweet_id = len(tweets)
+def tweet(myid: UserId, content: str) -> int:
+    tweet_id: TweetId = len(tweets)
     tweet = Tweet(myid, content, tweet_id)
     tweets.append(tweet)
     user_tweets[myid].append(tweet_id)
     return tweet_id
 
 
-def follow(myid: int, to_follow_id: int) -> None:
+def follow(myid: UserId, to_follow_id: UserId) -> None:
     followers[myid].add(to_follow_id)
 
 
-def unfollow(myid: int, to_unfollow_id: int) -> None:
+def unfollow(myid: UserId, to_unfollow_id: UserId) -> None:
     followers[myid].discard(to_unfollow_id)
 
 
-def users_tweets(userid: int) -> list[Tweet]:
+def users_tweets(userid: UserId) -> list[Tweet]:
     return [tweets[i] for i in user_tweets[userid]]
 
 
-def timeline(myid: int, limit: int = 10) -> list[Tweet]:
+def timeline(myid: UserId, limit: int = 10) -> list[Tweet]:
     ids = followers[myid] | {myid}  # include own tweets
     pool: list[Tweet] = []
     for u in ids:
