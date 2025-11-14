@@ -1,4 +1,7 @@
+from operator import attrgetter
 from typing import cast
+
+from sqlalchemy.exc import IntegrityError
 
 from challenge.twitter.schema import Base, Follower, Tweet, User, get_engine, get_session
 from challenge.twitter.twitter_pete import Implementation, TweetId, UserId
@@ -24,22 +27,33 @@ def tweet(my_id: UserId, content: str) -> TweetId:
         return cast("int", tw.id)
 
 
-def follow(my_id: UserId, to_follow_id: UserId) -> None: ...
+def follow(my_id: UserId, to_follow_id: UserId) -> None:
+    with get_session() as sess:
+        try:
+            sess.add(Follower(follower_id=my_id, followee_id=to_follow_id))
+            sess.commit()
+        except IntegrityError:
+            # Already followed so there's nothing to do; follow() is idempotent.
+            sess.rollback()
 
 
-def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None: ...
+def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None:
+    with get_session() as sess:
+        sess.query(Follower).filter_by(follower_id=my_id, followee_id=to_unfollow_id).delete()
+        sess.commit()
 
 
 def users_tweets(my_id: UserId, limit: int = 10) -> list[Tweet]:
+    follow(my_id, my_id)  # I always follow my own posts.
     with get_session() as sess:
         q = (
-            sess.query(Follower)
-            .join(Tweet, Tweet.user_id == Follower.followee_id)
+            sess.query(Tweet)
+            .join(Follower, Follower.followee_id == Tweet.user_id)
             .filter(Follower.follower_id == my_id)
             .order_by(Tweet.id.desc())
             .limit(limit)
         )
-        return list(q.all())
+        return list(map(attrgetter("id"), q.all()))
 
 
 _impl = Implementation(init, tweet, follow, unfollow)

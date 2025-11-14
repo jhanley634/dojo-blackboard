@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Engine, MetaData, Table
 
 from challenge.twitter.schema import Base, Tweet, User, get_engine, get_session
-from challenge.twitter.twitter_table import init, tweet, users_tweets
+from challenge.twitter.twitter_table import follow, init, tweet, unfollow, users_tweets
 
 if TYPE_CHECKING:
     from challenge.twitter.twitter_pete import UserId
@@ -45,17 +45,6 @@ class TwitterSchemaTest(unittest.TestCase):
 
 class TwitterTableUnitTest(unittest.TestCase):
 
-    engine: Engine | None = None
-
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.engine = get_engine()
-        Base.metadata.create_all(cls.engine)
-
-    @classmethod
-    def tearDownClass(cls) -> None:
-        Base.metadata.drop_all(cls.engine)
-
     def test_create_tweet(self) -> None:
         init()
 
@@ -64,18 +53,31 @@ class TwitterTableUnitTest(unittest.TestCase):
             user = User(id=alice)
             sess.add(user)
             sess.commit()
+            self.assertEqual([], users_tweets(alice))
 
             tweet_id = tweet(alice, "Hello from Alice")
             self.assertEqual(1, tweet_id)
-
             result = sess.query(Tweet).filter_by(user_id=alice).first()
             assert result
             self.assertEqual(0, result.user_id)
             self.assertEqual("Hello from Alice", result.msg)
+            self.assertEqual([1], users_tweets(alice))
+            unfollow(alice, alice)  # You can try, but unfollowing yourself has no effect.
+            self.assertEqual([1], users_tweets(alice))
 
             bob: UserId = 1
             sess.add(User(id=bob))
             sess.commit()
             self.assertEqual([], users_tweets(bob))
 
+            follow(bob, alice)
+            self.assertEqual([1], users_tweets(bob))
+
+            unfollow(bob, alice)
+            unfollow(bob, alice)  # Idempotent; doesn't matter if we actually were following.
+            unfollow(bob, alice)
+            self.assertEqual([], users_tweets(bob))
+
+    @classmethod
+    def tearDownClass(cls) -> None:
         get_engine().pool.dispose()
