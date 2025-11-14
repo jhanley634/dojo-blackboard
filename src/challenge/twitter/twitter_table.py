@@ -32,9 +32,14 @@ def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None: ...
 
 def users_tweets(my_id: UserId, limit: int = 10) -> list[Tweet]:
     with get_session() as sess:
-        assert sess
-        assert my_id < limit
-    return []
+        q = (
+            sess.query(Follower)
+            .join(Tweet, Tweet.user_id == Follower.followee_id)
+            .filter(Follower.follower_id == my_id)
+            .order_by(Tweet.id.desc())
+            .limit(limit)
+        )
+        return list(q.all())
 
 
 _impl = Implementation(init, tweet, follow, unfollow)
