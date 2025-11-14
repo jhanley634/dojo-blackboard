@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Engine, MetaData, Table
 
 from challenge.twitter.schema import Base, Tweet, User, get_engine, get_session
-from challenge.twitter.twitter_table import init, tweet
+from challenge.twitter.twitter_table import init, tweet, users_tweets
 
 if TYPE_CHECKING:
     from challenge.twitter.twitter_pete import UserId
@@ -72,5 +72,10 @@ class TwitterTableUnitTest(unittest.TestCase):
             assert result
             self.assertEqual(0, result.user_id)
             self.assertEqual("Hello from Alice", result.msg)
+
+            bob: UserId = 1
+            sess.add(User(id=bob))
+            sess.commit()
+            self.assertEqual([], users_tweets(bob))
 
         get_engine().pool.dispose()

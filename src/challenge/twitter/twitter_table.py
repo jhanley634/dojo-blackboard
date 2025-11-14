@@ -24,10 +24,17 @@ def tweet(my_id: UserId, content: str) -> TweetId:
         return cast("int", tw.id)
 
 
-def follow(my_id: int, to_follow_id: int) -> None: ...
+def follow(my_id: UserId, to_follow_id: UserId) -> None: ...
 
 
-def unfollow(my_id: int, to_unfollow_id: int) -> None: ...
+def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None: ...
+
+
+def users_tweets(my_id: UserId, limit: int = 10) -> list[Tweet]:
+    with get_session() as sess:
+        assert sess
+        assert my_id < limit
+    return []
 
 
 _impl = Implementation(init, tweet, follow, unfollow)
