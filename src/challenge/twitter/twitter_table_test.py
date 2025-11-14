@@ -5,7 +5,7 @@ from sqlalchemy import Engine, MetaData, Table
 from src.challenge.twitter.schema import Base, get_engine
 
 
-class TwitterTest(unittest.TestCase):
+class TwitterSchemaTest(unittest.TestCase):
     engine: Engine | None = None
 
     @classmethod
