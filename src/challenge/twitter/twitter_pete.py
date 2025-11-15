@@ -24,7 +24,7 @@ class Tweet:
 
 
 tweets: list[Tweet] = []
-user_tweets = defaultdict[UserId, list[TweetId]](list)
+user_tweets: defaultdict[UserId, list[TweetId]] = defaultdict(list)
 followers = defaultdict[UserId, set[UserId]](set)
 
 
