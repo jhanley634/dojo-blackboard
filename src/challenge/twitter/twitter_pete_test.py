@@ -9,8 +9,14 @@ from challenge.twitter.twitter_pete import (
     test_timeline_basic,
     unfollow,
 )
+from challenge.twitter.workload import workload
+
+_impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
 
 
 class TwitterPeteTest(unittest.TestCase):
     def test_petes_code(self) -> None:
-        test_timeline_basic(Implementation(init, post_tweet, follow, unfollow, get_news_feed))
+        test_timeline_basic(_impl)
+
+    def test_pete_with_workload(self) -> None:
+        workload(_impl)

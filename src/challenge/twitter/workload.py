@@ -28,6 +28,8 @@ def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
     """Creates a thousand posts, and the associated following users."""
     impl.init()
     with get_session() as sess:
+        sess.query(User).delete()
+        sess.commit()
         for u in range(n_users):
             sess.add(User(id=u))
             for p in range(n_user_posts):
