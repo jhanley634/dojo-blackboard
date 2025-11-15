@@ -45,11 +45,10 @@ def workload(impl: Implementation) -> None:
     _create_posts(impl)
     # A thousand posts down; nine thousand to go...
     user_ids = rng.randint(0, n_users, size=(9_000, 2))
-    for p, (u, f) in tqdm(list(enumerate(user_ids)), leave=False, mininterval=2):
+    for p, (u, f) in enumerate(tqdm(user_ids, leave=False, mininterval=0.2)):
+        u, f = map(int, (u, f))
         impl.post_tweet(u, f"post {p}")
         fol_unfol = (impl.follow, impl.unfollow)[p % 2]
         fol_unfol(u, f)
         feed = impl.get_news_feed(u)
-        assert len(feed) in range(11)
-        d = max(feed) - min(feed)
-        print(" " * d, d, end="          \r", flush=True)
+        assert len(feed) in range(1, 11)
