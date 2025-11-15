@@ -77,7 +77,3 @@ class TwitterTableUnitTest(unittest.TestCase):
             unfollow(bob, alice)  # Idempotent; doesn't matter if we actually were following.
             unfollow(bob, alice)
             self.assertEqual([], get_news_feed(bob))
-
-    @classmethod
-    def tearDownClass(cls) -> None:
-        get_engine().pool.dispose()

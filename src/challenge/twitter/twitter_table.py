@@ -4,7 +4,7 @@ from typing import cast
 from sqlalchemy.exc import IntegrityError
 
 from challenge.twitter.schema import Base, Follower, Tweet, User, get_engine, get_session
-from challenge.twitter.twitter_pete import Implementation, TweetId, UserId
+from challenge.twitter.twitter_pete import TweetId, UserId
 
 
 def init() -> None:
@@ -43,10 +43,7 @@ def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None:
         sess.commit()
 
 
-limit = 10
-
-
-def get_news_feed(my_id: UserId) -> list[TweetId]:
+def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
     follow(my_id, my_id)  # I always follow my own posts.
     with get_session() as sess:
         q = (
@@ -57,6 +54,3 @@ def get_news_feed(my_id: UserId) -> list[TweetId]:
             .limit(limit)
         )
         return list(map(attrgetter("id"), q.all()))
-
-
-_impl = Implementation(init, tweet, follow, unfollow, get_news_feed)
