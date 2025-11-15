@@ -10,6 +10,10 @@ from challenge.twitter.schema import get_session
 UserId = int
 TweetId = int
 
+# These come from the original problem specification.
+valid_user_id_range = range(500)
+valid_tweet_id_range = range(1, 10_001)
+
 
 @dataclass
 class Implementation:

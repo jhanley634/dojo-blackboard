@@ -6,12 +6,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.query import Query
 
 from challenge.twitter.schema import Base, Follower, Tweet, User, get_engine, get_session
-from challenge.twitter.twitter_pete import TweetId, UserId
+from challenge.twitter.workload import TweetId, UserId, valid_tweet_id_range, valid_user_id_range
 
 
 def init(n_users: int = 500) -> None:
     """Ensures we have two empty tables."""
     # The original problem spec constrains us to 500 users max.
+    assert n_users - 1 in valid_user_id_range
 
     Base.metadata.create_all(get_engine())
     # Create a couple of covering indexes.
@@ -34,14 +35,21 @@ def init(n_users: int = 500) -> None:
 
 
 def post_tweet(my_id: UserId, content: str) -> TweetId:
+    assert my_id in valid_user_id_range
+
     with get_session() as sess:
         tw = Tweet(user_id=my_id, msg=content)
         sess.add(tw)
         sess.commit()
-        return cast("int", tw.id)
+        created_id = cast("int", tw.id)
+        assert created_id in valid_tweet_id_range
+        return created_id
 
 
 def follow(my_id: UserId, to_follow_id: UserId) -> None:
+    assert my_id in valid_user_id_range
+    assert to_follow_id in valid_user_id_range
+
     with get_session() as sess:
         try:
             sess.add(Follower(follower_id=my_id, followee_id=to_follow_id))
@@ -52,13 +60,19 @@ def follow(my_id: UserId, to_follow_id: UserId) -> None:
 
 
 def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None:
+    assert my_id in valid_user_id_range
+    assert to_unfollow_id in valid_user_id_range
+
     with get_session() as sess:
         sess.query(Follower).filter_by(follower_id=my_id, followee_id=to_unfollow_id).delete()
         sess.commit()
 
 
 def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
+    assert my_id in valid_user_id_range
+
     follow(my_id, my_id)  # I always follow my own posts.
+
     with get_session() as sess:
         q = (
             sess.query(Tweet.id)
