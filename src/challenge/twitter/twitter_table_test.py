@@ -51,6 +51,7 @@ class TwitterTableUnitTest(unittest.TestCase):
 
         with get_session() as sess:
             sess.query(User).delete()
+
             alice: UserId = 0
             user = User(id=alice)
             sess.add(user)
@@ -82,5 +83,7 @@ class TwitterTableUnitTest(unittest.TestCase):
 
     def test_workload(self) -> None:
         # This runs in ~ 9 seconds; each triple operation completes within 1 msec.
+        # Comparing against a :memory: instance, roughly a third of that time is
+        # spent in COMMIT waiting on an SSD write.
         impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
         workload(impl)
