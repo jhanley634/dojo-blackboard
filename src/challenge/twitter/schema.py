@@ -47,10 +47,8 @@ def get_engine() -> Engine:
 @contextmanager
 def get_session() -> Generator[Session]:  # pyright: ignore
     with sessionmaker(bind=get_engine())() as sess:
-        try:
-            yield sess
-        finally:
-            sess.commit()
+        yield sess
+        sess.commit()
 
 
 if __name__ == "__main__":
