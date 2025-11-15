@@ -57,12 +57,16 @@ def users_tweets(userid: UserId) -> list[Tweet]:
 
 
 def timeline(myid: UserId, limit: int = 10) -> list[Tweet]:
-    ids = followers[myid] | {myid}  # include own tweets
+    ids = followers[myid] | {myid}  # include our own tweets
     pool: list[Tweet] = []
     for u in ids:
         pool.extend(users_tweets(u)[-limit:])
     pool.sort(key=attrgetter("timestamp"), reverse=True)
     return pool[:limit]
+
+
+def get_news_feed(my_id: UserId) -> list[TweetId]:
+    return [tweet.timestamp for tweet in timeline(my_id)]
 
 
 @dataclass
@@ -71,10 +75,11 @@ class Implementation:
     post_tweet: Callable[[UserId, str], TweetId]
     follow: Callable[[UserId, UserId], None]
     unfollow: Callable[[UserId, UserId], None]
+    get_news_feed: Callable[[UserId], list[TweetId]]
 
 
 def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
-    init, tweet, follow, unfollow = asdict(impl).values()
+    init, tweet, follow, unfollow, _get_news_feed = asdict(impl).values()
     init()
 
     # Users: 1, 2, 3
@@ -126,4 +131,4 @@ def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    test_timeline_basic(Implementation(init, post_tweet, follow, unfollow))
+    test_timeline_basic(Implementation(init, post_tweet, follow, unfollow, get_news_feed))

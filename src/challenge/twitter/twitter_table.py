@@ -43,7 +43,10 @@ def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None:
         sess.commit()
 
 
-def users_tweets(my_id: UserId, limit: int = 10) -> list[Tweet]:
+limit = 10
+
+
+def get_news_feed(my_id: UserId) -> list[TweetId]:
     follow(my_id, my_id)  # I always follow my own posts.
     with get_session() as sess:
         q = (
@@ -56,4 +59,4 @@ def users_tweets(my_id: UserId, limit: int = 10) -> list[Tweet]:
         return list(map(attrgetter("id"), q.all()))
 
 
-_impl = Implementation(init, tweet, follow, unfollow)
+_impl = Implementation(init, tweet, follow, unfollow, get_news_feed)

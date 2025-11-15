@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Engine, MetaData, Table
 
 from challenge.twitter.schema import Base, Tweet, User, get_engine, get_session
-from challenge.twitter.twitter_table import follow, init, tweet, unfollow, users_tweets
+from challenge.twitter.twitter_table import follow, get_news_feed, init, tweet, unfollow
 
 if TYPE_CHECKING:
     from challenge.twitter.twitter_pete import UserId
@@ -53,7 +53,7 @@ class TwitterTableUnitTest(unittest.TestCase):
             user = User(id=alice)
             sess.add(user)
             sess.commit()
-            self.assertEqual([], users_tweets(alice))
+            self.assertEqual([], get_news_feed(alice))
 
             tweet_id = tweet(alice, "Hello from Alice")
             self.assertEqual(1, tweet_id)
@@ -61,22 +61,22 @@ class TwitterTableUnitTest(unittest.TestCase):
             assert result
             self.assertEqual(0, result.user_id)
             self.assertEqual("Hello from Alice", result.msg)
-            self.assertEqual([1], users_tweets(alice))
+            self.assertEqual([1], get_news_feed(alice))
             unfollow(alice, alice)  # You can try, but unfollowing yourself has no effect.
-            self.assertEqual([1], users_tweets(alice))
+            self.assertEqual([1], get_news_feed(alice))
 
             bob: UserId = 1
             sess.add(User(id=bob))
             sess.commit()
-            self.assertEqual([], users_tweets(bob))
+            self.assertEqual([], get_news_feed(bob))
 
             follow(bob, alice)
-            self.assertEqual([1], users_tweets(bob))
+            self.assertEqual([1], get_news_feed(bob))
 
             unfollow(bob, alice)
             unfollow(bob, alice)  # Idempotent; doesn't matter if we actually were following.
             unfollow(bob, alice)
-            self.assertEqual([], users_tweets(bob))
+            self.assertEqual([], get_news_feed(bob))
 
     @classmethod
     def tearDownClass(cls) -> None:
