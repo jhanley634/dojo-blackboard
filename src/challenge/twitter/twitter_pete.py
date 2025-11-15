@@ -36,7 +36,7 @@ def init() -> None:
     user_tweets.clear()
 
 
-def tweet(myid: UserId, content: str) -> int:
+def post_tweet(myid: UserId, content: str) -> int:
     tweet_id: TweetId = len(tweets)
     tweet = Tweet(myid, content, tweet_id)
     tweets.append(tweet)
@@ -126,4 +126,4 @@ def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    test_timeline_basic(Implementation(init, tweet, follow, unfollow))
+    test_timeline_basic(Implementation(init, post_tweet, follow, unfollow))
