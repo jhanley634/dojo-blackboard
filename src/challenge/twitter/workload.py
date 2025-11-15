@@ -46,7 +46,7 @@ def workload(impl: Implementation) -> None:
     user_ids = rng.randint(0, n_users, size=(9_000, 2))  # Some are duplicate, which is fine.
     for p, (u, f) in enumerate(tqdm(user_ids, leave=False, mininterval=0.2)):
         u, f = map(int, (u, f))
-        impl.post_tweet(u, f"post {p}")
+        impl.post_tweet(u, f"post {p + 1001}")
         fol_unfol = (impl.follow, impl.unfollow)[p % 2]
         fol_unfol(u, f)
         feed = impl.get_news_feed(u)

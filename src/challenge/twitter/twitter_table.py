@@ -1,7 +1,9 @@
 from operator import attrgetter
-from typing import cast
+from typing import Any, cast
 
+from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm.query import Query
 
 from challenge.twitter.schema import Base, Follower, Tweet, User, get_engine, get_session
 from challenge.twitter.twitter_pete import TweetId, UserId
@@ -12,8 +14,15 @@ def init(n_users: int = 500) -> None:
     # The original problem spec constrains us to 500 users max.
 
     Base.metadata.create_all(get_engine())
+    # Create a couple of covering indexes.
+    sql1 = "CREATE INDEX idx_tweet_user_id_id ON tweet (user_id, id DESC)"
+    sql2 = "CREATE INDEX idx_follower_follower_followee ON follower (follower_id, followee_id)"
 
     with get_session() as sess:
+        sess.execute(text("DROP INDEX  IF EXISTS  idx_tweet_user_id_id"))
+        sess.execute(text("DROP INDEX  IF EXISTS  idx_follower_follower_followee"))
+        sess.execute(text(sql1))
+        sess.execute(text(sql2))
         sess.query(Tweet).delete()
         sess.query(Follower).delete()
         sess.query(User).delete()
@@ -52,10 +61,19 @@ def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
     follow(my_id, my_id)  # I always follow my own posts.
     with get_session() as sess:
         q = (
-            sess.query(Tweet)
+            sess.query(Tweet.id)
             .join(Follower, Follower.followee_id == Tweet.user_id)
             .filter(Follower.follower_id == my_id)
-            .order_by(Tweet.id.desc())
+            # .order_by(Tweet.id.desc())
             .limit(limit)
         )
-        return list(map(attrgetter("id"), q.all()))
+        # _explain(q)
+        return sorted(map(attrgetter("id"), q.all()), reverse=True)
+
+
+def _explain(query: Query[Any]) -> None:
+    sql = str(query.statement.compile(compile_kwargs={"literal_binds": True}))
+    with get_engine().connect() as conn:
+        plan = conn.execute(text(f"EXPLAIN QUERY PLAN {sql}"))
+        for row in plan:
+            print(row)
