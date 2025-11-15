@@ -68,9 +68,9 @@ def timeline(myid: UserId, limit: int = 10) -> list[Tweet]:
 @dataclass
 class Implementation:
     init: Callable[[], None]
-    tweet: Callable[[int, str], int]
-    follow: Callable[[int, int], None]
-    unfollow: Callable[[int, int], None]
+    post_tweet: Callable[[UserId, str], TweetId]
+    follow: Callable[[UserId, UserId], None]
+    unfollow: Callable[[UserId, UserId], None]
 
 
 def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
