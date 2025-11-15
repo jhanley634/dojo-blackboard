@@ -4,7 +4,8 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Engine, MetaData, Table
 
 from challenge.twitter.schema import Base, Tweet, User, get_engine, get_session
-from challenge.twitter.twitter_table import follow, get_news_feed, init, tweet, unfollow
+from challenge.twitter.twitter_table import follow, get_news_feed, init, post_tweet, unfollow
+from challenge.twitter.workload import Implementation, workload
 
 if TYPE_CHECKING:
     from challenge.twitter.twitter_pete import UserId
@@ -55,7 +56,7 @@ class TwitterTableUnitTest(unittest.TestCase):
             sess.commit()
             self.assertEqual([], get_news_feed(alice))
 
-            tweet_id = tweet(alice, "Hello from Alice")
+            tweet_id = post_tweet(alice, "Hello from Alice")
             self.assertEqual(1, tweet_id)
             result = sess.query(Tweet).filter_by(user_id=alice).first()
             assert result
@@ -77,3 +78,7 @@ class TwitterTableUnitTest(unittest.TestCase):
             unfollow(bob, alice)  # Idempotent; doesn't matter if we actually were following.
             unfollow(bob, alice)
             self.assertEqual([], get_news_feed(bob))
+
+    def test_workload(self) -> None:
+        impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
+        workload(impl)

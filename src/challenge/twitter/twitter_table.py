@@ -19,7 +19,7 @@ def init() -> None:
         sess.commit()
 
 
-def tweet(my_id: UserId, content: str) -> TweetId:
+def post_tweet(my_id: UserId, content: str) -> TweetId:
     with get_session() as sess:
         tw = Tweet(user_id=my_id, msg=content)
         sess.add(tw)
