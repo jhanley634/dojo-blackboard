@@ -7,12 +7,10 @@
 ###
 
 from collections import defaultdict
-from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from operator import attrgetter
 
-UserId = int
-TweetId = int
+from challenge.twitter.workload import Implementation, TweetId, UserId
 
 
 @dataclass
@@ -36,7 +34,7 @@ def init() -> None:
     user_tweets.clear()
 
 
-def post_tweet(myid: UserId, content: str) -> int:
+def post_tweet(myid: UserId, content: str) -> TweetId:
     tweet_id: TweetId = len(tweets)
     tweet = Tweet(myid, content, tweet_id)
     tweets.append(tweet)
@@ -67,15 +65,6 @@ def timeline(myid: UserId, limit: int = 10) -> list[Tweet]:
 
 def get_news_feed(my_id: UserId) -> list[TweetId]:
     return [tweet.timestamp for tweet in timeline(my_id)]
-
-
-@dataclass
-class Implementation:
-    init: Callable[[], None]
-    post_tweet: Callable[[UserId, str], TweetId]
-    follow: Callable[[UserId, UserId], None]
-    unfollow: Callable[[UserId, UserId], None]
-    get_news_feed: Callable[[UserId], list[TweetId]]
 
 
 def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
