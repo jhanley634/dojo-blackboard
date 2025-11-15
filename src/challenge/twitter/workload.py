@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from tqdm import tqdm
+import numpy as np
 
 from challenge.twitter.schema import User, get_session
 
@@ -18,18 +18,22 @@ class Implementation:
     get_news_feed: Callable[[UserId], list[TweetId]]
 
 
-def _create_posts(impl: Implementation, n_users: int = 50, n_user_posts: int = 100) -> None:
-    """Creates ten thousand posts, and the associated following users."""
+def _create_posts(impl: Implementation, n_users: int = 50, n_user_posts: int = 20) -> None:
+    """Creates a thousand posts, and the associated following users."""
     impl.init()
-    print()
     with get_session() as sess:
-        for u in tqdm(range(n_users), leave=False):
+        for u in range(n_users):
             sess.add(User(id=u))
             for p in range(n_user_posts):
                 impl.post_tweet(u, f"post {p} from user # {u}")
+
+        n_follows = 20
+        rng = np.random.RandomState(seed=42)
+        user_ids = list(map(int, rng.randint(0, n_users, n_users * n_follows)))
         for u in range(n_users):
-            for f in range(max(u, 20)):
-                impl.follow(u, f)
+            for _ in range(n_follows):
+                impl.follow(u, user_ids.pop())
+
         sess.commit()
 
 
