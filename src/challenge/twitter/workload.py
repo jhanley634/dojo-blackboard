@@ -1,7 +1,9 @@
 from collections.abc import Callable
 from dataclasses import dataclass
+from itertools import product
 
 import numpy as np
+from tqdm import tqdm
 
 from challenge.twitter.schema import User, get_session
 
@@ -18,7 +20,11 @@ class Implementation:
     get_news_feed: Callable[[UserId], list[TweetId]]
 
 
-def _create_posts(impl: Implementation, n_users: int = 50, n_user_posts: int = 20) -> None:
+n_users = 50
+rng = np.random.RandomState(seed=42)
+
+
+def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
     """Creates a thousand posts, and the associated following users."""
     impl.init()
     with get_session() as sess:
@@ -28,14 +34,22 @@ def _create_posts(impl: Implementation, n_users: int = 50, n_user_posts: int = 2
                 impl.post_tweet(u, f"post {p} from user # {u}")
 
         n_follows = 20
-        rng = np.random.RandomState(seed=42)
         user_ids = list(map(int, rng.randint(0, n_users, n_users * n_follows)))
-        for u in range(n_users):
-            for _ in range(n_follows):
-                impl.follow(u, user_ids.pop())
+        for u, _ in product(range(n_users), range(n_follows)):
+            impl.follow(u, user_ids.pop())
 
         sess.commit()
 
 
 def workload(impl: Implementation) -> None:
     _create_posts(impl)
+    # A thousand posts down; nine thousand to go...
+    user_ids = rng.randint(0, n_users, size=(9_000, 2))
+    for p, (u, f) in tqdm(list(enumerate(user_ids)), leave=False, mininterval=2):
+        impl.post_tweet(u, f"post {p}")
+        fol_unfol = (impl.follow, impl.unfollow)[p % 2]
+        fol_unfol(u, f)
+        feed = impl.get_news_feed(u)
+        assert len(feed) in range(11)
+        d = max(feed) - min(feed)
+        print(" " * d, d, end="          \r", flush=True)
