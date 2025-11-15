@@ -7,15 +7,20 @@ from challenge.twitter.schema import Base, Follower, Tweet, User, get_engine, ge
 from challenge.twitter.twitter_pete import TweetId, UserId
 
 
-def init() -> None:
-    """Ensures we have three empty tables."""
+def init(n_users: int = 500) -> None:
+    """Ensures we have two empty tables."""
+    # The original problem spec constrains us to 500 users max.
 
     Base.metadata.create_all(get_engine())
 
     with get_session() as sess:
         sess.query(Tweet).delete()
-        sess.query(User).delete()
         sess.query(Follower).delete()
+        sess.query(User).delete()
+
+        for u in range(n_users):
+            sess.add(User(id=u))
+
         sess.commit()
 
 
@@ -32,7 +37,7 @@ def follow(my_id: UserId, to_follow_id: UserId) -> None:
         try:
             sess.add(Follower(follower_id=my_id, followee_id=to_follow_id))
             sess.commit()
-        except IntegrityError:
+        except IntegrityError:  # duplicate UNIQUE key
             # Already followed so there's nothing to do; follow() is idempotent.
             sess.rollback()
 

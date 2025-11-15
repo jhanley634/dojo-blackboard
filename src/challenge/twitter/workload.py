@@ -5,7 +5,7 @@ from itertools import product
 import numpy as np
 from tqdm import tqdm
 
-from challenge.twitter.schema import User, get_session
+from challenge.twitter.schema import get_session
 
 UserId = int
 TweetId = int
@@ -25,13 +25,10 @@ rng = np.random.RandomState(seed=42)
 
 
 def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
-    """Creates a thousand posts, and the associated following users."""
+    """Creates a thousand posts, and the associated 'following' users."""
     impl.init()
     with get_session() as sess:
-        sess.query(User).delete()
-        sess.commit()
         for u in range(n_users):
-            sess.add(User(id=u))
             for p in range(n_user_posts):
                 impl.post_tweet(u, f"post {p} from user # {u}")
 
@@ -46,7 +43,7 @@ def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
 def workload(impl: Implementation) -> None:
     _create_posts(impl)
     # A thousand posts down; nine thousand to go...
-    user_ids = rng.randint(0, n_users, size=(9_000, 2))
+    user_ids = rng.randint(0, n_users, size=(9_000, 2))  # Some are duplicate, which is fine.
     for p, (u, f) in enumerate(tqdm(user_ids, leave=False, mininterval=0.2)):
         u, f = map(int, (u, f))
         impl.post_tweet(u, f"post {p}")

@@ -50,6 +50,7 @@ class TwitterTableUnitTest(unittest.TestCase):
         init()
 
         with get_session() as sess:
+            sess.query(User).delete()
             alice: UserId = 0
             user = User(id=alice)
             sess.add(user)
@@ -80,5 +81,6 @@ class TwitterTableUnitTest(unittest.TestCase):
             self.assertEqual([], get_news_feed(bob))
 
     def test_workload(self) -> None:
+        # This runs in ~ 9 seconds; each triple operation completes within 1 msec.
         impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
         workload(impl)
