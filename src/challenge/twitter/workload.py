@@ -2,7 +2,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from itertools import product
 
-import numpy as np
+from numpy.random import RandomState
 from tqdm import tqdm
 
 from challenge.twitter.schema import get_session
@@ -25,10 +25,9 @@ class Implementation:
 
 
 n_users = 50
-rng = np.random.RandomState(seed=42)
 
 
-def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
+def _create_posts(impl: Implementation, rng: RandomState, n_user_posts: int = 20) -> None:
     """Creates a thousand posts, and the associated 'following' users."""
     impl.init()
     with get_session() as sess:
@@ -45,7 +44,8 @@ def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
 
 
 def workload(impl: Implementation) -> tuple[UserId, UserId, list[TweetId]]:
-    _create_posts(impl)
+    rng = RandomState(seed=42)
+    _create_posts(impl, rng)
     # A thousand posts down; nine thousand to go...
     u, f = 0, 0
     feed = []

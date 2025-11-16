@@ -88,11 +88,10 @@ class TwitterTableUnitTest(unittest.TestCase):
         impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
         u, f, feed = workload(impl)
 
-        self.assertEqual(4, u)
-        self.assertEqual(20, f)
+        self.assertEqual((20, 21), (u, f))
         self.assertEqual(
-            [10000, 9999, 9998, 9996, 9995, 9992, 9990, 9987, 9986, 9985],
+            [10000, 9999, 9998, 9995, 9994, 9993, 9992, 9991, 9989, 9987],
             feed,
         )
         delta = max(feed) - min(feed)
-        self.assertEqual(15, delta)
+        self.assertEqual(13, delta)

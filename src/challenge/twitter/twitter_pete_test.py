@@ -19,4 +19,10 @@ class TwitterPeteTest(unittest.TestCase):
 
     def test_pete_with_workload(self) -> None:
         # This runs in ~ 450 msec.
-        workload(_impl)
+        u, f, feed = workload(_impl)
+
+        self.assertEqual((20, 21), (u, f))
+        self.assertEqual(
+            [10000, 9999, 9998, 9995, 9994, 9993, 9992, 9991, 9989, 9987],
+            [t + 1 for t in feed],
+        )
