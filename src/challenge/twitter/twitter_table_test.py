@@ -86,4 +86,11 @@ class TwitterTableUnitTest(unittest.TestCase):
         # Comparing against a :memory: instance, roughly a third of that time is
         # spent in COMMIT waiting on an SSD write.
         impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
-        workload(impl)
+        u, f, feed = workload(impl)
+
+        print("\n", u, f, feed)
+        self.assertEqual(4, u)
+        self.assertEqual(20, f)
+        self.assertEqual([9889, 9857, 9796, 9766, 9734, 9723, 9711, 9674, 9647, 9576], feed)
+        delta = max(feed) - min(feed)
+        self.assertEqual(313, delta)

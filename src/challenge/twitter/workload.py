@@ -44,9 +44,11 @@ def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
         sess.commit()
 
 
-def workload(impl: Implementation) -> None:
+def workload(impl: Implementation) -> tuple[UserId, UserId, list[TweetId]]:
     _create_posts(impl)
     # A thousand posts down; nine thousand to go...
+    u, f = 0, 0
+    feed = []
     user_ids = rng.randint(0, n_users, size=(9_000, 2))  # Some are duplicate, which is fine.
     for p, (u, f) in enumerate(tqdm(user_ids, leave=False, mininterval=0.2)):
         u, f = map(int, (u, f))
@@ -55,3 +57,5 @@ def workload(impl: Implementation) -> None:
         fol_unfol(u, f)
         feed = impl.get_news_feed(u)
         assert len(feed) in range(1, 11)
+
+    return u, f, feed

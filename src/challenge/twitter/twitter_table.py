@@ -78,9 +78,10 @@ def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
             sess.query(Tweet.id)
             .join(Follower, Follower.followee_id == Tweet.user_id)
             .filter(Follower.follower_id == my_id)
-            # .order_by(Tweet.id.desc())
+            # .order_by(Tweet.id.desc())  # 'USE TEMP B-TREE FOR ORDER BY'
             .limit(limit)
         )
+        print("\n")
         # _explain(q)
         return sorted(map(attrgetter("id"), q.all()), reverse=True)
 
