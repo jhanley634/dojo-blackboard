@@ -2,7 +2,6 @@ from collections.abc import Generator
 from contextlib import contextmanager
 
 from pint import Quantity
-from pint import UnitRegistry as Unit
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
