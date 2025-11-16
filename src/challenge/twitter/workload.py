@@ -2,7 +2,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from itertools import product
 
-import numpy as np
+from numpy.random import RandomState
 from tqdm import tqdm
 
 from challenge.twitter.schema import get_session
@@ -25,10 +25,9 @@ class Implementation:
 
 
 n_users = 50
-rng = np.random.RandomState(seed=42)
 
 
-def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
+def _create_posts(impl: Implementation, rng: RandomState, n_user_posts: int = 20) -> None:
     """Creates a thousand posts, and the associated 'following' users."""
     impl.init()
     with get_session() as sess:
@@ -44,9 +43,12 @@ def _create_posts(impl: Implementation, n_user_posts: int = 20) -> None:
         sess.commit()
 
 
-def workload(impl: Implementation) -> None:
-    _create_posts(impl)
+def workload(impl: Implementation) -> tuple[UserId, UserId, list[TweetId]]:
+    rng = RandomState(seed=42)
+    _create_posts(impl, rng)
     # A thousand posts down; nine thousand to go...
+    u, f = 0, 0
+    feed = []
     user_ids = rng.randint(0, n_users, size=(9_000, 2))  # Some are duplicate, which is fine.
     for p, (u, f) in enumerate(tqdm(user_ids, leave=False, mininterval=0.2)):
         u, f = map(int, (u, f))
@@ -55,3 +57,8 @@ def workload(impl: Implementation) -> None:
         fol_unfol(u, f)
         feed = impl.get_news_feed(u)
         assert len(feed) in range(1, 11)
+
+    return u, f, feed
+
+
+expected_final_feed = [10000, 9999, 9998, 9995, 9994, 9993, 9992, 9991, 9989, 9987]

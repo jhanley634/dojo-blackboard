@@ -78,11 +78,10 @@ def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
             sess.query(Tweet.id)
             .join(Follower, Follower.followee_id == Tweet.user_id)
             .filter(Follower.follower_id == my_id)
-            # .order_by(Tweet.id.desc())
+            .order_by(Tweet.id.desc())
             .limit(limit)
         )
-        # _explain(q)
-        return sorted(map(attrgetter("id"), q.all()), reverse=True)
+        return list(map(attrgetter("id"), q.all()))
 
 
 def _explain(query: Query[Any]) -> None:

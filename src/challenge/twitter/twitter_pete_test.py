@@ -8,7 +8,7 @@ from challenge.twitter.twitter_pete import (
     tst_timeline_basic,
     unfollow,
 )
-from challenge.twitter.workload import Implementation, workload
+from challenge.twitter.workload import Implementation, expected_final_feed, workload
 
 _impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
 
@@ -19,4 +19,7 @@ class TwitterPeteTest(unittest.TestCase):
 
     def test_pete_with_workload(self) -> None:
         # This runs in ~ 450 msec.
-        workload(_impl)
+        u, f, feed = workload(_impl)
+
+        self.assertEqual((20, 21), (u, f))
+        self.assertEqual(expected_final_feed, [t + 1 for t in feed])
