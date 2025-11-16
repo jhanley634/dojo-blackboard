@@ -81,7 +81,7 @@ def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
             .order_by(Tweet.id.desc())
             .limit(limit)
         )
-        return sorted(map(attrgetter("id"), q.all()), reverse=True)
+        return list(map(attrgetter("id"), q.all()))
 
 
 def _explain(query: Query[Any]) -> None:
