@@ -5,7 +5,7 @@ from sqlalchemy import Engine, MetaData, Table
 
 from challenge.twitter.schema import Base, Tweet, User, get_engine, get_session
 from challenge.twitter.twitter_table import follow, get_news_feed, init, post_tweet, unfollow
-from challenge.twitter.workload import Implementation, workload
+from challenge.twitter.workload import Implementation, expected_final_feed, workload
 
 if TYPE_CHECKING:
     from challenge.twitter.twitter_pete import UserId
@@ -89,9 +89,6 @@ class TwitterTableUnitTest(unittest.TestCase):
         u, f, feed = workload(impl)
 
         self.assertEqual((20, 21), (u, f))
-        self.assertEqual(
-            [10000, 9999, 9998, 9995, 9994, 9993, 9992, 9991, 9989, 9987],
-            feed,
-        )
+        self.assertEqual(expected_final_feed, feed)
         delta = max(feed) - min(feed)
         self.assertEqual(13, delta)

@@ -8,7 +8,7 @@ from challenge.twitter.twitter_pete import (
     tst_timeline_basic,
     unfollow,
 )
-from challenge.twitter.workload import Implementation, workload
+from challenge.twitter.workload import Implementation, expected_final_feed, workload
 
 _impl = Implementation(init, post_tweet, follow, unfollow, get_news_feed)
 
@@ -22,7 +22,4 @@ class TwitterPeteTest(unittest.TestCase):
         u, f, feed = workload(_impl)
 
         self.assertEqual((20, 21), (u, f))
-        self.assertEqual(
-            [10000, 9999, 9998, 9995, 9994, 9993, 9992, 9991, 9989, 9987],
-            [t + 1 for t in feed],
-        )
+        self.assertEqual(expected_final_feed, [t + 1 for t in feed])

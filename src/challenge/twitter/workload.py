@@ -59,3 +59,6 @@ def workload(impl: Implementation) -> tuple[UserId, UserId, list[TweetId]]:
         assert len(feed) in range(1, 11)
 
     return u, f, feed
+
+
+expected_final_feed = [10000, 9999, 9998, 9995, 9994, 9993, 9992, 9991, 9989, 9987]
