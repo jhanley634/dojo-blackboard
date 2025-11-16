@@ -67,7 +67,7 @@ def get_news_feed(my_id: UserId) -> list[TweetId]:
     return [tweet.timestamp for tweet in timeline(my_id)]
 
 
-def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
+def tst_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
     init, tweet, follow, unfollow, _get_news_feed = asdict(impl).values()
     init()
 
@@ -120,4 +120,4 @@ def test_timeline_basic(impl: Implementation, *, verbose: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    test_timeline_basic(Implementation(init, post_tweet, follow, unfollow, get_news_feed))
+    tst_timeline_basic(Implementation(init, post_tweet, follow, unfollow, get_news_feed))
