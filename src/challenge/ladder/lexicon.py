@@ -13,5 +13,5 @@ def get_lexicon() -> set[str]:
     url = f"{repo}/a6b70b6/ubuntu-wordlist.txt"
     resp = session.get(url)
     resp.raise_for_status()
-    words = resp.text.rstrip().split("\n")
+    words = resp.text.lower().rstrip().split("\n")
     return set(words)

@@ -21,7 +21,6 @@ assert 26 == len(ascii_lowercase)
 def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]:
     if start_word == target:
         return [start_word]
-
     if target not in lexicon:
         return []  # It's impossible to reach a non-existent word.
 
