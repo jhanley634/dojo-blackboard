@@ -16,14 +16,17 @@ def init(n_users: int = 500) -> None:
 
     Base.metadata.create_all(get_engine())
     # Create a couple of covering indexes.
-    sql1 = "CREATE INDEX idx_tweet_user_id_id ON tweet (user_id, id DESC)"
+    sql1 = "CREATE INDEX idx_tweet_user_id_id           ON tweet (user_id, id DESC)"
     sql2 = "CREATE INDEX idx_follower_follower_followee ON follower (follower_id, followee_id)"
+    sql3 = "CREATE INDEX idx_user_recent_post_id        ON user (recent_post DESC, id)"
 
     with get_session() as sess:
         sess.execute(text("DROP INDEX  IF EXISTS  idx_tweet_user_id_id"))
         sess.execute(text("DROP INDEX  IF EXISTS  idx_follower_follower_followee"))
+        sess.execute(text("DROP INDEX  IF EXISTS  idx_user_recent_post_id"))
         sess.execute(text(sql1))
         sess.execute(text(sql2))
+        sess.execute(text(sql3))
         sess.query(Tweet).delete()
         sess.query(Follower).delete()
         sess.query(User).delete()
@@ -40,6 +43,11 @@ def post_tweet(my_id: UserId, content: str) -> TweetId:
     with get_session() as sess:
         tw = Tweet(user_id=my_id, msg=content)
         sess.add(tw)
+
+        user = sess.query(User).filter_by(id=my_id).one_or_none()
+        assert user
+        user.recent_post = tw.id
+
         sess.commit()
         created_id = cast("int", tw.id)
         assert created_id in valid_tweet_id_range
@@ -68,7 +76,7 @@ def unfollow(my_id: UserId, to_unfollow_id: UserId) -> None:
         sess.commit()
 
 
-def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
+def simple_get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
     assert my_id in valid_user_id_range
 
     follow(my_id, my_id)  # I always follow my own posts.
@@ -78,6 +86,36 @@ def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
             sess.query(Tweet.id)
             .join(Follower, Follower.followee_id == Tweet.user_id)
             .filter(Follower.follower_id == my_id)
+            .order_by(Tweet.id.desc())
+            .limit(limit)
+        )
+        return list(map(attrgetter("id"), q.all()))
+
+
+def get_news_feed(my_id: UserId, limit: int = 10) -> list[TweetId]:
+    assert my_id in valid_user_id_range
+
+    follow(my_id, my_id)  # I always follow my own posts.
+
+    with get_session() as sess:
+
+        # Imagine that `my_id` follows many hundreds of users,
+        # and some of those users have not posted for years.
+        # This subquery lets us ignore the idle ones.
+        # It identifies the ten users who could possibly
+        # appear in the final result set.
+
+        followees_subq = (
+            sess.query(User.id)
+            .join(Follower, Follower.followee_id == User.id)
+            .filter(Follower.follower_id == my_id)
+            .order_by(User.recent_post.desc())
+            .limit(limit)
+            .subquery()
+        )
+        q = (
+            sess.query(Tweet.id)
+            .join(followees_subq, followees_subq.c.id == Tweet.user_id)
             .order_by(Tweet.id.desc())
             .limit(limit)
         )
