@@ -1,11 +1,11 @@
 """
 Challenge: Write a program to find the shortest path to change one
-word into another. It takes a word_list, a start_word and a
-target_word. From the start_word each "turn" you can change just one
-letter of the word to form another word. The new word must be a valid
-word in the word_list. Find the shortest list of words that takes you
-from the start_word to the target_word. Return the list of words, or
-[] if there is no way to change the start_word into the target_word.
+word into another. It takes a word_list, a start_word and a target_word.
+From the start_word each "turn" you can change just one letter of the
+word to form another word. The new word must be a valid word in the
+word_list. Find the shortest list of words that takes you from the
+start_word to the target_word. Return the list of words, or [] if
+there is no way to change the start_word into the target_word.
 
 Example: find_word_path(start_word="hit", target_word="cog", word_list=dictionary)
  ->  ["hit", "hot","dot","dog","lot","log","cog"]
