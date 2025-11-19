@@ -9,7 +9,7 @@ class WordLadderTest(unittest.TestCase):
     def test_get_lexicon(self) -> None:
         self.assertEqual(45_402, len(get_lexicon()))
 
-    def test_find_path(self) -> None:
+    def test_find_path_3(self) -> None:
         small_lexicon = {"hit", "hot", "dot", "dog", "lot", "log", "cog"}
         self.assertEqual(
             ["hit", "hot", "dot", "dog", "cog"],
@@ -18,4 +18,25 @@ class WordLadderTest(unittest.TestCase):
         self.assertEqual(
             ["hit", "hot", "cot", "cog"],
             find_word_path("hit", "cog", get_lexicon()),
+        )
+
+    def test_find_path_5(self) -> None:
+        self.assertEqual(
+            [
+                "horse",
+                "house",
+                "louse",
+                "loose",
+                "noose",
+                "noise",
+                "poise",
+                "posse",
+                "passe",
+                "paste",
+                "pasts",
+                "pacts",
+                "paces",
+                "races",
+            ],
+            find_word_path("horse", "races", get_lexicon()),
         )
