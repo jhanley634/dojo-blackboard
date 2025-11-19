@@ -11,6 +11,7 @@ Base = declarative_base()
 class User(Base):  # type: ignore
     __tablename__ = "user"
     id = Column(Integer, primary_key=True)
+    recent_post = Column(Integer)
 
 
 class Tweet(Base):  # type: ignore
