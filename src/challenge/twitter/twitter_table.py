@@ -32,7 +32,7 @@ def init(n_users: int = 500) -> None:
         sess.query(User).delete()
 
         for u in range(n_users):
-            sess.add(User(id=u))
+            sess.add(User(id=u, recent_post=0))
 
         sess.commit()
 
