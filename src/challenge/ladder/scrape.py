@@ -1,6 +1,5 @@
 import re
 from collections.abc import Generator
-from pprint import pp
 
 from bs4 import BeautifulSoup
 
@@ -23,9 +22,4 @@ def scrape_long_ladders() -> Generator[list[str]]:
             ready = True
             continue
         if ready and "row" in row.get("class"):
-            ladder = arrow.split(row.text.lower())
-            yield (ladder)
-
-
-if __name__ == "__main__":
-    pp(list(scrape_long_ladders()))
+            yield arrow.split(row.text.lower())  # gives a ladder from the blog page
