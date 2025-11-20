@@ -3,6 +3,7 @@ import unittest
 
 from challenge.ladder.anagram import find_anagrams, lexicon
 from challenge.ladder.lexicon import get_lexicon
+from challenge.ladder.scrape import scrape_long_ladders
 from challenge.ladder.word_ladder import find_word_path
 
 
@@ -97,3 +98,13 @@ class WordLadderTest(unittest.TestCase):
         path = find_word_path("atlases", "cabaret", lexicon)
         self.assertEqual(33, len(path))
         self.assertEqual(expected.split(), path)
+
+    def test_scrape_long_ladders(self, *, verbose: bool = False) -> None:
+        for ladder in scrape_long_ladders():
+            start, target = ladder[0], ladder[-1]
+            path = find_word_path(start, target, lexicon)
+            if verbose:
+                print("\n", len(ladder), len(path), start, target)
+            self.assertLessEqual(len(path), len(ladder))
+            if len(ladder) == len(path):
+                self.assertEqual(ladder, path)
