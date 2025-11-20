@@ -12,7 +12,6 @@ Example: find_word_path(start_word="hit", target_word="cog", word_list=dictionar
 ControlAltPete
 """
 
-from collections import deque
 from string import ascii_lowercase
 
 import networkx as nx
@@ -27,23 +26,19 @@ def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]
     if target not in lexicon:
         return []  # It's impossible to reach a non-existent word.
 
-    lexicon = lexicon.copy()
-    queue = deque([(start_word, [start_word])])
+    desired_length = len(target)
+    lexicon = {word for word in lexicon if len(word) == desired_length}
 
-    while queue:
-        current_word, path = queue.popleft()
+    g = nx.Graph()  # a bipartite graph, from words like "cat" to wildcards like "c.t"
+    for word in lexicon:
+        w = bytearray(word, "utf8")
+        for i in range(len(word)):
+            w[i] = ord(".")  # a Kleene regex wildcard character
+            g.add_edge(word, w.decode())
+            w[i] = ord(word[i])
 
-        for i in range(len(current_word)):
-            # Try changing each letter of the current word to every other letter.
-            for c in ascii_lowercase:
-                next_word = current_word[:i] + c + current_word[i + 1 :]
-
-                if next_word == target:
-                    return [*path, next_word]
-
-                # Only continue with valid words that haven't been visited yet.
-                if next_word in lexicon:
-                    lexicon.remove(next_word)  # Mark that word as visited.
-                    queue.append((next_word, [*path, next_word]))
-
-    return []  # There's no solution.
+    try:
+        path = nx.shortest_path(g, source=start_word, target=target, method="bellman-ford")
+        return [word for word in path if "." not in word]  # Elide the wildcards.
+    except nx.NetworkXNoPath:
+        return []

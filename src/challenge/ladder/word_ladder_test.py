@@ -38,7 +38,7 @@ class WordLadderTest(unittest.TestCase):
                 "parke",
                 "parks",
                 "packs",
-                "racks",
+                "paces",
                 "races",
             ],
             find_word_path("horse", "races", lexicon),
