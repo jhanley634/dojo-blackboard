@@ -1,3 +1,4 @@
+import re
 import unittest
 
 from challenge.ladder.anagram import find_anagrams, lexicon
@@ -7,8 +8,20 @@ from challenge.ladder.word_ladder import find_word_path
 
 class WordLadderTest(unittest.TestCase):
 
-    def test_get_lexicon(self) -> None:
+    def test_get_lexicon(self, *, verbose: bool = False) -> None:
+
         self.assertEqual(178_691, len(get_lexicon()))
+
+        cnt = dict.fromkeys(range(2, 16), 0)
+        alpha_re = re.compile("^[a-z]+$")
+        for word in get_lexicon():
+            cnt[len(word)] += 1
+            assert alpha_re.search(word), word
+
+        if verbose:
+            print()
+            for k, v in cnt.items():
+                print(f" {v:6,} words of length {k:2}")
 
     def test_anagram(self) -> None:
         self.assertEqual(
