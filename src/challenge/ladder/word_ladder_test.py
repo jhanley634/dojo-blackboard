@@ -8,7 +8,7 @@ from challenge.ladder.word_ladder import find_word_path
 class WordLadderTest(unittest.TestCase):
 
     def test_get_lexicon(self) -> None:
-        self.assertEqual(45_353, len(get_lexicon()))
+        self.assertEqual(178_691, len(get_lexicon()))
 
     def test_anagram(self) -> None:
         self.assertEqual(
@@ -24,7 +24,7 @@ class WordLadderTest(unittest.TestCase):
             find_word_path("hit", "cog", small_lexicon),
         )
         self.assertEqual(
-            ["hit", "hot", "cot", "cog"],
+            ["hit", "hot", "hog", "cog"],
             find_word_path("hit", "cog", lexicon),
         )
 
@@ -32,7 +32,7 @@ class WordLadderTest(unittest.TestCase):
         self.assertEqual(
             [
                 "cold",
-                "cord",
+                "wold",
                 "word",
                 "worm",
                 "warm",
@@ -44,14 +44,12 @@ class WordLadderTest(unittest.TestCase):
         self.assertEqual(
             [
                 "horse",
-                "norse",
-                "nurse",
-                "purse",
-                "parse",
-                "parke",
-                "parks",
-                "packs",
-                "paces",
+                "corse",
+                "carse",
+                "carle",
+                "carls",
+                "cares",
+                "rares",
                 "races",
             ],
             find_word_path("horse", "races", lexicon),
@@ -61,18 +59,15 @@ class WordLadderTest(unittest.TestCase):
         self.assertEqual(
             [
                 "small",
-                "stall",
-                "stale",
-                "stave",
-                "steve",
-                "sieve",
-                "siege",
-                "singe",
-                "since",
-                "vince",
-                "vance",
-                "lance",
-                "lange",
+                "shall",
+                "shill",
+                "shiel",
+                "shied",
+                "shred",
+                "sired",
+                "siree",
+                "saree",
+                "sarge",
                 "large",
             ],
             find_word_path("small", "large", lexicon),
@@ -83,9 +78,8 @@ class WordLadderTest(unittest.TestCase):
             [
                 "listen",
                 "lister",
-                "litter",
-                "bitter",
-                "batter",
+                "laster",
+                "baster",
                 "barter",
                 "barber",
             ],
