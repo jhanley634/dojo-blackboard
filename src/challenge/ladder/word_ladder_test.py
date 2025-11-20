@@ -28,6 +28,18 @@ class WordLadderTest(unittest.TestCase):
             find_word_path("hit", "cog", lexicon),
         )
 
+    def test_find_path_4(self) -> None:
+        self.assertEqual(
+            [
+                "cold",
+                "cord",
+                "word",
+                "worm",
+                "warm",
+            ],
+            find_word_path("cold", "warm", lexicon),
+        )
+
     def test_find_path_5a(self) -> None:
         self.assertEqual(
             [
