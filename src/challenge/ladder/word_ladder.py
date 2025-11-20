@@ -30,11 +30,12 @@ def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]
     lexicon = {word for word in lexicon if len(word) == desired_length}
 
     g = nx.Graph()  # a bipartite graph, from words like "cat" to wildcards like "c.t"
-    for word in lexicon:
+    for word in sorted(lexicon):
         w = bytearray(word, "utf8")
         for i in range(len(word)):
             w[i] = ord(".")  # a Kleene regex wildcard character
-            g.add_edge(word, w.decode())
+            wildcard = w.decode()
+            g.add_edge(word, wildcard)
             w[i] = ord(word[i])
 
     try:
