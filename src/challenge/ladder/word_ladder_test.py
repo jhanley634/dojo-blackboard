@@ -15,6 +15,7 @@ class WordLadderTest(unittest.TestCase):
             ["caller", "cellar", "recall"],
             find_anagrams("recall"),
         )
+        self.assertEqual([], find_anagrams("does not exist"))
 
     def test_find_path_3(self) -> None:
         small_lexicon = {"hit", "hot", "dot", "dog", "lot", "log", "cog"}
@@ -27,7 +28,7 @@ class WordLadderTest(unittest.TestCase):
             find_word_path("hit", "cog", lexicon),
         )
 
-    def test_find_path_5(self) -> None:
+    def test_find_path_5a(self) -> None:
         self.assertEqual(
             [
                 "horse",
@@ -42,6 +43,27 @@ class WordLadderTest(unittest.TestCase):
                 "races",
             ],
             find_word_path("horse", "races", lexicon),
+        )
+
+    def test_find_path_5b(self) -> None:
+        self.assertEqual(
+            [
+                "small",
+                "stall",
+                "stale",
+                "stave",
+                "steve",
+                "sieve",
+                "siege",
+                "singe",
+                "since",
+                "vince",
+                "vance",
+                "lance",
+                "lange",
+                "large",
+            ],
+            find_word_path("small", "large", lexicon),
         )
 
     def test_find_path_6(self) -> None:

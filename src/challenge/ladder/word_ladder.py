@@ -16,7 +16,6 @@ from string import ascii_lowercase
 
 import networkx as nx
 
-assert nx
 assert 26 == len(ascii_lowercase)
 
 
@@ -39,7 +38,7 @@ def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]
             w[i] = ord(word[i])
 
     try:
-        path = nx.shortest_path(g, source=start_word, target=target, method="bellman-ford")
+        path = nx.shortest_path(g, source=start_word, target=target)
         return [word for word in path if "." not in word]  # Elide the wildcards.
     except nx.NetworkXNoPath:
         return []
