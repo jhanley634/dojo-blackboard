@@ -98,3 +98,16 @@ class WordLadderTest(unittest.TestCase):
             ],
             find_word_path("listen", "barber", lexicon),
         )
+
+    def test_find_path_7(self) -> None:
+        expected = (
+            "atlases anlases anlaces unlaces unlades unladed unfaded unfaked uncaked uncased"
+            " uncases uneases ureases creases cresses tresses trasses brasses brashes brasher"
+            " brasier brakier beakier peakier peckier pickier dickier dickies hickies hackies"
+            " hackles heckles deckles deciles defiles defiled deviled develed reveled raveled"
+            " ravened havened havered wavered watered catered capered tapered tabered tabored"
+            " taboret tabaret cabaret"
+        )
+        path = find_word_path("atlases", "cabaret", lexicon)
+        self.assertEqual(53, len(path))
+        self.assertEqual(expected.split(), path)

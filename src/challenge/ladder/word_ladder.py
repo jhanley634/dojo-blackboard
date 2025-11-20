@@ -27,7 +27,7 @@ def tic() -> None:
     t0[0] = time()
 
 
-def toc(thresh: float = 0.001) -> float:
+def toc(thresh: float = 0.005) -> float:
     elapsed = time() - t0[0]
     if elapsed > thresh:
         print(f" {elapsed:.6f} seconds")
@@ -48,6 +48,8 @@ def find_word_path(
 
     desired_length = len(target)
     lexicon = {word for word in lexicon if len(word) == desired_length}
+    if verbose:
+        print("\n", desired_length, len(lexicon))
 
     g = Graph()  # a bipartite graph, from words like "cat" to wildcards like "c.t"
     for word in sorted(lexicon):
@@ -64,7 +66,7 @@ def find_word_path(
     try:
         tic()
         path = shortest_path(g, source=start_word, target=target)
-        toc()  # We observe sub-millisecond performance.
+        toc()  # We typically observe sub-millisecond performance.
         return [word for word in path if "." not in word]  # Elide the wildcards.
     except NetworkXNoPath:
         return []
