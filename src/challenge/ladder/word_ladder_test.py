@@ -10,7 +10,7 @@ class WordLadderTest(unittest.TestCase):
 
     def test_get_lexicon(self, *, verbose: bool = False) -> None:
 
-        self.assertEqual(178_691, len(get_lexicon()))
+        self.assertEqual(267_752, len(get_lexicon()))
 
         cnt = dict.fromkeys(range(2, 16), 0)
         alpha_re = re.compile("^[a-z]+$")
@@ -46,8 +46,8 @@ class WordLadderTest(unittest.TestCase):
             [
                 "cold",
                 "wold",
-                "word",
-                "worm",
+                "wald",
+                "ward",
                 "warm",
             ],
             find_word_path("cold", "warm", lexicon),
@@ -70,19 +70,7 @@ class WordLadderTest(unittest.TestCase):
 
     def test_find_path_5b(self) -> None:
         self.assertEqual(
-            [
-                "small",
-                "shall",
-                "shill",
-                "shiel",
-                "shied",
-                "shred",
-                "sired",
-                "siree",
-                "saree",
-                "sarge",
-                "large",
-            ],
+            ["small", "scall", "scale", "scare", "seare", "serre", "serge", "sarge", "large"],
             find_word_path("small", "large", lexicon),
         )
 
@@ -101,13 +89,11 @@ class WordLadderTest(unittest.TestCase):
 
     def test_find_path_7(self) -> None:
         expected = (
-            "atlases anlases anlaces unlaces unlades unladed unfaded unfaked uncaked uncased"
-            " uncases uneases ureases creases cresses tresses trasses brasses brashes brasher"
-            " brasier brakier beakier peakier peckier pickier dickier dickies hickies hackies"
-            " hackles heckles deckles deciles defiles defiled deviled develed reveled raveled"
-            " ravened havened havered wavered watered catered capered tapered tabered tabored"
-            " taboret tabaret cabaret"
+            "atlases anlases anlaces unlaces UNLADES unladed unfaded unfamed untamed untimed"
+            " unlimed unlined unlines undines ondines ondings endings enrings earings eatings"
+            " ratings ratines ravines ravined ravened havened havered tavered tabered tabored"
+            " taboret tabaret cabaret".lower()
         )
         path = find_word_path("atlases", "cabaret", lexicon)
-        self.assertEqual(53, len(path))
+        self.assertEqual(33, len(path))
         self.assertEqual(expected.split(), path)
