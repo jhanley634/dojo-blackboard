@@ -15,6 +15,9 @@ ControlAltPete
 from collections import deque
 from string import ascii_lowercase
 
+import networkx as nx
+
+assert nx
 assert 26 == len(ascii_lowercase)
 
 

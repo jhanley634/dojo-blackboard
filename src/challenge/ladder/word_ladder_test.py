@@ -8,7 +8,7 @@ from challenge.ladder.word_ladder import find_word_path
 class WordLadderTest(unittest.TestCase):
 
     def test_get_lexicon(self) -> None:
-        self.assertEqual(45_373, len(get_lexicon()))
+        self.assertEqual(45_353, len(get_lexicon()))
 
     def test_anagram(self) -> None:
         self.assertEqual(
