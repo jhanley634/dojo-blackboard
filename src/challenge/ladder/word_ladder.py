@@ -13,10 +13,24 @@ ControlAltPete
 """
 
 from string import ascii_lowercase
+from time import time
 
 import networkx as nx
 
 assert 26 == len(ascii_lowercase)
+
+t0 = [0.0]
+
+
+def tic() -> None:
+    t0[0] = time()
+
+
+def toc(thresh: float = 0.001) -> float:
+    elapsed = time() - t0[0]
+    if elapsed > thresh:
+        print(f" {elapsed:.6f} seconds")
+    return elapsed
 
 
 def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]:
@@ -38,7 +52,9 @@ def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]
             w[i] = ord(word[i])
 
     try:
+        tic()
         path = nx.shortest_path(g, source=start_word, target=target)
+        toc()  # We observe sub-millisecond performance.
         return [word for word in path if "." not in word]  # Elide the wildcards.
     except nx.NetworkXNoPath:
         return []
