@@ -44,28 +44,13 @@ class WordLadderTest(unittest.TestCase):
 
     def test_find_path_4(self) -> None:
         self.assertEqual(
-            [
-                "cold",
-                "wold",
-                "wald",
-                "ward",
-                "warm",
-            ],
+            ["cold", "wold", "wald", "ward", "warm"],
             find_word_path("cold", "warm", lexicon),
         )
 
     def test_find_path_5a(self) -> None:
         self.assertEqual(
-            [
-                "horse",
-                "corse",
-                "carse",
-                "carle",
-                "carls",
-                "cares",
-                "rares",
-                "races",
-            ],
+            ["horse", "corse", "carse", "carle", "carls", "cares", "rares", "races"],
             find_word_path("horse", "races", lexicon),
         )
 
@@ -75,18 +60,20 @@ class WordLadderTest(unittest.TestCase):
             find_word_path("small", "large", lexicon),
         )
 
-    def test_find_path_6(self) -> None:
+    def test_find_path_6a(self) -> None:
         self.assertEqual(
-            [
-                "listen",
-                "lister",
-                "laster",
-                "baster",
-                "barter",
-                "barber",
-            ],
+            ["listen", "lister", "laster", "baster", "barter", "barber"],
             find_word_path("listen", "barber", lexicon),
         )
+
+    def test_find_path_6b(self) -> None:
+        expected = (
+            "charge change changs chanks cranks cranes crates coates contes conies"
+            " conins coning coming homing hominy homily homely comely comedy comedo"
+        )
+        path = find_word_path("charge", "comedo", lexicon)
+        self.assertEqual(20, len(path))
+        self.assertEqual(expected.split(), path)
 
     def test_find_path_7(self) -> None:
         expected = (
