@@ -12,10 +12,11 @@ Example: find_word_path(start_word="hit", target_word="cog", word_list=dictionar
 ControlAltPete
 """
 
+from pprint import pp
 from string import ascii_lowercase
 from time import time
 
-import networkx as nx
+from networkx import Graph, NetworkXNoPath, shortest_path
 
 assert 26 == len(ascii_lowercase)
 
@@ -33,7 +34,13 @@ def toc(thresh: float = 0.001) -> float:
     return elapsed
 
 
-def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]:
+def find_word_path(
+    start_word: str,
+    target: str,
+    lexicon: set[str],
+    *,
+    verbose: bool = False,
+) -> list[str]:
     if start_word == target:
         return [start_word]
     if target not in lexicon:
@@ -42,7 +49,7 @@ def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]
     desired_length = len(target)
     lexicon = {word for word in lexicon if len(word) == desired_length}
 
-    g = nx.Graph()  # a bipartite graph, from words like "cat" to wildcards like "c.t"
+    g = Graph()  # a bipartite graph, from words like "cat" to wildcards like "c.t"
     for word in sorted(lexicon):
         w = bytearray(word, "utf8")
         for i in range(len(word)):
@@ -51,10 +58,24 @@ def find_word_path(start_word: str, target: str, lexicon: set[str]) -> list[str]
             g.add_edge(word, wildcard)
             w[i] = ord(word[i])
 
+    if verbose:
+        _display_graph_details(g)
+
     try:
         tic()
-        path = nx.shortest_path(g, source=start_word, target=target)
+        path = shortest_path(g, source=start_word, target=target)
         toc()  # We observe sub-millisecond performance.
         return [word for word in path if "." not in word]  # Elide the wildcards.
-    except nx.NetworkXNoPath:
+    except NetworkXNoPath:
         return []
+
+
+def _display_graph_details(g: Graph) -> None:
+    print("\n", g.number_of_edges(), "edges, and", g.number_of_nodes(), "nodes")
+    details = []
+    degree = g.degree
+    assert not isinstance(degree, int)
+    for word, d in degree:
+        if "." in word and d > 5:
+            details.append((d, word, "  ".join(g.neighbors(word))))
+    pp(sorted(details))
