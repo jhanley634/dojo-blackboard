@@ -53,7 +53,7 @@ class TwitterTableUnitTest(unittest.TestCase):
             sess.query(User).delete()
 
             alice: UserId = 0
-            user = User(id=alice)
+            user = User(id=alice, recent_post=0)
             sess.add(user)
             sess.commit()
             self.assertEqual([], get_news_feed(alice))
@@ -69,7 +69,7 @@ class TwitterTableUnitTest(unittest.TestCase):
             self.assertEqual([1], get_news_feed(alice))
 
             bob: UserId = 1
-            sess.add(User(id=bob))
+            sess.add(User(id=bob, recent_post=0))
             sess.commit()
             self.assertEqual([], get_news_feed(bob))
 

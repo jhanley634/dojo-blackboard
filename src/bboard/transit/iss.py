@@ -39,7 +39,6 @@ def iss_lng_lat() -> tuple[float, float]:
     with get_session() as sess:
         recent = sess.query(IssPosition).order_by(IssPosition.stamp.desc()).first()
         row: dict[str, Any] = {"stamp": stamp, "longitude": lng, "latitude": lat}
-        assert repr(recent)
         if recent is None or recent.stamp < stamp:
             # Wait twenty seconds for cache TTL, and the next line _will_ be covered.
             sess.add(IssPosition(**row))  # pragma: no cover
