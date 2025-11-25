@@ -21,15 +21,24 @@ class LongLadderTest(unittest.TestCase):
         lexicon = set(get_ranked_words_of_length(len(word), get_ranked_words()))
         expected = "barm farm harm marm warb ward ware wark warn warp wars wart wary wasm worm"
         self.assertEqual(expected.split(), sorted(neighbors(word, lexicon)))
+        self.assertEqual(4_844, len(lexicon))
 
-    def test_find_path_7(self) -> None:
+        self.assertIn("bold", neighbors("cold", lexicon))
+        self.assertIn("bolo", neighbors("bold", lexicon))
+
+        self.assertIn("cold", neighbors("bold", lexicon))
+        self.assertIn("bold", neighbors("bolo", lexicon))
+
+    def test_find_path_4(self) -> None:
         expected = (
             "atlases anlases anlaces unlaces UNLADES unladed unfaded unfamed untamed untimed"
             " unlimed unlined unlines undines ondines ondings endings enrings earings eatings"
             " ratings ratines ravines ravined ravened havened havered tavered tabered tabored"
             " taboret tabaret cabaret".lower()
         )
-        start = "atlases"
-        path = bidi_bfs_ladder(start, "cabaret", get_ranked_words())
-        self.assertEqual(33, len(path))
+        expected = "cold warm"
+        expected = "cold bold bolo"
+        start = "cold"
+        path = bidi_bfs_ladder(start, "bolo", get_ranked_words())
+        self.assertEqual(1, len(path))
         self.assertEqual(expected.split(), path)

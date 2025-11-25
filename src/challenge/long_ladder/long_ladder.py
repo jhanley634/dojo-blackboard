@@ -44,21 +44,58 @@ def neighbors(word: str, lexicon: set[str]) -> Generator[str]:
                 yield candidate
 
 
-def bidi_bfs_ladder(start: str, target: str, ranked_words: list[str]) -> list[str]:
-    lexicon = get_ranked_words_of_length(len(start), ranked_words)
+def bidi_bfs_ladder(
+    start: str,
+    target: str,
+    ranked_words: list[str],
+) -> list[str]:
+    lexicon = set(get_ranked_words_of_length(len(start), ranked_words))
+    print(f"{len(lexicon)=}")
     assert start in lexicon
     assert target in lexicon
     assert len(start) == len(target)
+    parent_map = {start: ""}
     fwd = {start}
     rev = {target}
+    path = [start]
     lexicon.remove(start)
     lexicon.remove(target)
-    path: list[str] = []
-    while False:
+    while fwd:
         if len(fwd) > len(rev):
             fwd, rev = rev, fwd
+        nxt = set()
+
         for word in fwd:
             for nbr in neighbors(word, lexicon):
-                fwd.add(nbr)
+                parent_map[nbr] = word
+                nxt.add(nbr)
+                # print(len(fwd), word, nbr)
+                # lexicon.remove(nbr)
+                if nbr in rev:
+                    print(f"{fwd=}")
+                    print(f"{len(rev)=}")
+                    print(f"{len(parent_map)=}")
+                    print(f"{len(lexicon)=}")
+                    return construct_path(parent_map, target)
 
+        fwd = nxt
+
+    print(f"{fwd=}")
+    print(f"{len(rev)=}")
+    print(f"{len(parent_map)=}")
+    print(f"{len(lexicon)=}")
     return path
+
+
+def construct_path(
+    parent_map: dict[str, str],
+    target: str,
+) -> list[str]:
+    path: list[str] = []
+    word: str | None = target
+
+    while word:
+        path.append(f"{word}")
+        word = parent_map.get(word)
+
+    return path[::-1]
