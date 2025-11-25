@@ -14,8 +14,7 @@ def _get_anagrams_dict(lexicon: set[str]) -> dict[str, set[str]]:
     return ret
 
 
-lexicon = get_lexicon()
-anagrams = _get_anagrams_dict(lexicon)
+anagrams = _get_anagrams_dict(get_lexicon())
 
 
 def find_anagrams(word: str) -> list[str]:

@@ -1,10 +1,12 @@
 import re
 import unittest
 
-from challenge.ladder.anagram import find_anagrams, lexicon
+from challenge.ladder.anagram import find_anagrams
 from challenge.ladder.lexicon import get_lexicon
 from challenge.ladder.scrape import scrape_long_ladders
 from challenge.ladder.word_ladder import find_word_path
+
+lexicon = get_lexicon()
 
 
 class WordLadderTest(unittest.TestCase):

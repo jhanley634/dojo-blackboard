@@ -1,4 +1,5 @@
 import re
+from functools import cache
 from pathlib import Path
 
 from requests_cache import CachedSession
@@ -12,6 +13,7 @@ def cached_session() -> CachedSession:
     )
 
 
+@cache
 def get_lexicon() -> set[str]:
     forbidden_chars = set("-'23")  # e.g. "modula-3"
     discard_preamble_re = re.compile(r"^sowpods.*download/english.txt..", re.DOTALL)
