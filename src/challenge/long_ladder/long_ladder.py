@@ -1,5 +1,7 @@
 from collections.abc import Generator
+from dataclasses import dataclass
 from functools import cache
+from queue import Queue
 from string import ascii_lowercase
 
 from wordfreq import get_frequency_dict
@@ -44,58 +46,54 @@ def neighbors(word: str, lexicon: set[str]) -> Generator[str]:
                 yield candidate
 
 
+# start --> target goes from left to right
+@dataclass
+class Node:
+    val: str
+    parent: str | None
+    target_side: bool
+
+
 def bidi_bfs_ladder(
     start: str,
     target: str,
     ranked_words: list[str],
 ) -> list[str]:
     lexicon = set(get_ranked_words_of_length(len(start), ranked_words))
-    print(f"{len(lexicon)=}")
     assert start in lexicon
     assert target in lexicon
     assert len(start) == len(target)
-    parent_map = {start: ""}
-    fwd = {start}
-    rev = {target}
-    path = [start]
-    lexicon.remove(start)
-    lexicon.remove(target)
-    while fwd:
-        if len(fwd) > len(rev):
-            fwd, rev = rev, fwd
-        nxt = set()
 
-        for word in fwd:
-            for nbr in neighbors(word, lexicon):
-                parent_map[nbr] = word
-                nxt.add(nbr)
-                # print(len(fwd), word, nbr)
-                # lexicon.remove(nbr)
-                if nbr in rev:
-                    print(f"{fwd=}")
-                    print(f"{len(rev)=}")
-                    print(f"{len(parent_map)=}")
-                    print(f"{len(lexicon)=}")
-                    return construct_path(parent_map, target)
+    visited = {start: start}
+    q: Queue[str] = Queue()
+    q.put(start)
+    while q.not_empty:
+        word = q.get()
+        for nbr in neighbors(word, lexicon):
+            if nbr == target:
+                visited[nbr] = word
+                return construct_path(visited, start, target)
+            if nbr not in visited:
+                visited[nbr] = word
+                q.put(nbr)
 
-        fwd = nxt
-
-    print(f"{fwd=}")
-    print(f"{len(rev)=}")
-    print(f"{len(parent_map)=}")
-    print(f"{len(lexicon)=}")
-    return path
+    return []
 
 
 def construct_path(
-    parent_map: dict[str, str],
+    visited: dict[str, str],
+    start: str,
     target: str,
 ) -> list[str]:
+    assert start
+    assert target
+
     path: list[str] = []
-    word: str | None = target
+    word = target
+    while word != start:
+        path.append(word)
+        word = visited[word]
+    path.append(word)
 
-    while word:
-        path.append(f"{word}")
-        word = parent_map.get(word)
-
-    return path[::-1]
+    path.reverse()
+    return path
