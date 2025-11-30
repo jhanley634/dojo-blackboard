@@ -37,9 +37,8 @@ class LongLadderTest(unittest.TestCase):
             " taboret tabaret cabaret".lower()
         )
         assert expected1
-        # expected = "cold warm"
-        expected = "cold bold bolo"
+        expected = "cold wold wald ward warm"
         start = "cold"
-        path = bidi_bfs_ladder(start, "bolo", get_ranked_words())
+        path = bidi_bfs_ladder(start, "warm", get_ranked_words())
         self.assertEqual(expected.split(), path)
-        self.assertEqual(3, len(path))
+        self.assertEqual(5, len(path))
