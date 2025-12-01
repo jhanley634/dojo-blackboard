@@ -58,12 +58,13 @@ def bidi_bfs_ladder(
     start: str,
     target: str,
     ranked_words: list[str],
-) -> list[str]:
+) -> tuple[int, list[str]]:
     lexicon = set(get_ranked_words_of_length(len(start), ranked_words))
     assert start in lexicon
     assert target in lexicon
     assert len(start) == len(target)
 
+    cnt = 0
     visited = {start: start}
     q: Queue[str] = Queue()
     q.put(start)
@@ -72,12 +73,14 @@ def bidi_bfs_ladder(
         for nbr in neighbors(word, lexicon):
             if nbr == target:
                 visited[nbr] = word
-                return construct_path(visited, start, target)
+                print(f"{cnt=}")
+                return cnt, construct_path(visited, start, target)
             if nbr not in visited:
                 visited[nbr] = word
                 q.put(nbr)
+                cnt += 1
 
-    return []
+    return cnt, []
 
 
 def construct_path(
