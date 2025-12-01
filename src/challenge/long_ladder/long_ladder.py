@@ -1,6 +1,7 @@
 from collections.abc import Generator
 from dataclasses import dataclass
 from functools import cache
+from pprint import pp
 from queue import Queue
 from string import ascii_lowercase
 
@@ -54,6 +55,12 @@ class Node:
     target_side: bool
 
 
+class WordQueue(Queue[str]):
+    def __init__(self, maxsize: int = 0, *, is_fwd: bool = False) -> None:
+        super().__init__(maxsize)
+        self.is_fwd = is_fwd
+
+
 def bidi_bfs_ladder(
     start: str,
     target: str,
@@ -66,10 +73,11 @@ def bidi_bfs_ladder(
 
     cnt = 0
     visited = {start: start}
-    fwd_q: Queue[str] = Queue()
+    fwd_q: WordQueue = WordQueue()
     fwd_q.put(start)
-    while fwd_q.not_empty:
-        word = fwd_q.get()
+    a = fwd_q
+    while a.not_empty:
+        word = a.get()
         for nbr in neighbors(word, lexicon):
             if nbr == target:
                 visited[nbr] = word
@@ -77,7 +85,7 @@ def bidi_bfs_ladder(
                 return cnt, construct_path(visited, start, target)
             if nbr not in visited:
                 visited[nbr] = word
-                fwd_q.put(nbr)
+                a.put(nbr)
                 cnt += 1
 
     return cnt, []
@@ -88,8 +96,10 @@ def construct_path(
     start: str,
     target: str,
 ) -> list[str]:
+    # `visited` has a chain of words from `target` back to `start`
     assert start
     assert target
+    pp(visited)
 
     path: list[str] = []
     word = target
