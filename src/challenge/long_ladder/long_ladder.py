@@ -66,10 +66,10 @@ def bidi_bfs_ladder(
 
     cnt = 0
     visited = {start: start}
-    q: Queue[str] = Queue()
-    q.put(start)
-    while q.not_empty:
-        word = q.get()
+    fwd_q: Queue[str] = Queue()
+    fwd_q.put(start)
+    while fwd_q.not_empty:
+        word = fwd_q.get()
         for nbr in neighbors(word, lexicon):
             if nbr == target:
                 visited[nbr] = word
@@ -77,7 +77,7 @@ def bidi_bfs_ladder(
                 return cnt, construct_path(visited, start, target)
             if nbr not in visited:
                 visited[nbr] = word
-                q.put(nbr)
+                fwd_q.put(nbr)
                 cnt += 1
 
     return cnt, []
