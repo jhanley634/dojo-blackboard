@@ -277,9 +277,8 @@ class Ghost:
         ]
 
         for gx, gy in checks:
-            if gx < MAZE_WIDTH and gy < MAZE_HEIGHT:
-                if MAZE[gy][gx] == 1:
-                    return False
+            if gx < MAZE_WIDTH and gy < MAZE_HEIGHT and MAZE[gy][gx] == 1:
+                return False
         return True
 
     def draw(self, screen: pygame.Surface) -> None:
@@ -400,7 +399,7 @@ def count_remaining_dots() -> int:
     count = 0
     for row in MAZE:
         for cell in row:
-            if cell == 2 or cell == 3:
+            if cell in (2, 3):
                 count += 1
     return count
 
