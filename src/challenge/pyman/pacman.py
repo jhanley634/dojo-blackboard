@@ -5,11 +5,11 @@ import random
 import sys
 
 import pygame
+from pygame.color import Color
 
-# Initialize Pygame
 pygame.init()
 
-# Constants
+
 CELL_SIZE = 20
 MAZE_WIDTH = 28
 MAZE_HEIGHT = 31
@@ -17,16 +17,16 @@ WINDOW_WIDTH = MAZE_WIDTH * CELL_SIZE
 WINDOW_HEIGHT = MAZE_HEIGHT * CELL_SIZE + 50  # Extra space for score and lives
 
 # Colors
-BLACK = (0, 0, 0)
-DARK_BLUE = (0, 0, 100)
-WALL_BLUE = (33, 33, 222)
-YELLOW = (255, 255, 0)
-RED = (255, 0, 0)
-PINK = (255, 184, 255)
-CYAN = (0, 255, 255)
-ORANGE = (255, 184, 82)
-WHITE = (255, 255, 255)
-FRIGHTENED_BLUE = (50, 50, 255)
+BLACK = Color(0, 0, 0)
+DARK_BLUE = Color(0, 0, 100)
+WALL_BLUE = Color(33, 33, 222)
+YELLOW = Color(255, 255, 0)
+RED = Color(255, 0, 0)
+PINK = Color(255, 184, 255)
+CYAN = Color(0, 255, 255)
+ORANGE = Color(255, 184, 82)
+WHITE = Color(255, 255, 255)
+FRIGHTENED_BLUE = Color(50, 50, 255)
 
 # Maze layout (1 = wall, 0 = path, 2 = dot, 3 = power pellet)
 MAZE = [
@@ -178,7 +178,7 @@ class Player:
 
 
 class Ghost:
-    def __init__(self, x, y, color=PINK):
+    def __init__(self, x: float, y: float, color: Color = PINK) -> None:
         self.x = x
         self.y = y
         self.start_x = x
