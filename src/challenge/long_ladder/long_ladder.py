@@ -72,19 +72,30 @@ def bidi_bfs_ladder(
     assert len(start) == len(target)
 
     cnt = 0
-    visited = {start: start}
-    fwd_q: WordQueue = WordQueue()
+    visited_fwd = {start: start}  # a chain from `meet` back to `start`
+    visited_rev = {"": ""}  # a chain from `target` back to `meet`
+    fwd_q: WordQueue = WordQueue(is_fwd=True)
     fwd_q.put(start)
-    a = fwd_q
-    while a.not_empty:
+    rev_q: WordQueue = WordQueue()
+    rev_q.put(target)
+    a, b = fwd_q, rev_q
+    meet = ""
+    while a.not_empty and b.not_empty:
+        if a.qsize() > b.qsize():
+            b, a = a, b
         word = a.get()
         for nbr in neighbors(word, lexicon):
-            if nbr == target:
-                visited[nbr] = word
-                print(f"{cnt=}")
-                return cnt, construct_path(visited, start, target)
-            if nbr not in visited:
-                visited[nbr] = word
+            if nbr in visited_fwd or nbr in visited_rev:
+                meet = nbr
+                visited = {**visited_fwd, **visited_rev}
+                return cnt, construct_path(visited, start, meet, target)
+
+            if (a is fwd_q and nbr not in visited_fwd) or (a is rev_q and nbr not in visited_rev):
+                if a is fwd_q:
+                    visited_fwd[nbr] = word
+                else:
+                    visited_rev[nbr] = word
+
                 a.put(nbr)
                 cnt += 1
 
@@ -94,15 +105,24 @@ def bidi_bfs_ladder(
 def construct_path(
     visited: dict[str, str],
     start: str,
+    meet: str,
     target: str,
 ) -> list[str]:
     # `visited` has a chain of words from `target` back to `start`
     assert start
     assert target
     pp(visited)
+    # breakpoint()
 
     path: list[str] = []
+
     word = target
+    while word != meet:
+        path.append(word)
+        word = visited[word]
+    path.append(word)
+
+    assert word == meet
     while word != start:
         path.append(word)
         word = visited[word]
