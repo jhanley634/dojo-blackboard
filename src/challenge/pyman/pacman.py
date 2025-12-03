@@ -234,11 +234,10 @@ class Ghost:
                     possible_dirs.append("RIGHT")
                 else:
                     possible_dirs.append("LEFT")
+            elif dy > 0:
+                possible_dirs.append("DOWN")
             else:
-                if dy > 0:
-                    possible_dirs.append("DOWN")
-                else:
-                    possible_dirs.append("UP")
+                possible_dirs.append("UP")
 
             # Add some randomness
             if random.random() < 0.3:
@@ -385,7 +384,7 @@ def check_dot_collision(player: Player, ghost: Ghost) -> tuple[int, bool]:
         if MAZE[grid_y][grid_x] == 2:
             MAZE[grid_y][grid_x] = 0
             return 10, False
-        elif MAZE[grid_y][grid_x] == 3:
+        if MAZE[grid_y][grid_x] == 3:
             MAZE[grid_y][grid_x] = 0
             ghost.set_frightened()
             return 50, True
