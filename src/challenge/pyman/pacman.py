@@ -73,8 +73,8 @@ class Player:
         self.y = y
         self.start_x = x
         self.start_y = y
-        self.direction: str | None = None
-        self.next_direction: str | None = None
+        self.direction: str = ""
+        self.next_direction: str = ""
         self.speed = 2
         self.mouth_angle = 0
         self.mouth_opening = True
@@ -82,8 +82,8 @@ class Player:
     def reset(self) -> None:
         self.x = self.start_x
         self.y = self.start_y
-        self.direction = None
-        self.next_direction = None
+        self.direction = ""
+        self.next_direction = ""
 
     def update(self) -> None:
         # Animate mouth
@@ -101,7 +101,7 @@ class Player:
             new_x, new_y = self.get_next_position(self.next_direction)
             if self.can_move(new_x, new_y):
                 self.direction = self.next_direction
-                self.next_direction = None
+                self.next_direction = ""
 
         # Move in current direction
         if self.direction:
@@ -110,7 +110,7 @@ class Player:
                 self.x = new_x
                 self.y = new_y
 
-    def get_next_position(self, direction: tuple[float, float]) -> tuple[float, float]:
+    def get_next_position(self, direction: str) -> tuple[float, float]:
         new_x, new_y = self.x, self.y
         if direction == "UP":
             new_y -= self.speed
@@ -166,8 +166,8 @@ class Player:
             points = [(center_x, center_y)]
             for angle in range(int(math.degrees(start_angle)), int(math.degrees(end_angle)) + 1, 5):
                 rad = math.radians(angle)
-                px = center_x + radius * math.cos(rad)
-                py = center_y + radius * math.sin(rad)
+                px = int(center_x + radius * math.cos(rad))
+                py = int(center_y + radius * math.sin(rad))
                 points.append((px, py))
             points.append((center_x, center_y))
 
@@ -213,7 +213,7 @@ class Ghost:
         self._ai_behavior(player)
 
         # Move
-        new_x, new_y = self.get_next_position(self.direction)
+        new_x, new_y = self.get_next_position(str(self.direction))
         if self.can_move(new_x, new_y):
             self.x = new_x
             self.y = new_y
@@ -247,10 +247,10 @@ class Ghost:
             for direction in possible_dirs:
                 new_x, new_y = self.get_next_position(direction)
                 if self.can_move(new_x, new_y):
-                    self.direction = dir
+                    self.direction = direction
                     break
 
-    def get_next_position(self, direction: str) -> None:
+    def get_next_position(self, direction: str) -> tuple[float, float]:
         new_x, new_y = self.x, self.y
         speed = self.speed * 0.5 if self.frightened else self.speed
         if direction == "UP":
@@ -392,7 +392,7 @@ def check_dot_collision(player: Player, ghost: Ghost) -> tuple[int, bool]:
 
 def check_ghost_collision(player: Player, ghost: Ghost) -> bool:
     distance = ((player.x - ghost.x) ** 2 + (player.y - ghost.y) ** 2) ** 0.5
-    return distance < CELL_SIZE
+    return bool(distance < CELL_SIZE)
 
 
 def count_remaining_dots() -> int:
@@ -425,7 +425,7 @@ def _handle_arrow_key(event: Event, player: Player) -> None:
             player.next_direction = "RIGHT"
 
 
-def main() -> None:
+def main() -> None:  # noqa
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Pacman - Classic Edition - Sam Mirazi")
     clock = pygame.time.Clock()
@@ -462,24 +462,19 @@ def main() -> None:
             _handle_arrow_key(event, player)
 
         if not game_over:
-            # Update game objects
             player.update()
             ghost.update(player)
 
-            # Update invincibility timer
             if invincible_timer > 0:
                 invincible_timer -= 1
 
-            # Check dot collision
             points, _power_pellet = check_dot_collision(player, ghost)
             if points > 0:
                 score += points
 
-            # Check if all dots collected
             if count_remaining_dots() == 0:
                 game_won = True
 
-            # Check ghost collision
             if check_ghost_collision(player, ghost) and invincible_timer == 0:
                 if ghost.frightened:
                     # Eat ghost
@@ -487,12 +482,10 @@ def main() -> None:
                     ghost.reset()
                     ghost.frightened = False
                 else:
-                    # Lose a life
                     lives -= 1
                     if lives <= 0:
                         game_over = True
                     else:
-                        # Reset positions
                         player.reset()
                         ghost.reset()
                         invincible_timer = 120  # 2 seconds invincibility
