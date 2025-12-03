@@ -5,7 +5,7 @@ import random
 import sys
 
 import pygame
-from pygame.color import Color
+from pygame import Color, Font, Surface
 
 pygame.init()
 
@@ -190,18 +190,18 @@ class Ghost:
         self.frightened_timer = 0
         self.flash_timer = 0
 
-    def reset(self):
+    def reset(self) -> None:
         self.x = self.start_x
         self.y = self.start_y
         self.direction = random.choice(["UP", "DOWN", "LEFT", "RIGHT"])
         self.frightened = False
         self.frightened_timer = 0
 
-    def set_frightened(self):
+    def set_frightened(self) -> None:
         self.frightened = True
         self.frightened_timer = 300  # 5 seconds at 60 FPS
 
-    def update(self, player):
+    def update(self, player: Player) -> None:
         # Update frightened mode
         if self.frightened:
             self.frightened_timer -= 1
@@ -210,7 +210,15 @@ class Ghost:
                 self.frightened = False
                 self.frightened_timer = 0
 
-        # AI behavior
+        self._ai_behavior(player)
+
+        # Move
+        new_x, new_y = self.get_next_position(self.direction)
+        if self.can_move(new_x, new_y):
+            self.x = new_x
+            self.y = new_y
+
+    def _ai_behavior(self, player: Player) -> None:
         if self.frightened:
             # Run away from player randomly
             if random.random() < 0.1:
@@ -220,7 +228,7 @@ class Ghost:
             dx = player.x - self.x
             dy = player.y - self.y
 
-            possible_dirs = []
+            possible_dirs: list[str] = []
             if abs(dx) > abs(dy):
                 if dx > 0:
                     possible_dirs.append("RIGHT")
@@ -237,19 +245,13 @@ class Ghost:
                 possible_dirs = ["UP", "DOWN", "LEFT", "RIGHT"]
 
             # Try to move in preferred direction
-            for dir in possible_dirs:
-                new_x, new_y = self.get_next_position(dir)
+            for direction in possible_dirs:
+                new_x, new_y = self.get_next_position(direction)
                 if self.can_move(new_x, new_y):
                     self.direction = dir
                     break
 
-        # Move
-        new_x, new_y = self.get_next_position(self.direction)
-        if self.can_move(new_x, new_y):
-            self.x = new_x
-            self.y = new_y
-
-    def get_next_position(self, direction):
+    def get_next_position(self, direction: str) -> None:
         new_x, new_y = self.x, self.y
         speed = self.speed * 0.5 if self.frightened else self.speed
         if direction == "UP":
@@ -262,7 +264,7 @@ class Ghost:
             new_x += speed
         return new_x, new_y
 
-    def can_move(self, x, y):
+    def can_move(self, x: float, y: float) -> bool:
         grid_x = int(x // CELL_SIZE)
         grid_y = int(y // CELL_SIZE)
 
@@ -281,7 +283,7 @@ class Ghost:
                     return False
         return True
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.Surface) -> None:
         center_x = int(self.x + CELL_SIZE // 2)
         center_y = int(self.y + CELL_SIZE // 2)
         radius = CELL_SIZE // 2 - 2
@@ -352,7 +354,7 @@ class Ghost:
             pygame.draw.circle(screen, WHITE, (center_x + 2, center_y + 3), 1)
 
 
-def draw_maze(screen):
+def draw_maze(screen: Surface) -> None:
     for y in range(MAZE_HEIGHT):
         for x in range(MAZE_WIDTH):
             if MAZE[y][x] == 1:
@@ -375,7 +377,7 @@ def draw_maze(screen):
                 pygame.draw.circle(screen, WHITE, (center_x, center_y), 5)
 
 
-def check_dot_collision(player, ghost):
+def check_dot_collision(player: Player, ghost: Ghost) -> tuple[int, bool]:
     grid_x = int(player.x // CELL_SIZE)
     grid_y = int(player.y // CELL_SIZE)
 
@@ -390,12 +392,12 @@ def check_dot_collision(player, ghost):
     return 0, False
 
 
-def check_ghost_collision(player, ghost):
+def check_ghost_collision(player: Player, ghost: Ghost) -> bool:
     distance = ((player.x - ghost.x) ** 2 + (player.y - ghost.y) ** 2) ** 0.5
     return distance < CELL_SIZE
 
 
-def count_remaining_dots():
+def count_remaining_dots() -> int:
     count = 0
     for row in MAZE:
         for cell in row:
@@ -404,12 +406,16 @@ def count_remaining_dots():
     return count
 
 
-def reset_maze():
+def reset_maze() -> None:
     global MAZE
     MAZE = [row[:] for row in ORIGINAL_MAZE]
 
 
-def main():
+def _render(font: Font, msg: str, color: Color) -> Surface:
+    return font.render(msg, antialias=True, color=color)
+
+
+def main() -> None:
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Pacman - Classic Edition - Sam Mirazi")
     clock = pygame.time.Clock()
@@ -463,7 +469,7 @@ def main():
                 invincible_timer -= 1
 
             # Check dot collision
-            points, power_pellet = check_dot_collision(player, ghost)
+            points, _power_pellet = check_dot_collision(player, ghost)
             if points > 0:
                 score += points
 
@@ -500,19 +506,19 @@ def main():
         ghost.draw(screen)
 
         # Draw HUD
-        score_text = font.render(f"SCORE: {score}", True, WHITE)
+        score_text = _render(font, "SCORE: {score}", WHITE)
         screen.blit(score_text, (10, WINDOW_HEIGHT - 40))
 
         # Draw lives
-        lives_text = font.render(f"LIVES:", True, WHITE)
+        lives_text = _render(font, "LIVES:", WHITE)
         screen.blit(lives_text, (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 40))
         for i in range(lives):
             pygame.draw.circle(screen, YELLOW, (WINDOW_WIDTH - 80 + i * 25, WINDOW_HEIGHT - 28), 8)
 
         # Draw game over or win message
         if game_over:
-            game_over_text = big_font.render("GAME OVER", True, RED)
-            restart_text = font.render("Press R to Restart", True, WHITE)
+            game_over_text = _render(big_font, "GAME OVER", RED)
+            restart_text = _render(font, "Press R to Restart", WHITE)
             text_rect = game_over_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
             restart_rect = restart_text.get_rect(
                 center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 40)
@@ -531,8 +537,8 @@ def main():
             screen.blit(restart_text, restart_rect)
 
         if game_won:
-            win_text = big_font.render("YOU WIN!", True, YELLOW)
-            restart_text = font.render("Press R to Restart", True, WHITE)
+            win_text = _render(big_font, "YOU WIN!", YELLOW)
+            restart_text = _render(font, "Press R to Restart", WHITE)
             text_rect = win_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
             restart_rect = restart_text.get_rect(
                 center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 40)
