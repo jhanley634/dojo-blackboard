@@ -1,4 +1,4 @@
-bandit
+bandit >= 1.9.2
 basemap >= 2.0.0
 basemap-data-hires >= 2.0.0
 beartype >= 0.21.0
@@ -30,6 +30,7 @@ pip >= 25.2
 polars >= 1.33.1
 pre-commit >= 4.3.0
 psutil >= 7.1.0
+pygame-ce >= 2.5.6
 pynng >= 0.8.1
 pyright >= 1.1.406
 pytest-cov >= 7.0.0

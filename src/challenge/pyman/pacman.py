@@ -68,7 +68,7 @@ ORIGINAL_MAZE = [row[:] for row in MAZE]
 
 
 class Player:
-    def __init__(self, x, y):
+    def __init__(self, x: float, y: float) -> None:
         self.x = x
         self.y = y
         self.start_x = x
@@ -79,13 +79,13 @@ class Player:
         self.mouth_angle = 0
         self.mouth_opening = True
 
-    def reset(self):
+    def reset(self) -> None:
         self.x = self.start_x
         self.y = self.start_y
         self.direction = None
         self.next_direction = None
 
-    def update(self):
+    def update(self) -> None:
         # Animate mouth
         if self.mouth_opening:
             self.mouth_angle += 2
@@ -110,7 +110,7 @@ class Player:
                 self.x = new_x
                 self.y = new_y
 
-    def get_next_position(self, direction):
+    def get_next_position(self, direction: tuple[float, float]) -> tuple[float, float]:
         new_x, new_y = self.x, self.y
         if direction == "UP":
             new_y -= self.speed
@@ -122,7 +122,7 @@ class Player:
             new_x += self.speed
         return new_x, new_y
 
-    def can_move(self, x, y):
+    def can_move(self, x: float, y: float) -> bool:
         grid_x = int(x // CELL_SIZE)
         grid_y = int(y // CELL_SIZE)
 
@@ -136,12 +136,11 @@ class Player:
         ]
 
         for gx, gy in checks:
-            if gx < MAZE_WIDTH and gy < MAZE_HEIGHT:
-                if MAZE[gy][gx] == 1:
-                    return False
+            if gx < MAZE_WIDTH and gy < MAZE_HEIGHT and MAZE[gy][gx] == 1:
+                return False
         return True
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.Surface) -> None:
         center_x = int(self.x + CELL_SIZE // 2)
         center_y = int(self.y + CELL_SIZE // 2)
         radius = CELL_SIZE // 2 - 2
