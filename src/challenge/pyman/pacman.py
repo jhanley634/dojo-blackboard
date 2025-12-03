@@ -5,7 +5,7 @@ import random
 import sys
 
 import pygame
-from pygame import Color, Font, Surface
+from pygame import Color, Event, Font, Surface
 
 pygame.init()
 
@@ -73,8 +73,8 @@ class Player:
         self.y = y
         self.start_x = x
         self.start_y = y
-        self.direction = None
-        self.next_direction = None
+        self.direction: str | None = None
+        self.next_direction: str | None = None
         self.speed = 2
         self.mouth_angle = 0
         self.mouth_opening = True
@@ -405,12 +405,24 @@ def count_remaining_dots() -> int:
 
 
 def reset_maze() -> None:
-    global MAZE
+    global MAZE  # noqa [PLW0603]
     MAZE = [row[:] for row in ORIGINAL_MAZE]
 
 
 def _render(font: Font, msg: str, color: Color) -> Surface:
     return font.render(msg, antialias=True, color=color)
+
+
+def _handle_arrow_key(event: Event, player: Player) -> None:
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_UP:
+            player.next_direction = "UP"
+        elif event.key == pygame.K_DOWN:
+            player.next_direction = "DOWN"
+        elif event.key == pygame.K_LEFT:
+            player.next_direction = "LEFT"
+        elif event.key == pygame.K_RIGHT:
+            player.next_direction = "RIGHT"
 
 
 def main() -> None:
@@ -437,27 +449,19 @@ def main() -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    player.next_direction = "UP"
-                elif event.key == pygame.K_DOWN:
-                    player.next_direction = "DOWN"
-                elif event.key == pygame.K_LEFT:
-                    player.next_direction = "LEFT"
-                elif event.key == pygame.K_RIGHT:
-                    player.next_direction = "RIGHT"
-                elif event.key == pygame.K_r and (game_over or game_won):
-                    # Restart game
-                    reset_maze()
-                    player.reset()
-                    ghost.reset()
-                    score = 0
-                    lives = 3
-                    game_over = False
-                    game_won = False
-                    invincible_timer = 0
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_r and game_over:
+                # Restart game
+                reset_maze()
+                player.reset()
+                ghost.reset()
+                score = 0
+                lives = 3
+                game_over = False
+                game_won = False
+                invincible_timer = 0
+            _handle_arrow_key(event, player)
 
-        if not game_over and not game_won:
+        if not game_over:
             # Update game objects
             player.update()
             ghost.update(player)
@@ -493,7 +497,6 @@ def main() -> None:
                         ghost.reset()
                         invincible_timer = 120  # 2 seconds invincibility
 
-        # Draw everything
         screen.fill(BLACK)
         draw_maze(screen)
 
@@ -503,11 +506,9 @@ def main() -> None:
 
         ghost.draw(screen)
 
-        # Draw HUD
         score_text = _render(font, "SCORE: {score}", WHITE)
         screen.blit(score_text, (10, WINDOW_HEIGHT - 40))
 
-        # Draw lives
         lives_text = _render(font, "LIVES:", WHITE)
         screen.blit(lives_text, (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 40))
         for i in range(lives):
@@ -535,6 +536,7 @@ def main() -> None:
             screen.blit(restart_text, restart_rect)
 
         if game_won:
+            game_over = True
             win_text = _render(big_font, "YOU WIN!", YELLOW)
             restart_text = _render(font, "Press R to Restart", WHITE)
             text_rect = win_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
