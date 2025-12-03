@@ -1,4 +1,4 @@
-# code from Sam Miraz in the dojo #python channel
+# code from Sam Mirazi in the dojo #python channel
 
 import math
 import random
