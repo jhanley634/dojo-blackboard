@@ -3,6 +3,7 @@
 import math
 import random
 import sys
+from enum import Enum
 
 import pygame
 from pygame import Color, Event, Font, Surface
@@ -16,7 +17,6 @@ MAZE_HEIGHT = 31
 WINDOW_WIDTH = MAZE_WIDTH * CELL_SIZE
 WINDOW_HEIGHT = MAZE_HEIGHT * CELL_SIZE + 50  # Extra space for score and lives
 
-# Colors
 BLACK = Color(0, 0, 0)
 DARK_BLUE = Color(0, 0, 100)
 WALL_BLUE = Color(33, 33, 222)
@@ -28,7 +28,43 @@ ORANGE = Color(255, 184, 82)
 WHITE = Color(255, 255, 255)
 FRIGHTENED_BLUE = Color(50, 50, 255)
 
-# Maze layout (1 = wall, 0 = path, 2 = dot, 3 = power pellet)
+
+class Grid(Enum):
+    """Maze grid elements."""
+
+    PATH = 0
+    WALL = 1
+    DOT = 2
+    PELLET = 3
+
+
+assert 1 == Grid.WALL.value
+assert Grid(2) == Grid.DOT
+
+
+def grid(gx: int, gy: int) -> Grid:
+    return Grid(MAZE[gy][gx])
+
+
+def is_passable(gx: int, gy: int) -> bool:
+    # not is_wall()
+    return 0 <= gx < MAZE_WIDTH and 0 <= gy < MAZE_HEIGHT and grid(gx, gy) != Grid.WALL
+
+
+def can_move(x: float, y: float) -> bool:
+    grid_x = int(x // CELL_SIZE)
+    grid_y = int(y // CELL_SIZE)
+
+    deltas = [
+        (1, 0),
+        (0, 1),
+        (-1, 0),
+        (0, -1),
+    ]
+    return any(is_passable(grid_x + dx, grid_y + dy) for dx, dy in deltas)
+
+
+# Maze layout (0 = path, 1 = wall, 2 = dot, 3 = power pellet)
 MAZE = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1],
@@ -122,23 +158,9 @@ class Player:
             new_x += self.speed
         return new_x, new_y
 
-    def can_move(self, x: float, y: float) -> bool:
-        grid_x = int(x // CELL_SIZE)
-        grid_y = int(y // CELL_SIZE)
-
-        if grid_x < 0 or grid_x >= MAZE_WIDTH or grid_y < 0 or grid_y >= MAZE_HEIGHT:
-            return False
-
-        checks = [
-            (grid_x, grid_y),
-            (int((x + CELL_SIZE // 2) // CELL_SIZE), grid_y),
-            (grid_x, int((y + CELL_SIZE // 2) // CELL_SIZE)),
-        ]
-
-        for gx, gy in checks:
-            if gx < MAZE_WIDTH and gy < MAZE_HEIGHT and MAZE[gy][gx] == 1:
-                return False
-        return True
+    @staticmethod
+    def can_move(x: float, y: float) -> bool:
+        return can_move(x, y)
 
     def draw(self, screen: pygame.Surface) -> None:
         center_x = int(self.x + CELL_SIZE // 2)
@@ -263,23 +285,9 @@ class Ghost:
             new_x += speed
         return new_x, new_y
 
-    def can_move(self, x: float, y: float) -> bool:
-        grid_x = int(x // CELL_SIZE)
-        grid_y = int(y // CELL_SIZE)
-
-        if grid_x < 0 or grid_x >= MAZE_WIDTH or grid_y < 0 or grid_y >= MAZE_HEIGHT:
-            return False
-
-        checks = [
-            (grid_x, grid_y),
-            (int((x + CELL_SIZE // 2) // CELL_SIZE), grid_y),
-            (grid_x, int((y + CELL_SIZE // 2) // CELL_SIZE)),
-        ]
-
-        for gx, gy in checks:
-            if gx < MAZE_WIDTH and gy < MAZE_HEIGHT and MAZE[gy][gx] == 1:
-                return False
-        return True
+    @staticmethod
+    def can_move(x: float, y: float) -> bool:
+        return can_move(x, y)
 
     def draw(self, screen: pygame.Surface) -> None:
         center_x = int(self.x + CELL_SIZE // 2)
@@ -353,25 +361,25 @@ class Ghost:
 
 
 def draw_maze(screen: Surface) -> None:
-    for y in range(MAZE_HEIGHT):
-        for x in range(MAZE_WIDTH):
-            if MAZE[y][x] == 1:
+    for gy in range(MAZE_HEIGHT):
+        for gx in range(MAZE_WIDTH):
+            if MAZE[gy][gx] == 1:
                 # Draw wall with border for classic look
                 pygame.draw.rect(
-                    screen, WALL_BLUE, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                    screen, WALL_BLUE, (gx * CELL_SIZE, gy * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 )
                 pygame.draw.rect(
-                    screen, DARK_BLUE, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1
+                    screen, DARK_BLUE, (gx * CELL_SIZE, gy * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1
                 )
-            elif MAZE[y][x] == 2:
+            elif MAZE[gy][gx] == 2:
                 # Draw regular dot
-                center_x = x * CELL_SIZE + CELL_SIZE // 2
-                center_y = y * CELL_SIZE + CELL_SIZE // 2
+                center_x = gx * CELL_SIZE + CELL_SIZE // 2
+                center_y = gy * CELL_SIZE + CELL_SIZE // 2
                 pygame.draw.circle(screen, WHITE, (center_x, center_y), 2)
-            elif MAZE[y][x] == 3:
+            elif MAZE[gy][gx] == 3:
                 # Draw power pellet (larger)
-                center_x = x * CELL_SIZE + CELL_SIZE // 2
-                center_y = y * CELL_SIZE + CELL_SIZE // 2
+                center_x = gx * CELL_SIZE + CELL_SIZE // 2
+                center_y = gy * CELL_SIZE + CELL_SIZE // 2
                 pygame.draw.circle(screen, WHITE, (center_x, center_y), 5)
 
 
