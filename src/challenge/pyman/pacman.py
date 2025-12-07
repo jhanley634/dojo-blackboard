@@ -363,7 +363,7 @@ class Ghost:
 def draw_maze(screen: Surface) -> None:
     for gy in range(MAZE_HEIGHT):
         for gx in range(MAZE_WIDTH):
-            if MAZE[gy][gx] == 1:
+            if grid(gx, gy) == Grid.WALL:
                 # Draw wall with border for classic look
                 pygame.draw.rect(
                     screen, WALL_BLUE, (gx * CELL_SIZE, gy * CELL_SIZE, CELL_SIZE, CELL_SIZE)
@@ -371,31 +371,28 @@ def draw_maze(screen: Surface) -> None:
                 pygame.draw.rect(
                     screen, DARK_BLUE, (gx * CELL_SIZE, gy * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1
                 )
-            elif MAZE[gy][gx] == 2:
-                # Draw regular dot
+            elif grid(gx, gy) == Grid.DOT:
                 center_x = gx * CELL_SIZE + CELL_SIZE // 2
                 center_y = gy * CELL_SIZE + CELL_SIZE // 2
                 pygame.draw.circle(screen, WHITE, (center_x, center_y), 2)
-            elif MAZE[gy][gx] == 3:
-                # Draw power pellet (larger)
+            elif grid(gx, gy) == Grid.PELLET:
                 center_x = gx * CELL_SIZE + CELL_SIZE // 2
                 center_y = gy * CELL_SIZE + CELL_SIZE // 2
                 pygame.draw.circle(screen, WHITE, (center_x, center_y), 5)
 
 
-def check_dot_collision(player: Player, ghost: Ghost) -> tuple[int, bool]:
+def check_dot_collision(player: Player, ghost: Ghost) -> int:
     grid_x = int(player.x // CELL_SIZE)
     grid_y = int(player.y // CELL_SIZE)
-
-    if 0 <= grid_x < MAZE_WIDTH and 0 <= grid_y < MAZE_HEIGHT:
-        if MAZE[grid_y][grid_x] == 2:
-            MAZE[grid_y][grid_x] = 0
-            return 10, False
-        if MAZE[grid_y][grid_x] == 3:
-            MAZE[grid_y][grid_x] = 0
+    in_bounds = 0 <= grid_x < MAZE_WIDTH and 0 <= grid_y < MAZE_HEIGHT
+    if in_bounds and grid(grid_x, grid_y) in (Grid.DOT, Grid.PELLET):
+        points = 10
+        if grid(grid_x, grid_y) == Grid.PELLET:
             ghost.set_frightened()
-            return 50, True
-    return 0, False
+            points = 50
+        MAZE[grid_y][grid_x] = Grid.PATH.value
+        return points
+    return 0
 
 
 def check_ghost_collision(player: Player, ghost: Ghost) -> bool:
@@ -476,9 +473,8 @@ def main() -> None:  # noqa
             if invincible_timer > 0:
                 invincible_timer -= 1
 
-            points, _power_pellet = check_dot_collision(player, ghost)
-            if points > 0:
-                score += points
+            points = check_dot_collision(player, ghost)
+            score += points
 
             if count_remaining_dots() == 0:
                 game_won = True
