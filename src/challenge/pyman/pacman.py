@@ -1,12 +1,15 @@
 # code from Sam Mirazi in the dojo #python channel
 
 import math
-import random
+import secrets
+import secrets as random
 import sys
 from enum import Enum
 
 import pygame
 from pygame import Color, Event, Font, Surface
+
+rand = secrets.SystemRandom().random
 
 pygame.init()
 
@@ -243,7 +246,7 @@ class Ghost:
     def _ai_behavior(self, player: Player) -> None:
         if self.frightened:
             # Run away from player randomly
-            if random.random() < 0.1:
+            if rand() < 0.1:
                 self.direction = random.choice(["UP", "DOWN", "LEFT", "RIGHT"])
         else:
             # Chase player
@@ -262,7 +265,7 @@ class Ghost:
                 possible_dirs.append("UP")
 
             # Add some randomness
-            if random.random() < 0.3:
+            if rand() < 0.3:
                 possible_dirs = ["UP", "DOWN", "LEFT", "RIGHT"]
 
             # Try to move in preferred direction
