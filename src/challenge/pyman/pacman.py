@@ -378,12 +378,11 @@ def check_ghost_collision(player: Player, ghost: Ghost) -> bool:
 
 
 def count_remaining_dots() -> int:
-    count = 0
-    for row in MAZE:
-        for cell in row:
-            if cell in (2, 3):
-                count += 1
-    return count
+    non_empty = (
+        Grid.DOT.value,
+        Grid.PELLET.value,
+    )
+    return sum(1 for row in MAZE for cell in row if cell in non_empty)
 
 
 def reset_maze() -> None:
