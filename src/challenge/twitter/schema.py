@@ -50,10 +50,10 @@ class Follower(Base):  # type: ignore
 
 def create_engine_with_pool() -> Engine:
     """Create engine with proper pool configuration and timeout settings."""
-    DB_FILE = Path("/tmp/twitter.db")
+    db_file = Path("/tmp/twitter.db")
 
     return create_engine(
-        f"sqlite:///{DB_FILE}",
+        f"sqlite:///{db_file}",
         echo=False,
         # Connection pool configuration
         pool_size=5,
@@ -81,10 +81,10 @@ def get_engine() -> Generator[Engine]:
 @contextmanager
 def get_session(engine: Engine) -> Generator[Session]:
     """Get a session with proper cleanup and error handling."""
-    SessionClass = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+    session_class = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
     try:
-        sess = SessionClass()
+        sess = session_class()
         yield sess
 
         # Auto-commit on successful completion
