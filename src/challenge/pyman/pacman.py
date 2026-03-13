@@ -361,15 +361,20 @@ def draw_maze(screen: Surface) -> None:
 def check_dot_collision(player: Player, ghost: Ghost) -> int:
     grid_x = int(player.x // CELL_SIZE)
     grid_y = int(player.y // CELL_SIZE)
-    in_bounds = 0 <= grid_x < MAZE_WIDTH and 0 <= grid_y < MAZE_HEIGHT
-    if in_bounds and grid(grid_x, grid_y) in (Grid.DOT, Grid.PELLET):
-        points = 10
-        if grid(grid_x, grid_y) == Grid.PELLET:
-            ghost.set_frightened()
-            points = 50
-        MAZE[grid_y][grid_x] = Grid.PATH.value
-        return points
-    return 0
+    if not (0 <= grid_x < MAZE_WIDTH and 0 <= grid_y < MAZE_HEIGHT):
+        return 0
+
+    cell = grid(grid_x, grid_y)
+    if cell not in (Grid.DOT, Grid.PELLET):
+        return 0
+
+    points = 10
+    if cell == Grid.PELLET:
+        points = 50
+        ghost.set_frightened()
+
+    MAZE[grid_y][grid_x] = Grid.PATH.value
+    return points
 
 
 def check_ghost_collision(player: Player, ghost: Ghost) -> bool:
