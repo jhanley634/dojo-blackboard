@@ -228,10 +228,10 @@ class Ghost:
         self._ai_behavior(player)
 
         # Move
-        new_x, new_y = self.get_next_position(str(self.direction))
-        if self.can_move(new_x, new_y):
-            self.x = new_x
-            self.y = new_y
+        speed = self.speed * 0.5 if self.frightened else self.speed
+        new_x, new_y = next_position(self.x, self.y, self.direction, speed)
+        if can_move(new_x, new_y):
+            self.x, self.y = new_x, new_y
 
     def _ai_behavior(self, player: Player) -> None:
         if self.frightened:
@@ -260,27 +260,11 @@ class Ghost:
 
             # Try to move in preferred direction
             for direction in possible_dirs:
-                new_x, new_y = self.get_next_position(direction)
-                if self.can_move(new_x, new_y):
+                speed = self.speed * 0.5 if self.frightened else self.speed
+                new_x, new_y = next_position(self.x, self.y, direction, speed)
+                if can_move(new_x, new_y):
                     self.direction = direction
                     break
-
-    def get_next_position(self, direction: str) -> tuple[float, float]:
-        new_x, new_y = self.x, self.y
-        speed = self.speed * 0.5 if self.frightened else self.speed
-        if direction == "UP":
-            new_y -= speed
-        elif direction == "DOWN":
-            new_y += speed
-        elif direction == "LEFT":
-            new_x -= speed
-        elif direction == "RIGHT":
-            new_x += speed
-        return new_x, new_y
-
-    @staticmethod
-    def can_move(x: float, y: float) -> bool:
-        return can_move(x, y)
 
     def draw(self, screen: pygame.Surface) -> None:
         center_x = int(self.x + CELL_SIZE // 2)
