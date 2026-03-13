@@ -18,6 +18,7 @@ ruff-check:
 lint: ruff-check
 	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
+	$(ACTIVATE) && pyrefly check src/challenge/two_sum/*.py
 	$(ACTIVATE) && bandit -q --skip $(SKIP) --format=txt --recursive src tests
 
 unit: count
