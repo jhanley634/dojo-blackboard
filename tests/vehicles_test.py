@@ -21,7 +21,7 @@ def _num_vehicle_journeys() -> int:
 
 
 class VehiclesTest(unittest.TestCase):
-    @mark_slow_integration_test  # type: ignore [misc]
+    @mark_slow_integration_test  # type: ignore
     def test_query_vehicles(self) -> None:
         if is_enabled(KEY_NAME):
             check = _num_vehicle_journeys() or store_vehicle_journeys("SC")

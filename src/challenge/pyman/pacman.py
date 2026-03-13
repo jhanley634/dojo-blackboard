@@ -1,0 +1,544 @@
+# code from Sam Mirazi in the dojo #python channel
+
+import math
+import secrets
+from enum import Enum
+from secrets import choice
+
+import pygame
+from pygame import Color, Event, Font, Surface
+
+rand = secrets.SystemRandom().random
+
+CELL_SIZE = 20
+MAZE_WIDTH = 28
+MAZE_HEIGHT = 31
+WINDOW_WIDTH = MAZE_WIDTH * CELL_SIZE
+WINDOW_HEIGHT = MAZE_HEIGHT * CELL_SIZE + 50  # Extra space for score and lives
+
+BLACK = Color(0, 0, 0)
+DARK_BLUE = Color(0, 0, 100)
+WALL_BLUE = Color(33, 33, 222)
+YELLOW = Color(255, 255, 0)
+RED = Color(255, 0, 0)
+PINK = Color(255, 184, 255)
+CYAN = Color(0, 255, 255)
+ORANGE = Color(255, 184, 82)
+WHITE = Color(255, 255, 255)
+FRIGHTENED_BLUE = Color(50, 50, 255)
+
+
+class Grid(Enum):
+    """Maze grid elements."""
+
+    PATH = 0
+    WALL = 1
+    DOT = 2
+    PELLET = 3
+
+
+assert 1 == Grid.WALL.value
+assert Grid(2) == Grid.DOT
+
+
+def grid(gx: int, gy: int) -> Grid:
+    return Grid(MAZE[gy][gx])
+
+
+DIRECTIONS = {
+    "UP": (0, -1),
+    "DOWN": (0, 1),
+    "LEFT": (-1, 0),
+    "RIGHT": (1, 0),
+}
+DELTAS = list(DIRECTIONS.values())
+
+
+def is_passable(gx: int, gy: int) -> bool:
+    # not is_wall()
+    return 0 <= gx < MAZE_WIDTH and 0 <= gy < MAZE_HEIGHT and grid(gx, gy) != Grid.WALL
+
+
+def can_move(x: float, y: float) -> bool:
+    grid_x = int(x // CELL_SIZE)
+    grid_y = int(y // CELL_SIZE)
+    return any(is_passable(grid_x + dx, grid_y + dy) for dx, dy in DELTAS)
+
+
+# Maze layout (0 = path, 1 = wall, 2 = dot, 3 = power pellet)
+MAZE = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+    [1, 3, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 3, 1],
+    [1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1],
+    [1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1],
+    [1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1],
+    [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+    [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+]
+
+# Create a copy for resetting
+ORIGINAL_MAZE = [row[:] for row in MAZE]
+
+
+def next_position(
+    x: float,
+    y: float,
+    direction: str,
+    speed: float,
+) -> tuple[float, float]:
+    dx, dy = DIRECTIONS[direction]
+    return x + dx * speed, y + dy * speed
+
+
+class Player:
+    def __init__(self, x: float, y: float) -> None:
+        self.x = x
+        self.y = y
+        self.start_x = x
+        self.start_y = y
+        self.direction: str = ""
+        self.next_direction: str = ""
+        self.speed = 2
+        self.mouth_angle = 0
+        self.mouth_opening = True
+
+    def reset(self) -> None:
+        self.x = self.start_x
+        self.y = self.start_y
+        self.direction = ""
+        self.next_direction = ""
+
+    def update(self) -> None:
+        # Animate mouth
+        if self.mouth_opening:
+            self.mouth_angle += 2
+            if self.mouth_angle >= 45:
+                self.mouth_opening = False
+        else:
+            self.mouth_angle -= 2
+            if self.mouth_angle <= 0:
+                self.mouth_opening = True
+
+        if self.next_direction:
+            new_x, new_y = next_position(self.x, self.y, self.next_direction, self.speed)
+            if can_move(new_x, new_y):
+                self.direction = self.next_direction
+                self.next_direction = ""
+
+        if self.direction:
+            new_x, new_y = next_position(self.x, self.y, self.direction, self.speed)
+            if can_move(new_x, new_y):
+                self.x, self.y = new_x, new_y
+
+    def draw(self, screen: pygame.Surface) -> None:
+        center_x = int(self.x + CELL_SIZE // 2)
+        center_y = int(self.y + CELL_SIZE // 2)
+        radius = CELL_SIZE // 2 - 2
+
+        # Determine rotation based on direction
+        rotation = 0
+        if self.direction == "RIGHT":
+            rotation = 0
+        elif self.direction == "DOWN":
+            rotation = 90
+        elif self.direction == "LEFT":
+            rotation = 180
+        elif self.direction == "UP":
+            rotation = 270
+
+        # Draw Pacman with animated mouth
+        if self.direction and self.mouth_angle > 5:
+            # Draw partial circle (Pacman with open mouth)
+            start_angle = math.radians(rotation + self.mouth_angle)
+            end_angle = math.radians(rotation + 360 - self.mouth_angle)
+
+            # Create points for the pie shape
+            points = [(center_x, center_y)]
+            for angle in range(int(math.degrees(start_angle)), int(math.degrees(end_angle)) + 1, 5):
+                rad = math.radians(angle)
+                px = int(center_x + radius * math.cos(rad))
+                py = int(center_y + radius * math.sin(rad))
+                points.append((px, py))
+            points.append((center_x, center_y))
+
+            pygame.draw.polygon(screen, YELLOW, points)
+        else:
+            # Draw full circle when mouth is closed or not moving
+            pygame.draw.circle(screen, YELLOW, (center_x, center_y), radius)
+
+
+class Ghost:
+    def __init__(self, x: float, y: float, color: Color = PINK) -> None:
+        self.x = x
+        self.y = y
+        self.start_x = x
+        self.start_y = y
+        self.direction = choice(["UP", "DOWN", "LEFT", "RIGHT"])
+        self.speed = 1.5
+        self.color = color
+        self.frightened = False
+        self.frightened_timer = 0
+        self.flash_timer = 0
+
+    def reset(self) -> None:
+        self.x = self.start_x
+        self.y = self.start_y
+        self.direction = choice(["UP", "DOWN", "LEFT", "RIGHT"])
+        self.frightened = False
+        self.frightened_timer = 0
+
+    def set_frightened(self) -> None:
+        self.frightened = True
+        self.frightened_timer = 300  # 5 seconds at 60 FPS
+
+    def update(self, player: Player) -> None:
+        # Update frightened mode
+        if self.frightened:
+            self.frightened_timer -= 1
+            self.flash_timer += 1
+            if self.frightened_timer <= 0:
+                self.frightened = False
+                self.frightened_timer = 0
+
+        self._ai_behavior(player)
+
+        # Move
+        speed = self.speed * 0.5 if self.frightened else self.speed
+        new_x, new_y = next_position(self.x, self.y, self.direction, speed)
+        if can_move(new_x, new_y):
+            self.x, self.y = new_x, new_y
+
+    def _ai_behavior(self, player: Player) -> None:
+        if self.frightened:
+            # Run away from player randomly
+            if rand() < 0.1:
+                self.direction = choice(["UP", "DOWN", "LEFT", "RIGHT"])
+        else:
+            # Chase player
+            dx = player.x - self.x
+            dy = player.y - self.y
+
+            possible_dirs: list[str] = []
+            if abs(dx) > abs(dy):
+                if dx > 0:
+                    possible_dirs.append("RIGHT")
+                else:
+                    possible_dirs.append("LEFT")
+            elif dy > 0:
+                possible_dirs.append("DOWN")
+            else:
+                possible_dirs.append("UP")
+
+            # Add some randomness
+            if rand() < 0.3:
+                possible_dirs = ["UP", "DOWN", "LEFT", "RIGHT"]
+
+            # Try to move in preferred direction
+            for direction in possible_dirs:
+                speed = self.speed * 0.5 if self.frightened else self.speed
+                new_x, new_y = next_position(self.x, self.y, direction, speed)
+                if can_move(new_x, new_y):
+                    self.direction = direction
+                    break
+
+    def draw(self, screen: pygame.Surface) -> None:
+        center_x = int(self.x + CELL_SIZE // 2)
+        center_y = int(self.y + CELL_SIZE // 2)
+        radius = CELL_SIZE // 2 - 2
+
+        # Choose color based on frightened state
+        if self.frightened:
+            if self.frightened_timer < 120 and self.flash_timer % 20 < 10:
+                ghost_color = WHITE
+            else:
+                ghost_color = FRIGHTENED_BLUE
+        else:
+            ghost_color = self.color
+
+        # Draw ghost body (rounded top)
+        pygame.draw.circle(screen, ghost_color, (center_x, center_y - 2), radius)
+        pygame.draw.rect(screen, ghost_color, (self.x + 2, center_y - 2, CELL_SIZE - 4, radius + 2))
+
+        # Draw wavy bottom
+        wave_width = (CELL_SIZE - 4) // 3
+        for i in range(3):
+            wave_x = self.x + 2 + i * wave_width
+            wave_y = self.y + CELL_SIZE - 3
+            points = [
+                (wave_x, wave_y - 3),
+                (wave_x + wave_width // 2, wave_y),
+                (wave_x + wave_width, wave_y - 3),
+                (wave_x + wave_width, center_y - 2),
+                (wave_x, center_y - 2),
+            ]
+            pygame.draw.polygon(screen, ghost_color, points)
+
+        # Draw eyes (not when frightened)
+        if not self.frightened:
+            eye_radius = 3
+            left_eye_x = center_x - 4
+            right_eye_x = center_x + 4
+            eye_y = center_y - 3
+
+            # White part of eyes
+            pygame.draw.circle(screen, WHITE, (left_eye_x, eye_y), eye_radius)
+            pygame.draw.circle(screen, WHITE, (right_eye_x, eye_y), eye_radius)
+
+            # Pupils (look in direction of movement)
+            pupil_offset = 1
+            pupil_x_offset = 0
+            pupil_y_offset = 0
+
+            if self.direction == "LEFT":
+                pupil_x_offset = -pupil_offset
+            elif self.direction == "RIGHT":
+                pupil_x_offset = pupil_offset
+            elif self.direction == "UP":
+                pupil_y_offset = -pupil_offset
+            elif self.direction == "DOWN":
+                pupil_y_offset = pupil_offset
+
+            pygame.draw.circle(
+                screen, DARK_BLUE, (left_eye_x + pupil_x_offset, eye_y + pupil_y_offset), 2
+            )
+            pygame.draw.circle(
+                screen, DARK_BLUE, (right_eye_x + pupil_x_offset, eye_y + pupil_y_offset), 2
+            )
+        else:
+            # Frightened eyes (simple white dots)
+            pygame.draw.circle(screen, WHITE, (center_x - 4, center_y), 1)
+            pygame.draw.circle(screen, WHITE, (center_x + 4, center_y), 1)
+            pygame.draw.circle(screen, WHITE, (center_x - 2, center_y + 3), 1)
+            pygame.draw.circle(screen, WHITE, (center_x + 2, center_y + 3), 1)
+
+
+def draw_maze(screen: Surface) -> None:
+    for gy in range(MAZE_HEIGHT):
+        for gx in range(MAZE_WIDTH):
+            if grid(gx, gy) == Grid.WALL:
+                # Draw wall with border for classic look
+                pygame.draw.rect(
+                    screen, WALL_BLUE, (gx * CELL_SIZE, gy * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                )
+                pygame.draw.rect(
+                    screen, DARK_BLUE, (gx * CELL_SIZE, gy * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1
+                )
+            elif grid(gx, gy) == Grid.DOT:
+                center_x = gx * CELL_SIZE + CELL_SIZE // 2
+                center_y = gy * CELL_SIZE + CELL_SIZE // 2
+                pygame.draw.circle(screen, WHITE, (center_x, center_y), 2)
+            elif grid(gx, gy) == Grid.PELLET:
+                center_x = gx * CELL_SIZE + CELL_SIZE // 2
+                center_y = gy * CELL_SIZE + CELL_SIZE // 2
+                pygame.draw.circle(screen, WHITE, (center_x, center_y), 5)
+
+
+def check_dot_collision(player: Player, ghost: Ghost) -> int:
+    grid_x = int(player.x // CELL_SIZE)
+    grid_y = int(player.y // CELL_SIZE)
+    if not (0 <= grid_x < MAZE_WIDTH and 0 <= grid_y < MAZE_HEIGHT):
+        return 0
+
+    cell = grid(grid_x, grid_y)
+    if cell not in (Grid.DOT, Grid.PELLET):
+        return 0
+
+    points = 10
+    if cell == Grid.PELLET:
+        points = 50
+        ghost.set_frightened()
+
+    MAZE[grid_y][grid_x] = Grid.PATH.value
+    return points
+
+
+def check_ghost_collision(player: Player, ghost: Ghost) -> bool:
+    distance = ((player.x - ghost.x) ** 2 + (player.y - ghost.y) ** 2) ** 0.5
+    return bool(distance < CELL_SIZE)
+
+
+def count_remaining_dots() -> int:
+    non_empty = (
+        Grid.DOT.value,
+        Grid.PELLET.value,
+    )
+    return sum(1 for row in MAZE for cell in row if cell in non_empty)
+
+
+def reset_maze() -> None:
+    global MAZE  # noqa [PLW0603]
+    MAZE = [row[:] for row in ORIGINAL_MAZE]
+
+
+def _render(font: Font, msg: str, color: Color) -> Surface:
+    return font.render(msg, antialias=True, color=color)
+
+
+def _handle_arrow_key(event: Event, player: Player) -> None:
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_UP:
+            player.next_direction = "UP"
+        elif event.key == pygame.K_DOWN:
+            player.next_direction = "DOWN"
+        elif event.key == pygame.K_LEFT:
+            player.next_direction = "LEFT"
+        elif event.key == pygame.K_RIGHT:
+            player.next_direction = "RIGHT"
+
+
+def main() -> None:  # noqa
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption("Pacman - Classic Edition - Sam Mirazi")
+    clock = pygame.time.Clock()
+
+    # Initialize player and ghost
+    player = Player(CELL_SIZE * 1, CELL_SIZE * 23)
+    ghost = Ghost(CELL_SIZE * 13, CELL_SIZE * 14, RED)
+
+    # Game state
+    score = 0
+    lives = 3
+    game_over = False
+    game_won = False
+    invincible_timer = 0
+
+    font = pygame.font.Font(None, 28)
+    big_font = pygame.font.Font(None, 48)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_r and game_over:
+                # Restart game
+                reset_maze()
+                player.reset()
+                ghost.reset()
+                score = 0
+                lives = 3
+                game_over = False
+                game_won = False
+                invincible_timer = 0
+            _handle_arrow_key(event, player)
+
+        if not game_over:
+            player.update()
+            ghost.update(player)
+
+            if invincible_timer > 0:
+                invincible_timer -= 1
+
+            points = check_dot_collision(player, ghost)
+            score += points
+
+            if count_remaining_dots() == 0:
+                game_won = True
+
+            if check_ghost_collision(player, ghost) and invincible_timer == 0:
+                if ghost.frightened:
+                    # Eat ghost
+                    score += 200
+                    ghost.reset()
+                    ghost.frightened = False
+                else:
+                    lives -= 1
+                    if lives <= 0:
+                        game_over = True
+                    else:
+                        player.reset()
+                        ghost.reset()
+                        invincible_timer = 120  # 2 seconds invincibility
+
+        screen.fill(BLACK)
+        draw_maze(screen)
+
+        # Draw player (flash when invincible)
+        if invincible_timer == 0 or invincible_timer % 10 < 5:
+            player.draw(screen)
+
+        ghost.draw(screen)
+
+        score_text = _render(font, f"SCORE: {score}", WHITE)
+        screen.blit(score_text, (10, WINDOW_HEIGHT - 40))
+
+        lives_text = _render(font, "LIVES:", WHITE)
+        screen.blit(lives_text, (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 40))
+        for i in range(lives):
+            pygame.draw.circle(screen, YELLOW, (WINDOW_WIDTH - 80 + i * 25, WINDOW_HEIGHT - 28), 8)
+
+        # Draw game over or win message
+        if game_over:
+            game_over_text = _render(big_font, "GAME OVER", RED)
+            restart_text = _render(font, "Press R to Restart", WHITE)
+            text_rect = game_over_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
+            restart_rect = restart_text.get_rect(
+                center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 40)
+            )
+            pygame.draw.rect(
+                screen,
+                BLACK,
+                (
+                    text_rect.x - 10,
+                    text_rect.y - 10,
+                    text_rect.width + 20,
+                    restart_rect.bottom - text_rect.top + 20,
+                ),
+            )
+            screen.blit(game_over_text, text_rect)
+            screen.blit(restart_text, restart_rect)
+
+        if game_won:
+            game_over = True
+            win_text = _render(big_font, "YOU WIN!", YELLOW)
+            restart_text = _render(font, "Press R to Restart", WHITE)
+            text_rect = win_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
+            restart_rect = restart_text.get_rect(
+                center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 40)
+            )
+            pygame.draw.rect(
+                screen,
+                BLACK,
+                (
+                    text_rect.x - 10,
+                    text_rect.y - 10,
+                    text_rect.width + 20,
+                    restart_rect.bottom - text_rect.top + 20,
+                ),
+            )
+            screen.blit(win_text, text_rect)
+            screen.blit(restart_text, restart_rect)
+
+        pygame.display.flip()
+        clock.tick(60)
+
+    pygame.quit()
+
+
+if __name__ == "__main__":
+    pygame.init()
+    main()
