@@ -10,7 +10,6 @@ from pygame import Color, Event, Font, Surface
 
 rand = secrets.SystemRandom().random
 
-
 CELL_SIZE = 20
 MAZE_WIDTH = 28
 MAZE_HEIGHT = 31
