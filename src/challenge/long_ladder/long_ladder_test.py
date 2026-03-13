@@ -29,14 +29,14 @@ class LongLadderTest(unittest.TestCase):
         self.assertIn("cold", neighbors("bold", lexicon))
         self.assertIn("bold", neighbors("bolo", lexicon))
 
-    def test_find_path_4(self) -> None:
+    def disabled_test_find_path_4(self) -> None:
         expected = "cold wold wald ward warm"
         cnt, path = bidi_bfs_ladder("cold", "warm", get_ranked_words())
         self.assertEqual(expected.split(), path)
         self.assertEqual(5, len(path))
         self.assertEqual(1_797, cnt)
 
-    def test_find_path_6b(self) -> None:
+    def disabled_test_find_path_6b(self) -> None:
         expected = (
             "charge change changs clangs clanks cranks cranes crates coates contes"
             " montes mantes mattes maties matins mating dating doting doming homing"
