@@ -2,7 +2,6 @@
 
 import math
 import secrets
-import sys
 from enum import Enum
 from secrets import choice
 
@@ -10,8 +9,6 @@ import pygame
 from pygame import Color, Event, Font, Surface
 
 rand = secrets.SystemRandom().random
-
-pygame.init()
 
 
 CELL_SIZE = 20
@@ -506,7 +503,7 @@ def main() -> None:  # noqa
 
         ghost.draw(screen)
 
-        score_text = _render(font, "SCORE: {score}", WHITE)
+        score_text = _render(font, f"SCORE: {score}", WHITE)
         screen.blit(score_text, (10, WINDOW_HEIGHT - 40))
 
         lives_text = _render(font, "LIVES:", WHITE)
@@ -560,8 +557,8 @@ def main() -> None:  # noqa
         clock.tick(60)
 
     pygame.quit()
-    sys.exit()
 
 
 if __name__ == "__main__":
+    pygame.init()
     main()
