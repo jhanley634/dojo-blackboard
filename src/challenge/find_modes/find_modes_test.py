@@ -20,7 +20,7 @@ def fetch_input_data(num_elts: int) -> NDArray[np.int16]:
     csv = data_dir / f"{num_elts:,}_random_numbers.txt".replace(",", "_")
     if csv.exists():
         df = pd.read_csv(csv, header=None, names=["n"])
-        return np.array(df.n.astype(np.int16).to_numpy())
+        return np.array(df.n.to_numpy()).astype(np.int16)
 
     rng = np.random.default_rng(seed=42)
     return rng.integers(0, 1_000, size=num_elts, dtype=np.int16)

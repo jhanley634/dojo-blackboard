@@ -264,7 +264,7 @@ class TestCloc(unittest.TestCase):
         }
     )
 
-    @mark_slow_integration_test  # type: ignore [misc]
+    @mark_slow_integration_test  # type: ignore
     def test_count_diverse_file_types(self) -> None:
         in_files = sorted(_REPOS.glob("**/*"))
         shuffle(in_files)
@@ -299,7 +299,7 @@ def _num_lines(in_file: Path) -> int:
 
 class SlocHtmlTest(unittest.TestCase):
 
-    @mark_slow_integration_test  # type: ignore [misc]
+    @mark_slow_integration_test  # type: ignore
     def test_xml_files(self) -> None:
         for file in sorted(_REPOS.glob("**/*")):
             if (

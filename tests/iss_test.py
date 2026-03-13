@@ -32,7 +32,7 @@ class IssTest(unittest.TestCase):
     def test_repo_top(self) -> None:
         self.assertTrue((repo_top / "src/bboard").is_dir())
 
-    @mark_slow_integration_test  # type: ignore [misc]
+    @mark_slow_integration_test  # type: ignore
     def test_iss_world_map(self) -> None:
         limit = 6
         self.assertGreater(len(list(get_iss_breadcrumbs(limit))), 0)
