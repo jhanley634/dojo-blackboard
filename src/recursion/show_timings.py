@@ -6,7 +6,7 @@ from typing import Any
 
 import polars as pl
 
-from src.recursion.count import TIMINGS
+from recursion.count import TIMINGS
 
 
 def _read_lines(jsonl: Path) -> list[dict[str, Any]]:
