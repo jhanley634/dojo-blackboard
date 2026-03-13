@@ -46,6 +46,15 @@ def grid(gx: int, gy: int) -> Grid:
     return Grid(MAZE[gy][gx])
 
 
+DIRECTIONS = {
+    "UP": (0, -1),
+    "DOWN": (0, 1),
+    "LEFT": (-1, 0),
+    "RIGHT": (1, 0),
+}
+DELTAS = list(DIRECTIONS.values())
+
+
 def is_passable(gx: int, gy: int) -> bool:
     # not is_wall()
     return 0 <= gx < MAZE_WIDTH and 0 <= gy < MAZE_HEIGHT and grid(gx, gy) != Grid.WALL
@@ -54,14 +63,7 @@ def is_passable(gx: int, gy: int) -> bool:
 def can_move(x: float, y: float) -> bool:
     grid_x = int(x // CELL_SIZE)
     grid_y = int(y // CELL_SIZE)
-
-    deltas = [
-        (1, 0),
-        (0, 1),
-        (-1, 0),
-        (0, -1),
-    ]
-    return any(is_passable(grid_x + dx, grid_y + dy) for dx, dy in deltas)
+    return any(is_passable(grid_x + dx, grid_y + dy) for dx, dy in DELTAS)
 
 
 # Maze layout (0 = path, 1 = wall, 2 = dot, 3 = power pellet)
@@ -103,6 +105,16 @@ MAZE = [
 ORIGINAL_MAZE = [row[:] for row in MAZE]
 
 
+def next_position(
+    x: float,
+    y: float,
+    direction: str,
+    speed: float,
+) -> tuple[float, float]:
+    dx, dy = DIRECTIONS[direction]
+    return x + dx * speed, y + dy * speed
+
+
 class Player:
     def __init__(self, x: float, y: float) -> None:
         self.x = x
@@ -132,35 +144,16 @@ class Player:
             if self.mouth_angle <= 0:
                 self.mouth_opening = True
 
-        # Try to change direction if requested
         if self.next_direction:
-            new_x, new_y = self.get_next_position(self.next_direction)
-            if self.can_move(new_x, new_y):
+            new_x, new_y = next_position(self.x, self.y, self.next_direction, self.speed)
+            if can_move(new_x, new_y):
                 self.direction = self.next_direction
                 self.next_direction = ""
 
-        # Move in current direction
         if self.direction:
-            new_x, new_y = self.get_next_position(self.direction)
-            if self.can_move(new_x, new_y):
-                self.x = new_x
-                self.y = new_y
-
-    def get_next_position(self, direction: str) -> tuple[float, float]:
-        new_x, new_y = self.x, self.y
-        if direction == "UP":
-            new_y -= self.speed
-        elif direction == "DOWN":
-            new_y += self.speed
-        elif direction == "LEFT":
-            new_x -= self.speed
-        elif direction == "RIGHT":
-            new_x += self.speed
-        return new_x, new_y
-
-    @staticmethod
-    def can_move(x: float, y: float) -> bool:
-        return can_move(x, y)
+            new_x, new_y = next_position(self.x, self.y, self.direction, self.speed)
+            if can_move(new_x, new_y):
+                self.x, self.y = new_x, new_y
 
     def draw(self, screen: pygame.Surface) -> None:
         center_x = int(self.x + CELL_SIZE // 2)
