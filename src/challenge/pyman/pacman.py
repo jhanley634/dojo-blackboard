@@ -2,9 +2,9 @@
 
 import math
 import secrets
-import secrets as random
 import sys
 from enum import Enum
+from secrets import choice
 
 import pygame
 from pygame import Color, Event, Font, Surface
@@ -208,7 +208,7 @@ class Ghost:
         self.y = y
         self.start_x = x
         self.start_y = y
-        self.direction = random.choice(["UP", "DOWN", "LEFT", "RIGHT"])
+        self.direction = choice(["UP", "DOWN", "LEFT", "RIGHT"])
         self.speed = 1.5
         self.color = color
         self.frightened = False
@@ -218,7 +218,7 @@ class Ghost:
     def reset(self) -> None:
         self.x = self.start_x
         self.y = self.start_y
-        self.direction = random.choice(["UP", "DOWN", "LEFT", "RIGHT"])
+        self.direction = choice(["UP", "DOWN", "LEFT", "RIGHT"])
         self.frightened = False
         self.frightened_timer = 0
 
@@ -247,7 +247,7 @@ class Ghost:
         if self.frightened:
             # Run away from player randomly
             if rand() < 0.1:
-                self.direction = random.choice(["UP", "DOWN", "LEFT", "RIGHT"])
+                self.direction = choice(["UP", "DOWN", "LEFT", "RIGHT"])
         else:
             # Chase player
             dx = player.x - self.x
