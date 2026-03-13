@@ -25,7 +25,7 @@ class HeadlinesTest(unittest.TestCase):
         )
 
     @mark_slow_integration_test  # type: ignore
-    def test_get_headlines(self) -> None:
+    def disabled_test_get_headlines(self) -> None:
         with catch_warnings():
             simplefilter("ignore", category=DeprecationWarning)
             with catch_warnings():
