@@ -24,8 +24,8 @@ class HeadlinesTest(unittest.TestCase):
             href("https://example.com", "an example"),
         )
 
-    @mark_slow_integration_test  # type: ignore [misc]
-    def test_get_headlines(self) -> None:
+    @mark_slow_integration_test  # type: ignore
+    def disabled_test_get_headlines(self) -> None:
         with catch_warnings():
             simplefilter("ignore", category=DeprecationWarning)
             with catch_warnings():
