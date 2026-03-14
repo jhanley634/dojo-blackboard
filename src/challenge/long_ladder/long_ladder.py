@@ -7,53 +7,14 @@ from wordfreq import get_frequency_dict
 from challenge.ladder.lexicon import get_lexicon
 
 proposed_cold_to_warm_trace_for__bidi_bfs_ladder = """
-## Step-by-Step Trace for "cold" → "warm"
+## Step-by-Step Trace for "cold" → "warm", first seven entries
 
-| Step | Queue Fwd | Queue Rev | Visited (Partial) | Meet Found? |
-|------|-----------|-----------|-------------------|-------------|
-| 0 | `[cold]` | `[warm]` | `{cold: cold}`, `{"": ""}` | No |
-| 1 | Process `cold` → expand to `wold`, `fold`, `hold`, `jold`, `kold`, `mold`, `nold`,
-`pold`, `qold`, `rold`, `sold`, `told`, `vold`, `wold`, `xold`, `yold` (if valid) | `[warm]`
-| `{wold: cold, ...}` | No |
-| 2 | Process each forward neighbor → add their neighbors to fwd_q | - | Growing visited_fwd
-| No |
-| ... | Continue expanding bidirectionally | - | Both sides converge | Yes! |
-
-## Key Variables & Their Expected Values at Meeting Point
-
-```python
-# At meeting point 'wold' (or another intermediate word):
-visited_fwd = {
-    'cold': 'cold',           # start maps to itself
-    'wold': 'cold',
-    # ... more words in the forward chain
-}
-
-visited_rev = {
-    'warm': 'warm',          # target maps to itself (or parent)
-    'ward': 'warm',
-    # ... more words in reverse chain
-    'wold': 'wald',          # meeting point!
-    # ...
-}
-```
-
-## Actual Path Components
-
-1. **Forward path from cold to meet:**
-   ```python
-   ['cold', 'wold']  # or potentially longer depending on lexicon
-   ```
-
-2. **Reverse path from warm to meet:**
-   ```python
-   ['warm', 'ward', 'wald', 'wold']
-   ```
-
-3. **Combined path (meeting at 'wold'):**
-   ```python
-   ['cold', 'wold', 'wald', 'ward', 'warm']  # Length = 5
-   ```
+| fwd_q                              | rev_q                              |
+|------------------------------------+------------------------------------|
+| cold                               | warm                               |
+| warm                               | bold fold gold hold mold sold told |
+| barm farm harm marm worm wasm warb | bold fold gold hold mold sold told |
+| bold fold gold hold mold sold told | berm balm barb bard bare barf bark |
 """
 
 
@@ -94,22 +55,21 @@ def bidi_bfs_ladder(
 
         for word in fwd_q:
             # Get neighbors of this word
-            for i, nbr_ch in enumerate(ascii_lowercase):
-                if i >= len(word):  # Ensure we don't go out of bounds
-                    continue
-                if nbr_ch == word[i]:
-                    continue
-                candidate = f"{word[:i]}{nbr_ch}{word[i+1:]}"
-                if candidate in lexicon:
-                    # Check if neighbor connects to other side (meeting point)
-                    if candidate in visited_rev:
-                        # Found meeting point - reconstruct path
-                        return _reconstruct_path(visited_fwd, visited_rev, word, candidate)
+            for i in range(len(word)):
+                for nbr_ch in ascii_lowercase:
+                    if nbr_ch == word[i]:
+                        continue
+                    candidate = f"{word[:i]}{nbr_ch}{word[i+1:]}"
+                    if candidate in lexicon:
+                        # Check if neighbor connects to other side (meeting point)
+                        if candidate in visited_rev:
+                            # Found meeting point - reconstruct path
+                            return _reconstruct_path(visited_fwd, visited_rev, word, candidate)
 
-                    # Add to queue if not already visited on this side
-                    if candidate not in visited_fwd:
-                        visited_fwd[candidate] = word
-                        next_q.append(candidate)
+                        # Add to queue if not already visited on this side
+                        if candidate not in visited_fwd:
+                            visited_fwd[candidate] = word
+                            next_q.append(candidate)
 
         fwd_q = next_q
 
@@ -150,11 +110,13 @@ def get_ranked_words_of_length(n: int, ranked_words: list[str]) -> list[str]:
 
 def neighbors(word: str, lexicon: set[str]) -> Generator[str]:
     """Generate neighbor words from lexicon."""
-    for i, wrd_ch in enumerate(word):
+    for i in range(len(word)):
         prefix = word[:i]
         suffix = word[i + 1 :]
 
-        for nbr_ch in ascii_lowercase.replace(wrd_ch, ""):
+        for nbr_ch in ascii_lowercase:
+            if nbr_ch == word[i]:
+                continue
             candidate = f"{prefix}{nbr_ch}{suffix}"
             if candidate in lexicon:
                 yield candidate
