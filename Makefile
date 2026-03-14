@@ -14,7 +14,7 @@ STRICT = --strict --warn-unreachable --ignore-missing-imports --no-namespace-pac
 SKIP = B101,B108,B603,B607
 
 ruff-check:
-	$(ACTIVATE) && black . && isort . && ruff check
+	$(ACTIVATE) && black --target-version py313 . && isort . && ruff check
 lint: ruff-check
 	$(ACTIVATE) && pyright .
 	$(ACTIVATE) && mypy $(STRICT) .
