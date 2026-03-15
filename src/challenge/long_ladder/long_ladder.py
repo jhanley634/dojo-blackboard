@@ -23,6 +23,20 @@ def _order_by(word_freq: tuple[str, float]) -> tuple[float, str]:
     return 1.0 - freq, word
 
 
+def neighbors(word: str, lexicon: set[str]) -> Generator[str]:
+    """Generate neighbor words from lexicon."""
+    for i in range(len(word)):
+        prefix = word[:i]
+        suffix = word[i + 1 :]
+
+        for nbr_ch in ascii_lowercase:
+            if nbr_ch == word[i]:
+                continue
+            candidate = f"{prefix}{nbr_ch}{suffix}"
+            if candidate in lexicon:
+                yield candidate
+
+
 def bidi_bfs_ladder(
     start: str,
     target: str,
@@ -30,46 +44,35 @@ def bidi_bfs_ladder(
 ) -> tuple[int, list[str]]:
     """Bidirectional BFS for word ladder."""
 
-    # Use global lexicon if needed, otherwise filter by length
     lexicon = {word for word in ranked_words if len(word) == len(start)}
 
     assert start in lexicon
     assert target in lexicon
     assert len(start) == len(target)
 
-    # Initialize visited dictionaries and queues
-    visited_fwd: dict[str, str] = {start: ""}  # word -> parent
-    visited_rev: dict[str, str] = {target: ""}  # word -> parent
+    visited_fwd: dict[str, str] = {start: ""}
+    visited_rev: dict[str, str] = {target: ""}
 
     fwd_q: list[str] = [start]
     rev_q: list[str] = [target]
 
     while fwd_q and rev_q:
-        # Expand the smaller queue (swap if needed)
         if len(fwd_q) > len(rev_q):
             fwd_q, rev_q = rev_q, fwd_q
             visited_fwd, visited_rev = visited_rev, visited_fwd
 
-        # Process all nodes in current queue level
         next_q: list[str] = []
 
         for word in fwd_q:
-            # Get neighbors of this word
-            for i in range(len(word)):
-                for nbr_ch in ascii_lowercase:
-                    if nbr_ch == word[i]:
-                        continue
-                    candidate = f"{word[:i]}{nbr_ch}{word[i+1:]}"
-                    if candidate in lexicon:
-                        # Check if neighbor connects to other side (meeting point)
-                        if candidate in visited_rev:
-                            # Found meeting point - reconstruct path
-                            return _reconstruct_path(visited_fwd, visited_rev, word, candidate)
+            for nbr in neighbors(word, lexicon):
+                if nbr in visited_fwd:
+                    continue
 
-                        # Add to queue if not already visited on this side
-                        if candidate not in visited_fwd:
-                            visited_fwd[candidate] = word
-                            next_q.append(candidate)
+                visited_fwd[nbr] = word
+                next_q.append(nbr)
+
+                if nbr in visited_rev:
+                    return _reconstruct_path(visited_fwd, visited_rev, word, nbr)
 
         fwd_q = next_q
 
@@ -106,20 +109,6 @@ def _reconstruct_path(
 def get_ranked_words_of_length(n: int, ranked_words: list[str]) -> list[str]:
     """Filter ranked words by length."""
     return [word for word in ranked_words if len(word) == n]
-
-
-def neighbors(word: str, lexicon: set[str]) -> Generator[str]:
-    """Generate neighbor words from lexicon."""
-    for i in range(len(word)):
-        prefix = word[:i]
-        suffix = word[i + 1 :]
-
-        for nbr_ch in ascii_lowercase:
-            if nbr_ch == word[i]:
-                continue
-            candidate = f"{prefix}{nbr_ch}{suffix}"
-            if candidate in lexicon:
-                yield candidate
 
 
 @cache
