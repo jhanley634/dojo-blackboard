@@ -51,3 +51,4 @@ types-pytz >= 2026.1.1.20260304
 types-requests >= 2.32.4.20260107
 urllib3 >= 2.6.3
 uv >= 0.10.9
+wordfreq >= 3.1.1
