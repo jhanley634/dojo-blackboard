@@ -29,6 +29,13 @@ class LongLadderTest(unittest.TestCase):
         self.assertIn("cold", neighbors("bold", lexicon))
         self.assertIn("bold", neighbors("bolo", lexicon))
 
+        self.assertIn("word", lexicon)
+        self.assertIn("word", neighbors("wold", lexicon))
+        self.assertEqual(
+            "bold cold fold gold hold mold sold told wald weld wild woad wood word wolf",
+            " ".join(neighbors("wold", lexicon)),
+        )
+
     def test_find_path_4(self) -> None:
         expected = "cold wold word ward warm"
         cnt, path = bidi_bfs_ladder("cold", "warm", get_ranked_words())
