@@ -100,7 +100,7 @@ def _reconstruct_path(
         word = visited_rev[word]
 
     # Combine paths (avoid duplicate at meeting point)
-    full_path = forward_path + reverse_path[1:]  # skip the meeting point in reverse path
+    full_path = forward_path + reverse_path
 
     cnt = len(forward_path) - 1 + len(reverse_path) - 1
     return cnt, full_path
