@@ -100,8 +100,9 @@ def _reconstruct_path(
         word = visited_rev[word]
 
     full_path = forward_path + reverse_path
-    cnt = len(full_path) - 2
-    return cnt, full_path
+    all_words = get_ranked_words_of_length(len(meet), get_ranked_words())
+    tot_rank = sum(all_words.index(word) for word in full_path)
+    return tot_rank, full_path
 
 
 def get_ranked_words_of_length(n: int, ranked_words: list[str]) -> list[str]:

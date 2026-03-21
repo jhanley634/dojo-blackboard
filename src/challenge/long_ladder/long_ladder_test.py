@@ -40,16 +40,15 @@ class LongLadderTest(unittest.TestCase):
         expected = "cold wold wald ward warm"
         cnt, path = bidi_bfs_ladder("cold", "warm", get_ranked_words())
         self.assertEqual(expected.split(), path)
-        self.assertEqual(3, cnt)
+        self.assertEqual(5_961, cnt)
 
-    def disabled_test_find_path_6b(self) -> None:
+    def test_find_path_6b(self) -> None:
         expected = (
-            "charge change changs clangs clanks cranks cranes crates coates contes"
-            " montes mantes mattes maties matins mating dating doting doming homing"
-            " hominy homily homely comely comedy comedo"
+            "comedy comely homely homily hominy homing doming"
+            " doting dating mating matins maties mattes mantes montes contes coates"
+            " crates cranes cranks clanks clangs changs change charge"
         )
-        cnt, path = bidi_bfs_ladder("charge", "comedo", get_ranked_words())
-        print(" ".join(path))
+        cnt, path = bidi_bfs_ladder("comedy", "charge", get_ranked_words())
         self.assertEqual(expected, " ".join(path))
-        self.assertEqual(26, len(path))
-        self.assertEqual(5_622, cnt)
+        self.assertEqual(25, len(path))
+        self.assertEqual(126_561, cnt)
