@@ -84,25 +84,23 @@ def _reconstruct_path(
 ) -> tuple[int, list[str]]:
     """Reconstruct the full path from start to target through the meeting point."""
 
-    # Reconstruct forward path from start to meet
-    forward_path: list[str] = []
+    # Reconstruct forward path from start to meeting_word
+    forward_path = []
     word = meeting_word
     while word != "":
         forward_path.append(word)
         word = visited_fwd[word]
-    forward_path.reverse()  # start -> meet
+    forward_path.reverse()
 
-    # Reconstruct reverse path from target to meet (reversed order)
-    reverse_path: list[str] = []
+    # Reconstruct reverse path from target to meet
+    reverse_path = []
     word = meet
     while word != "":
         reverse_path.append(word)
         word = visited_rev[word]
 
-    # Combine paths (avoid duplicate at meeting point)
     full_path = forward_path + reverse_path
-
-    cnt = len(forward_path) - 1 + len(reverse_path) - 1
+    cnt = len(full_path) - 2
     return cnt, full_path
 
 
