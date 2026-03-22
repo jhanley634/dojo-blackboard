@@ -42,13 +42,20 @@ class LongLadderTest(unittest.TestCase):
         self.assertEqual(expected.split(), path)
         self.assertEqual(5_961, cnt)
 
+    def test_find_path_5(self) -> None:
+        expected = "happy harpy hardy bardy baddy badly sadly"
+        tot_rank, path = bidi_bfs_ladder("happy", "sadly", get_ranked_words())
+        self.assertEqual(expected, " ".join(path))
+        self.assertEqual(7, len(path))
+        self.assertEqual(20_669, tot_rank)
+
     def test_find_path_6b(self) -> None:
         expected = (
             "comedy comely homely homily hominy homing doming"
             " doting dating mating matins maties mattes mantes montes contes coates"
             " crates cranes cranks clanks clangs changs change charge"
         )
-        cnt, path = bidi_bfs_ladder("comedy", "charge", get_ranked_words())
+        tot_rank, path = bidi_bfs_ladder("comedy", "charge", get_ranked_words())
         self.assertEqual(expected, " ".join(path))
         self.assertEqual(25, len(path))
-        self.assertEqual(126_561, cnt)
+        self.assertEqual(126_561, tot_rank)
